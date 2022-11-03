@@ -163,7 +163,47 @@
 </ol>
 </li>
 </ul>
-<h1 id="wasmcc-代码解读"><a href="#wasmcc-代码解读" class="headerlink" title="wasmcc 代码解读"></a>wasmcc 代码解读</h1><h2 id="基础结构-fabric-链码的基本结构"><a href="#基础结构-fabric-链码的基本结构" class="headerlink" title="基础结构(fabric 链码的基本结构)"></a>基础结构(fabric 链码的基本结构)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class WASMChaincode &#123;</span><br><span class="line">	+Init(stub shim.ChaincodeStubInterface) Response</span><br><span class="line">	+Invoke(stub shim.ChaincodeStubInterface) Response</span><br><span class="line">	-create(stub shim.ChaincodeStubInterface, args []string) Response</span><br><span class="line">	-execute(stub shim.ChaincodeStubInterface, args []string) Response</span><br><span class="line">	-installedChaincodes(stub shim.ChaincodeStubInterface, args []string) Response</span><br><span class="line">&#125;</span><br><span class="line">class VirtualMachine &#123;</span><br><span class="line">...</span><br><span class="line">	+ImportResolver ImportResolver</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">class ImportResolver &#123;</span><br><span class="line">	&lt;&lt;interface&gt;&gt;</span><br><span class="line">	+ResolveFunc(module, field string) FunctionImport</span><br><span class="line">	+ResolveGlobal(module, field string) int64</span><br><span class="line">&#125;</span><br><span class="line">class Resolver &#123;</span><br><span class="line">	-string chaincodeName</span><br><span class="line">	-shim.ChaincodeStubInterface stub          </span><br><span class="line">	-[]string args          </span><br><span class="line">	-[]byte result        </span><br><span class="line">	-[]byte errMsg        </span><br><span class="line">	+ResolveFunc(module, field string) FunctionImport</span><br><span class="line">	+ResolveGlobal(module, field string) int64</span><br><span class="line">&#125;</span><br><span class="line">class ChaincodeStubInterface &#123;</span><br><span class="line">	&lt;&lt;interface&gt;&gt;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">class ChaincodeStub &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ChaincodeStubInterface &lt;|.. ChaincodeStub</span><br><span class="line">ImportResolver &lt;|.. Resolver</span><br><span class="line">WASMChaincode &lt;-- VirtualMachine</span><br><span class="line">WASMChaincode ..&gt; ChaincodeStubInterface</span><br><span class="line">VirtualMachine ..&gt; ImportResolver</span><br><span class="line">Resolver --&gt; WASMChaincode</span><br></pre></td></tr></table></figure>
+<h1 id="wasmcc-代码解读"><a href="#wasmcc-代码解读" class="headerlink" title="wasmcc 代码解读"></a>wasmcc 代码解读</h1><h2 id="基础结构-fabric-链码的基本结构"><a href="#基础结构-fabric-链码的基本结构" class="headerlink" title="基础结构(fabric 链码的基本结构)"></a>基础结构(fabric 链码的基本结构)</h2><pre class="mermaid">classDiagram
+class WASMChaincode {
+    +Init(stub shim.ChaincodeStubInterface) Response
+    +Invoke(stub shim.ChaincodeStubInterface) Response
+    -create(stub shim.ChaincodeStubInterface, args []string) Response
+    -execute(stub shim.ChaincodeStubInterface, args []string) Response
+    -installedChaincodes(stub shim.ChaincodeStubInterface, args []string) Response
+}
+class VirtualMachine {
+...
+    +ImportResolver ImportResolver
+  
+}
+class ImportResolver {
+    <<interface>>
+    +ResolveFunc(module, field string) FunctionImport
+    +ResolveGlobal(module, field string) int64
+}
+class Resolver {
+    -string chaincodeName
+    -shim.ChaincodeStubInterface stub          
+    -[]string args          
+    -[]byte result        
+    -[]byte errMsg        
+    +ResolveFunc(module, field string) FunctionImport
+    +ResolveGlobal(module, field string) int64
+}
+class ChaincodeStubInterface {
+    <<interface>>
+    ...
+}
+class ChaincodeStub {
+    ...
+}
+
+ChaincodeStubInterface <|.. ChaincodeStub
+ImportResolver <|.. Resolver
+WASMChaincode <-- VirtualMachine
+WASMChaincode ..> ChaincodeStubInterface
+VirtualMachine ..> ImportResolver
+Resolver --> WASMChaincode</pre>
 <p><strong>wasm链码的创建流程（create&#x2F;execute&#x2F;installedChaincodes三个流程类似）</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">gRpc Client -&gt; WASMChaincode: 调用链码的create函数（触发链码Invoke）</span><br><span class="line">WASMChaincode -&gt; ChaincodeStub: 获取函数及函数参数数组</span><br><span class="line">ChaincodeStub --&gt; WASMChaincode: 返回被调用函数及函数参数数组</span><br><span class="line">WASMChaincode -&gt; WASMChaincode: 调用自身create函数</span><br><span class="line">WASMChaincode -&gt; ChaincodeStub: 检查链码是否存在</span><br><span class="line">ChaincodeStub --&gt; WASMChaincode: 链码已存在</span><br><span class="line">WASMChaincode --&gt; gRpc Client: 失败，链码已存在</span><br><span class="line">ChaincodeStub --&gt; WASMChaincode: 链码不存在，继续执行</span><br><span class="line">WASMChaincode -&gt; WASMChaincode: 对wasm字节码进行解码，得能解压后的字节流</span><br><span class="line">WASMChaincode -&gt; WASMChaincode: 给Resolver对象赋值（里面保存了链码名，stub, 函数参数数组）</span><br><span class="line">WASMChaincode -&gt; WASMChaincode: 调用runWASM，传入wasm字节流,函数名&quot;init&quot;,参数个数，以及Resolver对象</span><br><span class="line">WASMChaincode --&gt; gRpc Client: 调用runWASM失败立即返回</span><br><span class="line">WASMChaincode -&gt; WASMChaincode: 创建&quot;chaincodeData&quot;和链码名的组合键</span><br><span class="line">WASMChaincode -&gt; ChaincodeStub: &quot;chaincodeData&quot;和链码名的组合为键，wasm字节流为值，存入状态库</span><br><span class="line">ChaincodeStub --&gt; WASMChaincode: 返回</span><br><span class="line">WASMChaincode --&gt; gRpc Client: 返回</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
