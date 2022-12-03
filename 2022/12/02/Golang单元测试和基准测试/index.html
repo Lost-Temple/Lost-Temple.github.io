@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/11/18/KvsLg6YXrU154aj.jpg">
 <meta property="article:published_time" content="2022-12-02T12:02:09.000Z">
-<meta property="article:modified_time" content="2022-12-03T09:54:59.922Z">
+<meta property="article:modified_time" content="2022-12-03T09:56:04.583Z">
 <meta property="article:author" content="暂留白">
 <meta property="article:tag" content="unit test">
 <meta property="article:tag" content="benchmark test">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-12-03 17:54:59'
+  postUpdate: '2022-12-03 17:56:04'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -143,7 +143,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/11/18/KvsLg6YXrU154aj.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">一个码农的自白</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Golang单元测试和基准测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-02T12:02:09.000Z" title="发表于 2022-12-02 20:02:09">2022-12-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-03T09:54:59.922Z" title="更新于 2022-12-03 17:54:59">2022-12-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Golang单元测试和基准测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/11/18/KvsLg6YXrU154aj.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">一个码农的自白</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Golang单元测试和基准测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-02T12:02:09.000Z" title="发表于 2022-12-02 20:02:09">2022-12-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-03T09:56:04.583Z" title="更新于 2022-12-03 17:56:04">2022-12-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Golang单元测试和基准测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul>
 <li><p>测试需要用到的断言，依赖<br><code>github.com/stretchr/testify</code></p>
 </li>
 <li><p>编写单元测试，文件命名带<code>_test.go</code><br><code>helloworld_test.go</code></p>
@@ -183,16 +183,14 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>明确了大体的流程后，我们来分析一下细节：</p>
-<ul>
-<li>n的上限问题<blockquote>
+<li>明确了大体的流程后，我们来分析一下细节：<ul>
+<li><p>n的上限问题</p>
+<blockquote>
 <p>设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p>
 </blockquote>
 </li>
-</ul>
-</li>
 <li><p>n的估算中有一个公式的问题</p>
-<p>  <code>n = goalns * prevIters / prevns</code></p>
+<p><code>n = goalns * prevIters / prevns</code></p>
 <ul>
 <li><code>goalns</code>是用例执行的目标时间，单位ns</li>
 <li><code>prevIters</code>是<code>上一轮</code>用例的执行次数</li>
@@ -201,6 +199,8 @@
 <blockquote>
 <p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。<br>变成负值之后,n的增长逻辑就不一样了，分析一下：<br>n +&#x3D; n &#x2F; 5  -&gt; n还是负值<br>n &#x3D; min(n, 100*last) -&gt; n的值还是n<br>n &#x3D; max(n, last+1) -&gt; 变为上一轮估算的值+1 &#x3D;&#x3D; (last + 1)<br>n &#x3D; min(n, 1e9) -&gt; n &#x3D;&#x3D; (last + 1)<br>同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为 1e8，那n的值变化规率为100000001, 100000002, 100000003, …,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮, 而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢…这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
 </blockquote>
+</li>
+</ul>
 </li>
 </ul>
 <h1 id="基准测试问题重现方法"><a href="#基准测试问题重现方法" class="headerlink" title="基准测试问题重现方法"></a>基准测试问题重现方法</h1><ul>
