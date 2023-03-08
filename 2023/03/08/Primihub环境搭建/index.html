@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Primihub环境搭建 | 一个码农的自白</title><meta name="keywords" content="联邦学习,多方安全计算,primihub"><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="快速开始准备工作安装docker和docker-compose，或者下载PrimiHub整理好的安装包, 下载后解压执行 1bash install_docker.sh 完成docker和docker-compose的安装。 然后下载仓库并进入到代码目录： 12git clone https:&#x2F;&#x2F;github.com&#x2F;primihub&#x2F;primihub.gitcd primihub  启动节点启动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Primihub环境搭建">
+<meta property="og:url" content="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="快速开始准备工作安装docker和docker-compose，或者下载PrimiHub整理好的安装包, 下载后解压执行 1bash install_docker.sh 完成docker和docker-compose的安装。 然后下载仓库并进入到代码目录： 12git clone https:&#x2F;&#x2F;github.com&#x2F;primihub&#x2F;primihub.gitcd primihub  启动节点启动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png">
+<meta property="article:published_time" content="2023-03-08T03:33:56.000Z">
+<meta property="article:modified_time" content="2023-03-08T05:32:44.083Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="联邦学习">
+<meta property="article:tag" content="多方安全计算">
+<meta property="article:tag" content="primihub">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Primihub环境搭建',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-08 13:32:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">131</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">一个码农的自白</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Primihub环境搭建</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-08T03:33:56.000Z" title="发表于 2023-03-08 11:33:56">2023-03-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-08T05:32:44.083Z" title="更新于 2023-03-08 13:32:44">2023-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">联邦学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Primihub环境搭建"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>安装<code>docker</code>和<code>docker-compose</code>，或者下载<code>PrimiHub</code>整理好的<a target="_blank" rel="noopener" href="https://primihub.oss-cn-beijing.aliyuncs.com/dev/docker20.10.tar.gz">安装包</a>, 下载后解压执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash install_docker.sh</span><br></pre></td></tr></table></figure>
+<p>完成<code>docker</code>和<code>docker-compose</code>的安装。</p>
+<p>然后下载仓库并进入到代码目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/primihub/primihub.git</span><br><span class="line">cd primihub</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h2><h3 id="启动测试用的节点"><a href="#启动测试用的节点" class="headerlink" title="启动测试用的节点"></a>启动测试用的节点</h3><p>使用<code>docker-compose</code>启动容器。容器包括：启动点、redis(数据集查找默认使用redis)、三个节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>查看运行起来的docker容器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps -a</span><br></pre></td></tr></table></figure>
+<p>如果一切顺利会看到类似如下的信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME                    COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">primihub-node0          &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:8050-&gt;50050/tcp</span><br><span class="line">primihub-node1          &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:8051-&gt;50051/tcp</span><br><span class="line">primihub-node2          &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:8052-&gt;50052/tcp</span><br><span class="line">redis                   &quot;docker-entrypoint.s…&quot;   redis                   running             0.0.0.0:6379-&gt;6379/tcp</span><br><span class="line">simple_bootstrap_node   &quot;/app/simple-bootstr…&quot;   simple_bootstrap_node   running             0.0.0.0:4001-&gt;4001/tcp</span><br></pre></td></tr></table></figure>
+
+<p>但是，我这里遇到坑了，node0, node1, node2 这3个容器的状态为restarting。并且是不断restarting。使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs 容器ID</span><br></pre></td></tr></table></figure>
+<p>查看日志是加载mysql客户端的一个动态库文件失败。这个容器没打包好？issue总共也没有几条，更不用说搜索有没有遇到类似的问题了，可见这个项目用的人少得可怜，文档也不健全。</p>
+<p>解决方法: 检出另外的分支，再使用 docker-compose up -d</p>
+<blockquote>
+<p>测试了 feature&#x2F;node_as_share_lib 是可以的，develope和master都不行</p>
+</blockquote>
+<h2 id="创建一个MPC任务"><a href="#创建一个MPC任务" class="headerlink" title="创建一个MPC任务"></a>创建一个MPC任务</h2><p>让三个节点共同执行一个多方安全计算（MPC)的逻辑回归任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run &quot;--network=host&quot; -it primihub/primihub-node:1.1.0 ./primihub-cli &quot;--server=127.0.0.1:8050&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：注意primihub-node的版本，要和前一章节中docker-compose启动的primihub-node版本一致</p>
+</blockquote>
+<h1 id="使用docker-compose部署"><a href="#使用docker-compose部署" class="headerlink" title="使用docker-compose部署"></a>使用docker-compose部署</h1><h2 id="下载安装包，执行脚本，完成部署"><a href="#下载安装包，执行脚本，完成部署" class="headerlink" title="下载安装包，执行脚本，完成部署"></a>下载安装包，执行脚本，完成部署</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://get.primihub.com/release/latest/docker-deploy.tar.gz | tar zxf -</span><br><span class="line">cd docker-deploy</span><br><span class="line">bash deploy.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看部署结果"><a href="#查看部署结果" class="headerlink" title="查看部署结果"></a>查看部署结果</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker-compose ps -a</span></span><br><span class="line">NAME                COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">application1        &quot;/bin/sh -c &#x27;java -j…&quot;   application1            running             </span><br><span class="line">application2        &quot;/bin/sh -c &#x27;java -j…&quot;   application2            running             </span><br><span class="line">application3        &quot;/bin/sh -c &#x27;java -j…&quot;   application3            running             </span><br><span class="line">bootstrap-node      &quot;/app/simple-bootstr…&quot;   simple-bootstrap-node   running             4001/tcp</span><br><span class="line">fusion              &quot;/bin/sh -c &#x27;java -j…&quot;   fusion                  running             </span><br><span class="line">gateway1            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway1                running             </span><br><span class="line">gateway2            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway2                running             </span><br><span class="line">gateway3            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway3                running             </span><br><span class="line">loki                &quot;/usr/bin/loki -conf…&quot;   loki                    running             0.0.0.0:3100-&gt;3100/tcp, :::3100-&gt;3100/tcp</span><br><span class="line">manage-web1         &quot;/docker-entrypoint.…&quot;   nginx1                  running             0.0.0.0:30811-&gt;80/tcp, :::30811-&gt;80/tcp</span><br><span class="line">manage-web2         &quot;/docker-entrypoint.…&quot;   nginx2                  running             0.0.0.0:30812-&gt;80/tcp, :::30812-&gt;80/tcp</span><br><span class="line">manage-web3         &quot;/docker-entrypoint.…&quot;   nginx3                  running             0.0.0.0:30813-&gt;80/tcp, :::30813-&gt;80/tcp</span><br><span class="line">mysql               &quot;docker-entrypoint.s…&quot;   mysql                   running             0.0.0.0:3306-&gt;3306/tcp, :::3306-&gt;3306/tcp</span><br><span class="line">nacos-server        &quot;bin/docker-startup.…&quot;   nacos                   running             0.0.0.0:8848-&gt;8848/tcp, 0.0.0.0:9555-&gt;9555/tcp, 0.0.0.0:9848-&gt;9848/tcp, :::8848-&gt;8848/tcp, :::9555-&gt;9555/tcp, :::9848-&gt;9848/tcp</span><br><span class="line">primihub-node0      &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:50050-&gt;50050/tcp, :::6666-&gt;6666/tcp, :::50050-&gt;50050/tcp</span><br><span class="line">primihub-node1      &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:50051-&gt;50051/tcp, :::6667-&gt;6667/tcp, :::50051-&gt;50051/tcp</span><br><span class="line">primihub-node2      &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:50052-&gt;50052/tcp, :::6668-&gt;6668/tcp, :::50052-&gt;50052/tcp</span><br><span class="line">rabbitmq1           &quot;docker-entrypoint.s…&quot;   rabbitmq1               running             25672/tcp</span><br><span class="line">rabbitmq2           &quot;docker-entrypoint.s…&quot;   rabbitmq2               running             25672/tcp</span><br><span class="line">rabbitmq3           &quot;docker-entrypoint.s…&quot;   rabbitmq3               running             25672/tcp</span><br><span class="line">redis               &quot;docker-entrypoint.s…&quot;   redis                   running             6379/tcp</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>docker-compose.yaml 文件中的nginx1、nginx2、nginx3 模拟 3 个机构的管理后台，启动完成后在浏览器分别访问</p>
+<p>http:&#x2F;&#x2F;机器IP:30811</p>
+<p>http:&#x2F;&#x2F;机器IP:30812</p>
+<p>http:&#x2F;&#x2F;机器IP:30813</p>
+<p>默认用户密码都是 admin &#x2F; 123456</p>
+<p>具体的联邦建模、隐私求交、匿踪查询等功能的操作步骤请参考 <a target="_blank" rel="noopener" href="https://docs.primihub.com/docs/quick-start-platform">快速试用管理平台</a></p>
+<h1 id="primihub代码编译"><a href="#primihub代码编译" class="headerlink" title="primihub代码编译"></a>primihub代码编译</h1><h2 id="Mac-Sillicon-M1"><a href="#Mac-Sillicon-M1" class="headerlink" title="Mac Sillicon M1"></a>Mac Sillicon M1</h2><ul>
+<li>安装Xcode</li>
+<li>安装Bazel 5.0.0，最好是直接brew install bazelisk</li>
+<li>安装CMake，这个最坑，缺了这个，在这里卡了好久</li>
+<li>编写一个shell脚本，用来执行编译命令:  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./pre_build.sh</span><br><span class="line">bazel build --config=darwin_arm64 --config=macos  :node :cli :opt_paillier_c2py :linkcontext</span><br></pre></td></tr></table></figure></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com">暂留白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blockchainof.com" target="_blank">一个码农的自白</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">联邦学习</a><a class="post-meta__tags" href="/tags/%E5%A4%9A%E6%96%B9%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97/">多方安全计算</a><a class="post-meta__tags" href="/tags/primihub/">primihub</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/"><img class="next-cover" src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">重读《JAVA与模式》笔记系列-00008</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">131</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-number">1.</span> <span class="toc-text">快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E8%8A%82%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">启动节点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%94%A8%E7%9A%84%E8%8A%82%E7%82%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">启动测试用的节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAMPC%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">创建一个MPC任务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8docker-compose%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text">使用docker-compose部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85%EF%BC%8C%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%AE%8C%E6%88%90%E9%83%A8%E7%BD%B2"><span class="toc-number">2.1.</span> <span class="toc-text">下载安装包，执行脚本，完成部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%83%A8%E7%BD%B2%E7%BB%93%E6%9E%9C"><span class="toc-number">2.2.</span> <span class="toc-text">查看部署结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">2.3.</span> <span class="toc-text">使用说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#primihub%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91"><span class="toc-number">3.</span> <span class="toc-text">primihub代码编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-Sillicon-M1"><span class="toc-number">3.1.</span> <span class="toc-text">Mac Sillicon M1</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Primihub环境搭建"><img src="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primihub环境搭建"/></a><div class="content"><a class="title" href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Primihub环境搭建">Primihub环境搭建</a><time datetime="2023-03-08T03:33:56.000Z" title="发表于 2023-03-08 11:33:56">2023-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" title="重读《JAVA与模式》笔记系列-00008"><img src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00008"/></a><div class="content"><a class="title" href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" title="重读《JAVA与模式》笔记系列-00008">重读《JAVA与模式》笔记系列-00008</a><time datetime="2023-02-18T02:19:39.000Z" title="发表于 2023-02-18 10:19:39">2023-02-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" title="重读《JAVA与模式》笔记系列-00007"><img src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00007"/></a><div class="content"><a class="title" href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" title="重读《JAVA与模式》笔记系列-00007">重读《JAVA与模式》笔记系列-00007</a><time datetime="2023-02-12T02:18:29.000Z" title="发表于 2023-02-12 10:18:29">2023-02-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/" title="重读《JAVA与模式》笔记系列-00006"><img src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00006"/></a><div class="content"><a class="title" href="/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/" title="重读《JAVA与模式》笔记系列-00006">重读《JAVA与模式》笔记系列-00006</a><time datetime="2023-02-08T11:53:30.000Z" title="发表于 2023-02-08 19:53:30">2023-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" title="《区块链原理、设计与应用》阅读摘录-0004"><img src="https://s2.loli.net/2022/10/14/txqQJYhyZmMe3Xp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《区块链原理、设计与应用》阅读摘录-0004"/></a><div class="content"><a class="title" href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" title="《区块链原理、设计与应用》阅读摘录-0004">《区块链原理、设计与应用》阅读摘录-0004</a><time datetime="2023-02-02T05:33:15.000Z" title="发表于 2023-02-02 13:33:15">2023-02-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
