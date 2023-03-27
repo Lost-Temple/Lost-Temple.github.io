@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Cpp11-lambda表达式 | 一个码农的自白</title><meta name="keywords" content="c++,cpp,lambda"><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="引言lambda表达式是C++11最重要也是最常用的特性之一。lambda来源于函数式编程的概念，也是现代编程语言的一个特点。lambda表达式有如下优点：  声明式编程风格：就地匿名定义目标函数或函数对象，不需要额外写一个命名函数或者函数对象。以更直接的方式去写程序，好的可读性和可维护性。 简洁：不需要额外再写一个函数或者函数对象，避免了代码膨胀和功能分散，让开发者更加集中精力在手边的问题，同时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp11-lambda表达式">
+<meta property="og:url" content="http://www.blockchainof.com/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="引言lambda表达式是C++11最重要也是最常用的特性之一。lambda来源于函数式编程的概念，也是现代编程语言的一个特点。lambda表达式有如下优点：  声明式编程风格：就地匿名定义目标函数或函数对象，不需要额外写一个命名函数或者函数对象。以更直接的方式去写程序，好的可读性和可维护性。 简洁：不需要额外再写一个函数或者函数对象，避免了代码膨胀和功能分散，让开发者更加集中精力在手边的问题，同时">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png">
+<meta property="article:published_time" content="2023-03-24T06:56:36.000Z">
+<meta property="article:modified_time" content="2023-03-27T09:43:20.488Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="lambda">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Cpp11-lambda表达式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-27 17:43:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">132</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">一个码农的自白</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Cpp11-lambda表达式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-24T06:56:36.000Z" title="发表于 2023-03-24 14:56:36">2023-03-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-27T09:43:20.488Z" title="更新于 2023-03-27 17:43:20">2023-03-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/GUI/">GUI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Cpp11-lambda表达式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>lambda表达式是C++11最重要也是最常用的特性之一。lambda来源于函数式编程的概念，也是现代编程语言的一个特点。lambda表达式有如下优点：</p>
+<ul>
+<li>声明式编程风格：就地匿名定义目标函数或函数对象，不需要额外写一个命名函数或者函数对象。以更直接的方式去写程序，好的可读性和可维护性。</li>
+<li>简洁：不需要额外再写一个函数或者函数对象，避免了代码膨胀和功能分散，让开发者更加集中精力在手边的问题，同时也获取了更高的生产率。</li>
+<li>在需要的时间和地点实现功能闭包，使程序更灵活。</li>
+</ul>
+<h1 id="lambda表达式的概念和基本用法"><a href="#lambda表达式的概念和基本用法" class="headerlink" title="lambda表达式的概念和基本用法"></a>lambda表达式的概念和基本用法</h1><p>lambda表达式定义了一个匿名函数，并且可以捕获一定范围内的变量。lambda表达式的语法形式可简单归纳如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[capture](params)opt-&gt;ret&#123;body;&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中capture是捕获列表，params是参数列表，opt是函数选项，ret是返回值类型，body是函数体。</p>
+</blockquote>
+<p>因此，一个完整的lambda表达式看起来像这样：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> f = [](<span class="type">int</span> a) -&gt; <span class="type">int</span> &#123; <span class="keyword">return</span> a + <span class="number">1</span>; &#125;;</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; <span class="built_in">f</span>(<span class="number">1</span>) &lt;&lt; std::endl; <span class="comment">// 输出： 2</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，上面通过一行代码定义了一个小小的功能闭包，用来将输入加1并返回。</p>
+<p>在很多时候，lambda表达式的返回值是非常明显的，比如下面这个例子。因此，C++11中允许省略lambda表达式的返回值定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> f = [](<span class="type">int</span> a)&#123; <span class="keyword">return</span> a + <span class="number">1</span>; &#125;;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样编译器就会根据return语句自动推导出返回值类型。</p>
+<p>需要注意的是，初始化列表不能用于返回值的自动推导：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> x1 = [](<span class="type">int</span> i) &#123; <span class="keyword">return</span> i; &#125;; <span class="comment">//OK: return type is int</span></span><br><span class="line"><span class="keyword">auto</span> x2 = []() &#123; <span class="keyword">return</span> &#123;<span class="number">1</span>, <span class="number">2</span>&#125;; &#125;; <span class="comment">// error:无法推导出返回值类型</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这时我们需要显式给出具体的返回值类型。</p>
+<p>另外，lambda表达式在没有参数列表时，参数列表是可以省略的。因此像下面的写法都是正确的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> f1 = []() &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;;</span><br><span class="line"><span class="keyword">auto</span> f2 = [] &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;; <span class="comment">// 省略空参数列表</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用lambda表达式捕获列表"><a href="#使用lambda表达式捕获列表" class="headerlink" title="使用lambda表达式捕获列表"></a>使用lambda表达式捕获列表</h1><p>lambda表达式还可以通过捕获列表捕获一定范围的变量：</p>
+<ul>
+<li>[]不捕获任何变量</li>
+<li>[&amp;]捕获外部作用域中所有变量，并作为引用在函数体中使用（按引用捕获）。</li>
+<li>[&#x3D;]捕获外部作用域中所有变量，并作为副本在函数体中使用（按值捕获）。</li>
+<li>[&#x3D;, &amp;foo]按值捕获外部作用域中所有变量，并按引用捕获foo变量。</li>
+<li>[bar]按值捕获bar变量，同时不捕获其它变量。</li>
+<li>[this]按值捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。如果已经使用了&amp;或者&#x3D;，就默认添加此选项。捕获this的目的是可以在lambda中使用当前的成员函数和成员变量。</li>
+</ul>
+<p>下面看一下它的具体用法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> i_ = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> x1 = []&#123; <span class="keyword">return</span> i_; &#125;;                    <span class="comment">// error，没有捕获外部变量</span></span><br><span class="line">        <span class="keyword">auto</span> x2 = [=]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;           <span class="comment">// OK，捕获所有外部变量</span></span><br><span class="line">        <span class="keyword">auto</span> x3 = [&amp;]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;           <span class="comment">// OK，捕获所有外部变量</span></span><br><span class="line">        <span class="keyword">auto</span> x4 = [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> i_; &#125;;                <span class="comment">// OK，捕获this指针</span></span><br><span class="line">        <span class="keyword">auto</span> x5 = [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;        <span class="comment">// error，没有捕获x、y</span></span><br><span class="line">        <span class="keyword">auto</span> x6 = [<span class="keyword">this</span>, x, y]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;  <span class="comment">// OK，捕获this指针、x、y</span></span><br><span class="line">        <span class="keyword">auto</span> x7 = [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> i_++; &#125;;              <span class="comment">// OK，捕获this指针，并修改成员的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>从上例中可以看到，lambda 表达式的捕获列表精细地控制了 lambda 表达式能够访问的外部变量，以及如何访问这些变量。</p>
+<p>需要注意的是，默认状态下 lambda 表达式无法修改通过复制方式捕获的外部变量。如果希望修改这些变量的话，我们需要使用引用方式进行捕获。</p>
+<p>一个容易出错的细节是关于 lambda 表达式的延迟调用的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f = [=]&#123; <span class="keyword">return</span> a; &#125;;      <span class="comment">// 按值捕获外部变量</span></span><br><span class="line">a += <span class="number">1</span>;                         <span class="comment">// a被修改了</span></span><br><span class="line">std::cout &lt;&lt; <span class="built_in">f</span>() &lt;&lt; std::endl;  <span class="comment">// 输出？</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，lambda 表达式按值捕获了所有外部变量。在捕获的一瞬间，a 的值就已经被复制到f中了。之后 a 被修改，但此时 f 中存储的 a 仍然还是捕获时的值，因此，最终输出结果是 0。</p>
+<p><strong>如果希望 lambda 表达式在调用时能够即时访问外部变量，我们应当使用引用方式捕获。</strong></p>
+<p>从上面的例子中我们知道，按值捕获得到的外部变量值是在 lambda 表达式定义时的值。此时所有外部变量均被复制了一份存储在 lambda 表达式变量中。此时虽然修改 lambda 表达式中的这些外部变量并不会真正影响到外部，我们却仍然无法修改它们。</p>
+<p>那么如果希望去<strong>修改按值捕获的外部变量</strong>应当怎么办呢？这时，需要显式指明 lambda 表达式为 mutable：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f1 = [=]&#123; <span class="keyword">return</span> a++; &#125;;               <span class="comment">// error, 修改按值捕获的外部变量</span></span><br><span class="line"><span class="keyword">auto</span> f2 = [=]() <span class="keyword">mutable</span> &#123; <span class="keyword">return</span> a++; &#125;;    <span class="comment">// OK, mutable</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>需要注意的一点是，被mutable修饰的lambda表达式就算没有参数也要写明参数列表</p>
+<h1 id="lambda表达式的类型"><a href="#lambda表达式的类型" class="headerlink" title="lambda表达式的类型"></a>lambda表达式的类型</h1><p>最后，介绍一下lambda表达式的类型。<br>lambda表达式的类型在C++11中被称为“闭包类型（Closure Type）“。因此，我们可以认为它是一个带有operator()的类——对括号运算符进行了重载的类，即仿函数。因此，我们可以使用std::function和std::bind来存储和操作lambda表达式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">std::function&lt;<span class="type">int</span>(<span class="type">int</span>)&gt; f1 = [](<span class="type">int</span> a) &#123; <span class="keyword">return</span> a; &#125;;</span><br><span class="line">std::function&lt;<span class="type">int</span>(<span class="type">void</span>)&gt; f2 = std::<span class="built_in">bind</span>([](<span class="type">int</span> a)&#123; <span class="keyword">return</span> a; &#125;, <span class="number">123</span>);</span><br><span class="line"><span class="built_in">f1</span>(<span class="number">555</span>); <span class="comment">// 555</span></span><br><span class="line"><span class="built_in">f2</span>(); <span class="comment">// 123</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>另外，<strong>对于没有捕获任何变量的lambda表达式</strong>，还可以被转换成一个普通的函数指针：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">using</span> <span class="type">funct_t</span> = <span class="built_in">int</span>(*)(<span class="type">int</span>);</span><br><span class="line"><span class="type">func_t</span> f = [](<span class="type">int</span> a) &#123; <span class="keyword">return</span> a; &#125;;</span><br><span class="line"><span class="built_in">f</span>(<span class="number">123</span>);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>lambda表达式可以说是就地定义仿函数闭包的”语法糖“。它的捕获列表捕获住的任何外部变量，最终均会变为<strong>闭包类型的成员变量</strong>。而一个使用了成员变量的类的operator(),如果能直接被转换为普通的函数指针，<strong>那么lambda表达式本身的this指针就丢失掉了</strong>。而没有捕获任何外部变量的lambda表达式则不存在这个问题。</p>
+<p>这里也可以很自然地解释为何按值捕获无法修改捕获的外部变量（这里指的是原始外部变里的值的副本，在闭包内部的一个成员变量）。因为按C++标准，lambda表达式的operator()默认是const的。一个const成员函数是无法修改成员变量的值的。而mutable的作用，就在于取消operator()的const。</p>
+<p>需要注意的是，没有捕获变量的lambda表达式可以直接转换为函数指针，而捕获变量的lambda表达式则不能转换为函数指针。看看下面的代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*Ptr)</span><span class="params">(<span class="type">int</span>*)</span></span>;</span><br><span class="line"></span><br><span class="line">Ptr p = [](<span class="type">int</span>* p) &#123; <span class="keyword">delete</span> p; &#125;; <span class="comment">//正确，无状态的lambda（没有捕获）表达式可以直接转换为函数指针</span></span><br><span class="line">Ptr p1 = [&amp;](<span class="type">int</span>* p) &#123; <span class="keyword">delete</span> p; &#125;; <span class="comment">// 错误，有状态的lambda不能直接转换为函数指针</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>上面第二行代码能编译通过，而第三行代码不能编译通过，因为第三行代码捕获了变量，不能直接转为函数指针。</p>
+<h1 id="声明式的编程风格，简洁的代码"><a href="#声明式的编程风格，简洁的代码" class="headerlink" title="声明式的编程风格，简洁的代码"></a>声明式的编程风格，简洁的代码</h1><p>就地定义匿名函数，不再需要定义函数对象，大大简化了标准库算法的调用。比如，在C++11之前，我们要调用for_each函数将vecotr中的偶数打印出来，如下所示。</p>
+<p>【实例】lambda表达式代替函数对像的示例。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CountEven</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span>&amp; count_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CountEven</span>(<span class="type">int</span>&amp; count) : <span class="built_in">count_</span>(count) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!(val &amp; <span class="number">1</span>))       <span class="comment">// val % 2 == 0</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++ count_;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> &#125;;</span><br><span class="line"><span class="type">int</span> even_count = <span class="number">0</span>;</span><br><span class="line">for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">CountEven</span>(even_count));</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;The number of even is &quot;</span> &lt;&lt; even_count &lt;&lt; std::endl;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>这样写既烦琐又容易出错。有了lambda表达式以后，我们可以使用真正的闭包概念来替换掉这里的仿函数，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; v = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> &#125;;</span><br><span class="line"><span class="type">int</span> even_count = <span class="number">0</span>;</span><br><span class="line">for_each( v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), [&amp;even_count](<span class="type">int</span> val)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!(val &amp; <span class="number">1</span>))  <span class="comment">// val % 2 == 0</span></span><br><span class="line">            &#123;</span><br><span class="line">                ++ even_count;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;The number of even is &quot;</span> &lt;&lt; even_count &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+<p>lambda表达式的价值在于，就地封装短小的功能闭包，可以极其方便地表达出我们希望执行的具体操作，并让上下文结合得更加紧密。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com">暂留白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">http://www.blockchainof.com/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blockchainof.com" target="_blank">一个码农的自白</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/c/">c++</a><a class="post-meta__tags" href="/tags/cpp/">cpp</a><a class="post-meta__tags" href="/tags/lambda/">lambda</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/"><img class="next-cover" src="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Primihub核心模型</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/12/08/Cpp-GUI-imgui%E5%BA%93%E4%BD%BF%E7%94%A8%E6%A0%B7%E6%9D%BFCMakefile/" title="C++ GUI--imgui库使用样板CMakefile"><img class="cover" src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-08</div><div class="title">C++ GUI--imgui库使用样板CMakefile</div></div></a></div><div><a href="/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/" title="centos 多gcc版本环境"><img class="cover" src="https://s2.loli.net/2022/11/30/vjtgMefxIDyu8EH.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-30</div><div class="title">centos 多gcc版本环境</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">132</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">lambda表达式的概念和基本用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E5%88%97%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text">使用lambda表达式捕获列表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">lambda表达式的类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%BC%8F%E7%9A%84%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%EF%BC%8C%E7%AE%80%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">声明式的编程风格，简洁的代码</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Cpp11-lambda表达式"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cpp11-lambda表达式"/></a><div class="content"><a class="title" href="/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Cpp11-lambda表达式">Cpp11-lambda表达式</a><time datetime="2023-03-24T06:56:36.000Z" title="发表于 2023-03-24 14:56:36">2023-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" title="Primihub核心模型"><img src="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primihub核心模型"/></a><div class="content"><a class="title" href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" title="Primihub核心模型">Primihub核心模型</a><time datetime="2023-03-13T01:29:02.000Z" title="发表于 2023-03-13 09:29:02">2023-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Primihub环境搭建"><img src="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primihub环境搭建"/></a><div class="content"><a class="title" href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Primihub环境搭建">Primihub环境搭建</a><time datetime="2023-03-08T03:33:56.000Z" title="发表于 2023-03-08 11:33:56">2023-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" title="重读《JAVA与模式》笔记系列-00008"><img src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00008"/></a><div class="content"><a class="title" href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" title="重读《JAVA与模式》笔记系列-00008">重读《JAVA与模式》笔记系列-00008</a><time datetime="2023-02-18T02:19:39.000Z" title="发表于 2023-02-18 10:19:39">2023-02-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" title="重读《JAVA与模式》笔记系列-00007"><img src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00007"/></a><div class="content"><a class="title" href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" title="重读《JAVA与模式》笔记系列-00007">重读《JAVA与模式》笔记系列-00007</a><time datetime="2023-02-12T02:18:29.000Z" title="发表于 2023-02-12 10:18:29">2023-02-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
