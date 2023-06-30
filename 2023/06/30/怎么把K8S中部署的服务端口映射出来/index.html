@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>怎么把K8S中部署的服务端口映射出来 | 一个码农的自白</title><meta name="keywords" content="k8s,端口映射"><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="修改fate-10001命名空间下的mysql的端口映射模式  先查看fate-10001下有哪些服务 1kubectl get svc -n fate-10001  1234567891011121314151617NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="怎么把K8S中部署的服务端口映射出来">
+<meta property="og:url" content="http://www.blockchainof.com/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="修改fate-10001命名空间下的mysql的端口映射模式  先查看fate-10001下有哪些服务 1kubectl get svc -n fate-10001  1234567891011121314151617NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg">
+<meta property="article:published_time" content="2023-06-30T09:56:12.000Z">
+<meta property="article:modified_time" content="2023-06-30T09:59:04.435Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="端口映射">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '怎么把K8S中部署的服务端口映射出来',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-06-30 17:59:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">146</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">29</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">一个码农的自白</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">怎么把K8S中部署的服务端口映射出来</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-30T09:56:12.000Z" title="发表于 2023-06-30 17:56:12">2023-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-30T09:59:04.435Z" title="更新于 2023-06-30 17:59:04">2023-06-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">基础设施</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="怎么把K8S中部署的服务端口映射出来"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li><p>修改fate-10001命名空间下的mysql的端口映射模式</p>
+<ul>
+<li><p>先查看fate-10001下有哪些服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n fate-10001</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                               AGE</span><br><span class="line">spark-master         ClusterIP      None            &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16d</span><br><span class="line">fateflow             ClusterIP      None            &lt;none&gt;          9360/TCP,9380/TCP                     16d</span><br><span class="line">spark-worker-1       ClusterIP      None            &lt;none&gt;          8081/TCP                              16d</span><br><span class="line">fateflow-client      ClusterIP      10.43.80.240    &lt;none&gt;          9360/TCP,9380/TCP                     16d</span><br><span class="line">datanode             ClusterIP      10.43.247.69    &lt;none&gt;          9000/TCP,9864/TCP                     16d</span><br><span class="line">frontend             NodePort       10.43.24.110    &lt;none&gt;          8080:31925/TCP,8443:31194/TCP         16d</span><br><span class="line">notebook             ClusterIP      10.43.41.5      &lt;none&gt;          20000/TCP                             16d</span><br><span class="line">fateboard            ClusterIP      10.43.3.44      &lt;none&gt;          8080/TCP                              16d</span><br><span class="line">namenode             ClusterIP      10.43.146.160   &lt;none&gt;          9000/TCP,9870/TCP                     16d</span><br><span class="line">pulsar               ClusterIP      10.43.42.170    &lt;none&gt;          6650/TCP,6651/TCP,8080/TCP,8081/TCP   16d</span><br><span class="line">postgres             ClusterIP      10.43.182.72    &lt;none&gt;          5432/TCP                              16d</span><br><span class="line">mysql                ClusterIP      10.43.42.233    &lt;none&gt;          3306/TCP                              16d</span><br><span class="line">nginx                NodePort       10.43.101.234   &lt;none&gt;          9300:31960/TCP,9310:32603/TCP         16d</span><br><span class="line">spark-client         ClusterIP      10.43.69.60     &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16d</span><br><span class="line">site-portal-server   ClusterIP      10.43.237.196   &lt;none&gt;          8080/TCP,8443/TCP                     16d</span><br><span class="line">pulsar-public-tls    LoadBalancer   10.43.144.61    192.168.11.71   6651:32593/TCP                        16d</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意msyql 的type 是 ClusterIP，这样就只能被k8s集群内部访问而不能被外部访问到，所以这里要把它改为NodePort模式</p>
+</blockquote>
+</li>
+<li><p>修改mysql的type</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit svc mysql -n fate-10001</span><br></pre></td></tr></table></figure></li>
+</ul>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-13T05:46:12Z&quot;</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line">    <span class="attr">release:</span> <span class="string">party10001</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;33441&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">08d5e8fe-7853-4f85-b17c-9315afdd6055</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">clusterIPs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">internalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">ipFamilies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">IPv4</span></span><br><span class="line"><span class="attr">ipFamilyPolicy:</span> <span class="string">SingleStack</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp-mysql</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">ClusterIP</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">loadBalancer:</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p> 修改后的内容为：<br> <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-13T05:46:12Z&quot;</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line">    <span class="attr">release:</span> <span class="string">party10001</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;33441&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">08d5e8fe-7853-4f85-b17c-9315afdd6055</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">clusterIPs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">internalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">externalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">ipFamilies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">IPv4</span></span><br><span class="line"><span class="attr">ipFamilyPolicy:</span> <span class="string">SingleStack</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp-mysql</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">nodePort:</span> <span class="number">31306</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">loadBalancer:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com">暂留白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/">http://www.blockchainof.com/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blockchainof.com" target="_blank">一个码农的自白</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/k8s/">k8s</a><a class="post-meta__tags" href="/tags/%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/">端口映射</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/"><img class="next-cover" src="https://s2.loli.net/2023/06/03/C4iRe3FtAbcuTJ6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vim常用插件的使用备忘录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/05/11/ingresss-nginx-controller%E9%83%A8%E7%BD%B2%E5%92%8C%E5%BA%94%E7%94%A8/" title="ingresss-nginx-controller部署和应用"><img class="cover" src="https://s2.loli.net/2023/05/11/oLIKATxgWyNld1Y.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-11</div><div class="title">ingresss-nginx-controller部署和应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">146</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">29</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/" title="怎么把K8S中部署的服务端口映射出来"><img src="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="怎么把K8S中部署的服务端口映射出来"/></a><div class="content"><a class="title" href="/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/" title="怎么把K8S中部署的服务端口映射出来">怎么把K8S中部署的服务端口映射出来</a><time datetime="2023-06-30T09:56:12.000Z" title="发表于 2023-06-30 17:56:12">2023-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" title="vim常用插件的使用备忘录"><img src="https://s2.loli.net/2023/06/03/C4iRe3FtAbcuTJ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vim常用插件的使用备忘录"/></a><div class="content"><a class="title" href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" title="vim常用插件的使用备忘录">vim常用插件的使用备忘录</a><time datetime="2023-06-16T12:50:11.000Z" title="发表于 2023-06-16 20:50:11">2023-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" title="k8s中configMap编辑示例"><img src="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s中configMap编辑示例"/></a><div class="content"><a class="title" href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" title="k8s中configMap编辑示例">k8s中configMap编辑示例</a><time datetime="2023-06-14T06:27:16.000Z" title="发表于 2023-06-14 14:27:16">2023-06-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/" title="ABY开源框架编译"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ABY开源框架编译"/></a><div class="content"><a class="title" href="/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/" title="ABY开源框架编译">ABY开源框架编译</a><time datetime="2023-06-11T10:20:53.000Z" title="发表于 2023-06-11 18:20:53">2023-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/" title="手动部署KubeFate"><img src="https://s2.loli.net/2022/10/14/txqQJYhyZmMe3Xp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手动部署KubeFate"/></a><div class="content"><a class="title" href="/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/" title="手动部署KubeFate">手动部署KubeFate</a><time datetime="2023-06-09T01:39:10.000Z" title="发表于 2023-06-09 09:39:10">2023-06-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
