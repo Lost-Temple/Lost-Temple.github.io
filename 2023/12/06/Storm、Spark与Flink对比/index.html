@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Storm、Spark与Flink对比 | 一个码农的自白</title><meta name="keywords" content="Spark,Storm,Flink"><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="引言Apache Flink(以下简称flink) 是一个旨在提供‘一站式’ 的分布式开源数据处理框架。和Spark的目标一样，都希望提供一个统一功能的计算平台给用户。虽然目标非常类似，但是flink在实现上和spark存在着很大的区别，flink是一个面向流的处理框架，输入在flink中是无界的，流数据是flink中的头等公民。这方面flink和storm有几分相似。那么有spark和storm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Storm、Spark与Flink对比">
+<meta property="og:url" content="http://www.blockchainof.com/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="引言Apache Flink(以下简称flink) 是一个旨在提供‘一站式’ 的分布式开源数据处理框架。和Spark的目标一样，都希望提供一个统一功能的计算平台给用户。虽然目标非常类似，但是flink在实现上和spark存在着很大的区别，flink是一个面向流的处理框架，输入在flink中是无界的，流数据是flink中的头等公民。这方面flink和storm有几分相似。那么有spark和storm">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/12/06/rZykfszoeKCjVhL.png">
+<meta property="article:published_time" content="2023-12-06T08:06:42.000Z">
+<meta property="article:modified_time" content="2023-12-07T06:02:30.474Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="Spark">
+<meta property="article:tag" content="Storm">
+<meta property="article:tag" content="Flink">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/06/rZykfszoeKCjVhL.png"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Storm、Spark与Flink对比',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-07 14:02:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">71</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">155</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">35</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/12/06/rZykfszoeKCjVhL.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">一个码农的自白</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Storm、Spark与Flink对比</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-06T08:06:42.000Z" title="发表于 2023-12-06 16:06:42">2023-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T06:02:30.474Z" title="更新于 2023-12-07 14:02:30">2023-12-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Flink/">Flink</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Storm、Spark与Flink对比"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>Apache Flink(以下简称flink) 是一个旨在提供‘一站式’ 的分布式开源数据处理框架。和Spark的目标一样，都希望提供一个统一功能的计算平台给用户。虽然目标非常类似，但是flink在实现上和spark存在着很大的区别，flink是一个面向流的处理框架，输入在flink中是无界的，流数据是flink中的头等公民。这方面flink和storm有几分相似。那么有spark和storm这样成熟的计算框架存在，为什么flink还能占有一席之地呢？今天我们就从流处理的角度将flink和这两个框架进行一些分析和比较。</p>
+<h1 id="名词解析"><a href="#名词解析" class="headerlink" title="名词解析"></a>名词解析</h1><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无边界数据</td>
+<td>无边界数据通常指的是无限持续生成的数据流，没有明确定义的终点。这样的数据流可能是实时生成的事件、传感器数据、日志记录等，它们源源不断地产生，没有固定的结束点。</td>
+<td>实时传感器数据，如温度传感器、网络日志，用户点击事件流等。这些数据是持续不断生成的，流式处理系统需要实时处理并适应新的数据产生。</td>
+</tr>
+<tr>
+<td>有边界数据</td>
+<td>有边界数据是有明确定义的开始和结束点的数据集。这样的数据集在某一时刻是完整的，不再发生变化。传统的批处理任务就是对有边界数据进行处理的典型例子。</td>
+<td>关系数据库中的表、存储在文件中的数据集等。这些数据集在某一时刻是完整的，可以通过一次性加载到内存中进行批处理分析。</td>
+</tr>
+<tr>
+<td>Exactly-Once 语义</td>
+<td>精确一次（Exactly-Once）处理语义，确保在出现故障或恢复时不会丢失或重复处理事件。这是保证数据处理的一致性的重要特性。</td>
+<td></td>
+</tr>
+<tr>
+<td>有状态计算</td>
+<td>有状态的计算指能够处理具有记忆和上下文关联的计算任务。这对于处理事件序列、实时聚合和复杂的模式匹配非常有用。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="流框架基于的实现方式"><a href="#流框架基于的实现方式" class="headerlink" title="流框架基于的实现方式"></a>流框架基于的实现方式</h1><p>本文涉及的流框架基于的实现方式分为两大类。</p>
+<ul>
+<li><p>第一类是Native Streaming，这类引擎中所有的data在到来的时候就会被立即处理，一条接着一条（HINT： 狭隘的来说是一条接着一条，但流引擎有时会为提高性能缓存一小部分data然后一次性处理），其中的代表就是storm和flink。</p>
+</li>
+<li><p>第二类则是基于Micro-batch，数据流被切分为一个一个小的批次， 然后再逐个被引擎处理。这些batch一般是以时间为单位进行切分，单位一般是‘秒‘，其中的典型代表则是spark了，不论是老的spark DStream还是2.0以后推出的spark structured streaming都是这样的处理机制；另外一个基于Micro-batch实现的就是storm trident，它是对storm的更高层的抽象，因为以batch为单位，所以storm trident的一些处理变得简单且高效。</p>
+</li>
+</ul>
+<p><img src="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/Snipaste_2023-12-06_17-54-25.png" alt="分类"></p>
+<h1 id="流框架比较的关键指标"><a href="#流框架比较的关键指标" class="headerlink" title="流框架比较的关键指标"></a>流框架比较的关键指标</h1><p>从流处理的角度将flink与spark和storm这两个框架进行比较，会主要关注以下几点，后续的对比也主要基于这几点展开：</p>
+<ul>
+<li><p>功能性（Functionality）- 是否能很好解决流处理功能上的痛点 , 比如event time和out of order data。</p>
+</li>
+<li><p>容错性（Fault Tolerance） - 在failure之后能否恢复到故障之前的状态，并输出一致的结果；此外容错的代价也是越低越好，因为其直接影响性能。</p>
+</li>
+<li><p>吞吐量(throughputs)&amp; 延时(latency) - 性能相关的指标，高吞吐和低延迟某种意义上是不可兼得的，但好的流引擎应能兼顾高吞吐&amp;低延时。</p>
+</li>
+</ul>
+<h1 id="功能性"><a href="#功能性" class="headerlink" title="功能性"></a>功能性</h1><h2 id="各类时间的定义"><a href="#各类时间的定义" class="headerlink" title="各类时间的定义"></a>各类时间的定义</h2><p><a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-release-1.2/dev/event_time.html">flink文档中关于各种时间的定义</a></p>
+<ul>
+<li><p>Event time: 指数据或事件真正发生时间，比如用户点击网页时产生一条点击事件的数据，点击时间就是这条数据固有的Event time。理解为每个单独事件在其产生设备上发生的时间。</p>
+</li>
+<li><p>Processing time: 指计算框架处理这条数据的时间</p>
+</li>
+<li><p>Ingestion Time: 摄入时间是事件进入 Flink 的时间。</p>
+<p>  <img src="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/times_clocks.svg" alt="时钟"></p>
+<p>  spark DStream和storm 1.0以前版本往往都折中地使用processing time来近似地实现event time相关的业务。显然，使用processing time模拟event time必然会产生一些误差， 特别是在产生数据堆积的时候，误差则更明显，甚至导致计算结果不可用。</p>
+<p>  在使用event time时，自然而然需要解决由网络延迟等因素导致的迟到或者乱序数据的问题。为了解决这个问题， spark、storm及flink都参考<a target="_blank" rel="noopener" href="https://www.oreilly.com/radar/the-world-beyond-batch-streaming-102/">streaming 102</a>引入了watermark和lateness的概念。</p>
+</li>
+<li><p>watermark: 是引擎处理事件的时间进度，代表一种状态，一般随着数据中的event time的增长而增长。比如 watermark(t)代表整个流的event time处理进度已经到达t， 时间是有序的，那么streaming不应该会再收到timestamp t’ &lt; t的数据，而只会接受到timestamp t’ &gt;&#x3D; t的数据。 如果收到一条timestamp t’ &lt; t的数据， 那么就说明这条数据是迟到的。</p>
+</li>
+<li><p>lateness: 表示可以容忍迟到的程度，在lateness可容忍范围内的数据还会参与计算，超过的会被丢弃。</p>
+</li>
+</ul>
+<h2 id="窗口操作"><a href="#窗口操作" class="headerlink" title="窗口操作"></a>窗口操作</h2><h3 id="spark-structured-streaming-和flink对event-time处理机制的比较"><a href="#spark-structured-streaming-和flink对event-time处理机制的比较" class="headerlink" title="spark structured streaming 和flink对event time处理机制的比较"></a>spark structured streaming 和flink对event time处理机制的比较</h3><ul>
+<li><p>Flink</p>
+<p>首先，我们结合图来看flink， 时间轴从左往右增大。当watermark WM处于时 间窗口区间内时，即WM ∈ [start, end] , event time落在窗口范围内的任何乱序数据都会被接受；随着WM的增长并超过了窗口的结束时间，但还未超过可容忍的lateness时间范围，即WM ∈ (window_end,window_end+ lateness]， 这时乱序数据仍然可以被接受； 只有当WM超过 window_end+lateness, 即WM ∈ (window_end+ lateness, ∞)， 迟到的数据将会被丢弃。</p>
+<p><img src="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/handle-late-records.jpg" alt="handle-late-records"></p>
+<p>fiink中watermark的计算也比较灵活，可以选择build-in的（如最大时间戳），也可以通过继承接口自定义实现。此外，用户可以选择周期性更新或者事件触发更新watermark。</p>
+</li>
+<li><p>Spark</p>
+<p>首先,spark中watermark是通过上一个batch最大的timestamp再减去lateness得到的，即watermark &#x3D; Max(last batch timestamps) - lateness。当数据的event time大于watermark时，数据会被接受，否则不论这条数据属于哪个窗口都会被丢弃。细节请参考<a target="_blank" rel="noopener" href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#window-operations-on-event-time">Window Operations on Event Time</a></p>
+</li>
+</ul>
+<p>下面来比较一下两者实现细节上的不同：</p>
+<ul>
+<li><p>lateness定义: 在spark中，迟到被定义为data的event time和watermark的比较结果，当data的event time &lt; watermark时，data被丢弃；flink中只有在watermark &gt; window_end + lateness的时候，data才会被丢弃。</p>
+</li>
+<li><p>watermark更新: spark中watermark是上个batch中的max event time，存在延迟；而在flink中是可以做到每条数据同步更新watermark。</p>
+</li>
+<li><p>window触发: flink中window计算会触发一次或多次，第一次在watermark &gt;&#x3D; window_end后立刻触发（main fire），接着会在迟到数据到来后进行增量触发。spark只会在watermark（包含lateness）过了window_end之后才会触发，虽然计算结果一次性正确，但触发比flink起码多了一个lateness的延迟。</p>
+</li>
+</ul>
+<p>上面三点可见flink在设计event time处理模型还是较优的：watermark的计算实时性高，输出延迟低，而且接受迟到数据没有spark那么受限。</p>
+<h3 id="SQL-API方面的对比"><a href="#SQL-API方面的对比" class="headerlink" title="SQL API方面的对比"></a>SQL API方面的对比</h3><p>待续，网上资料都是较老版本的比对，不太准确，等自己实践过再来总结吧</p>
+<h3 id="Kafka-集成"><a href="#Kafka-集成" class="headerlink" title="Kafka 集成"></a>Kafka 集成</h3><p>待续</p>
+<h3 id="静态数据操作"><a href="#静态数据操作" class="headerlink" title="静态数据操作"></a>静态数据操作</h3><h1 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h1><p>待续</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>待续</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com">暂留白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/">http://www.blockchainof.com/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blockchainof.com" target="_blank">一个码农的自白</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spark/">Spark</a><a class="post-meta__tags" href="/tags/Storm/">Storm</a><a class="post-meta__tags" href="/tags/Flink/">Flink</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/12/06/rZykfszoeKCjVhL.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/"><img class="next-cover" src="https://s2.loli.net/2023/10/31/rl56CdDAOqneHZQ.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习基础-概率和发生比以及Logit</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/" title="PySpark基础"><img class="cover" src="https://s2.loli.net/2023/10/19/u6bMAmBNIaPnzje.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-26</div><div class="title">PySpark基础</div></div></a></div><div><a href="/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="Spark部署模式"><img class="cover" src="https://s2.loli.net/2023/10/19/u6bMAmBNIaPnzje.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-19</div><div class="title">Spark部署模式</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">71</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">155</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">35</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8D%E8%AF%8D%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">名词解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E6%A1%86%E6%9E%B6%E5%9F%BA%E4%BA%8E%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">流框架基于的实现方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E6%A1%86%E6%9E%B6%E6%AF%94%E8%BE%83%E7%9A%84%E5%85%B3%E9%94%AE%E6%8C%87%E6%A0%87"><span class="toc-number">4.</span> <span class="toc-text">流框架比较的关键指标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">功能性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%B1%BB%E6%97%B6%E9%97%B4%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">5.1.</span> <span class="toc-text">各类时间的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E6%93%8D%E4%BD%9C"><span class="toc-number">5.2.</span> <span class="toc-text">窗口操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-structured-streaming-%E5%92%8Cflink%E5%AF%B9event-time%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">5.2.1.</span> <span class="toc-text">spark structured streaming 和flink对event time处理机制的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-API%E6%96%B9%E9%9D%A2%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">5.2.2.</span> <span class="toc-text">SQL API方面的对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka-%E9%9B%86%E6%88%90"><span class="toc-number">5.2.3.</span> <span class="toc-text">Kafka 集成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="toc-number">5.2.4.</span> <span class="toc-text">静态数据操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F"><span class="toc-number">6.</span> <span class="toc-text">吞吐量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/" title="Storm、Spark与Flink对比"><img src="https://s2.loli.net/2023/12/06/rZykfszoeKCjVhL.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Storm、Spark与Flink对比"/></a><div class="content"><a class="title" href="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/" title="Storm、Spark与Flink对比">Storm、Spark与Flink对比</a><time datetime="2023-12-06T08:06:42.000Z" title="发表于 2023-12-06 16:06:42">2023-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/" title="机器学习基础-概率和发生比以及Logit"><img src="https://s2.loli.net/2023/10/31/rl56CdDAOqneHZQ.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习基础-概率和发生比以及Logit"/></a><div class="content"><a class="title" href="/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/" title="机器学习基础-概率和发生比以及Logit">机器学习基础-概率和发生比以及Logit</a><time datetime="2023-10-31T10:57:17.000Z" title="发表于 2023-10-31 18:57:17">2023-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/" title="PySpark基础"><img src="https://s2.loli.net/2023/10/19/u6bMAmBNIaPnzje.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PySpark基础"/></a><div class="content"><a class="title" href="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/" title="PySpark基础">PySpark基础</a><time datetime="2023-10-26T07:01:25.000Z" title="发表于 2023-10-26 15:01:25">2023-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="Spark部署模式"><img src="https://s2.loli.net/2023/10/19/u6bMAmBNIaPnzje.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spark部署模式"/></a><div class="content"><a class="title" href="/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="Spark部署模式">Spark部署模式</a><time datetime="2023-10-19T09:00:27.000Z" title="发表于 2023-10-19 17:00:27">2023-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" title="Linux系统中Pycharm界面显示问题"><img src="https://s2.loli.net/2023/01/09/7BVLPKytReJW4UX.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux系统中Pycharm界面显示问题"/></a><div class="content"><a class="title" href="/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" title="Linux系统中Pycharm界面显示问题">Linux系统中Pycharm界面显示问题</a><time datetime="2023-08-06T11:07:22.000Z" title="发表于 2023-08-06 19:07:22">2023-08-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
