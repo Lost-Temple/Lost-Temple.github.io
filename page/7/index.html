@@ -1,1673 +1,360 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一个码农的自白">
-<meta property="og:url" content="http://www.blockchainof.com/page/7/index.html">
-<meta property="og:site_name" content="一个码农的自白">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="暂留白">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://www.blockchainof.com/page/7/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>一个码农的自白</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">一个码农的自白</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fas fa-folder-open fa-fw"></i>分类</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一个码农的自白</title><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/page/7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一个码农的自白',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-05-18 17:25:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/18/Golang%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/18/Golang%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93/" class="post-title-link" itemprop="url">Golang调用C语言编写的动态库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-18 13:33:33" itemprop="dateCreated datePublished" datetime="2022-11-18T13:33:33+08:00">2022-11-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-15 13:35:56" itemprop="dateModified" datetime="2022-12-15T13:35:56+08:00">2022-12-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/CGO/" itemprop="url" rel="index"><span itemprop="name">CGO</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+        get: key => {
+          const itemStr = localStorage.getItem(key)
       
-          <h1>用C语言编写一个动态库</h1>
-<h2 id="编写C语言头文件sample-so-h">编写C语言头文件<code>sample_so.h</code></h2>
-<p>在头文件中声明函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="编写函数的实现代码sample-so-c">编写函数的实现代码<code>sample_so.c</code></h2>
-<p>在源文件中实现函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sample_so.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>编译生成动态链接库</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c -fPIC -o sample_so.o sample_so.c # 先生成.o文件</span><br><span class="line">gcc -shared -o libsample_so.so sample_o.o # 再生成.so文件</span><br></pre></td></tr></table></figure>
-<h1>golang 调用动态库</h1>
-<h2 id="先用c语言编写一个动态库的-调用代理（名字瞎取的）">先用c语言编写一个动态库的<code> 调用代理</code>（名字瞎取的）</h2>
-<p><code>loadso.h</code></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">call_export_func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-<p><code>loadso.c</code></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;loadso.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> dllname[] = <span class="string">&quot;/path/of/the/so/sample_so.so&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">call_export_func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    <span class="type">void</span>* handle;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="title function_">int</span><span class="params">(*FPTR)</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(dllname, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(handle == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    FPTR fptr = (FPTR)dlsym(handle, <span class="string">&quot;export_func_add&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> result = (*fptr)(a, b);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注：实际上就是明确了动态库中的函数的签名后（就是函数参数类型，函数返回类型），然后定义对应的函数指针，根据函数名获取到这个函数，用函数指针指向它，接着就可以使用这个函数指针调用这个函数了</strong></p>
-<h2 id="编写golang代码">编写golang代码</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &quot;loadso.h&quot;</span></span><br><span class="line"><span class="comment">#cgo LDFLAGS: -ldl</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">var</span> a <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        <span class="keyword">var</span> b <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        fmt.Printf(<span class="string">&quot;%d + %d = %d\n&quot;</span>, a, b, C.export_func_add(C.<span class="type">int</span>(a), C.<span class="type">int</span>(b)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注：看到最顶上的代码注释了吗？这个注释会被编译器进行解析，不是一般意义上的代码注释，个人感觉挺奇葩的。还有紧接着的一行<code>import &quot;C&quot;</code>, 注意要紧接着，这也挺反人类的</strong></p>
-
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-003/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-003/" class="post-title-link" itemprop="url">Fabric源码系列-003</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-12 20:14:28" itemprop="dateCreated datePublished" datetime="2022-11-12T20:14:28+08:00">2022-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:36:27" itemprop="dateModified" datetime="2022-12-03T19:36:27+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1><code>BCCSP</code>接口</h1>
-<p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
-<ul>
-<li><code>KeyGen</code>：密钥生成，包含对称和非对称加密</li>
-<li><code>KeyDeriv</code>：密钥派生</li>
-<li><code>KeyImport</code>：密钥导入，从文件、内存、数字证书中导入</li>
-<li><code>GetKey</code>：获取密钥</li>
-<li><code>Hash</code>：计算摘要</li>
-<li><code>GetHash</code>：获取摘要计算实例</li>
-<li><code>Sign</code>：数字签名</li>
-<li><code>Verify</code>：签名验证</li>
-<li><code>Encrypt</code>：数据加密，包含对称和非对称加密</li>
-<li><code>Decrypt</code>：数据解密，包含对称和非对称加密</li>
-</ul>
-<h1>SW</h1>
-<h2 id="CSP">CSP</h2>
-<p><code>fabric/bccsp/sw/impl.go</code></p>
-<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>, <code>CSP</code>利用反射调用真正的实现</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> CSP <span class="keyword">struct</span> &#123;</span><br><span class="line">	ks bccsp.KeyStore</span><br><span class="line"></span><br><span class="line">	KeyGenerators <span class="keyword">map</span>[reflect.Type]KeyGenerator</span><br><span class="line">	KeyDerivers   <span class="keyword">map</span>[reflect.Type]KeyDeriver</span><br><span class="line">	KeyImporters  <span class="keyword">map</span>[reflect.Type]KeyImporter</span><br><span class="line">	Encryptors    <span class="keyword">map</span>[reflect.Type]Encryptor</span><br><span class="line">	Decryptors    <span class="keyword">map</span>[reflect.Type]Decryptor</span><br><span class="line">	Signers       <span class="keyword">map</span>[reflect.Type]Signer</span><br><span class="line">	Verifiers     <span class="keyword">map</span>[reflect.Type]Verifier</span><br><span class="line">	Hashers       <span class="keyword">map</span>[reflect.Type]Hasher</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code> 生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
-<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>, 对应于BCCSP接口中定义的方法，有以下实现：</p>
-<ul>
-<li>
-<p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
-<p>包含了<code>ECDSA</code>、<code>AES</code>2种密钥的生成</p>
-<ul>
-<li><code>ecdsaKeyGenerator</code></li>
-<li><code>aesKeyGenerator</code></li>
-</ul>
-</li>
-<li>
-<p><code>KeyDeriv:</code> <code>fabric/bccsp/sw/keyderiv.go</code></p>
-<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生 3种</p>
-<ul>
-<li><code>ecdsaPublicKeyKeyDeriver</code></li>
-<li><code>ecdsaPrivateKeyKeyDeriver</code></li>
-<li><code>aesPrivateKeyKeyDeriver</code></li>
-</ul>
-</li>
-<li>
-<p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code><br>
-包含了:</p>
-<ul>
-<li><code>aes256ImportKeyOptsKeyImporter</code></li>
-<li><code>hmacImportKeyOptsKeyImporter</code></li>
-<li><code>ecdsaPKIXPublicKeyImportOptsKeyImporter</code></li>
-<li><code>ecdsaPrivateKeyImportOptsKeyImporter</code></li>
-<li><code>ecdsaGoPublicKeyImportOptsKeyImporter</code></li>
-<li><code>x509PublicKeyImportOptsKeyImporter</code></li>
-</ul>
-</li>
-<li>
-<p><code>GetKey:</code> <code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p>
-</li>
-<li>
-<p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
-<ul>
-<li><code>hasher </code>结构体实现了<code>Hash</code>方法</li>
-</ul>
-</li>
-<li>
-<p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
-<ul>
-<li><code>hasher </code>结构体实现了<code>GetHash</code>方法</li>
-</ul>
-</li>
-<li>
-<p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
-<ul>
-<li><code>ecdsaSigner</code>结构体实现了此方法，在<code>fabric 1.4</code>版中好像<code>rsaSigner</code>结构体也实现了此方法</li>
-</ul>
-</li>
-<li>
-<p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
-<ul>
-<li><code>ecdsaPrivateKeyVerifier</code> 结构体中实现了此方法</li>
-<li><code>ecdsaPublicKeyKeyVerifier</code>结构体中实现了此方法</li>
-</ul>
-</li>
-<li>
-<p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
-<ul>
-<li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul>
-</li>
-<li>
-<p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
-<ul>
-<li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-002/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-002/" class="post-title-link" itemprop="url">Fabric源码系列-002</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-12 09:42:56" itemprop="dateCreated datePublished" datetime="2022-11-12T09:42:56+08:00">2022-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:36:13" itemprop="dateModified" datetime="2022-12-03T19:36:13+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>BCCSP 接口</h1>
-<p><strong>以下内容从<a target="_blank" rel="noopener" href="https://lessisbetter.site/">太彬年久失修的博客</a>盗版而来</strong></p>
-<p><code>BCCSP</code>是<code>Block Chain Crypto Service Provider</code>的缩写。在Fabric中，BCCSP被抽象成为一个接口。</p>
-<p><code>bccsp</code>模块提供密码学服务，它包含的具体功能有：对称加密和非对称加密的密钥生成、导入、导出，数字签名和验证，对称加密和解密、摘要计算。</p>
-<p><code>bccsp</code>使用了依赖倒置原则（Dependence Inversion Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。</p>
-<p>bccsp模块中当前有2种密码实现，它们都是bccsp中的密码学插件：<code>SW</code>和<code>PKCS11</code>，<code>SW</code>代表的是国际标准加密的软实现，<code>SW</code>是<code>software</code>的缩写，<code>PKCS11</code>代指硬实现。</p>
-<p><img src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" alt="BCCSP.png"></p>
-<blockquote>
-<p>扩展阅读：</p>
-<p>PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，<br>
-插入USBKey用网银转账时，就需要走USBKey中的硬件进行数字签名，这个过程就需要使用PCKS11。</p>
-</blockquote>
-<p>密码学通常有软实现和硬实现，软实现就是常用的各种加密库，比如Go中<code>crypto</code>包，硬实现是使用加密机提供的一套加密服务。软实现和硬实现的重要区别是，密码算法的安全性强依赖随机数，软实现利用的是OS的伪随机数，而硬实现利用的是加密机生成的随机数，所以硬实现的安全强度要高于软实现。</p>
-<h2 id="SW介绍">SW介绍</h2>
-<p>SW是国际标准加密的软实现插件，它包含了ECDSA算法、RSA算法、AES算法，以及SHA系列的摘要算法。</p>
-<p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
-<ul>
-<li><code>KeyGen</code>：密钥生成，包含对称和非对称加密</li>
-<li><code>KeyDeriv</code>：密钥派生</li>
-<li><code>KeyImport</code>：密钥导入，从文件、内存、数字证书中导入</li>
-<li><code>GetKey</code>：获取密钥</li>
-<li><code>Hash</code>：计算摘要</li>
-<li><code>GetHash</code>：获取摘要计算实例</li>
-<li><code>Sign</code>：数字签名</li>
-<li><code>Verify</code>：签名验证</li>
-<li><code>Encrypt</code>：数据加密，包含对称和非对称加密</li>
-<li><code>Decrypt</code>：数据解密，包含对称和非对称加密</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BCCSP is the blockchain cryptographic service provider that offers</span></span><br><span class="line"><span class="comment">// the implementation of cryptographic standards and algorithms.</span></span><br><span class="line"><span class="keyword">type</span> BCCSP <span class="keyword">interface</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KeyGen generates a key using opts.</span></span><br><span class="line">	KeyGen(opts KeyGenOpts) (k Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KeyDeriv derives a key from k using opts.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the primitive used.</span></span><br><span class="line">	KeyDeriv(k Key, opts KeyDerivOpts) (dk Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KeyImport imports a key from its raw representation using opts.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the primitive used.</span></span><br><span class="line">	KeyImport(raw <span class="keyword">interface</span>&#123;&#125;, opts KeyImportOpts) (k Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// GetKey returns the key this CSP associates to</span></span><br><span class="line">	<span class="comment">// the Subject Key Identifier ski.</span></span><br><span class="line">	GetKey(ski []<span class="type">byte</span>) (k Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Hash hashes messages msg using options opts.</span></span><br><span class="line">	<span class="comment">// If opts is nil, the default hash function will be used.</span></span><br><span class="line">	Hash(msg []<span class="type">byte</span>, opts HashOpts) (hash []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// GetHash returns and instance of hash.Hash using options opts.</span></span><br><span class="line">	<span class="comment">// If opts is nil, the default hash function will be returned.</span></span><br><span class="line">	GetHash(opts HashOpts) (h hash.Hash, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Sign signs digest using key k.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Note that when a signature of a hash of a larger message is needed,</span></span><br><span class="line">	<span class="comment">// the caller is responsible for hashing the larger message and passing</span></span><br><span class="line">	<span class="comment">// the hash (as digest).</span></span><br><span class="line">	Sign(k Key, digest []<span class="type">byte</span>, opts SignerOpts) (signature []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Verify verifies signature against key k and digest</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	Verify(k Key, signature, digest []<span class="type">byte</span>, opts SignerOpts) (valid <span class="type">bool</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Encrypt encrypts plaintext using key k.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	Encrypt(k Key, plaintext []<span class="type">byte</span>, opts EncrypterOpts) (ciphertext []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Decrypt decrypts ciphertext using key k.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	Decrypt(k Key, ciphertext []<span class="type">byte</span>, opts DecrypterOpts) (plaintext []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="可插拔国密">可插拔国密</h2>
-<p>Fabric支持国密并非仅仅在bccsp中增加1个国密实现这么简单，还需要让数字证书支持国密，让数字证书的操作符合X.509。各语言的标准库<code>x509</code>都是适配标准加密的，并不能直接用来操作国密证书。</p>
-<p>在数字证书支持国密后，还可能需要进一步考虑，是否需要TLS证书使用国密数字证书，让通信过程使用国密算法。</p>
-<p>另外，国密的实现有很多版本，如果需要适配不同的国密实现，就需要保证国密的可插拔和可扩展。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/11/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-001/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/11/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-001/" class="post-title-link" itemprop="url">Fabric源码系列-001</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-11 16:49:03" itemprop="dateCreated datePublished" datetime="2022-11-11T16:49:03+08:00">2022-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:35:54" itemprop="dateModified" datetime="2022-12-03T19:35:54+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>源码总目录结构</h1>
-<table>
-<thead>
-<tr>
-<th>目录名</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bccsp</td>
-<td>全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现</td>
-</tr>
-<tr>
-<td>ccaas_builder</td>
-<td>编译相关</td>
-</tr>
-<tr>
-<td>ci</td>
-<td>持续集成(CI)相关配置和脚本</td>
-</tr>
-<tr>
-<td>cmd</td>
-<td>命令行操作相关入口代码</td>
-</tr>
-<tr>
-<td>common</td>
-<td>一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）</td>
-</tr>
-<tr>
-<td>core</td>
-<td>核心库，组件的核心逻辑，针对每一个组件都有一个子目录（chaincode:与智能合约相关);(endorser:与背书节点相关）</td>
-</tr>
-<tr>
-<td>discovery</td>
-<td>服务发现模块相关代码</td>
-</tr>
-<tr>
-<td>docs</td>
-<td>文档相关</td>
-</tr>
-<tr>
-<td>gossip</td>
-<td>组织内部节点数据同步的通信协议，最终一致性算法，用于组织内部数据同步</td>
-</tr>
-<tr>
-<td>images</td>
-<td>Docker镜像打包，Docker镜像都是通过这个目录下的配置文件生成的</td>
-</tr>
-<tr>
-<td>integration</td>
-<td>待迁移代码</td>
-</tr>
-<tr>
-<td>internal</td>
-<td>内部代码，被cmd包等调用</td>
-</tr>
-<tr>
-<td>msp</td>
-<td>成员服务管理（member service provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
-</tr>
-<tr>
-<td>orderer</td>
-<td>排序节点的入口，用于消息的订阅与分发处理</td>
-</tr>
-<tr>
-<td>pkg</td>
-<td>重写或实现了一些golang原生接口</td>
-</tr>
-<tr>
-<td>protoutil</td>
-<td>Proposal提案相关的工具包</td>
-</tr>
-<tr>
-<td>release_notes</td>
-<td>发布笔记</td>
-</tr>
-<tr>
-<td>sampleconfig</td>
-<td>配置示例</td>
-</tr>
-<tr>
-<td>scripts</td>
-<td>脚本，包含启动脚本、检查脚本等</td>
-</tr>
-<tr>
-<td>swagger</td>
-<td>swagger文档生成配置</td>
-</tr>
-<tr>
-<td>tools</td>
-<td>工具包，目前还是空的（release-2.4分支）</td>
-</tr>
-<tr>
-<td>vagrant</td>
-<td>包含了用 Vagrant 建立一个简单的开发环境所必需的脚本</td>
-</tr>
-<tr>
-<td>vendor</td>
-<td>存放Go中使用的第三方包</td>
-</tr>
-</tbody>
-</table>
-<h1>模块分类</h1>
-<h2 id="核心模块">核心模块</h2>
-<p>提供核心功能服务的代码，包括<code>core</code>、<code>orderer</code>两个代码包，这两个代码包涵盖了Orderder排序节点与Peer节点（包含Endorser背书节点与Committer记帐节点）的核心代码</p>
-<h2 id="公共模块">公共模块</h2>
-<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code> <code>common</code> <code>gossip</code> <code>msp</code> <code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
-<h2 id="辅助模块">辅助模块</h2>
-<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code> <code>ci</code> <code>docs</code> <code>release_notes</code> <code>swagger</code>等</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/07/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%89%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/07/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%89%EF%BC%89/" class="post-title-link" itemprop="url">Fabric-通过samples了解fabric（三）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-07 14:44:44" itemprop="dateCreated datePublished" datetime="2022-11-07T14:44:44+08:00">2022-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:18" itemprop="dateModified" datetime="2022-12-03T19:37:18+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure>
-<h1>部署<code>wasmcc</code></h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn wasmcc -ccp /Users/mao/work/wasm/opensource/hyperledger/fabric-chaincode-wasm/wasmcc -ccv 1.0 -ccl go</span><br></pre></td></tr></table></figure>
-<h1>调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
-<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），<br>
-然后通过以下命令部置这个<code>wasm chaincode</code>,**注：命令中的<code>wasm二进制数据的十六进制表示字符串</code>需要按实际的数据进行替换。这个把wasm字节码转为十六进制表示（字符串）的工具是<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/file-encoder">file-encoder</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;create&quot;,&quot;balancewasm&quot;,&quot;wasm二进制数据的十六进制表示字符串&quot;,&quot;account1&quot;,&quot;100&quot;,&quot;account2&quot;,&quot;1000&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>调用命令查看目前已部署的<code>wasm chaincode</code></h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;installedChaincodes&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;query&quot;,&quot;account1&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;invoke&quot;,&quot;account2&quot;,&quot;account1&quot;,&quot;10&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
-<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。<br>
-使用命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure>
-<p><code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/" class="post-title-link" itemprop="url">Fabric-通过samples了解fabric（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-04 14:42:56" itemprop="dateCreated datePublished" datetime="2022-11-04T14:42:56+08:00">2022-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:26" itemprop="dateModified" datetime="2022-12-03T19:37:26+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1><a target="_blank" rel="noopener" href="http://network.sh">network.sh</a> 脚本命令</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">./network.sh help</span><br><span class="line">Using docker and docker-compose</span><br><span class="line">Usage:</span><br><span class="line">  network.sh &lt;Mode&gt; [Flags]</span><br><span class="line">    Modes:</span><br><span class="line">      up - Bring up Fabric orderer and peer nodes. No channel is created</span><br><span class="line">      up createChannel - Bring up fabric network with one channel</span><br><span class="line">      createChannel - Create and join a channel after the network is created</span><br><span class="line">      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)</span><br><span class="line">      down - Bring down the network</span><br><span class="line"></span><br><span class="line">    Flags:</span><br><span class="line">    Used with network.sh up, network.sh createChannel:</span><br><span class="line">    -ca &lt;use CAs&gt; -  Use Certificate Authorities to generate network crypto material</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to create (defaults to &quot;mychannel&quot;)</span><br><span class="line">    -s &lt;dbtype&gt; - Peer state database to deploy: goleveldb (default) or couchdb</span><br><span class="line">    -r &lt;max retry&gt; - CLI times out after certain number of attempts (defaults to 5)</span><br><span class="line">    -d &lt;delay&gt; - CLI delays for a certain number of seconds (defaults to 3)</span><br><span class="line">    -verbose - Verbose mode</span><br><span class="line"></span><br><span class="line">    Used with network.sh deployCC</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to deploy chaincode to</span><br><span class="line">    -ccn &lt;name&gt; - Chaincode name.</span><br><span class="line">    -ccl &lt;language&gt; - Programming language of the chaincode to deploy: go, java, javascript, typescript</span><br><span class="line">    -ccv &lt;version&gt;  - Chaincode version. 1.0 (default), v2, version3.x, etc</span><br><span class="line">    -ccs &lt;sequence&gt;  - Chaincode definition sequence. Must be an integer, 1 (default), 2, 3, etc</span><br><span class="line">    -ccp &lt;path&gt;  - File path to the chaincode.</span><br><span class="line">    -ccep &lt;policy&gt;  - (Optional) Chaincode endorsement policy using signature policy syntax. The default policy requires an endorsement from Org1 and Org2</span><br><span class="line">    -cccg &lt;collection-config&gt;  - (Optional) File path to private data collections configuration file</span><br><span class="line">    -cci &lt;fcn name&gt;  - (Optional) Name of chaincode initialization function. When a function is provided, the execution of init will be requested and the function will be invoked.</span><br><span class="line"></span><br><span class="line">    -h - Print this message</span><br><span class="line"></span><br><span class="line"> Possible Mode and flag combinations</span><br><span class="line">   up -ca -r -d -s -verbose</span><br><span class="line">   up createChannel -ca -c -r -d -s -verbose</span><br><span class="line">   createChannel -c -r -d -verbose</span><br><span class="line">   deployCC -ccn -ccl -ccv -ccs -ccp -cci -r -d -verbose</span><br><span class="line"></span><br><span class="line"> Examples:</span><br><span class="line">   network.sh up createChannel -ca -c mychannel -s couchdb</span><br><span class="line">   network.sh createChannel -c channelName</span><br><span class="line">   network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript</span><br><span class="line">   network.sh deployCC -ccn mychaincode -ccp ./user/mychaincode -ccv 1 -ccl javascript</span><br></pre></td></tr></table></figure>
-<h2 id="清除测试网中的所有容器">清除测试网中的所有容器</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
-<h2 id="启动测试网">启动测试网</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh up</span><br></pre></td></tr></table></figure>
-<h2 id="创建通道">创建通道</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./network.sh createChannel    # 不指定通道名，通道名默认为mychannel</span><br><span class="line">./network.sh createChannel -c channel1 # 指定通道名 channel1</span><br></pre></td></tr></table></figure>
-<h2 id="安装链码">安装链码</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-ccn</code>指定链码名称 <code>chain code name</code></li>
-<li><code>-ccl</code> 指定编写链码的语言 <code>chain code language</code></li>
-<li><code>-ccp</code> 指定链码所在的目录 <code>chain code path</code></li>
-<li>其余的查看 <code>./network.sh help</code></li>
-</ul>
-<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
-<p>还有加<code>sudo</code>后找不到<code>go</code>的坑,需要在<code>~/.zshrc</code>中添加</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias sudo=&#x27;sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH&#x27;</span><br></pre></td></tr></table></figure>
-<h2 id="与fabric网络交互">与fabric网络交互</h2>
-<p><strong>确保当前是在<code>test-network</code>目录</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH</span><br></pre></td></tr></table></figure>
-<p>添加这个环境变量是为了下面调用<code>peer</code>命令系统能找到<code>peer</code>指令，除了<code>peer</code>指令，还有其它一些指令，如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x@ 1 mao  staff    15M Oct 26 23:58 configtxgen</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    14M Oct 26 23:58 configtxlator</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    11M Oct 26 23:58 cryptogen</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    16M Oct 26 23:58 discover</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    26M Jul  8 17:32 fabric-ca-client</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    32M Jul  8 17:33 fabric-ca-server</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    16M Oct 26 23:58 ledgerutil</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    26M Oct 26 23:58 orderer</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    12M Oct 26 23:58 osnadmin</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    33M Oct 26 23:58 peer</span><br></pre></td></tr></table></figure>
-<p>还需要将<code>fabric-samples</code>代码库中的<code>FABRIC_CFG_PATH</code>设置为指向其中的<code>core.yaml</code>文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FABRIC_CFG_PATH=$PWD/../config/</span><br></pre></td></tr></table></figure>
-<p>现在，可以设置环境变量，以允许作为Org1操作<code>peer</code> CLI：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Environment variables <span class="keyword">for</span> Org1</span></span><br><span class="line"></span><br><span class="line">export CORE_PEER_TLS_ENABLED=true</span><br><span class="line">export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;</span><br><span class="line">export CORE_PEER_TLS_ROOTCERT_FILE=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line">export CORE_PEER_MSPCONFIGPATH=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line">export CORE_PEER_ADDRESS=localhost:7051</span><br></pre></td></tr></table></figure>
-<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。 如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动 asset-transfer (basic) 链码，您可以调用链码（Go）的 <code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用 typescript 或者 javascript，例如 <code>./network.sh deployCC -l javascript</code>，你会调用相关链码的 <code>initLedger</code> 功能）。 运行以下命令用一些资产来初始化账本：</p>
-<h3 id="调用链码函数InitLedger">调用链码函数<code>InitLedger</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<p><strong>Mac M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
-<h3 id="查询">查询</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c &#x27;&#123;&quot;Args&quot;:[&quot;GetAllAssets&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/" class="post-title-link" itemprop="url">Fabric-编译rust源码为wasm</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-04 10:33:27" itemprop="dateCreated datePublished" datetime="2022-11-04T10:33:27+08:00">2022-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:50" itemprop="dateModified" datetime="2022-12-03T19:37:50+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>编译rust源码为wasm</h1>
-<h2 id="安装工具链">安装工具链</h2>
-<p>可以使用以下两条命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br><span class="line">curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh</span><br></pre></td></tr></table></figure>
-<p>也可以参考<a target="_blank" rel="noopener" href="https://rustwasm.github.io/book/game-of-life/setup.html">官方安装向导</a></p>
-<h2 id="创建rust-lib工程">创建<code>rust</code> <code>lib</code>工程</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new hello_world --lib</span><br></pre></td></tr></table></figure>
-<p>生成的<code>Cargo.toml</code>内容为：</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello_world&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>添加一些内容到<code>Cargo.toml</code>中去</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[lib]</span></span><br><span class="line"><span class="attr">crate-type</span> = [<span class="string">&quot;cdylib&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">wasm-bindgen</span> = <span class="string">&quot;0.2&quot;</span></span><br></pre></td></tr></table></figure>
-<p>代码目录结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Cargo.toml</span><br><span class="line">└── src</span><br><span class="line">   └── lib.rs</span><br></pre></td></tr></table></figure>
-<p>在<code>lib.rs</code>中编写<code>rust</code>代码实现函数，因为在wasmcc的特殊性，这里的编写的代码也具有一些特殊性：</p>
-<ul>
-<li>
-<p>可以导入调用在wasmcc中实现的函数</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__print</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter</span>(paramNumber: <span class="type">usize</span>, result: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter_size</span>(paramNumber: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state_size</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__put_state</span>(key: *<span class="keyword">const</span> <span class="type">u8</span>, key_len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>, value_len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__delete_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__return_result</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>这些函数可以在编写<code>rust</code>代码时直接调用，不需要自己实现，这些是相当在Host程序中实现，可以被 <code>wasm</code>代码调用的函数</strong></p>
-<p>在rust的导出函数中,即wasm代码的对外接口中，可以调用上述的函数，如：</p>
-<ul>
-<li>通过__get_parameter_size(0)可以取得第1个参数的长度__</li>
-<li>通过__get_parameter可以取得参数的值，具体用法就是传入一个序号，一个vec!的指针</li>
-</ul>
-</li>
-<li>
-<p>实现<code>init</code>函数（必须实现，<code>wasmcc</code>的<code>create</code>函数用来创建 wasm chaincode时就会调用wasm代码中的<code>init</code>函数</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">init</span>(args: <span class="type">i64</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="编译">编译</h2>
-<p>在<code>rust</code>工程的根目录下，运行命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm-pack build</span><br></pre></td></tr></table></figure>
-<p>如果成功的话，会在当前目录下生成<code>pkg/hello_world_bg.wasm</code></p>
-<p>关于C语言编写代码，再编译成wasm，文档中说是需要安装clang8 和 llvm。<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/sample-wasm-chaincode">文档</a>中是<a target="_blank" rel="noopener" href="https://apt.llvm.org/">Linux的几个发行版的环境</a>，由于我的是Mac M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找不到<code>__print</code>、<code>__get_parameter</code>等几个函数的找不到实现部分，所以链接的时候出错，这个理论上说得通，能编译成功才是不能理解的。不知道文档中说的方法是怎么编译成功的，到时候有空用Linux环境试一下吧。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">Fabric-wasmcc介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-03 10:52:12" itemprop="dateCreated datePublished" datetime="2022-11-03T10:52:12+08:00">2022-11-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:36:55" itemprop="dateModified" datetime="2022-12-03T19:36:55+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>wasmcc</h1>
-<p>全称：<code>Hyperledger Fabric WASM Chaincode</code>，是由<code>hypterledger-labs</code>提供的一个链码。作用是可以把使用rust/C编写代码生成<code>wasm</code>字节码，把wasm字节码部署到<code>fabric</code>中，然后使用wasmcc作为代理调用wasm中的函数。fabric以此方式来支持<code>wasm chaincode</code></p>
-<h2 id="步骤">步骤</h2>
-<ul>
-<li>
-<ol>
-<li><code>wasmcc</code>部署到<code>fabric</code>中，扮演<code>wasm</code>代码调用的统一入口，相当于wasm代码的调用代理。<br>
-<code>wasmcc</code>的部署和其它的普通链码的部署方式一样，<code>wasmcc</code>没有实例化参数，通过peer cli部署的命令如下：</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n wasmcc -v 1.0 -p github.com/chaincode/wasmer-chaincode-test/wasmcc</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode instantiate -n wasmcc -v 1.0 -C &lt;channel-name&gt; -c &#x27;&#123;&quot;Args&quot;:[]&#125;&#x27; -o &lt;orderer-address&gt; --tls --cafile &lt;orderer-ca&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>
-<ol start="2">
-<li>通过调用<code>wasmcc</code>的 <code>create</code> 方法创建<code>wasm chaincode</code></li>
-</ol>
-</li>
-<li>
-<ol start="3">
-<li><strong>通过调用<code>wasmcc</code>的<code>execute</code>方法调用<code>wasm chaincode</code></strong></li>
-</ol>
-</li>
-<li>
-<ol start="4">
-<li>通过调用<code>wasmcc</code>的<code>installedChaincodes</code>方法获取目前fabric上部署的所有<code>wasm chiancode</code></li>
-</ol>
-</li>
-</ul>
-<h1>wasmcc 代码解读</h1>
-<h2 id="基础结构-fabric-链码的基本结构">基础结构(fabric 链码的基本结构)</h2>
-<pre class="mermaid" style="text-align: center;">
-            
-            classDiagram
-class WASMChaincode {
-	+Init(stub shim.ChaincodeStubInterface) Response
-	+Invoke(stub shim.ChaincodeStubInterface) Response
-	-create(stub shim.ChaincodeStubInterface, args []string) Response
-	-execute(stub shim.ChaincodeStubInterface, args []string) Response
-	-installedChaincodes(stub shim.ChaincodeStubInterface, args []string) Response
-}
-class VirtualMachine {
-...
-	+ImportResolver ImportResolver
-
-}
-class ImportResolver {
-	<<interface>>
-	+ResolveFunc(module, field string) FunctionImport
-	+ResolveGlobal(module, field string) int64
-}
-class Resolver {
-	-string chaincodeName
-	-shim.ChaincodeStubInterface stub          
-	-[]string args          
-	-[]byte result        
-	-[]byte errMsg        
-	+ResolveFunc(module, field string) FunctionImport
-	+ResolveGlobal(module, field string) int64
-}
-class ChaincodeStubInterface {
-	<<interface>>
-	...
-}
-class ChaincodeStub {
-	...
-}
-
-ChaincodeStubInterface <|.. chaincodestub importresolver <|.. resolver wasmchaincode <-- virtualmachine ..> ChaincodeStubInterface
-VirtualMachine ..> ImportResolver
-Resolver --> WASMChaincode
-
-          </|..></interface></interface></pre>
-<p><strong>wasm链码的创建流程（create/execute/installedChaincodes三个流程类似）</strong></p>
-<pre class="mermaid" style="text-align: center;">
-            
-            sequenceDiagram
-	participant gRpc Client
-	participant WASMChaincode
-	participant ChaincodeStub
-  gRpc Client ->> WASMChaincode: 调用链码的create函数（触发链码Invoke）
-  WASMChaincode ->> ChaincodeStub: 获取函数及函数参数数组
-  ChaincodeStub -->> WASMChaincode: 返回被调用函数及函数参数数组
-  WASMChaincode ->> WASMChaincode: 调用自身create函数
-  WASMChaincode ->> ChaincodeStub: 检查链码是否存在
-  ChaincodeStub -->> WASMChaincode: 链码已存在
-  WASMChaincode -->> gRpc Client: 失败，链码已存在
-  ChaincodeStub -->> WASMChaincode: 链码不存在，继续执行
-  WASMChaincode ->> WASMChaincode: 对wasm字节码进行解码，得能解压后的字节流
-  WASMChaincode ->> WASMChaincode: 给Resolver对象赋值（里面保存了链码名，stub, 函数参数数组）
-  WASMChaincode ->> WASMChaincode: 调用runWASM，传入wasm字节流,函数名"init",参数个数，以及Resolver对象
-  WASMChaincode -->> gRpc Client: 调用runWASM失败立即返回
-  WASMChaincode ->> WASMChaincode: 创建"chaincodeData"和链码名的组合键
-  WASMChaincode ->> ChaincodeStub: "chaincodeData"和链码名的组合为键，wasm字节流为值，存入状态库
-  ChaincodeStub -->> WASMChaincode: 返回
-  WASMChaincode -->> gRpc Client: 返回
-
-          </pre>
-<h3 id="定义一个结构体">定义一个结构体</h3>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WASMChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Init方法">Init方法</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Init(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Init invoked&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>链码创建或升级时被调用，<code>wasmcc </code>的<code>Init</code>内部只记录了一下日志，没有其它多余的操作</p>
-<h2 id="Invoke方法">Invoke方法</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Invoke(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke function&quot;</span>)</span><br><span class="line">	function, args := stub.GetFunctionAndParameters()</span><br><span class="line">	logger.Debugf(<span class="string">&quot;Invoke function %s with args %v&quot;</span>, function, args)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> function == <span class="string">&quot;create&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// Create a new wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.create(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;execute&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// execute wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.execute(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;installedChaincodes&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// get the list of installed wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.installedChaincodes(stub, args)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> shim.Error(<span class="string">&quot;Invalid invoke function name. Expecting \&quot;execute\&quot; \&quot;create\&quot; \&quot;query\&quot;&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个方法的功能：</p>
-<ul>
-<li>
-<ol>
-<li>
-<p>创建wasm chaincode: 调用函数<code>create</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store a new wasm chaincode in state. Receives chaincode name and wasm file encoded in hex</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> create(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Create function&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting atleast 2 arguments&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	logger.Infof(<span class="string">&quot;Installing wasm chaincode: &quot;</span> + chaincodeName)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//check if same chaincode name is already present</span></span><br><span class="line">	chaincodeFromState, err := stub.GetState(chaincodeName)</span><br><span class="line">	<span class="keyword">if</span> chaincodeFromState != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(ChaincodeExists)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Decode the chaincode</span></span><br><span class="line">	chaincodeHexEncoded := args[<span class="number">1</span>]</span><br><span class="line">	chaincodeDecoded, err := decodeReceivedWASMChaincode(chaincodeHexEncoded)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(chaincodeDecoded, <span class="string">&quot;init&quot;</span>, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Init Response:%d\n&quot;</span>, result)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Chaincode init invocation failed&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Store the chaincode in</span></span><br><span class="line">	ledgerChaincodeKey, err := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	err = stub.PutState(ledgerChaincodeKey, chaincodeDecoded)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		s := fmt.Sprintf(UnknownError, err.Error())</span><br><span class="line">		<span class="keyword">return</span> shim.Error(s)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(<span class="string">&quot;Success! Installed wasm chaincode&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li>
-<ol start="2">
-<li>
-<p>执行wasm chaincode 中的函数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> execute(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting chaincode name to invoke&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	funcToInvoke := args[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the state from the ledger</span></span><br><span class="line">	ledgerChaincodeKey, _ := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	Chaincodebytes, _ := stub.GetState(ledgerChaincodeKey)</span><br><span class="line">	<span class="keyword">if</span> Chaincodebytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;:\&quot;No Chaincode for &quot;</span> + chaincodeName + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(Chaincodebytes, funcToInvoke, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%d\n&quot;</span>, result)</span><br><span class="line">	<span class="keyword">return</span> txnResult(result, r.result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li>
-<ol start="3">
-<li>
-<p>获取已安装的<code>wasm chaincode</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> installedChaincodes(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get all chaincodes from the ledger</span></span><br><span class="line">	installedChaincodeResultsIterator, err := stub.GetStateByPartialCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through result set and get chaincode names</span></span><br><span class="line">	<span class="keyword">var</span> i <span class="type">int</span></span><br><span class="line">	<span class="keyword">var</span> installedChaincodeNamesList = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">0</span>; installedChaincodeResultsIterator.HasNext(); i++ &#123;</span><br><span class="line">		<span class="comment">// Note that we don&#x27;t get the value (2nd return variable), we&#x27;ll just get the marble name from the composite key</span></span><br><span class="line">		responseRange, err := installedChaincodeResultsIterator.Next()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// get the color and name from color~name composite key</span></span><br><span class="line">		objectType, compositeKeyParts, err := stub.SplitCompositeKey(responseRange.Key)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line">		returnedChaincodeName := compositeKeyParts[<span class="number">0</span>]</span><br><span class="line">		logger.Infof(<span class="string">&quot;- found a chaincode from index:%s name:%s\n&quot;</span>, objectType, returnedChaincodeName)</span><br><span class="line">		installedChaincodeNamesList += returnedChaincodeName</span><br><span class="line">		installedChaincodeNamesList += <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%s\n&quot;</span>, installedChaincodeNamesList)</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(installedChaincodeNamesList))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/02/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%80%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/02/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%80%EF%BC%89/" class="post-title-link" itemprop="url">Fabric-通过samples了解fabric（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-02 17:24:40" itemprop="dateCreated datePublished" datetime="2022-11-02T17:24:40+08:00">2022-11-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:08" itemprop="dateModified" datetime="2022-12-03T19:37:08+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>通过fabric-samples了解fabric</h1>
-<p>需要有以下几个步骤：</p>
-<ul>
-<li>
-<ol>
-<li>如果需要，请克隆 <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-samples">hyperledger/fabric-samples</a> 仓库</li>
-</ol>
-</li>
-<li>
-<ol start="2">
-<li>检出适当的版本标签</li>
-</ol>
-</li>
-<li>
-<ol start="3">
-<li>将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 /bin 和 /config 目录中</li>
-</ol>
-</li>
-<li>
-<ol start="4">
-<li>下载指定版本的 Hyperledger Fabric docker 镜像</li>
-</ol>
-</li>
-</ul>
-<p><strong>无梯子会比较麻烦，下面这种方法行不通</strong></p>
-<h1>方法1. 使用脚本完成</h1>
-<p>因为<code>curl -sSL https://bit.ly/2ysbOFE</code>会下载一个脚本，这个脚本如果在无梯子的情况下，是执行不成功的，可以先下载这个脚本，自行修改。</p>
-<p>如果想要最新的生产发布版，忽略所有的版本标识符</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s</span><br></pre></td></tr></table></figure>
-<p>如果你想要一个指定的发布版本，传入一个 Fabric、Fabric-ca 和第三方 Docker 镜像的版本标识符。下边的命令显示了如何下载最新的生产发布版 - <strong>Fabric v2.2.0</strong> 和 <strong>Fabric CA v1.4.7</strong> 。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s -- &lt;fabric_version&gt; &lt;fabric-ca_version&gt;</span><br><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.2.0 1.4.7</span><br></pre></td></tr></table></figure>
-<h1>方法2. 通过fabric项目中的一个脚本</h1>
-<ul>
-<li>
-<p>先<code>clone fabric</code>代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>进入到<code>fabric</code>目录下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd fabric/scripts/</span><br><span class="line">./bootstrap.sh</span><br></pre></td></tr></table></figure>
-<p>接下来无梯子还是会遇到问题,可以对bootstrap.sh中的内容进行修改，或按脚本的流程自己手动下载</p>
-</li>
-</ul>
-<h1>启动测试网络</h1>
-<h2 id="进入到相关目录">进入到相关目录</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd fabric-samples/test-network</span><br></pre></td></tr></table></figure>
-<h2 id="删除掉先前运行的所有容器或工程">删除掉先前运行的所有容器或工程</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
-<h2 id="启动测试网">启动测试网</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh up</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/02/Linux-SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/02/Linux-SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Linux-SSH免密登录问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-02 16:09:47" itemprop="dateCreated datePublished" datetime="2022-11-02T16:09:47+08:00">2022-11-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 18:46:44" itemprop="dateModified" datetime="2022-12-03T18:46:44+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>阿里云服务器的<code>authorized_keys</code>中已经添加过我个人电脑的公钥，一开始是可以免密码登录的，后来估计不知道我个人电脑更新了啥，ssh 登录远程服务器时，提示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to negotiate with `服务器IP地址` port 22: no matching host key type found. Their offer: ssh-rsa,ssh-dss</span><br></pre></td></tr></table></figure>
-<p>解决方法记录一下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/config # 没有就创建</span><br></pre></td></tr></table></figure>
-<p>添加以下内容，保存退出</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Host xxx.xxx.xxx.xxx                          # 服务器地址</span><br><span class="line">HostKeyAlgorithms +ssh-dss</span><br><span class="line">PubkeyAcceptedKeyTypes ssh-rsa,ssh-dss</span><br></pre></td></tr></table></figure>
-<p>网上一般都说是添加上面的前两行就解决了，但我试了不行，只有添加了上面3行内容才解决</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="一个码农的自白"><span class="site-name">一个码农的自白</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">一个码农的自白</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/11/18/Golang%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93/" title="Golang调用C语言编写的动态库"><img class="post-bg" src="https://s2.loli.net/2022/11/18/KvsLg6YXrU154aj.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Golang调用C语言编写的动态库"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/18/Golang%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93/" title="Golang调用C语言编写的动态库">Golang调用C语言编写的动态库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-18T05:33:33.000Z" title="发表于 2022-11-18 13:33:33">2022-11-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/">Golang</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/CGO/">CGO</a></span></div><div class="content">用C语言编写一个动态库
+编写C语言头文件sample_so.h
+在头文件中声明函数
+1int export_func_add(int a, int b);
+编写函数的实现代码sample_so.c
+在源文件中实现函数
+123456#include &quot;sample_so.h&quot;int export_func_add(int a, int b)&#123;  return a + b;&#125;
+编译生成动态链接库
+12gcc -c -fPIC -o sample_so.o sample_so.c # 先生成.o文件gcc -shared -o libsample_so.so sample_o.o # 再生成.so文件
+golang 调用动态库
+先用c语言编写一个动态库的 调用代理（名字瞎取的）
+loadso.h
+1int call_export_func(int a, int b);
+loadso.c
+12345678910111213141516171819#include &quot;loadso.h&quot;#include &lt;dlfcn.h&gt;ch ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-003/" title="Fabric源码系列-003"><img class="post-bg" src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric源码系列-003"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-003/" title="Fabric源码系列-003">Fabric源码系列-003</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-12T12:14:28.000Z" title="发表于 2022-11-12 20:14:28">2022-11-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">BCCSP接口
+BCCSP接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：
+
+KeyGen：密钥生成，包含对称和非对称加密
+KeyDeriv：密钥派生
+KeyImport：密钥导入，从文件、内存、数字证书中导入
+GetKey：获取密钥
+Hash：计算摘要
+GetHash：获取摘要计算实例
+Sign：数字签名
+Verify：签名验证
+Encrypt：数据加密，包含对称和非对称加密
+Decrypt：数据解密，包含对称和非对称加密
+
+SW
+CSP
+fabric/bccsp/sw/impl.go
+CSP是一个SW WRAPPER，调用BCCSP中定义的方法的总的入口就是CSP, CSP利用反射调用真正的实现
+123456789101112type CSP struct &#123;	ks bccsp.KeyStore	KeyGenerators map[reflect.Type]KeyGenerator	KeyDerivers   map[reflect.Type]KeyDeriver	KeyImporters  map[reflect.Type]KeyImporter	Encry ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-002/" title="Fabric源码系列-002"><img class="post-bg" src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric源码系列-002"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-002/" title="Fabric源码系列-002">Fabric源码系列-002</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-12T01:42:56.000Z" title="发表于 2022-11-12 09:42:56">2022-11-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">BCCSP 接口
+以下内容从太彬年久失修的博客盗版而来
+BCCSP是Block Chain Crypto Service Provider的缩写。在Fabric中，BCCSP被抽象成为一个接口。
+bccsp模块提供密码学服务，它包含的具体功能有：对称加密和非对称加密的密钥生成、导入、导出，数字签名和验证，对称加密和解密、摘要计算。
+bccsp使用了依赖倒置原则（Dependence Inversion Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。
+bccsp模块中当前有2种密码实现，它们都是bccsp中的密码学插件：SW和PKCS11，SW代表的是国际标准加密的软实现，SW是software的缩写，PKCS11代指硬实现。
+
+
+扩展阅读：
+PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，
+插入USBKey用网银转账时，就需要走USBKey中的硬件进行数字签名，这个过程就需要使用PCKS11。
+
+密码学通常有软实现和硬实现，软实现就是常用的各种加密库，比如 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/11/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-001/" title="Fabric源码系列-001"><img class="post-bg" src="https://s2.loli.net/2022/11/02/ePMCo3xnyr49zV8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric源码系列-001"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/11/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-001/" title="Fabric源码系列-001">Fabric源码系列-001</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-11T08:49:03.000Z" title="发表于 2022-11-11 16:49:03">2022-11-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">源码总目录结构
+
+
+
+目录名
+说明
+
+
+
+
+bccsp
+全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现
+
+
+ccaas_builder
+编译相关
+
+
+ci
+持续集成(CI)相关配置和脚本
+
+
+cmd
+命令行操作相关入口代码
+
+
+common
+一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）
+
+
+core
+核心库，组件的核心逻辑，针对每一个组件都有一个子目录（chaincode:与智能合约相关);(endorser:与背书节点相关）
+
+
+discovery
+服务发现模块相关代码
+
+
+docs
+文档相关
+
+
+gossip
+组织内部节点数据同步的通信协议，最终一致性算法，用于组织内部数据同步
+
+
+images
+Docker镜像打包，Docker镜像都是通过这个目录下的配置文件生成的
+
+
+integration
+待迁移代码
+
+
+internal
+内部代码，被cmd包等调用
+
+
+msp
+成员服务管理（member service provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理
+
+
+order ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/11/07/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%89%EF%BC%89/" title="Fabric-通过samples了解fabric（三）"><img class="post-bg" src="https://s2.loli.net/2022/11/02/ePMCo3xnyr49zV8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-通过samples了解fabric（三）"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/07/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%89%EF%BC%89/" title="Fabric-通过samples了解fabric（三）">Fabric-通过samples了解fabric（三）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-07T06:44:44.000Z" title="发表于 2022-11-07 14:44:44">2022-11-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">注：以下命令在test-network目录下执行
+12export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录
+部署wasmcc
+1./network.sh deployCC -ccn wasmcc -ccp /Users/mao/work/wasm/opensource/hyperledger/fabric-chaincode-wasm/wasmcc -ccv 1.0 -ccl go
+调用wasmcc部署wasm chaincode
+首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），
+然后通过以下命令部置这个wasm chaincode,**注：命令中的wasm二进制数据的十六进制表示字符串需要按实际的数据进行替换。这个把wasm字节码转为十六进制表示（字符串）的工具是file-encoder
+1peer chaincode invoke -o loca ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Fabric-通过samples了解fabric（二）"><img class="post-bg" src="https://s2.loli.net/2022/11/02/ePMCo3xnyr49zV8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-通过samples了解fabric（二）"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Fabric-通过samples了解fabric（二）">Fabric-通过samples了解fabric（二）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-04T06:42:56.000Z" title="发表于 2022-11-04 14:42:56">2022-11-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">network.sh 脚本命令
+1234567891011121314151617181920212223242526272829303132333435363738394041424344./network.sh helpUsing docker and docker-composeUsage:  network.sh &lt;Mode&gt; [Flags]    Modes:      up - Bring up Fabric orderer and peer nodes. No channel is created      up createChannel - Bring up fabric network with one channel      createChannel - Create and join a channel after the network is created      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)      down - ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/" title="Fabric-编译rust源码为wasm"><img class="post-bg" src="https://s2.loli.net/2022/11/04/8r6XMjU7ZIv9Ohp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-编译rust源码为wasm"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/" title="Fabric-编译rust源码为wasm">Fabric-编译rust源码为wasm</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-04T02:33:27.000Z" title="发表于 2022-11-04 10:33:27">2022-11-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">编译rust源码为wasm
+安装工具链
+可以使用以下两条命令：
+12curl https://sh.rustup.rs -sSf | shcurl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+也可以参考官方安装向导
+创建rust lib工程
+1cargo new hello_world --lib
+生成的Cargo.toml内容为：
+123456789[package]name = &quot;hello_world&quot;version = &quot;0.1.0&quot;edition = &quot;2021&quot;# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html[dependencies]
+添加一些内容到Cargo.toml中去
+12345[lib]crate-type = [&quot;cdylib&quot;][dependencies] ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/" title="Fabric-wasmcc介绍"><img class="post-bg" src="https://s2.loli.net/2022/11/02/ePMCo3xnyr49zV8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-wasmcc介绍"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/" title="Fabric-wasmcc介绍">Fabric-wasmcc介绍</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-03T02:52:12.000Z" title="发表于 2022-11-03 10:52:12">2022-11-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">wasmcc
+全称：Hyperledger Fabric WASM Chaincode，是由hypterledger-labs提供的一个链码。作用是可以把使用rust/C编写代码生成wasm字节码，把wasm字节码部署到fabric中，然后使用wasmcc作为代理调用wasm中的函数。fabric以此方式来支持wasm chaincode
+步骤
+
+
+
+wasmcc部署到fabric中，扮演wasm代码调用的统一入口，相当于wasm代码的调用代理。
+wasmcc的部署和其它的普通链码的部署方式一样，wasmcc没有实例化参数，通过peer cli部署的命令如下：
+
+
+
+1peer chaincode install -n wasmcc -v 1.0 -p github.com/chaincode/wasmer-chaincode-test/wasmcc
+1peer chaincode instantiate -n wasmcc -v 1.0 -C &lt;channel-name&gt; -c &#x27;&#123;&quot;Args&quot;:[]&#125;&#x27; -o  ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/11/02/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%80%EF%BC%89/" title="Fabric-通过samples了解fabric（一）"><img class="post-bg" src="https://s2.loli.net/2022/11/02/ePMCo3xnyr49zV8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-通过samples了解fabric（一）"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/02/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%80%EF%BC%89/" title="Fabric-通过samples了解fabric（一）">Fabric-通过samples了解fabric（一）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-02T09:24:40.000Z" title="发表于 2022-11-02 17:24:40">2022-11-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">通过fabric-samples了解fabric
+需要有以下几个步骤：
+
+
+
+如果需要，请克隆 hyperledger/fabric-samples 仓库
+
+
+
+
+检出适当的版本标签
+
+
+
+
+将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 /bin 和 /config 目录中
+
+
+
+
+下载指定版本的 Hyperledger Fabric docker 镜像
+
+
+
+无梯子会比较麻烦，下面这种方法行不通
+方法1. 使用脚本完成
+因为curl -sSL https://bit.ly/2ysbOFE会下载一个脚本，这个脚本如果在无梯子的情况下，是执行不成功的，可以先下载这个脚本，自行修改。
+如果想要最新的生产发布版，忽略所有的版本标识符
+1curl -sSL https://bit.ly/2ysbOFE | bash -s
+如果你想要一个指定的发布版本，传入一个 Fabric、Fabric-ca 和第三方 Docker 镜像的版本标识符。下边的命令显示了如何下载最新的生产发布版 - Fabric v2.2.0 和 Fa ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/02/Linux-SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E9%97%AE%E9%A2%98/" title="Linux-SSH免密登录问题"><img class="post-bg" src="https://s2.loli.net/2022/11/07/ORKs79jk4Hn1Xiz.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux-SSH免密登录问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/02/Linux-SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E9%97%AE%E9%A2%98/" title="Linux-SSH免密登录问题">Linux-SSH免密登录问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-02T08:09:47.000Z" title="发表于 2022-11-02 16:09:47">2022-11-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">阿里云服务器的authorized_keys中已经添加过我个人电脑的公钥，一开始是可以免密码登录的，后来估计不知道我个人电脑更新了啥，ssh 登录远程服务器时，提示：
+1Unable to negotiate with `服务器IP地址` port 22: no matching host key type found. Their offer: ssh-rsa,ssh-dss
+解决方法记录一下：
+1vim ~/.ssh/config # 没有就创建
+添加以下内容，保存退出
+123Host xxx.xxx.xxx.xxx                          # 服务器地址HostKeyAlgorithms +ssh-dssPubkeyAcceptedKeyTypes ssh-rsa,ssh-dss
+网上一般都说是添加上面的前两行就解决了，但我试了不行，只有添加了上面3行内容才解决
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/6/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#content-inner">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#content-inner">8</a><a class="extend next" rel="next" href="/page/8/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点02"/></a><div class="content"><a class="title" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02">Docker知识点02</a><time datetime="2024-05-17T02:21:25.000Z" title="发表于 2024-05-17 10:21:25">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vcpkg的使用记录"/></a><div class="content"><a class="title" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录">vcpkg的使用记录</a><time datetime="2024-04-24T00:24:30.000Z" title="发表于 2024-04-24 08:24:30">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm"><img src="https://s2.loli.net/2024/03/05/l7IdcjQfewYZRAa.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="源码编译安装nasm"/></a><div class="content"><a class="title" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm">源码编译安装nasm</a><time datetime="2024-03-05T03:26:47.000Z" title="发表于 2024-03-05 11:26:47">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点01"/></a><div class="content"><a class="title" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01">Docker知识点01</a><time datetime="2024-02-19T01:16:00.000Z" title="发表于 2024-02-19 09:16:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录"><img src="https://s2.loli.net/2024/02/18/SofQ9nNGWbZesBy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nfs共享目录"/></a><div class="content"><a class="title" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录">nfs共享目录</a><time datetime="2024-02-18T07:17:59.000Z" title="发表于 2024-02-18 15:17:59">2024-02-18</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C++</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/GUI/"><span class="card-category-list-name">GUI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"><span class="card-category-list-name">开发环境</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/"><span class="card-category-list-name">Golang</span><span class="card-category-list-count">8</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/CGO/"><span class="card-category-list-name">CGO</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%BA%93/"><span class="card-category-list-name">库</span><span class="card-category-list-count">2</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/window/" style="font-size: 1.1em; color: #999">window</a> <a href="/tags/fedora/" style="font-size: 1.1em; color: #999">fedora</a> <a href="/tags/Option/" style="font-size: 1.3em; color: #99a1ac">Option</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密登录</a> <a href="/tags/git/" style="font-size: 1.1em; color: #999">git</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">多线程</a> <a href="/tags/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD/" style="font-size: 1.1em; color: #999">去中心化身份</a> <a href="/tags/C-Development-Tools-and-Libraries/" style="font-size: 1.1em; color: #999">C Development Tools and Libraries</a> <a href="/tags/Coad%E6%B3%95%E6%B5%8B/" style="font-size: 1.1em; color: #999">Coad法测</a> <a href="/tags/benchmark-test/" style="font-size: 1.1em; color: #999">benchmark test</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">关联关系</a> <a href="/tags/spark/" style="font-size: 1.1em; color: #999">spark</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">网络结构</a> <a href="/tags/key/" style="font-size: 1.1em; color: #999">key</a> <a href="/tags/mtu/" style="font-size: 1.1em; color: #999">mtu</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E7%A0%81/" style="font-size: 1.1em; color: #999">机器码</a> <a href="/tags/Spark/" style="font-size: 1.5em; color: #99a9bf">Spark</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" style="font-size: 1.1em; color: #999">服务发现</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.1em; color: #999">指针</a> <a href="/tags/wasm-chaincode/" style="font-size: 1.1em; color: #999">wasm chaincode</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.3em; color: #99a1ac">内存</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">联邦学习</a> <a href="/tags/Rust/" style="font-size: 1.1em; color: #999">Rust</a> <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" style="font-size: 1.1em; color: #999">接口文档</a> <a href="/tags/CMake/" style="font-size: 1.1em; color: #999">CMake</a> <a href="/tags/%E5%B5%8C%E5%A5%97/" style="font-size: 1.1em; color: #999">嵌套</a> <a href="/tags/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">聚合关系</a> <a href="/tags/nasm/" style="font-size: 1.1em; color: #999">nasm</a> <a href="/tags/LoD/" style="font-size: 1.1em; color: #999">LoD</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密码登录</a> <a href="/tags/ISP/" style="font-size: 1.1em; color: #999">ISP</a> <a href="/tags/Mutex/" style="font-size: 1.1em; color: #999">Mutex</a> <a href="/tags/Fabric/" style="font-size: 1.3em; color: #99a1ac">Fabric</a> <a href="/tags/%E5%A4%9A%E6%96%B9%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97/" style="font-size: 1.1em; color: #999">多方安全计算</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">反向代理</a> <a href="/tags/Solo/" style="font-size: 1.1em; color: #999">Solo</a> <a href="/tags/CARP/" style="font-size: 1.1em; color: #999">CARP</a> <a href="/tags/Peer/" style="font-size: 1.1em; color: #999">Peer</a> <a href="/tags/cobra/" style="font-size: 1.1em; color: #999">cobra</a> <a href="/tags/wasm-pack/" style="font-size: 1.1em; color: #999">wasm-pack</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">77</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-05-18T09:25:30.464Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
   }
-</script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">暂留白</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">77</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">36</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">169</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">暂留白</span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
--->
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
-
-
-  
-
-  
-
-</body>
-</html>
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

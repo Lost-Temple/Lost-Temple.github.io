@@ -1,1503 +1,334 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一个码农的自白">
-<meta property="og:url" content="http://www.blockchainof.com/page/2/index.html">
-<meta property="og:site_name" content="一个码农的自白">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="暂留白">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://www.blockchainof.com/page/2/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>一个码农的自白</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">一个码农的自白</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fas fa-folder-open fa-fw"></i>分类</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一个码农的自白</title><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一个码农的自白',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-05-18 17:25:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Linux系统中Pycharm界面显示问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-06 19:07:22" itemprop="dateCreated datePublished" datetime="2023-08-06T19:07:22+08:00">2023-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-27 16:47:33" itemprop="dateModified" datetime="2023-10-27T16:47:33+08:00">2023-10-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+        get: key => {
+          const itemStr = localStorage.getItem(key)
       
-          <h1>前言</h1>
-<p>打开<code>Pycharm</code>，激活界面中的中文显示不了，因为缺少了字体，<code>文泉驿正黑</code>，我用的是<code>Fedora</code>，记录一下<code>Fedora</code>下安装<code>文泉驿正黑</code>这个字体</p>
-<h1>安装<code>文泉驿正黑</code></h1>
-<h2 id="安装">安装</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install -y wqy-zenhei-fonts</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>也可以使用<code>Fedora</code>的软件包管理器安装<code>ttf-wqy-zenhei</code>字体包</p>
-</blockquote>
-<h2 id="刷新字体">刷新字体</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fc-cache -f -v</span><br></pre></td></tr></table></figure>
-<h2 id="验证">验证</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fc-list | grep &quot;文泉驿正黑&quot;</span><br></pre></td></tr></table></figure>
-
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/07/14/Python%E4%B8%AD%E7%9A%84args%E5%92%8Ckwargs%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/14/Python%E4%B8%AD%E7%9A%84args%E5%92%8Ckwargs%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">Python中的args和kwargs参数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-07-14 17:38:31 / 修改时间：17:54:20" itemprop="dateCreated datePublished" datetime="2023-07-14T17:38:31+08:00">2023-07-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>*args &amp;&amp; **kwargs</h1>
-<p>在Python项目的代码中经常会见到这两个词 args 和 kwargs，前面通常还会加上一个或者两个星号。其实这只是编程人员约定的变量名字，args 是 arguments 的缩写，表示位置参数；kwargs 是 keyword arguments 的缩写，表示关键字参数。这其实就是 Python 中可变参数的两种形式，并且 *args 必须放在 **kwargs 的前面，因为位置参数在关键字参数的前面。</p>
-<h1>在函数定义中的用法</h1>
-<h2 id="args的用法">*args的用法</h2>
-<p>*args就是就是传递一个可变参数列表给函数实参，这个参数列表的数目未知，甚至长度可以为0。下面这段代码演示了如何使用args</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_args</span>(<span class="params">first, *args</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Required argument: &#x27;</span>, first)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(args))</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> args:</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&#x27;Optional argument: &#x27;</span>, v)</span><br><span class="line"></span><br><span class="line">test_args(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-<p>第一个参数是必须要传入的参数，所以使用了第一个形参，而后面三个参数则作为可变参数列表传入了实参，并且是作为元组tuple来使用的。代码的运行结果如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Required argument:  1</span><br><span class="line">&lt;class &#x27;tuple&#x27;&gt;</span><br><span class="line">Optional argument:  2</span><br><span class="line">Optional argument:  3</span><br><span class="line">Optional argument:  4</span><br></pre></td></tr></table></figure>
-<h2 id="kwargs用法">**kwargs用法</h2>
-<p>**kwargs则是将一个可变的关键字参数的字典传给函数实参，同样参数列表长度可以为0或为其他值。下面这段代码演示了如何使用kwargs：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_kwargs</span>(<span class="params">first, *args, **kwargs</span>):</span><br><span class="line">   <span class="built_in">print</span>(<span class="string">&#x27;Required argument: &#x27;</span>, first)</span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>(kwargs))</span><br><span class="line">   <span class="keyword">for</span> v <span class="keyword">in</span> args:</span><br><span class="line">      <span class="built_in">print</span> (<span class="string">&#x27;Optional argument (args): &#x27;</span>, v)</span><br><span class="line">   <span class="keyword">for</span> k, v <span class="keyword">in</span> kwargs.items():</span><br><span class="line">      <span class="built_in">print</span> (<span class="string">&#x27;Optional argument %s (kwargs): %s&#x27;</span> % (k, v))</span><br><span class="line"></span><br><span class="line">test_kwargs(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, k1=<span class="number">5</span>, k2=<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-<p>正如前面所说的，args类型是一个tuple，而kwargs则是一个字典dict，并且args只能位于kwargs的前面。代码的运行结果如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Required argument:  1</span><br><span class="line">&lt;class &#x27;dict&#x27;&gt;</span><br><span class="line">Optional argument (args):  2</span><br><span class="line">Optional argument (args):  3</span><br><span class="line">Optional argument (args):  4</span><br><span class="line">Optional argument k2 (kwargs): 6</span><br><span class="line">Optional argument k1 (kwargs): 5</span><br></pre></td></tr></table></figure>
-<h1>调用函数中的用法</h1>
-<p>args和kwargs不仅可以在函数定义中使用，还可以在函数调用中使用。在调用时使用就相当于pack（打包）和unpack（解包），类似于元组的打包和解包。</p>
-<p>首先来看一下使用args来解包调用函数的代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_args_kwargs</span>(<span class="params">arg1, arg2, arg3</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;arg1:&quot;</span>, arg1)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;arg2:&quot;</span>, arg2)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;arg3:&quot;</span>, arg3)</span><br><span class="line"></span><br><span class="line">args = (<span class="string">&quot;two&quot;</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br><span class="line">test_args_kwargs(*args)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arg1: two</span><br><span class="line">arg2: 3</span><br><span class="line">arg3: 5</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>将元组解包后传给对应的实参，kwargs的用法与其类似。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kwargs = &#123;<span class="string">&quot;arg3&quot;</span>: <span class="number">3</span>, <span class="string">&quot;arg2&quot;</span>: <span class="string">&quot;two&quot;</span>, <span class="string">&quot;arg1&quot;</span>: <span class="number">5</span>&#125;</span><br><span class="line">test_args_kwargs(**kwargs)</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arg1: 5</span><br><span class="line">arg2: two</span><br><span class="line">arg3: 3</span><br></pre></td></tr></table></figure>
-<h1>总结</h1>
-<p>args和kwargs组合起来可以传入任意的参数，这在参数未知的情况下是很有效的，同时加强了函数的可拓展性。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/07/14/Python%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84wraps%E7%9A%84%E4%BD%9C%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/14/Python%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84wraps%E7%9A%84%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">Python中装饰器的wraps的作用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-07-14 15:50:52 / 修改时间：16:15:45" itemprop="dateCreated datePublished" datetime="2023-07-14T15:50:52+08:00">2023-07-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>装饰器</h1>
-<p><code>Python</code>装饰器<code>decorator</code>在实现的时候，被装饰后的函数其实已经是另外一个函数了（函数名等函数属性会发生改变），就相当于产生了<code>副作用</code>，<code>Python</code>的<code>functools</code>包中提供了一个叫<code>wraps</code>的<code>decorator</code>来消除这样的<code>副作用</code>。写一个<code>decorator</code>的时候，最好在实现之前加上<code>functools</code>的<code>wrap</code>，它能保留原有函数的<code>__name__</code>和<code>__doc__</code>。</p>
-<h1>示例1（副作用）</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;decorator&quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Calling decorated function...&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">example</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;DocString&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Called example function.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(example.__name__, example.__doc__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    example()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>打印现来的是：wrapper decorator 而不是 example DocString</p>
-</blockquote>
-<h1>示例2（消除副作用）</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Decorator&quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Calling decorated function...&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">example</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;DocString&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Called example function&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    example()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>无毒副作用, 这就是<code>@wraps</code>的作用</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/" class="post-title-link" itemprop="url">怎么把K8S中部署的服务端口映射出来</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-30 17:56:12 / 修改时间：17:59:22" itemprop="dateCreated datePublished" datetime="2023-06-30T17:56:12+08:00">2023-06-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li>
-<p>修改fate-10001命名空间下的mysql的端口映射模式</p>
-<ul>
-<li>先查看fate-10001下有哪些服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n fate-10001</span><br></pre></td></tr></table></figure>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                               AGE</span><br><span class="line">spark-master         ClusterIP      None            &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16d</span><br><span class="line">fateflow             ClusterIP      None            &lt;none&gt;          9360/TCP,9380/TCP                     16d</span><br><span class="line">spark-worker-1       ClusterIP      None            &lt;none&gt;          8081/TCP                              16d</span><br><span class="line">fateflow-client      ClusterIP      10.43.80.240    &lt;none&gt;          9360/TCP,9380/TCP                     16d</span><br><span class="line">datanode             ClusterIP      10.43.247.69    &lt;none&gt;          9000/TCP,9864/TCP                     16d</span><br><span class="line">frontend             NodePort       10.43.24.110    &lt;none&gt;          8080:31925/TCP,8443:31194/TCP         16d</span><br><span class="line">notebook             ClusterIP      10.43.41.5      &lt;none&gt;          20000/TCP                             16d</span><br><span class="line">fateboard            ClusterIP      10.43.3.44      &lt;none&gt;          8080/TCP                              16d</span><br><span class="line">namenode             ClusterIP      10.43.146.160   &lt;none&gt;          9000/TCP,9870/TCP                     16d</span><br><span class="line">pulsar               ClusterIP      10.43.42.170    &lt;none&gt;          6650/TCP,6651/TCP,8080/TCP,8081/TCP   16d</span><br><span class="line">postgres             ClusterIP      10.43.182.72    &lt;none&gt;          5432/TCP                              16d</span><br><span class="line">mysql                ClusterIP      10.43.42.233    &lt;none&gt;          3306/TCP                              16d</span><br><span class="line">nginx                NodePort       10.43.101.234   &lt;none&gt;          9300:31960/TCP,9310:32603/TCP         16d</span><br><span class="line">spark-client         ClusterIP      10.43.69.60     &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16d</span><br><span class="line">site-portal-server   ClusterIP      10.43.237.196   &lt;none&gt;          8080/TCP,8443/TCP                     16d</span><br><span class="line">pulsar-public-tls    LoadBalancer   10.43.144.61    192.168.11.71   6651:32593/TCP                        16d</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意msyql 的type 是 ClusterIP，这样就只能被k8s集群内部访问而不能被外部访问到，所以这里要把它改为NodePort模式</p>
-</blockquote>
-<ul>
-<li>修改mysql的type</li>
-</ul>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit svc mysql -n fate-10001</span><br></pre></td></tr></table></figure>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-13T05:46:12Z&quot;</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line">    <span class="attr">release:</span> <span class="string">party10001</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;33441&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">08d5e8fe-7853-4f85-b17c-9315afdd6055</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">clusterIPs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">internalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">ipFamilies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">IPv4</span></span><br><span class="line"><span class="attr">ipFamilyPolicy:</span> <span class="string">SingleStack</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp-mysql</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">ClusterIP</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">loadBalancer:</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>修改后的内容为：</p>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-13T05:46:12Z&quot;</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line">    <span class="attr">release:</span> <span class="string">party10001</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;33441&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">08d5e8fe-7853-4f85-b17c-9315afdd6055</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">clusterIPs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">internalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">externalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">ipFamilies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">IPv4</span></span><br><span class="line"><span class="attr">ipFamilyPolicy:</span> <span class="string">SingleStack</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp-mysql</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">nodePort:</span> <span class="number">31306</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">loadBalancer:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" class="post-title-link" itemprop="url">vim常用插件的使用备忘录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-16 20:50:11 / 修改时间：20:55:27" itemprop="dateCreated datePublished" datetime="2023-06-16T20:50:11+08:00">2023-06-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1><code>vim-surround</code> 的用法</h1>
-<ul>
-<li><code>cs'&quot;</code>用双引号替换单引号</li>
-<li><code>cs&quot;'</code>用单引号替换双引号</li>
-<li><code>ysiw&lt;q&gt;</code>给当前单词加上标签<code>&lt;q&gt;</code></li>
-<li><code>cst&quot;</code>用双引号替换当前的标签</li>
-<li><code>ds'</code>删除单引号</li>
-<li><code>ysiw]</code>在当前单词外加上方括号</li>
-<li><code>yss]</code>在当前句子处加上方括号</li>
-</ul>
-<h1>vim编辑<code>markdown</code>在浏览器中预览效果</h1>
-<ul>
-<li>安装<code>coc-nvim</code>插件</li>
-<li>使用<code>coc-nvim</code>插件安装<code>coc-markdown</code>插件</li>
-<li>使用<code>:CocCommand markdown-preview-enhanced.openPreview</code>命令在浏览器中打开预览</li>
-</ul>
-<h1><code>coc-vim</code>的使用</h1>
-<ul>
-<li>可以先安装一个<code>coc-marketplace</code>插件:<code>:CocInstall coc-marketplace</code></li>
-<li><code>CocList marketplace</code>列出所有可用的插件</li>
-<li>在选中的插件上可以使用<code>tab</code>来进行<code>install</code>,<code>uninstall</code>,<code>homepage</code>等动作</li>
-</ul>
-<h1><code>vim-easy-align</code>的使用</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  Lorem   = ipsum</span><br><span class="line">  dolor   = sit</span><br><span class="line">   amet  += consectetur == adipiscing</span><br><span class="line">   elit  -= sed           != do</span><br><span class="line">eiusmod   = tempor        = incididunt</span><br><span class="line">     ut &amp;&amp;= labore</span><br></pre></td></tr></table></figure>
-<ul>
-<li>
-<p>normal模式下：<code>gaip</code></p>
-<ul>
-<li><code>=</code>Around the 1st occurrentces</li>
-<li><code>2=</code>Around the 2nd occurrences</li>
-<li><code>*=</code>Around all occurrences</li>
-<li><code>**=</code>Left/Right alternating alignment around all occurrences</li>
-<li><code>&lt;Enter&gt;</code>Switching between left/right/center alignment modes</li>
-</ul>
-</li>
-<li>
-<p><code>visual line</code> 模式: <code>vip</code></p>
-<ul>
-<li><code>ga</code>进入<code>easyalign</code>模式</li>
-<li><code>&lt;Enter&gt;</code> 切换对齐模式</li>
-<li>输入<code>对齐目标字符</code>, 再<code>&lt;Space&gt;</code> 完成对齐操作</li>
-</ul>
-</li>
-</ul>
-<h1><code>nerdtree</code>的使用</h1>
-<ul>
-<li><code>j</code>, <code>k</code> 在目录下上移动</li>
-<li><code>o</code>展开目录或打开文件，焦点会跑到右侧文件视图中</li>
-<li><code>ctrl + w + h</code>可以让焦点从文件中回到左侧目录视图中</li>
-<li><code>:NERDTreeToggle</code>命令是<code>NERDTree</code>打开或关闭的开关,在<code>.vimrc</code>中设置快捷键把它用<code>F3</code>来控制  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 设置NerdTree</span><br><span class="line">map &lt;F3&gt; :NERDTreeMirror&lt;CR&gt;</span><br><span class="line">map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1><code>TagBar</code>的使用</h1>
-<ul>
-<li><code>:TagbarToggle</code></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" class="post-title-link" itemprop="url">k8s中configMap编辑示例</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-14 14:27:16 / 修改时间：14:50:24" itemprop="dateCreated datePublished" datetime="2023-06-14T14:27:16+08:00">2023-06-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>背景</h1>
-<p>部署在k3s中的一个应用，在前端页面中上传文件，出现报错，提示是文件太大。需要修改nginx配置来解决这个问题。这个应用部署在fate-10000命名空间下</p>
-<h1>解决</h1>
-<ul>
-<li>
-<p>查看一下fate-10000这个命名空间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get all  -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//fate-10000.jpg" alt="查看命名空间"></p>
-</li>
-<li>
-<p>先查看一下<code>site-portal</code>前端<code>pod</code>的描述信息：例子中为<code>fate-10000</code>命名空间下的<code>frontend-85b6fdffc4-4lkpc</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod frontend-85b6fdffc4-4lkpc -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//frontend.jpg" alt="frontend描述信息"></p>
-</li>
-</ul>
-<blockquote>
-<p>注意图中nginx的配置文件会从nginx-conf-https中获取一些运维自定义的配置，nginx-conf-http是一个configMap, configMap的作用我理解的就是给运维人员后期动态去修改配置，pod从configMap中获取这些自定义的值后就达到了动态修改配置的目的，当然configMap修改后，相关的pod需要重启</p>
-</blockquote>
-<ul>
-<li>
-<p>查看命名空间下的configMap</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get cm -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//get-cm.jpg" alt="configMap"></p>
-</li>
-<li>
-<p>编辑configMap中的内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//edit-cm.jpg" alt="编辑configMap"></p>
-</li>
-<li>
-<p>获取deployment</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//deployment.jpg" alt="deployment"></p>
-</li>
-<li>
-<p>用另外一种方式确认某个pod是否和某个configMap有关联</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy frontend -n fate-10000 -o yaml</span><br></pre></td></tr></table></figure>
-<p>返回如下：</p>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">   <span class="attr">deployment.kubernetes.io/revision:</span> <span class="string">&quot;2&quot;</span></span><br><span class="line">   <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10000</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-14T01:09:35Z&quot;</span></span><br><span class="line"><span class="attr">generation:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">   <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">   <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">   <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">   <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">   <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">   <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line">   <span class="attr">release:</span> <span class="string">party10000</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10000</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;319024&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">e62cf903-86b2-4799-96e1-f366ed4e3395</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">progressDeadlineSeconds:</span> <span class="number">600</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">revisionHistoryLimit:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">   <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">      <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line"><span class="attr">strategy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line"><span class="attr">template:</span></span><br><span class="line">   <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">kubectl.kubernetes.io/restartedAt:</span> <span class="string">&quot;2023-06-14T10:41:20+08:00&quot;</span></span><br><span class="line">      <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">      <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">      <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">      <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line">      <span class="attr">release:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SITEPORTAL_SERVER_HOST</span></span><br><span class="line">         <span class="attr">value:</span> <span class="string">site-portal-server</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">federatedai/site-portal-frontend:v0.3.0</span></span><br><span class="line">      <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8443</span></span><br><span class="line">         <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">resources:</span> &#123;&#125;</span><br><span class="line">      <span class="attr">terminationMessagePath:</span> <span class="string">/dev/termination-log</span></span><br><span class="line">      <span class="attr">terminationMessagePolicy:</span> <span class="string">File</span></span><br><span class="line">      <span class="attr">volumeMounts:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/var/lib/site-portal/cert</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/etc/nginx/conf.d/nginx.conf.template</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line">         <span class="attr">subPath:</span> <span class="string">nginx.conf.template</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">schedulerName:</span> <span class="string">default-scheduler</span></span><br><span class="line">      <span class="attr">securityContext:</span> &#123;&#125;</span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">terminationGracePeriodSeconds:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="attr">secret:</span></span><br><span class="line">         <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">         <span class="attr">secretName:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">         <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">availableReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">conditions:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">lastTransitionTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">lastUpdateTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">message:</span> <span class="string">Deployment</span> <span class="string">has</span> <span class="string">minimum</span> <span class="string">availability.</span></span><br><span class="line">   <span class="attr">reason:</span> <span class="string">MinimumReplicasAvailable</span></span><br><span class="line">   <span class="attr">status:</span> <span class="string">&quot;True&quot;</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Available</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">lastTransitionTime:</span> <span class="string">&quot;2023-06-14T01:09:35Z&quot;</span></span><br><span class="line">   <span class="attr">lastUpdateTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">message:</span> <span class="string">ReplicaSet</span> <span class="string">&quot;frontend-85b6fdffc4&quot;</span> <span class="string">has</span> <span class="string">successfully</span> <span class="string">progressed.</span></span><br><span class="line">   <span class="attr">reason:</span> <span class="string">NewReplicaSetAvailable</span></span><br><span class="line">   <span class="attr">status:</span> <span class="string">&quot;True&quot;</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Progressing</span></span><br><span class="line"><span class="attr">observedGeneration:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">readyReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">updatedReplicas:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意看其中的 configMap, 就是: nginx-conf-https，所以说明我们可以去改nginx-config-https这个configMap中的值，修改会作用于frontend</p>
-</blockquote>
-</li>
-<li>
-<p>编辑configMap</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
-<p>上述命令会使用nano打开configMap,可以对configMap进行编辑<br>
-<img src="/.com//edit-cm.jpg" alt="编辑configMap"></p>
-<ul>
-<li>重启frontend</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl rollout restart deployment/frontend -n fate-10000</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意这个命令中的 <code>deployment/frontend</code>, 命令中需要有<code>deployment/</code>加在前面</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/" class="post-title-link" itemprop="url">ABY开源框架编译</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-11 18:20:53" itemprop="dateCreated datePublished" datetime="2023-06-11T18:20:53+08:00">2023-06-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-13 08:22:59" itemprop="dateModified" datetime="2023-06-13T08:22:59+08:00">2023-06-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>ABY开源框架</h1>
-<p><a target="_blank" rel="noopener" href="https://github.com/encryptogroup/ABY">ABY开源框架</a></p>
-<h1>编译准备</h1>
-<ul>
-<li>cmake<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install cmake</span><br></pre></td></tr></table></figure>
-</li>
-<li>C Development Tools and Libraries<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf group install &quot;C Development Tools and Libraries&quot; &quot;Development Tools&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li>boost<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install boost-devel</span><br></pre></td></tr></table></figure>
-</li>
-<li>libgmp<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install gmp-devel</span><br></pre></td></tr></table></figure>
-</li>
-<li>libssl<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install openssl-devel</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1>编译</h1>
-<ul>
-<li>git clone<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/encryptogroup/ABY.git</span><br></pre></td></tr></table></figure>
-</li>
-<li>cd<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ABY/</span><br></pre></td></tr></table></figure>
-</li>
-<li>mkdir<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir build &amp;&amp; cd build</span><br></pre></td></tr></table></figure>
-</li>
-<li>cmake &amp;&amp; make &amp;&amp; make install<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DCMAKE_INSTALL_PREFIX=&quot;&quot;</span><br><span class="line">make</span><br><span class="line">make DESTDIR=~/path/to/aby/prefix install</span><br></pre></td></tr></table></figure>
-or<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DCMAKE_INSTALL_PREFIX=~/path/to/aby/prefix</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>这一步我出错了。编译报错文件：<code>ABY/extern/ENCRYPTO_utils/src/ENCRYPTO_utils/channel.cpp</code><br>
-错误原因就是缺少了<code>#include &lt;cstdlib&gt;</code>,引入头文件后就好了</p>
-</blockquote>
-<h1>编译选项</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DCMAKE_BUILD_TYPE=Release</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">or</span></span><br><span class="line">cmake .. -DCMAKE_BUILD_TYPE=Debug</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/" class="post-title-link" itemprop="url">手动部署KubeFate</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-09 09:39:10" itemprop="dateCreated datePublished" datetime="2023-06-09T09:39:10+08:00">2023-06-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-11 19:24:08" itemprop="dateModified" datetime="2023-06-11T19:24:08+08:00">2023-06-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>依赖的软件环境</h1>
-<ul>
-<li>k8s：我使用的是k3s</li>
-<li>ingress-nginx</li>
-<li>拉取KubeFate的代码并编译生成kubefate可执行文件：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/FederatedAI/KubeFATE.git</span><br><span class="line">cd kubefate</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>官方文档有推荐版本，我没去管它</p>
-</blockquote>
-<h1>创建k8s服务的帐号以及namespace等</h1>
-<p>在<code>KubeFATE/k8s-deploy</code>目录下，有个<code>rbac-config.yaml</code>文件，里面有定义了帐号，命名空间等内容：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kube-fate</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-admin</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-role</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">kubefate-admin</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-secret</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">Opaque</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="attr">kubefateUsername:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">kubefatePassword:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">mariadbUsername:</span> <span class="string">kubefate</span></span><br><span class="line">  <span class="attr">mariadbPassword:</span> <span class="string">kubefate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-role</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">namespaces</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">configmaps</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">services</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">secrets</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">persistentvolumeclaims</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">serviceaccounts</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">pods</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">pods/log</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">nodes</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">apps</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">deployments</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">statefulsets</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">deployments/status</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">statefulsets/status</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">networking.k8s.io</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ingresses</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">networking.istio.io</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">gateways</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">virtualservices</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">roles</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">rolebindings</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">batch</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">jobs</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">patch</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果需要修改用户名密码之类的，可以查看上述yaml中的配置自行修改</p>
-</blockquote>
-<p>在<code>KubeFATE/k8s-deploy</code>目录下执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl apply -f ./rbac-config.yaml</span><br></pre></td></tr></table></figure>
-<h1>准备域名及部署KubeFATE服务</h1>
-<p>因为KubeFATE服务向外暴露RESTful APIs，所以系统管理员需要为此准备域名的DNS解析。在我们的配置样例里，使用<code>example.com</code>作为域名（需要修改成真实域名，但是为了学习搭建就无所谓了）。同时，系统管理员需要为每个FATE集群创建一个<code>namespace</code>，譬如<code>party_id</code>为<code>9999</code>的FATE集群，创建一个<code>fate-9999</code>的<code>namespace</code>，然后进行配额控制。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ./kubefate.yaml</span><br><span class="line">kubectl create namespace fate-9999</span><br></pre></td></tr></table></figure>
-<p>后续再执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl get ingress -A</span><br></pre></td></tr></table></figure>
-<p>可以看到返回类似于以下信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAMESPACE   NAME       CLASS   HOSTS         ADDRESS       PORTS   AGE</span><br><span class="line">kube-fate   kubefate   nginx   example.com   10.43.62.61   80      12m</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>ADDRESS 10.43.62.61 添加至/etc/hosts中</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.43.62.61 example.com</span><br></pre></td></tr></table></figure>
-<p>查看ingress-nginx命名空间下的服务：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl get svc -n ingress-nginx</span><br></pre></td></tr></table></figure>
-<p>可以看到返回类似于以下信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NAME                                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE</span><br><span class="line">ingress-nginx-controller-admission   ClusterIP   10.43.169.125   &lt;none&gt;        443/TCP                      4d</span><br><span class="line">ingress-nginx-controller             NodePort    10.43.62.61     &lt;none&gt;        80:31683/TCP,443:31292/TCP   4d</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl get svc -n kube-fate</span><br></pre></td></tr></table></figure>
-<p>返回类似以下信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE</span><br><span class="line">mariadb    ClusterIP   10.43.128.75   &lt;none&gt;        3306/TCP   33m</span><br><span class="line">kubefate   ClusterIP   10.43.235.20   &lt;none&gt;        8080/TCP   33m</span><br></pre></td></tr></table></figure>
-<p>完成以上步骤后，docker容器的启动情况查看一下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps </span><br></pre></td></tr></table></figure>
-<p>返回类似于以下信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID   IMAGE                        COMMAND                   CREATED          STATUS          PORTS     NAMES</span><br><span class="line">5ece9858fd52   93aad7121ec0                 &quot;/kubefate service&quot;       11 minutes ago   Up 11 minutes             k8s_kubefate_kubefate-74897fc6d7-zrcqf_kube-fate_d221b8f5-b6f1-4861-9281-5561f01875f3_2</span><br><span class="line">116bb9217b97   9a79847e85fb                 &quot;docker-entrypoint.s…&quot;   12 minutes ago   Up 12 minutes             k8s_mariadb_mariadb-7456b6c968-b9zlx_kube-fate_2b1ac004-4155-4b11-bb3f-afd91e0563d2_0</span><br><span class="line">5d13492b8755   rancher/mirrored-pause:3.6   &quot;/pause&quot;                  12 minutes ago   Up 12 minutes             k8s_POD_mariadb-7456b6c968-b9zlx_kube-fate_2b1ac004-4155-4b11-bb3f-afd91e0563d2_0</span><br><span class="line">05635a80430c   rancher/mirrored-pause:3.6   &quot;/pause&quot;                  12 minutes ago   Up 12 minutes             k8s_POD_kubefate-74897fc6d7-zrcqf_kube-fate_d221b8f5-b6f1-4861-9281-5561f01875f3_0</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>至此，FATE的后台服务已经部署完成</p>
-</blockquote>
-<h1>准备FATE的安装配置文件并部署FATE</h1>
-<p>当系统管理员成功部署了<code>KubeFATE</code>服务，并准备好新的FATE集群<code>namespace</code>，接下来就可以根据这些信息开始部署FATE集群。<code>config.yaml</code>是使用<code>KubeFATE</code>命令行的配置文件，包含<code>KubeFATE</code>服务的访问用户名密码，以及<code>log</code>配置，<code>域名</code>。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">log:</span></span><br><span class="line">  <span class="attr">level:</span> <span class="string">info</span></span><br><span class="line"><span class="attr">user:</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">admin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">serviceurl:</span> <span class="string">example.com</span></span><br><span class="line"><span class="attr">safeconnect:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>名字</th>
-<th>种类</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>log</td>
-<td>scalars</td>
-<td>命令行的日志级别。设置成debug级别可以看到REST通信信息</td>
-</tr>
-<tr>
-<td>user</td>
-<td>mappings</td>
-<td>KubeFATE的认证用户名，密码</td>
-</tr>
-<tr>
-<td>serviceurl</td>
-<td>scalars</td>
-<td>KubeFATE服务使用的域名</td>
-</tr>
-<tr>
-<td>safeconnect</td>
-<td>scalars</td>
-<td>是否使用https访问KubeFATE服务使用的域名;<a target="_blank" rel="noopener" href="https://github.com/FederatedAI/KubeFATE/blob/master/docs/configurations/kubefate_service_tls_enable.md">参考</a></td>
-</tr>
-</tbody>
-</table>
-<p>样例里面包含了<code>cluster.yaml</code>, 是FATE的部署计划，更多自定义内容参考：<a target="_blank" rel="noopener" href="https://github.com/FederatedAI/KubeFATE/blob/master/docs/configurations/FATE_cluster_configuration.md">FATE Cluster Configuration Guild</a></p>
-<p>因为我是要部署<code>Spark</code>作为计算引擎；<code>Pulsar</code>作为通讯组件的架构；所以选择的是样例里面的<code>cluster-spark-pulsar.yaml</code></p>
-<blockquote>
-<p>为了避免由于网络原因拉取docker镜像失败，需要设置一下<code>cluster-spark-pulsar.yaml'中的</code>registry`</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry: &quot;hub.c.163.com/federatedai&quot;</span><br></pre></td></tr></table></figure>
-<p>使用<code>kubefate</code>来安装集群, 在<code>k8s-deploy</code>目录下的<code>bin</code>目录下（之前<code>make</code>编译生成）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubefate cluster install -f ./cluster-spark-pulsar.yaml</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create job Success, job id=0f82371a-442c-4a50-aeb5-528e5a896d52</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>这一步需要保证/etc/hosts中已添加了example.com，我在这一步卡了很久，一直不成功。</p>
-</blockquote>
-<p>根据出错信息尝试了一些，最终解决掉了，但具体是哪个操作解决了目前没去深究，以下是我做的处理：</p>
-<ul>
-<li>关闭科学上网软件（在终端内关闭科学上网，clash我忘了有没关，最好也关一下，之前遇到过在/etc/hosts添加了域名，但是clash开着导致hosts中的域名无法解析的坑，具体原因也不明）</li>
-<li>移除了docker的代理（在 /etc/systemd/system/docker.service.d/proxy.conf中我原先设置了代理），后来把它mv proxy.conf proxy.conf.bak了</li>
-<li>关闭了系统的防火墙</li>
-<li>重启docker,重启k3s</li>
-</ul>
-<h1>检查安装集群任务的状态</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubefate job describe 0f82371a-442c-4a50-aeb5-528e5a896d52</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">UUID     	0f82371a-442c-4a50-aeb5-528e5a896d52</span><br><span class="line">StartTime	2023-06-09 12:14:38</span><br><span class="line">EndTime  	2023-06-09 12:23:44</span><br><span class="line">Duration 	9m6s</span><br><span class="line">Status   	Success</span><br><span class="line">Creator  	admin</span><br><span class="line">ClusterId	fd3e2768-a84d-4732-9de6-87558d7bcd39</span><br><span class="line">States   	- update job status to Running</span><br><span class="line">         	- create Cluster in DB Success</span><br><span class="line">         	- helm install Success</span><br><span class="line">         	- checkout Cluster status [529]</span><br><span class="line">         	- job run Success</span><br><span class="line"></span><br><span class="line">SubJobs  	mysql                ModuleStatus: Available, SubJobStatus: Success, Duration:   5m4s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:19:43</span><br><span class="line">         	nginx                ModuleStatus: Available, SubJobStatus: Success, Duration:   9m6s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:23:44</span><br><span class="line">         	python               ModuleStatus: Available, SubJobStatus: Success, Duration:   7m5s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:21:43</span><br><span class="line">         	spark-worker         ModuleStatus: Available, SubJobStatus: Success, Duration:  2m53s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:31</span><br><span class="line">         	client               ModuleStatus: Available, SubJobStatus: Success, Duration:  2m45s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:23</span><br><span class="line">         	datanode             ModuleStatus: Available, SubJobStatus: Success, Duration:  2m36s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:14</span><br><span class="line">         	fateboard            ModuleStatus: Available, SubJobStatus: Success, Duration:  2m54s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:32</span><br><span class="line">         	namenode             ModuleStatus: Available, SubJobStatus: Success, Duration:   2m5s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:16:43</span><br><span class="line">         	pulsar               ModuleStatus: Available, SubJobStatus: Success, Duration:  4m24s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:19:02</span><br><span class="line">         	spark-master         ModuleStatus: Available, SubJobStatus: Success, Duration:  2m45s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:23</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubefate cluster describe fd3e2768-a84d-4732-9de6-87558d7bcd39</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">UUID        	fd3e2768-a84d-4732-9de6-87558d7bcd39</span><br><span class="line">Name        	fate-9999</span><br><span class="line">NameSpace   	fate-9999</span><br><span class="line">ChartName   	fate</span><br><span class="line">ChartVersion	v1.11.1</span><br><span class="line">Revision    	1</span><br><span class="line">Age         	27m</span><br><span class="line">Status      	Running</span><br><span class="line">Spec        	algorithm: Basic</span><br><span class="line">            	chartName: fate</span><br><span class="line">            	chartVersion: v1.11.1</span><br><span class="line">            	computing: Spark</span><br><span class="line">            	device: CPU</span><br><span class="line">            	federation: Pulsar</span><br><span class="line">            	imagePullSecrets:</span><br><span class="line">            	- name: myregistrykey</span><br><span class="line">            	ingressClassName: nginx</span><br><span class="line">            	istio:</span><br><span class="line">            	  enabled: false</span><br><span class="line">            	modules:</span><br><span class="line">            	- mysql</span><br><span class="line">            	- python</span><br><span class="line">            	- fateboard</span><br><span class="line">            	- client</span><br><span class="line">            	- spark</span><br><span class="line">            	- hdfs</span><br><span class="line">            	- nginx</span><br><span class="line">            	- pulsar</span><br><span class="line">            	name: fate-9999</span><br><span class="line">            	namespace: fate-9999</span><br><span class="line">            	partyId: 9999</span><br><span class="line">            	persistence: false</span><br><span class="line">            	podSecurityPolicy:</span><br><span class="line">            	  enabled: false</span><br><span class="line">            	pullPolicy: null</span><br><span class="line">            	registry: &quot;&quot;</span><br><span class="line">            	skippedKeys:</span><br><span class="line">            	- route_table</span><br><span class="line">            	storage: HDFS</span><br><span class="line"></span><br><span class="line">Info        	dashboard:</span><br><span class="line">            	- spark.example.com</span><br><span class="line">            	- notebook.example.com</span><br><span class="line">            	- fateboard.example.com</span><br><span class="line">            	- pulsar.example.com</span><br><span class="line">            	ip: 192.168.100.121</span><br><span class="line">            	status:</span><br><span class="line">            	  containers:</span><br><span class="line">            	    client: Running</span><br><span class="line">            	    datanode: Running</span><br><span class="line">            	    fateboard: Running</span><br><span class="line">            	    fateflow: Running</span><br><span class="line">            	    mysql: Running</span><br><span class="line">            	    namenode: Running</span><br><span class="line">            	    nginx: Running</span><br><span class="line">            	    pulsar: Running</span><br><span class="line">            	    spark-master: Running</span><br><span class="line">            	    spark-worker: Running</span><br><span class="line">            	  deployments:</span><br><span class="line">            	    fateboard: Available</span><br><span class="line">            	    nginx: Available</span><br><span class="line">            	    spark-master: Available</span><br><span class="line">            	    spark-worker: Available</span><br><span class="line">            	  statefulSets:</span><br><span class="line">            	    client: Available</span><br><span class="line">            	    datanode: Available</span><br><span class="line">            	    mysql: Available</span><br><span class="line">            	    namenode: Available</span><br><span class="line">            	    pulsar: Available</span><br><span class="line">            	    python: Available</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/03/vim%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/03/vim%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">vim常用配置及操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-03 22:22:43 / 修改时间：22:45:14" itemprop="dateCreated datePublished" datetime="2023-06-03T22:22:43+08:00">2023-06-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>vim 插件的安装</h1>
-<h2 id="markdown-composer-插件的安装">markdown-composer 插件的安装</h2>
-<ul>
-<li>在<code>~/.vimrc</code>内添加vim-markdown插件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.vimrc</span><br></pre></td></tr></table></figure>
-<p>内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Plug &#x27;euclio/vim-markdown-composer&#x27;</span><br></pre></td></tr></table></figure>
-<p>由于这个插件是由rust编写的,vim-plug 进行安装时是克隆代码下来，但不会编译，可以到插件目录下手动编译这个插件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.vim/plugged/vim-markdown-composer</span><br><span class="line">cargo build --release --no-default-features --features json-rpc</span><br></pre></td></tr></table></figure>
-<h1>常用命令助记</h1>
-<ul>
-<li>增加文本
-<ul>
-<li>a/A(append): a 表示在当前光标的后面插入，A表示在当前行尾插入</li>
-<li>i/I(insert): i 表示在当前光标的前面插入，I表示在当前行首插入</li>
-<li>o/O(open a line): o 表示在当前行的下面插入一行，O表示在当前行的前面插入一行</li>
-</ul>
-</li>
-<li>删除
-<ul>
-<li>dd: 表示删除当前行</li>
-<li>x/X: 向后/向前删除一个字符</li>
-<li>dw(delete word): 删除光标位置后面的一个单词,可以配合数字来表示删除几个单词</li>
-<li>diw(delete inner word): 当光标在某个单词内部，现在想删除当前这个单词，就使用diw</li>
-<li>daw(delete around word): 和diw的区别是daw会把单词左右的空格也会删除</li>
-</ul>
-</li>
-<li>修改
-<ul>
-<li><code>c</code>:(change)</li>
-<li><code>ciw</code>:(change inner word):这个的应用场景是把光标移到双引号中的某个字符上，然后<code>ciw&quot;</code>,就可以把双引号中的<br>
-的字符全删除并进入插入模式</li>
-<li><code>ct)</code>:(change to <code>)</code>):这个的应用场景是把光标移动到左括号后面，然后<code>ct)</code>就可以把括号中的字符全删除并进入<br>
-到插入模式</li>
-</ul>
-</li>
-<li>查找
-<ul>
-<li><code>f</code>:(find): 这个是在当前行查找字符或移动光标到相应的字符上，比如查找s这个字符，命令为<code>fs</code>,光标就会移动&gt;到当前行的<code>s</code>字符上,使用<code>;</code>定位到下一个。使用数字<code>0</code>返回到行的绝对行首或<code>$</code>回到行首再进行其它字符的查找。当<br>
-然<code>F</code>为反方向的操作。</li>
-<li><code>/</code>: 在光标位置往下查找单词可以在<code>/</code>后面跟单词就会查找这个单词并高亮显示；使用<code>?</code>加单词可以往反方向查找<br>
-单词</li>
-</ul>
-</li>
-<li>光标移动
-<ul>
-<li>w(word): 移动到下一个单词</li>
-<li>b(back word): 移动到前一个单词</li>
-<li>数字+G：定位行</li>
-<li>0: 移动到绝对行头</li>
-<li>^: 移动到行首</li>
-<li>$: 移动到行尾</li>
-<li>gg: 移动到第1行</li>
-<li>G：移动到最后一行</li>
-<li>ctl + o: 返回到上一个位置</li>
-<li>ctl + f（forward): 往下翻页</li>
-<li>ctl + u (upward): 往前翻页</li>
-</ul>
-</li>
-</ul>
-<h1>宏定义</h1>
-<p><code>normal</code>模式下按<code>q</code>键，再按<code>x</code>，表示使用寄存器<code>x</code><br>
-然后就开始录制了,等录制结束，按<code>ESC</code>，再按<code>q</code>就结束录制，然后就是调用这个宏重复做刚才的事。调用方法为:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@x</span><br></pre></td></tr></table></figure>
-<p>表示调用x寄存器中的宏,当然可以在前面加上一个数字来表示调用次数</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/05/11/k3s%E9%83%A8%E7%BD%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/11/k3s%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">k3s部署</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-11 14:07:04" itemprop="dateCreated datePublished" datetime="2023-05-11T14:07:04+08:00">2023-05-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-13 08:27:25" itemprop="dateModified" datetime="2023-06-13T08:27:25+08:00">2023-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>一、<a target="_blank" rel="noopener" href="https://docs.k3s.io/zh/quick-start">官方文档</a></h1>
-<h1>二、安装步骤</h1>
-<ul>
-<li>使用docker作为容器(默认为containerd)</li>
-<li>设置docker拉取的http代理</li>
-<li>安装K3S</li>
-<li>使用ingress-nginx(默认是traefik)</li>
-</ul>
-<h2 id="使用docker作为容器">使用docker作为容器</h2>
-<ul>
-<li>可以使用<code>Rancher</code>的一个<a target="_blank" rel="noopener" href="https://github.com/rancher/install-docker">Docker安装脚本</a>来安装Docker</li>
-<li>也可以根据Docker官方文档手动<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">ubuntu下安装docker</a></li>
-</ul>
-<h3 id="卸载旧版">卸载旧版</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
-<h3 id="设置repository">设置<code>repository</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo chmod a+r /etc/apt/keyrings/docker.gpg</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo \</span><br><span class="line">  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span><br><span class="line">  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \</span><br><span class="line">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
-<h3 id="安装Docker-Engine">安装<code>Docker Engine</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
-<h2 id="设置docker拉取的http代理">设置docker拉取的http代理</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">cd /etc/systemd/system/docker.service.d</span><br><span class="line">sudo vim proxy.conf</span><br></pre></td></tr></table></figure>
-<p>文件内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="安装K3S">安装<code>K3S</code></h2>
-<p>以Docker为容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://get.k3s.io | sh -s - --docker</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果服务器网络环境复杂，需要指定K3S服务节点的IP，则 <code>--node-ip=192.168.10.100</code></p>
-</blockquote>
-<h2 id="使用ingress-nginx作为反向代理">使用ingress-nginx作为反向代理</h2>
-<p>之前在K3S搭建的环境中，默认是使用<code>traefik</code>的，在使用FedLCM部署FATE相关组件，里面使用了ingress-nginx，如果使用FedLCM去部署ingress-nginx，则会有一个坑：这个ingress-nginx在k3s中是部署成功了，但是FedLCM使用K8S的API去查询ingress-nginx是否部署完成返回的值是跟实际情况不符的。如果把<code>traefik</code>禁用了，就能避坑，这应该是K3S的一个bug(目前应该是解决了，后来我又部署过几次，没这个问题了)。</p>
-<blockquote>
-<p>解决方法是：只需使用 <code>--disable=traefik</code> 启动 K3s Server，然后部署你的 Ingress 即可。</p>
-</blockquote>
-<p>具体步骤：</p>
-<ul>
-<li>安装kubectl<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载kubectl</span></span><br><span class="line">curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装kubectl</span></span><br><span class="line">sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.kube</span><br><span class="line">sudo cat /etc/rancher/k3s/k3s.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在~/.kube/下创建一个`config`文件把k3s.yaml中的内容放入到`config`中</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>安装helm<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</span><br></pre></td></tr></table></figure>
-</li>
-<li>安装 ingress-nginx<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace</span><br></pre></td></tr></table></figure>
-</li>
-<li>查看 ingress-nginx controller信息<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n ingress-nginx ingress-nginx-controller</span><br></pre></td></tr></table></figure>
-ingress controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</code>,这两种模式下，访问那些通过ingress反向代理的服务时，使用的IP地址是有区别的，<code>NodePort</code>模式下，没有<code>EXTERNAL-IP</code></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="一个码农的自白"><span class="site-name">一个码农的自白</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">一个码农的自白</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" title="Linux系统中Pycharm界面显示问题"><img class="post-bg" src="https://s2.loli.net/2023/01/09/7BVLPKytReJW4UX.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux系统中Pycharm界面显示问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" title="Linux系统中Pycharm界面显示问题">Linux系统中Pycharm界面显示问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-08-06T11:07:22.000Z" title="发表于 2023-08-06 19:07:22">2023-08-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">前言
+打开Pycharm，激活界面中的中文显示不了，因为缺少了字体，文泉驿正黑，我用的是Fedora，记录一下Fedora下安装文泉驿正黑这个字体
+安装文泉驿正黑
+安装
+1sudo dnf install -y wqy-zenhei-fonts
+
+也可以使用Fedora的软件包管理器安装ttf-wqy-zenhei字体包
+
+刷新字体
+1fc-cache -f -v
+验证
+1fc-list | grep &quot;文泉驿正黑&quot;
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/07/14/Python%E4%B8%AD%E7%9A%84args%E5%92%8Ckwargs%E5%8F%82%E6%95%B0/" title="Python中的args和kwargs参数"><img class="post-bg" src="https://s2.loli.net/2023/07/14/7mGfZnoCvybLQNc.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python中的args和kwargs参数"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/14/Python%E4%B8%AD%E7%9A%84args%E5%92%8Ckwargs%E5%8F%82%E6%95%B0/" title="Python中的args和kwargs参数">Python中的args和kwargs参数</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-14T09:38:31.000Z" title="发表于 2023-07-14 17:38:31">2023-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python/">Python</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python/%E5%9F%BA%E7%A1%80/">基础</a></span></div><div class="content">*args &amp;&amp; **kwargs
+在Python项目的代码中经常会见到这两个词 args 和 kwargs，前面通常还会加上一个或者两个星号。其实这只是编程人员约定的变量名字，args 是 arguments 的缩写，表示位置参数；kwargs 是 keyword arguments 的缩写，表示关键字参数。这其实就是 Python 中可变参数的两种形式，并且 *args 必须放在 **kwargs 的前面，因为位置参数在关键字参数的前面。
+在函数定义中的用法
+*args的用法
+*args就是就是传递一个可变参数列表给函数实参，这个参数列表的数目未知，甚至长度可以为0。下面这段代码演示了如何使用args
+1234567def test_args(first, *args):    print(&#x27;Required argument: &#x27;, first)    print(type(args))    for v in args:        print (&#x27;Optional argument: &#x27;, v)test_args(1, ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/07/14/Python%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84wraps%E7%9A%84%E4%BD%9C%E7%94%A8/" title="Python中装饰器的wraps的作用"><img class="post-bg" src="https://s2.loli.net/2023/07/14/7mGfZnoCvybLQNc.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python中装饰器的wraps的作用"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/14/Python%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84wraps%E7%9A%84%E4%BD%9C%E7%94%A8/" title="Python中装饰器的wraps的作用">Python中装饰器的wraps的作用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-14T07:50:52.000Z" title="发表于 2023-07-14 15:50:52">2023-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python/">Python</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python/%E5%9F%BA%E7%A1%80/">基础</a></span></div><div class="content">装饰器
+Python装饰器decorator在实现的时候，被装饰后的函数其实已经是另外一个函数了（函数名等函数属性会发生改变），就相当于产生了副作用，Python的functools包中提供了一个叫wraps的decorator来消除这样的副作用。写一个decorator的时候，最好在实现之前加上functools的wrap，它能保留原有函数的__name__和__doc__。
+示例1（副作用）
+1234567891011121314151617181920def my_decorator(func):    def wrapper(*args, **kwargs):        &quot;&quot;&quot;decorator&quot;&quot;&quot;        print(&#x27;Calling decorated function...&#x27;)        return func(*args, **kwargs)    return wrapper@my_decoratordef example():    &quot;&quot;&quot;D ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/" title="怎么把K8S中部署的服务端口映射出来"><img class="post-bg" src="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="怎么把K8S中部署的服务端口映射出来"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/" title="怎么把K8S中部署的服务端口映射出来">怎么把K8S中部署的服务端口映射出来</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-30T09:56:12.000Z" title="发表于 2023-06-30 17:56:12">2023-06-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">基础设施</a></span></div><div class="content">
+
+修改fate-10001命名空间下的mysql的端口映射模式
+
+先查看fate-10001下有哪些服务
+
+1kubectl get svc -n fate-10001
+ 1234567891011121314151617NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                               AGEspark-master         ClusterIP      None            &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16dfateflow             ClusterIP      None            &lt;none&gt;          9360/TCP,9380/TCP                     16dspark-worker-1       ClusterIP      None          ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" title="vim常用插件的使用备忘录"><img class="post-bg" src="https://s2.loli.net/2023/06/03/C4iRe3FtAbcuTJ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vim常用插件的使用备忘录"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" title="vim常用插件的使用备忘录">vim常用插件的使用备忘录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-16T12:50:11.000Z" title="发表于 2023-06-16 20:50:11">2023-06-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">vim-surround 的用法
+
+cs'&quot;用双引号替换单引号
+cs&quot;'用单引号替换双引号
+ysiw&lt;q&gt;给当前单词加上标签&lt;q&gt;
+cst&quot;用双引号替换当前的标签
+ds'删除单引号
+ysiw]在当前单词外加上方括号
+yss]在当前句子处加上方括号
+
+vim编辑markdown在浏览器中预览效果
+
+安装coc-nvim插件
+使用coc-nvim插件安装coc-markdown插件
+使用:CocCommand markdown-preview-enhanced.openPreview命令在浏览器中打开预览
+
+coc-vim的使用
+
+可以先安装一个coc-marketplace插件::CocInstall coc-marketplace
+CocList marketplace列出所有可用的插件
+在选中的插件上可以使用tab来进行install,uninstall,homepage等动作
+
+vim-easy-align的使用
+123456  Lorem   = ipsum  dolor   = sit   amet  += consecte ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" title="k8s中configMap编辑示例"><img class="post-bg" src="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s中configMap编辑示例"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" title="k8s中configMap编辑示例">k8s中configMap编辑示例</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-14T06:27:16.000Z" title="发表于 2023-06-14 14:27:16">2023-06-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">基础设施</a></span></div><div class="content">背景
+部署在k3s中的一个应用，在前端页面中上传文件，出现报错，提示是文件太大。需要修改nginx配置来解决这个问题。这个应用部署在fate-10000命名空间下
+解决
+
+
+查看一下fate-10000这个命名空间
+1kubectl get all  -n fate-10000
+
+
+
+先查看一下site-portal前端pod的描述信息：例子中为fate-10000命名空间下的frontend-85b6fdffc4-4lkpc
+1kubectl describe pod frontend-85b6fdffc4-4lkpc -n fate-10000
+
+
+
+
+注意图中nginx的配置文件会从nginx-conf-https中获取一些运维自定义的配置，nginx-conf-http是一个configMap, configMap的作用我理解的就是给运维人员后期动态去修改配置，pod从configMap中获取这些自定义的值后就达到了动态修改配置的目的，当然configMap修改后，相关的pod需要重启
+
+
+
+查看命名空间下的configMap
+1kubectl get cm -n fate-1 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/" title="ABY开源框架编译"><img class="post-bg" src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ABY开源框架编译"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/" title="ABY开源框架编译">ABY开源框架编译</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-11T10:20:53.000Z" title="发表于 2023-06-11 18:20:53">2023-06-11</time></span></div><div class="content">ABY开源框架
+ABY开源框架
+编译准备
+
+cmake1sudo dnf install cmake
+
+C Development Tools and Libraries1sudo dnf group install &quot;C Development Tools and Libraries&quot; &quot;Development Tools&quot;
+
+boost1sudo dnf install boost-devel
+
+libgmp1sudo dnf install gmp-devel
+
+libssl1sudo dnf install openssl-devel
+
+
+编译
+
+git clone1git clone https://github.com/encryptogroup/ABY.git
+
+cd1cd ABY/
+
+mkdir1mkdir build &amp;&amp; cd build
+
+cmake &amp;&amp; make &amp;&amp; make install123cmake .. -DCMAKE_INSTALL_PREFIX=&quot; ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/" title="手动部署KubeFate"><img class="post-bg" src="https://s2.loli.net/2022/10/14/txqQJYhyZmMe3Xp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手动部署KubeFate"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/" title="手动部署KubeFate">手动部署KubeFate</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-09T01:39:10.000Z" title="发表于 2023-06-09 09:39:10">2023-06-09</time></span></div><div class="content">依赖的软件环境
+
+k8s：我使用的是k3s
+ingress-nginx
+拉取KubeFate的代码并编译生成kubefate可执行文件：
+
+123git clone https://github.com/FederatedAI/KubeFATE.gitcd kubefatemake
+
+官方文档有推荐版本，我没去管它
+
+创建k8s服务的帐号以及namespace等
+在KubeFATE/k8s-deploy目录下，有个rbac-config.yaml文件，里面有定义了帐号，命名空间等内容：
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210310410510610710810911011111211311411511611711811912012 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/06/03/vim%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C/" title="vim常用配置及操作"><img class="post-bg" src="https://s2.loli.net/2023/06/03/C4iRe3FtAbcuTJ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vim常用配置及操作"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/03/vim%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C/" title="vim常用配置及操作">vim常用配置及操作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-03T14:22:43.000Z" title="发表于 2023-06-03 22:22:43">2023-06-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">vim 插件的安装
+markdown-composer 插件的安装
+
+在~/.vimrc内添加vim-markdown插件
+
+1vim ~/.vimrc
+内容如下：
+1Plug &#x27;euclio/vim-markdown-composer&#x27;
+由于这个插件是由rust编写的,vim-plug 进行安装时是克隆代码下来，但不会编译，可以到插件目录下手动编译这个插件
+12cd ~/.vim/plugged/vim-markdown-composercargo build --release --no-default-features --features json-rpc
+常用命令助记
+
+增加文本
+
+a/A(append): a 表示在当前光标的后面插入，A表示在当前行尾插入
+i/I(insert): i 表示在当前光标的前面插入，I表示在当前行首插入
+o/O(open a line): o 表示在当前行的下面插入一行，O表示在当前行的前面插入一行
+
+
+删除
+
+dd: 表示删除当前行
+x/X: 向后/向前删除一个字符
+dw(delete word): 删除光标位置后面的一个 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/05/11/k3s%E9%83%A8%E7%BD%B2/" title="k3s部署"><img class="post-bg" src="https://s2.loli.net/2023/05/11/EUAPmihexjgcIH5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k3s部署"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/11/k3s%E9%83%A8%E7%BD%B2/" title="k3s部署">k3s部署</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-11T06:07:04.000Z" title="发表于 2023-05-11 14:07:04">2023-05-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">基础设施</a></span></div><div class="content">一、官方文档
+二、安装步骤
+
+使用docker作为容器(默认为containerd)
+设置docker拉取的http代理
+安装K3S
+使用ingress-nginx(默认是traefik)
+
+使用docker作为容器
+
+可以使用Rancher的一个Docker安装脚本来安装Docker
+也可以根据Docker官方文档手动ubuntu下安装docker
+
+卸载旧版
+1sudo apt-get remove docker docker-engine docker.io containerd runc
+设置repository
+12sudo apt-get updatesudo apt-get install ca-certificates curl gnupg
+123sudo install -m 0755 -d /etc/apt/keyringscurl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpgsudo chmod a+r  ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#content-inner">8</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点02"/></a><div class="content"><a class="title" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02">Docker知识点02</a><time datetime="2024-05-17T02:21:25.000Z" title="发表于 2024-05-17 10:21:25">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vcpkg的使用记录"/></a><div class="content"><a class="title" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录">vcpkg的使用记录</a><time datetime="2024-04-24T00:24:30.000Z" title="发表于 2024-04-24 08:24:30">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm"><img src="https://s2.loli.net/2024/03/05/l7IdcjQfewYZRAa.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="源码编译安装nasm"/></a><div class="content"><a class="title" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm">源码编译安装nasm</a><time datetime="2024-03-05T03:26:47.000Z" title="发表于 2024-03-05 11:26:47">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点01"/></a><div class="content"><a class="title" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01">Docker知识点01</a><time datetime="2024-02-19T01:16:00.000Z" title="发表于 2024-02-19 09:16:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录"><img src="https://s2.loli.net/2024/02/18/SofQ9nNGWbZesBy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nfs共享目录"/></a><div class="content"><a class="title" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录">nfs共享目录</a><time datetime="2024-02-18T07:17:59.000Z" title="发表于 2024-02-18 15:17:59">2024-02-18</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C++</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/GUI/"><span class="card-category-list-name">GUI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"><span class="card-category-list-name">开发环境</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/"><span class="card-category-list-name">Golang</span><span class="card-category-list-count">8</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/CGO/"><span class="card-category-list-name">CGO</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%BA%93/"><span class="card-category-list-name">库</span><span class="card-category-list-count">2</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/window/" style="font-size: 1.1em; color: #999">window</a> <a href="/tags/fedora/" style="font-size: 1.1em; color: #999">fedora</a> <a href="/tags/Option/" style="font-size: 1.3em; color: #99a1ac">Option</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密登录</a> <a href="/tags/git/" style="font-size: 1.1em; color: #999">git</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">多线程</a> <a href="/tags/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD/" style="font-size: 1.1em; color: #999">去中心化身份</a> <a href="/tags/C-Development-Tools-and-Libraries/" style="font-size: 1.1em; color: #999">C Development Tools and Libraries</a> <a href="/tags/Coad%E6%B3%95%E6%B5%8B/" style="font-size: 1.1em; color: #999">Coad法测</a> <a href="/tags/benchmark-test/" style="font-size: 1.1em; color: #999">benchmark test</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">关联关系</a> <a href="/tags/spark/" style="font-size: 1.1em; color: #999">spark</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">网络结构</a> <a href="/tags/key/" style="font-size: 1.1em; color: #999">key</a> <a href="/tags/mtu/" style="font-size: 1.1em; color: #999">mtu</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E7%A0%81/" style="font-size: 1.1em; color: #999">机器码</a> <a href="/tags/Spark/" style="font-size: 1.5em; color: #99a9bf">Spark</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" style="font-size: 1.1em; color: #999">服务发现</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.1em; color: #999">指针</a> <a href="/tags/wasm-chaincode/" style="font-size: 1.1em; color: #999">wasm chaincode</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.3em; color: #99a1ac">内存</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">联邦学习</a> <a href="/tags/Rust/" style="font-size: 1.1em; color: #999">Rust</a> <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" style="font-size: 1.1em; color: #999">接口文档</a> <a href="/tags/CMake/" style="font-size: 1.1em; color: #999">CMake</a> <a href="/tags/%E5%B5%8C%E5%A5%97/" style="font-size: 1.1em; color: #999">嵌套</a> <a href="/tags/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">聚合关系</a> <a href="/tags/nasm/" style="font-size: 1.1em; color: #999">nasm</a> <a href="/tags/LoD/" style="font-size: 1.1em; color: #999">LoD</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密码登录</a> <a href="/tags/ISP/" style="font-size: 1.1em; color: #999">ISP</a> <a href="/tags/Mutex/" style="font-size: 1.1em; color: #999">Mutex</a> <a href="/tags/Fabric/" style="font-size: 1.3em; color: #99a1ac">Fabric</a> <a href="/tags/%E5%A4%9A%E6%96%B9%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97/" style="font-size: 1.1em; color: #999">多方安全计算</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">反向代理</a> <a href="/tags/Solo/" style="font-size: 1.1em; color: #999">Solo</a> <a href="/tags/CARP/" style="font-size: 1.1em; color: #999">CARP</a> <a href="/tags/Peer/" style="font-size: 1.1em; color: #999">Peer</a> <a href="/tags/cobra/" style="font-size: 1.1em; color: #999">cobra</a> <a href="/tags/wasm-pack/" style="font-size: 1.1em; color: #999">wasm-pack</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">77</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-05-18T09:25:30.464Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
   }
-</script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">暂留白</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">77</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">36</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">169</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">暂留白</span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
--->
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
-
-
-  
-
-  
-
-</body>
-</html>
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

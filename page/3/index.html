@@ -1,1775 +1,281 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一个码农的自白">
-<meta property="og:url" content="http://www.blockchainof.com/page/3/index.html">
-<meta property="og:site_name" content="一个码农的自白">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="暂留白">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://www.blockchainof.com/page/3/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>一个码农的自白</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">一个码农的自白</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fas fa-folder-open fa-fw"></i>分类</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一个码农的自白</title><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一个码农的自白',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-05-18 17:25:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/05/11/ingresss-nginx-controller%E9%83%A8%E7%BD%B2%E5%92%8C%E5%BA%94%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/11/ingresss-nginx-controller%E9%83%A8%E7%BD%B2%E5%92%8C%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">ingresss-nginx-controller部署和应用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-05-11 14:03:11 / 修改时间：18:23:06" itemprop="dateCreated datePublished" datetime="2023-05-11T14:03:11+08:00">2023-05-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+        get: key => {
+          const itemStr = localStorage.getItem(key)
       
-          <h1><code>Ingress</code>是什么</h1>
-<p><code>Ingress</code>公开从集群外部到集群内服务的<code>http</code>和<code>https</code>路由。流量路由由<code>Ingress</code>资源上定义的规则控制。下面是一个将所有流量都发送到同一个<code>Service</code>的简单<code>Ingress</code>示例：<br>
-<img src="/.com//ingress-simple.jpg" alt="简单示例"></p>
-<h1><code>Ingress</code>的组成</h1>
-<h2 id="ingress">ingress</h2>
-<p><code>ingress</code>是一个API对象，通过<code>yaml</code>文件来配置，<code>ingress</code>对象的作用是定义请求如何发送到<code>service</code>的规则，可以理解为配置模板。<code>ingress</code>通过<code>http</code>或<code>https</code>暴露集群内部<code>service</code>，给<code>service</code>提供外部<code>URI</code>、<code>负载均衡</code>、<code>SSL/TLS</code>能力以及基于域名的反向代理。<code>ingress</code>要依靠<code>ingress-controller</code>来具体实现以上功能。</p>
-<h2 id="Ingress-controller">Ingress-controller</h2>
-<p><code>Ingress-controller</code>是具体实现反向代理及负载均衡的程序，对<code>ingress</code>定义的规则进行解析，根据配置的规则来实现请求转发。<code>ingress-controller</code>并不是<code>k8s</code>自带组件，实际上<code>ingress-controller</code>只是一个统称，用户可以选择不同的<code>ingress-controller</code>实现，目前，由<code>k8s</code>维护的<code>ingress-controller</code>只有google云的GCE与ingress-nginx两个，其它还有很多第三方维护的ingress-controller,具体可以参考官方文档。但是不管哪一种<code>ingress-controller</code>，实现的机制都大同小异，只是在具体配置上有差异。</p>
-<p>一般来说，<code>ingress-controller</code>的形式都是一个pod，里面跑着daemon程序和反向代理程序。daemon负责不断监控集群的变化，根据<code>ingress</code>对象生成配置到反向代理，比如<code>ingress-nginx</code>配置，动态更新<code>upstream</code>，并在需要的时候<code>reload</code>程序应用新配置。为了方便，后面的例子都以<code>k8s</code>官方维护的<code>ingress-nginx</code>为例。</p>
-<h2 id="Ingress的工作原理">Ingress的工作原理</h2>
-<ul>
-<li>ingress-controller通过和kubernetes APIServer交互，动态去感知集群中ingress规则变化；</li>
-<li>然后读取它，按照自定义的规则，规则就是写明了哪个域名对应哪个service,生成一段nginx配置；</li>
-<li>再写到inginx-ingress-controller的pod里，这个ingress-controller的pod里运行着一个Nginx服务，控制器会把生成的nginx配置写入到/etc/nginx.conf中；</li>
-<li>然后reload一下使配置生效。以此达到域名区分配置和动态更新的作用。</li>
-</ul>
-<p>Ingress流图<br>
-<img src="/.com//ingress01.jpg" alt="01"><br>
-<img src="/.com//ingress02.jpg" alt="02"><br>
-例子如下图：<br>
-<img src="/.com//ingress-nginx-controller.jpg" alt="ingress-controller"></p>
-<h1>部署</h1>
-<h2 id="下载部署文件和镜像">下载部署文件和镜像</h2>
-<h3 id="下载ingress-nginx的部署文件">下载ingress-nginx的部署文件</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">需要下载别的版本请求改版本号</span></span><br><span class="line">wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备注：该文件在github上也可以下载，地址是：https://github.com/kubernetes/ingress-nginx/blob/main/deploy/static/provider/cloud/deploy.yaml</span></span><br></pre></td></tr></table></figure>
-<h3 id="关于镜像">关于镜像</h3>
-<p>由于镜像网络问题，会导致yaml文件中的镜像无法下载，解决思路：先在docker hub上查找，下载下来之后，将其推送到私有的harbor镜像服务器上需要下载如下两个镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat deploy.yaml |grep image</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">image: registry.k8s.io/ingress-nginx/controller:v1.3.0@sha256:d1707ca76d3b044ab8a28277a2466a02100ee9f58a86af1535a3edf9323ea1b5</span><br><span class="line">imagePullPolicy: IfNotPresent</span><br><span class="line">image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660</span><br><span class="line">imagePullPolicy: IfNotPresent</span><br><span class="line">image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660</span><br><span class="line">imagePullPolicy: IfNotPresent</span><br></pre></td></tr></table></figure>
-<h3 id="修改部署文件">修改部署文件</h3>
-<ul>
-<li>hostNetwork：是为了打通Cluster和node的网络，让Cluster直接临听node的端口，一般是80和443，不用再通过随机绑定NodePort来访问集群服务。
-<blockquote>
-<p>以前访问：<a href="http://www.blockchainof.com:10080/server1/path">http://www.blockchainof.com:10080/server1/path</a> 现在访问：<a href="http://www.blockchainof.com/server1/path">http://www.blockchainof.com/server1/path</a> 可以看到不需要端口了，因为hostNetwork直接监听node的80端口了</p>
-</blockquote>
-</li>
-<li>nodeSelector：在nodeSelector下添加hasIngress: “true”
-<blockquote>
-<p>可以给集群中的node添加标签，然后部署的时候nodeSelector就会根据标签找到具有这个标签的node，只在这部分node上进行部署。</p>
-</blockquote>
-</li>
-<li>DaemonSet: 把kind的值从Deployment改为DaemonSet，因为Deployment可能会把多个Pod调度到同一个node（同一个node上会存在pod的多个副本，而DaemonSet最多只有一个），这样比较符合多节点高可用的意义。</li>
-</ul>
-<p>修改后的deploy.yaml如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">......</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="comment">#kind: Deployment</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">DaemonSet</span>  <span class="comment">#这里把Deployment改成DaemonSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/component:</span> <span class="string">controller</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/instance:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/version:</span> <span class="number">1.3</span><span class="number">.0</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ingress-nginx-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">minReadySeconds:</span> <span class="number">0</span></span><br><span class="line">  <span class="attr">revisionHistoryLimit:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app.kubernetes.io/component:</span> <span class="string">controller</span></span><br><span class="line">      <span class="attr">app.kubernetes.io/instance:</span> <span class="string">ingress-nginx</span></span><br><span class="line">      <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app.kubernetes.io/component:</span> <span class="string">controller</span></span><br><span class="line">        <span class="attr">app.kubernetes.io/instance:</span> <span class="string">ingress-nginx</span></span><br><span class="line">        <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">true</span>  <span class="comment">#这里加一句</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">args:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/nginx-ingress-controller</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--publish-service=$(POD_NAMESPACE)/ingress-nginx-controller</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--election-id=ingress-controller-leader</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--controller-class=k8s.io/ingress-nginx</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--ingress-class=nginx</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--configmap=$(POD_NAMESPACE)/ingress-nginx-controller</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--validating-webhook=:8443</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--validating-webhook-certificate=/usr/local/certificates/cert</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">--validating-webhook-key=/usr/local/certificates/key</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">        <span class="attr">kubernetes.io/os:</span> <span class="string">linux</span></span><br><span class="line">        <span class="attr">hasIngress:</span> <span class="string">&quot;true&quot;</span>  <span class="comment"># 这里根据标签选择node</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
-<h3 id="给节点增加标签">给节点增加标签</h3>
-<p>在上一章节中<code>deploy.yaml</code>中<code>nodeSelector</code>下增加了<code>hasIngress: &quot;true&quot;</code>, 所以对应的，在需要部署<code>ingress controller</code>的节点打上<code>hasIngress</code>这个标签。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl label nodes $&#123;k8s-node1&#125; hasIngress=true</span><br><span class="line">kubectl label nodes $&#123;k8s-node2&#125; hasIngress=true</span><br></pre></td></tr></table></figure>
-<h3 id="部署">部署</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f deploy.yaml </span><br></pre></td></tr></table></figure>
-<p>没什么意外的话，等待一段时间完成部署。</p>
-<h1>应用</h1>
-<h2 id="部署服务（以tomcat和nginx为例）">部署服务（以tomcat和nginx为例）</h2>
-<h3 id="创建tomcat-nginx-yaml">创建tomcat-nginx.yaml</h3>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx-pod</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx-pod</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx:1.17.1</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tomcat-deployment</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">tomcat-pod</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">tomcat-pod</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tomcat</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">tomcat:8.5-jre10-slim</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-service</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="string">None</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx-pod</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tomcat-service</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">tomcat</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="string">None</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">tomcat-pod</span></span><br></pre></td></tr></table></figure>
-<p>创建</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f tomcat-nginx.yaml </span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deployment.apps/nginx-deployment created</span><br><span class="line">deployment.apps/tomcat-deployment created</span><br></pre></td></tr></table></figure>
-<p>查看</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n dev</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NAME             TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE</span><br><span class="line">nginx-service    ClusterIP   None         &lt;none&gt;        80/TCP     59m</span><br><span class="line">tomcat-service   ClusterIP   None         &lt;none&gt;        8080/TCP   59m</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>服务就已经部署好了</p>
-</blockquote>
-<h2 id="http代理">http代理</h2>
-<h3 id="创建ingress-http-yaml">创建ingress-http.yaml</h3>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ingress-http</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="string">nginx.blockchainof.com</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">serviceName:</span> <span class="string">nginx-service</span></span><br><span class="line">          <span class="attr">servicePort:</span> <span class="number">80</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="string">tomcat.blockchainof.com</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">serviceName:</span> <span class="string">tomcat-service</span></span><br><span class="line">          <span class="attr">servicePort:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
-<h3 id="创建">创建</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f ingress-http.yaml</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ingress.extensions/ingress-http created</span><br></pre></td></tr></table></figure>
-<h3 id="查看">查看</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get ing ingress-http -n dev</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME           HOSTS                                  ADDRESS   PORTS   AGE</span><br><span class="line">ingress-http   nginx.blockchainof.com,tomcat.blockchainof.com             80      18s</span><br></pre></td></tr></table></figure>
-<h3 id="查看详情">查看详情</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe ing ingress-http -n dev</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Name:             ingress-http</span><br><span class="line">Namespace:        dev</span><br><span class="line"></span><br><span class="line">  nginx.blockchainof.com   </span><br><span class="line">                      /   nginx-service:80 (10.244.1.132:80,10.244.1.135:80,10.244.1.139:80)</span><br><span class="line">  tomcat.blockchainof.com  </span><br><span class="line">                      /   tomcat-service:8080 (10.244.1.129:8080,10.244.1.134:8080,10.244.1.140:8080)</span><br><span class="line">Annotations:</span><br><span class="line">Events:</span><br><span class="line">  Type    Reason  Age   From                      Message</span><br><span class="line">  ----    ------  ----  ----                      -------</span><br><span class="line">  Normal  CREATE  48s   nginx-ingress-controller  Ingress dev/ingress-http</span><br></pre></td></tr></table></figure>
-<h3 id="查看ingress-controller的nginx配置是否发生修改">查看ingress-controller的nginx配置是否发生修改</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it nginx-ingress-controller-7f74f657bd-t8pvt sh -n ingress-nginx</span><br><span class="line">/etc/nginx</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat nginx.conf|grep nginx.blockchainof.com</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## start server nginx.blockchainof.com</span><br><span class="line">	server_name nginx.blockchainof.com ;</span><br><span class="line">## end server nginx.blockchainof.com</span><br></pre></td></tr></table></figure>
-<h3 id="查看ingress-controller的svc端口">查看ingress-controller的svc端口</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n ingress-nginx</span><br></pre></td></tr></table></figure>
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/27/Cpp11-function%E5%92%8Cbind%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/27/Cpp11-function%E5%92%8Cbind%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Cpp11-function和bind用法详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-27 17:59:42" itemprop="dateCreated datePublished" datetime="2023-03-27T17:59:42+08:00">2023-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-28 16:38:39" itemprop="dateModified" datetime="2023-03-28T16:38:39+08:00">2023-03-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在设计回调函数的时候，无可避免地会接触到可回调对象。在C++11中，提供了std::function和std::bind两个方法来对可回调对象进行统一和封装。</p>
-<h1>可调用对象</h1>
-<p>C++ 中有如下几种可调用对象：函数、函数指针、lambda表达式、bind对象、函数对象。其中，lambda表达式和bind对象是C++11标准中提出的（bind机制并不是新标准中首次提出，而是对旧版本中bind1st和bind2nd的合并）。个人认为五种可调用对象中，函数和函数指针本质相同，而lambda表达式、bind对象及函数对象则异曲同工。</p>
-<h1>函数</h1>
-<p>这里的函数指的是普通函数，没什么可拓展的。</p>
-<h1>函数指针</h1>
-<p>函数指针和函数类型的区别：</p>
-<ul>
-<li>函数指针指向的是函数而非对象。和其它指针类型一样，函数指针指向某种特定类型；</li>
-<li>函数类型由它的返回值和参数类型决定，与函数名无关</li>
-</ul>
-<p>例：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">fun</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br></pre></td></tr></table></figure>
-<p>上述函数的函数类型是：<code>bool(int, int)</code></p>
-<p>上述函数的函数指针<code>pf</code>是：<code>bool (*pf)(int, int)</code></p>
-<p>一般对于函数来说，函数名即为函数指针：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; x + y &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun1</span><span class="params">(<span class="type">int</span> (*fp)(<span class="type">int</span>, <span class="type">int</span>), <span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">fp</span>(x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*Ftype)</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun2</span><span class="params">(Ftype fp, <span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">fp</span>(x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//int main() &#123;</span></span><br><span class="line"><span class="comment">//    fun1(fun, 100, 100);</span></span><br><span class="line"><span class="comment">//    fun2(fun, 200, 200);</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>上述例子就是将函数指针作为参数，再使用函数指针对函数进行调用。传参（函数指针）时，只需要把函数名称传入即可</p>
-<h1>lambda表达式</h1>
-<p>lambda表达式就是一段可调用的代码。主要适合于只用到一两次的简短代码段。由于lambda是匿名的，所以保证了其不会被不安全地访问：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun3</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> f = [](<span class="type">int</span> x, <span class="type">int</span> y) &#123; <span class="keyword">return</span> x + y; &#125;;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">f</span>(x, y) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="built_in">fun3</span>(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>bind对象</h1>
-<p>std::bind可以用来生产一个可调用对象，来适应原对象的参数列表。</p>
-<h1>函数对象</h1>
-<p>重载了函数调用运算符<code>()</code>的类的对象，即为函数对象。</p>
-<h1>std::function</h1>
-<p>由上文可以看出：由于可调用对象的定义方式比较多，但是函数的调用方式较为类似，因此需要使用一个统一的方式保存可调用对象或者传递可调用对象。于是，<code>std::function</code>就诞生了。</p>
-<p><code>std::function</code>是一个可调用对象包装器，是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象、函数指针，并允许保存和延迟它们的执行。</p>
-<p>定义function的一般形式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::function&lt;函数类型&gt;</span><br></pre></td></tr></table></figure>
-<p>例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> std::function&lt;<span class="type">int</span>(<span class="type">int</span>, <span class="type">int</span>)&gt; comfun;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 普通函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// lambda表达式</span></span><br><span class="line"><span class="keyword">auto</span> mod = [](<span class="type">int</span> a, <span class="type">int</span> b) &#123;</span><br><span class="line">    <span class="keyword">return</span> a % b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数对象</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">divide</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> denominator, <span class="type">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> denominator / divisor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   comfun a = add;</span><br><span class="line">   comfun b = mod;</span><br><span class="line">   comfun c = <span class="built_in">divide</span>();</span><br><span class="line">   std::cout &lt;&lt; <span class="built_in">a</span>(<span class="number">5</span>, <span class="number">3</span>) &lt;&lt; std::endl;</span><br><span class="line">   std::cout &lt;&lt; <span class="built_in">b</span>(<span class="number">5</span>, <span class="number">3</span>) &lt;&lt; std::endl;</span><br><span class="line">   std::cout &lt;&lt; <span class="built_in">c</span>(<span class="number">5</span>, <span class="number">3</span>) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>std::function可以取代函数指针的作用，因为它可以延迟函数的执行，特别适合作为<code>回调函数</code>使用。它比普通函数指针更加的灵活和便利。</p>
-<p>故而，std::function的作用可以归纳为：</p>
-<ol>
-<li>std::function对C++中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std::function对象，简化调用；</li>
-<li>std::function对象是对C++中现有的可调用实体的一种类型安全的包裹（如：函数指针这类可调用实体，是类型不安全的）。</li>
-</ol>
-<h1>std::bind</h1>
-<p>std::bind可以看作一个通用的函数适配器，<strong>它接受一个可调用对象，生成一个新的可调用对象来适应原对象的参数列表</strong>。</p>
-<p>std::bind将可调用对象与其参数一起进行绑定，绑定后的结果可以使用std::function保存。std::bind主要有以下两个作用：</p>
-<ul>
-<li>将可调用对象和其参数绑定成一个仿函数；</li>
-<li>只绑定部分参数，减少可调用对象传入的参数；</li>
-</ul>
-<p>调用bind的一般形式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> newCallable = <span class="built_in">bind</span>(callable, arg_list);</span><br></pre></td></tr></table></figure>
-<p>该形式表达的意思是：当调用<code>newCallable</code>时，会调用<code>callable</code>，并传给它<code>arg_list</code>中的参数。</p>
-<p>需要注意的是：<code>arg_list</code>中的参数可能包含形如<code>_n</code>的名字。其中<code>n</code>是一个整数，这些参数是占位符，表示<code>newCallable</code>的参数，它们占据了传递给<code>newCallable</code>的参数的位置。数值n表示生成的可调用对象中参数的位置：<code>_1</code>为<code>newCallable</code>的第一个参数，<code>_2</code>为第<code>2</code>个参数，以此类推。</p>
-<p>看下面代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fun_3</span><span class="params">(<span class="type">int</span> k, <span class="type">int</span> m)</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;print: k = &quot;</span> &lt;&lt; k &lt;&lt; <span class="string">&quot;, m = &quot;</span> &lt;&lt; m &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun_1</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;print: x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y = &quot;</span> &lt;&lt; y &lt;&lt; <span class="string">&quot;, z = &quot;</span> &lt;&lt; z &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun_2</span><span class="params">(<span class="type">int</span> &amp;a, <span class="type">int</span> &amp;b)</span> </span>&#123;</span><br><span class="line">    ++a;</span><br><span class="line">    ++b;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;print: a = &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, b = &quot;</span> &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">//f1的类型为function&lt;void(int, int, int)&gt;</span></span><br><span class="line">    <span class="keyword">auto</span> f1 = std::<span class="built_in">bind</span>(fun_1, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 表示绑定函数fun_1 的第一，二，三个参数值为： 1, 2, 3</span></span><br><span class="line">    <span class="built_in">f1</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 表示绑定函数 fun_1的第三个参数为3，而fun_1函数第一，二个参数分别由调用f3的时指定，注意，这里传参的顺序是可以根据placeholders::_n 指定的</span></span><br><span class="line">    <span class="keyword">auto</span> f2 = std::<span class="built_in">bind</span>(fun_1, std::placeholders::_1, std::placeholders::_2, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">f2</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注意下面的std::placeholders::_n 的顺序</span></span><br><span class="line">    <span class="keyword">auto</span> f3 = std::<span class="built_in">bind</span>(fun_1, std::placeholders::_2, std::placeholders::_1, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">f3</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> m = <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">auto</span> f4 = std::<span class="built_in">bind</span>(fun_2, std::placeholders::_1, n); <span class="comment">// 表示绑定了fun_2的第二个参数为n，第二个参数由f4调用时的第一个参数指定</span></span><br><span class="line">    <span class="built_in">f4</span>(m);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;m = &quot;</span> &lt;&lt; m &lt;&lt; std::endl; <span class="comment">// m=3 说明bind对于不预先绑定的参数，是引用传递的</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;n = &quot;</span> &lt;&lt; n &lt;&lt; std::endl; <span class="comment">// n=3 说明bind对于预先绑定的参数，会产生一个值拷贝，而不是使用的n的引用</span></span><br><span class="line"></span><br><span class="line">    A a;</span><br><span class="line">    <span class="comment">//f5的类型为function&lt;void(int, int)&gt;</span></span><br><span class="line">    <span class="keyword">auto</span> f5 = std::<span class="built_in">bind</span>(&amp;A::fun_3, &amp;a, std::placeholders::_1, std::placeholders::_2);</span><br><span class="line">    <span class="built_in">f5</span>(<span class="number">10</span>, <span class="number">20</span>); <span class="comment">// 调用a.fun_3(10, 20)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> f6 = std::<span class="built_in">bind</span>(&amp;A::fun_3, a, std::placeholders::_1, std::placeholders::_2);</span><br><span class="line">    <span class="built_in">f6</span>(<span class="number">10</span>, <span class="number">20</span>); <span class="comment">// 调用a.fun_3(10, 20)</span></span><br><span class="line"></span><br><span class="line">    std::function&lt;<span class="type">void</span>(<span class="type">int</span>, <span class="type">int</span>)&gt; fc = std::<span class="built_in">bind</span>(&amp;A::fun_3, a, std::placeholders::_1, std::placeholders::_2);</span><br><span class="line">    <span class="built_in">fc</span>(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由此例子可以看出：</p>
-<ul>
-<li>预绑定的参数是以值传递的形式，不预绑定的参数要用std::placeholders(占位符)的形式占位，从_1开始，依次递增，是以引用传递的形式；（这里的值传递或引用传递是针对bind生成对象来说的，并不是指可调用对象的调用）</li>
-<li>std::placeholders表示新的可调用对象的参数的占位，其中的_n与原函数的该占位符所在位置进行匹配；也就是说bind产生的新的可调用对象的参数，可以和原函数的参数顺序不一致。</li>
-<li>std::bind绑定类成员函数时，第一个参数表示对象的成员函数的指针，第二个参数表示对象的地址（这里好像可以直接传对象的变量进去，应该是会做隐式的转换，即取地址，具体没研究过），这是因为对象的成员函数需要有this指针。并且编译器不会将对象的成员函数指针，需要通过显式&amp; 取地址进行转换。</li>
-<li>std::bind的返回值是可调用实体，可以直接赋给std::function。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">Cpp11-lambda表达式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-24 14:56:36" itemprop="dateCreated datePublished" datetime="2023-03-24T14:56:36+08:00">2023-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-27 17:46:20" itemprop="dateModified" datetime="2023-03-27T17:46:20+08:00">2023-03-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>引言</h1>
-<p>lambda表达式是C++11最重要也是最常用的特性之一。lambda来源于函数式编程的概念，也是现代编程语言的一个特点。lambda表达式有如下优点：</p>
-<ul>
-<li>声明式编程风格：就地匿名定义目标函数或函数对象，不需要额外写一个命名函数或者函数对象。以更直接的方式去写程序，好的可读性和可维护性。</li>
-<li>简洁：不需要额外再写一个函数或者函数对象，避免了代码膨胀和功能分散，让开发者更加集中精力在手边的问题，同时也获取了更高的生产率。</li>
-<li>在需要的时间和地点实现功能闭包，使程序更灵活。</li>
-</ul>
-<h1>lambda表达式的概念和基本用法</h1>
-<p>lambda表达式定义了一个匿名函数，并且可以捕获一定范围内的变量。lambda表达式的语法形式可简单归纳如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[capture](params)opt-&gt;ret&#123;body;&#125;;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中capture是捕获列表，params是参数列表，opt是函数选项，ret是返回值类型，body是函数体。</p>
-</blockquote>
-<p>因此，一个完整的lambda表达式看起来像这样：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> f = [](<span class="type">int</span> a) -&gt; <span class="type">int</span> &#123; <span class="keyword">return</span> a + <span class="number">1</span>; &#125;;</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; <span class="built_in">f</span>(<span class="number">1</span>) &lt;&lt; std::endl; <span class="comment">// 输出： 2</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>可以看到，上面通过一行代码定义了一个小小的功能闭包，用来将输入加1并返回。</p>
-<p>在很多时候，lambda表达式的返回值是非常明显的，比如下面这个例子。因此，C++11中允许省略lambda表达式的返回值定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> f = [](<span class="type">int</span> a)&#123; <span class="keyword">return</span> a + <span class="number">1</span>; &#125;;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>这样编译器就会根据return语句自动推导出返回值类型。</p>
-<p>需要注意的是，初始化列表不能用于返回值的自动推导：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> x1 = [](<span class="type">int</span> i) &#123; <span class="keyword">return</span> i; &#125;; <span class="comment">//OK: return type is int</span></span><br><span class="line"><span class="keyword">auto</span> x2 = []() &#123; <span class="keyword">return</span> &#123;<span class="number">1</span>, <span class="number">2</span>&#125;; &#125;; <span class="comment">// error:无法推导出返回值类型</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>这时我们需要显式给出具体的返回值类型。</p>
-<p>另外，lambda表达式在没有参数列表时，参数列表是可以省略的。因此像下面的写法都是正确的：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> f1 = []() &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;;</span><br><span class="line"><span class="keyword">auto</span> f2 = [] &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;; <span class="comment">// 省略空参数列表</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h1>使用lambda表达式捕获列表</h1>
-<p>lambda表达式还可以通过捕获列表捕获一定范围的变量：</p>
-<ul>
-<li>[]不捕获任何变量</li>
-<li>[&amp;]捕获外部作用域中所有变量，并作为引用在函数体中使用（按引用捕获）。</li>
-<li>[=]捕获外部作用域中所有变量，并作为副本在函数体中使用（按值捕获）。</li>
-<li>[=, &amp;foo]按值捕获外部作用域中所有变量，并按引用捕获foo变量。</li>
-<li>[bar]按值捕获bar变量，同时不捕获其它变量。</li>
-<li>[this]按值捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。如果已经使用了&amp;或者=，就默认添加此选项。捕获this的目的是可以在lambda中使用当前的成员函数和成员变量。</li>
-</ul>
-<p>下面看一下它的具体用法：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> i_ = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> x1 = []&#123; <span class="keyword">return</span> i_; &#125;;                    <span class="comment">// error，没有捕获外部变量</span></span><br><span class="line">        <span class="keyword">auto</span> x2 = [=]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;           <span class="comment">// OK，捕获所有外部变量</span></span><br><span class="line">        <span class="keyword">auto</span> x3 = [&amp;]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;           <span class="comment">// OK，捕获所有外部变量</span></span><br><span class="line">        <span class="keyword">auto</span> x4 = [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> i_; &#125;;                <span class="comment">// OK，捕获this指针</span></span><br><span class="line">        <span class="keyword">auto</span> x5 = [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;        <span class="comment">// error，没有捕获x、y</span></span><br><span class="line">        <span class="keyword">auto</span> x6 = [<span class="keyword">this</span>, x, y]&#123; <span class="keyword">return</span> i_ + x + y; &#125;;  <span class="comment">// OK，捕获this指针、x、y</span></span><br><span class="line">        <span class="keyword">auto</span> x7 = [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> i_++; &#125;;              <span class="comment">// OK，捕获this指针，并修改成员的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>从上例中可以看到，lambda 表达式的捕获列表精细地控制了 lambda 表达式能够访问的外部变量，以及如何访问这些变量。</p>
-<p>需要注意的是，默认状态下 lambda 表达式无法修改通过复制方式捕获的外部变量。如果希望修改这些变量的话，我们需要使用引用方式进行捕获。</p>
-<p>一个容易出错的细节是关于 lambda 表达式的延迟调用的：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f = [=]&#123; <span class="keyword">return</span> a; &#125;;      <span class="comment">// 按值捕获外部变量</span></span><br><span class="line">a += <span class="number">1</span>;                         <span class="comment">// a被修改了</span></span><br><span class="line">std::cout &lt;&lt; <span class="built_in">f</span>() &lt;&lt; std::endl;  <span class="comment">// 输出？</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，lambda 表达式按值捕获了所有外部变量。在捕获的一瞬间，a 的值就已经被复制到f中了。之后 a 被修改，但此时 f 中存储的 a 仍然还是捕获时的值，因此，最终输出结果是 0。</p>
-<p><strong>如果希望 lambda 表达式在调用时能够即时访问外部变量，我们应当使用引用方式捕获。</strong></p>
-<p>从上面的例子中我们知道，按值捕获得到的外部变量值是在 lambda 表达式定义时的值。此时所有外部变量均被复制了一份存储在 lambda 表达式变量中。此时虽然修改 lambda 表达式中的这些外部变量并不会真正影响到外部，我们却仍然无法修改它们。</p>
-<p>那么如果希望去<strong>修改按值捕获的外部变量</strong>应当怎么办呢？这时，需要显式指明 lambda 表达式为 mutable：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f1 = [=]&#123; <span class="keyword">return</span> a++; &#125;;               <span class="comment">// error, 修改按值捕获的外部变量</span></span><br><span class="line"><span class="keyword">auto</span> f2 = [=]() <span class="keyword">mutable</span> &#123; <span class="keyword">return</span> a++; &#125;;    <span class="comment">// OK, mutable</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>需要注意的一点是，被mutable修饰的lambda表达式就算没有参数也要写明参数列表</p>
-<h1>lambda表达式的类型</h1>
-<p>最后，介绍一下lambda表达式的类型。<br>
-lambda表达式的类型在C++11中被称为“闭包类型（Closure Type）“。因此，我们可以认为它是一个带有operator()的类——对括号运算符进行了重载的类，即仿函数。因此，我们可以使用std::function和std::bind来存储和操作lambda表达式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">std::function&lt;<span class="type">int</span>(<span class="type">int</span>)&gt; f1 = [](<span class="type">int</span> a) &#123; <span class="keyword">return</span> a; &#125;;</span><br><span class="line">std::function&lt;<span class="type">int</span>(<span class="type">void</span>)&gt; f2 = std::<span class="built_in">bind</span>([](<span class="type">int</span> a)&#123; <span class="keyword">return</span> a; &#125;, <span class="number">123</span>);</span><br><span class="line"><span class="built_in">f1</span>(<span class="number">555</span>); <span class="comment">// 555</span></span><br><span class="line"><span class="built_in">f2</span>(); <span class="comment">// 123</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>另外，<strong>对于没有捕获任何变量的lambda表达式</strong>，还可以被转换成一个普通的函数指针：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">using</span> <span class="type">funct_t</span> = <span class="built_in">int</span>(*)(<span class="type">int</span>);</span><br><span class="line"><span class="type">func_t</span> f = [](<span class="type">int</span> a) &#123; <span class="keyword">return</span> a; &#125;;</span><br><span class="line"><span class="built_in">f</span>(<span class="number">123</span>);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>lambda表达式可以说是就地定义仿函数闭包的”语法糖“。它的捕获列表捕获住的任何外部变量，最终均会变为<strong>闭包类型的成员变量</strong>。而一个使用了成员变量的类的operator(),如果能直接被转换为普通的函数指针，<strong>那么lambda表达式本身的this指针就丢失掉了</strong>。而没有捕获任何外部变量的lambda表达式则不存在这个问题。</p>
-<p>这里也可以很自然地解释为何按值捕获无法修改捕获的外部变量（这里指的是原始外部变里的值的副本，在闭包内部的一个成员变量）。因为按C++标准，lambda表达式的operator()默认是const的。一个const成员函数是无法修改成员变量的值的。而mutable的作用，就在于取消operator()的const。</p>
-<p>需要注意的是，没有捕获变量的lambda表达式可以直接转换为函数指针，而捕获变量的lambda表达式则不能转换为函数指针。看看下面的代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*Ptr)</span><span class="params">(<span class="type">int</span>*)</span></span>;</span><br><span class="line"></span><br><span class="line">Ptr p = [](<span class="type">int</span>* p) &#123; <span class="keyword">delete</span> p; &#125;; <span class="comment">//正确，无状态的lambda（没有捕获）表达式可以直接转换为函数指针</span></span><br><span class="line">Ptr p1 = [&amp;](<span class="type">int</span>* p) &#123; <span class="keyword">delete</span> p; &#125;; <span class="comment">// 错误，有状态的lambda不能直接转换为函数指针</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>上面第二行代码能编译通过，而第三行代码不能编译通过，因为第三行代码捕获了变量，不能直接转为函数指针。</p>
-<h1>声明式的编程风格，简洁的代码</h1>
-<p>就地定义匿名函数，不再需要定义函数对象，大大简化了标准库算法的调用。比如，在C++11之前，我们要调用for_each函数将vecotr中的偶数打印出来，如下所示。</p>
-<p>【实例】lambda表达式代替函数对像的示例。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CountEven</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span>&amp; count_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CountEven</span>(<span class="type">int</span>&amp; count) : <span class="built_in">count_</span>(count) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!(val &amp; <span class="number">1</span>))       <span class="comment">// val % 2 == 0</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++ count_;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> &#125;;</span><br><span class="line"><span class="type">int</span> even_count = <span class="number">0</span>;</span><br><span class="line">for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">CountEven</span>(even_count));</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;The number of even is &quot;</span> &lt;&lt; even_count &lt;&lt; std::endl;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>这样写既烦琐又容易出错。有了lambda表达式以后，我们可以使用真正的闭包概念来替换掉这里的仿函数，代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; v = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> &#125;;</span><br><span class="line"><span class="type">int</span> even_count = <span class="number">0</span>;</span><br><span class="line">for_each( v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), [&amp;even_count](<span class="type">int</span> val)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!(val &amp; <span class="number">1</span>))  <span class="comment">// val % 2 == 0</span></span><br><span class="line">            &#123;</span><br><span class="line">                ++ even_count;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;The number of even is &quot;</span> &lt;&lt; even_count &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<p>lambda表达式的价值在于，就地封装短小的功能闭包，可以极其方便地表达出我们希望执行的具体操作，并让上下文结合得更加紧密。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">Primihub核心模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-03-13 09:29:02 / 修改时间：10:43:22" itemprop="dateCreated datePublished" datetime="2023-03-13T09:29:02+08:00">2023-03-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>核心模型</h1>
-<p>初步了解PrimiHub是如何工作的：</p>
-<ul>
-<li>节点（Node）：一个加载安全协议和接收计算请求的可执行程序，节点为上层协议执行提供基础服务，目前提供的基础服务有数据集元数据服务、数据缓存服务；</li>
-<li>协议（Protocol）：指多方安全计算MPC协议</li>
-<li>虚拟节点（VMNode）：虚拟节点是节点上所有任务的执行器</li>
-<li>虚拟节点的角色（VMNode role）：指在一次行务执行中扮演的角色，分为两种：a.控制节点（Scheduler） b.工作节点（Worker）</li>
-<li>数据集（Dataset）：指任务需要计算的数据</li>
-<li>算法（Algorithm）：指任务执行的具体逻辑，将根据协议分配到指定节点上执行</li>
-<li>任务（Task）：特定协议正在执行的MPC计算任务，一个计算任务需要指定算法、数据集、协议（协议可自动由节点根据算法自动协商或人工指定）</li>
-<li>运行时（Worker）：任务（Task）的加载和运行器，一个运行时在启动时由VMNode分配使用的协议（Protocol）；</li>
-<li>运行时参与角色（Worker party）：运行时角色根据传入的安全协议指定与安全协议相关的角色</li>
-</ul>
-<h2 id="核心模型如何工作">核心模型如何工作</h2>
-<p><img src="/.com//%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C.jpg" alt="核心模型如何工作"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Primihub环境搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-08 11:33:56" itemprop="dateCreated datePublished" datetime="2023-03-08T11:33:56+08:00">2023-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-13 09:18:40" itemprop="dateModified" datetime="2023-03-13T09:18:40+08:00">2023-03-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>快速开始</h1>
-<h2 id="准备工作">准备工作</h2>
-<p>安装<code>docker</code>和<code>docker-compose</code>，或者下载<code>PrimiHub</code>整理好的<a target="_blank" rel="noopener" href="https://primihub.oss-cn-beijing.aliyuncs.com/dev/docker20.10.tar.gz">安装包</a>, 下载后解压执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash install_docker.sh</span><br></pre></td></tr></table></figure>
-<p>完成<code>docker</code>和<code>docker-compose</code>的安装。</p>
-<p>然后下载仓库并进入到代码目录：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/primihub/primihub.git</span><br><span class="line">cd primihub</span><br></pre></td></tr></table></figure>
-<h2 id="启动节点">启动节点</h2>
-<h3 id="启动测试用的节点">启动测试用的节点</h3>
-<p>使用<code>docker-compose</code>启动容器。容器包括：启动点、redis(数据集查找默认使用redis)、三个节点</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>查看运行起来的docker容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps -a</span><br></pre></td></tr></table></figure>
-<p>如果一切顺利会看到类似如下的信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME                    COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">primihub-node0          &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:8050-&gt;50050/tcp</span><br><span class="line">primihub-node1          &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:8051-&gt;50051/tcp</span><br><span class="line">primihub-node2          &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:8052-&gt;50052/tcp</span><br><span class="line">redis                   &quot;docker-entrypoint.s…&quot;   redis                   running             0.0.0.0:6379-&gt;6379/tcp</span><br><span class="line">simple_bootstrap_node   &quot;/app/simple-bootstr…&quot;   simple_bootstrap_node   running             0.0.0.0:4001-&gt;4001/tcp</span><br></pre></td></tr></table></figure>
-<p>但是，我这里遇到坑了，node0, node1, node2 这3个容器的状态为restarting。并且是不断restarting。使用命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs 容器ID</span><br></pre></td></tr></table></figure>
-<p>查看日志是加载mysql客户端的一个动态库文件失败。这个容器没打包好？issue总共也没有几条，更不用说搜索有没有遇到类似的问题了，可见这个项目用的人少得可怜，文档也不健全。</p>
-<p>解决方法: 检出另外的分支，再使用 docker-compose up -d</p>
-<blockquote>
-<p>测试了 feature/node_as_share_lib 是可以的，develope和master都不行</p>
-</blockquote>
-<h2 id="创建一个MPC任务">创建一个MPC任务</h2>
-<p>让三个节点共同执行一个多方安全计算（MPC)的逻辑回归任务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run &quot;--network=host&quot; -it primihub/primihub-node:1.1.0 ./primihub-cli &quot;--server=127.0.0.1:8050&quot;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注：注意primihub-node的版本，要和前一章节中docker-compose启动的primihub-node版本一致</p>
-</blockquote>
-<h1>使用docker-compose部署</h1>
-<h2 id="下载安装包，执行脚本，完成部署">下载安装包，执行脚本，完成部署</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://get.primihub.com/release/latest/docker-deploy.tar.gz | tar zxf -</span><br><span class="line">cd docker-deploy</span><br><span class="line">bash deploy.sh</span><br></pre></td></tr></table></figure>
-<h2 id="查看部署结果">查看部署结果</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker-compose ps -a</span></span><br><span class="line">NAME                COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">application1        &quot;/bin/sh -c &#x27;java -j…&quot;   application1            running             </span><br><span class="line">application2        &quot;/bin/sh -c &#x27;java -j…&quot;   application2            running             </span><br><span class="line">application3        &quot;/bin/sh -c &#x27;java -j…&quot;   application3            running             </span><br><span class="line">bootstrap-node      &quot;/app/simple-bootstr…&quot;   simple-bootstrap-node   running             4001/tcp</span><br><span class="line">fusion              &quot;/bin/sh -c &#x27;java -j…&quot;   fusion                  running             </span><br><span class="line">gateway1            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway1                running             </span><br><span class="line">gateway2            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway2                running             </span><br><span class="line">gateway3            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway3                running             </span><br><span class="line">loki                &quot;/usr/bin/loki -conf…&quot;   loki                    running             0.0.0.0:3100-&gt;3100/tcp, :::3100-&gt;3100/tcp</span><br><span class="line">manage-web1         &quot;/docker-entrypoint.…&quot;   nginx1                  running             0.0.0.0:30811-&gt;80/tcp, :::30811-&gt;80/tcp</span><br><span class="line">manage-web2         &quot;/docker-entrypoint.…&quot;   nginx2                  running             0.0.0.0:30812-&gt;80/tcp, :::30812-&gt;80/tcp</span><br><span class="line">manage-web3         &quot;/docker-entrypoint.…&quot;   nginx3                  running             0.0.0.0:30813-&gt;80/tcp, :::30813-&gt;80/tcp</span><br><span class="line">mysql               &quot;docker-entrypoint.s…&quot;   mysql                   running             0.0.0.0:3306-&gt;3306/tcp, :::3306-&gt;3306/tcp</span><br><span class="line">nacos-server        &quot;bin/docker-startup.…&quot;   nacos                   running             0.0.0.0:8848-&gt;8848/tcp, 0.0.0.0:9555-&gt;9555/tcp, 0.0.0.0:9848-&gt;9848/tcp, :::8848-&gt;8848/tcp, :::9555-&gt;9555/tcp, :::9848-&gt;9848/tcp</span><br><span class="line">primihub-node0      &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:50050-&gt;50050/tcp, :::6666-&gt;6666/tcp, :::50050-&gt;50050/tcp</span><br><span class="line">primihub-node1      &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:50051-&gt;50051/tcp, :::6667-&gt;6667/tcp, :::50051-&gt;50051/tcp</span><br><span class="line">primihub-node2      &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:50052-&gt;50052/tcp, :::6668-&gt;6668/tcp, :::50052-&gt;50052/tcp</span><br><span class="line">rabbitmq1           &quot;docker-entrypoint.s…&quot;   rabbitmq1               running             25672/tcp</span><br><span class="line">rabbitmq2           &quot;docker-entrypoint.s…&quot;   rabbitmq2               running             25672/tcp</span><br><span class="line">rabbitmq3           &quot;docker-entrypoint.s…&quot;   rabbitmq3               running             25672/tcp</span><br><span class="line">redis               &quot;docker-entrypoint.s…&quot;   redis                   running             6379/tcp</span><br></pre></td></tr></table></figure>
-<h2 id="使用说明">使用说明</h2>
-<p>docker-compose.yaml 文件中的nginx1、nginx2、nginx3 模拟 3 个机构的管理后台，启动完成后在浏览器分别访问</p>
-<p><a target="_blank" rel="noopener" href="http://xn--IP-b47cy15d:30811">http://机器IP:30811</a></p>
-<p><a target="_blank" rel="noopener" href="http://xn--IP-b47cy15d:30812">http://机器IP:30812</a></p>
-<p><a target="_blank" rel="noopener" href="http://xn--IP-b47cy15d:30813">http://机器IP:30813</a></p>
-<p>默认用户密码都是 admin / 123456</p>
-<p>具体的联邦建模、隐私求交、匿踪查询等功能的操作步骤请参考 <a target="_blank" rel="noopener" href="https://docs.primihub.com/docs/quick-start-platform">快速试用管理平台</a></p>
-<h1>primihub代码编译</h1>
-<h2 id="Mac-Silicon-M1">Mac Silicon M1</h2>
-<ul>
-<li>安装Xcode</li>
-<li>安装Bazel 5.0.0，最好是直接brew install bazelisk</li>
-<li>安装CMake，这个最坑，缺了这个，在这里卡了好久</li>
-<li>编写一个shell脚本，用来执行编译命令:  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./pre_build.sh</span><br><span class="line">bazel build --config=darwin_arm64 --config=macos  :node :cli :opt_paillier_c2py :linkcontext</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1>节点运行</h1>
-<p>在编译成功后，在源码目录下生成了可执行文件，路径为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel_bin/node</span><br></pre></td></tr></table></figure>
-<p>可使用下面命令运行node</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node0 --service_port=50050 --config=./config/node0.yaml</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node1 --service_port=50051 --config=./config/node1.yaml</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node2 --service_port=50052 --config=./config/node2.yaml</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00008</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-18 10:19:39" itemprop="dateCreated datePublished" datetime="2023-02-18T10:19:39+08:00">2023-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-18 17:12:42" itemprop="dateModified" datetime="2024-05-18T17:12:42+08:00">2024-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>迪米特法则（LoD）</h1>
-<p>迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。</p>
-<p>迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Demeter）的项目设计提出的，因此叫做迪米特法则。这条法则实际上是很多著名系统，比如火星登录软件系统、木星的欧罗巴卫星轨道飞船的软件系统的指导设计原则。</p>
-<h2 id="迪米特法则的各种表述">迪米特法则的各种表述</h2>
-<p>没有任何一个其它的OO设计原则像迪米特法则这样有如此之多的表述方式，下面给出的也只是众多的表述中较有代表性的几种：</p>
-<ul>
-<li>只与你直接的朋友们通信（Only talk to your immediate friends)。</li>
-<li>不要跟“陌生人”说话（Don’t talk to strangers)。</li>
-<li>每一个软件单位对其它的单位都只有最少的知识，而且局限于那些与本单位密切相关的软件单位</li>
-</ul>
-<p>在上面的表述里面，什么是“直接”、“陌生”和“密切”则被有意地模糊化了，以便在不同的环境下可以有不同的解释。</p>
-<h2 id="狭义的迪米特法则">狭义的迪米特法则</h2>
-<p>如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用。如果其中的一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。</p>
-<h3 id="朋友圈与陌生人">朋友圈与陌生人</h3>
-<p>如下图所示，“某人”与一个“朋友”组成自己的朋友圈，两个人都需要与一个圈外的“陌生人”发生相互作用。<br>
-<img src="/.com//1.jpg" alt="某人的朋友圈"><br>
-“朋友”与“陌生人”若是朋友，组成“朋友”的朋友圈如下图所示。<br>
-<img src="/.com//2.jpg" alt="朋友的朋友圈"><br>
-相比较之下，“某人”其实并不需要与“陌生人”直接发生相互作用，但是“朋友”则更需要与“陌生人”发生相互作用。这时候，迪米特法则建议“某人”不要直接与“陌生人”发生相互作用，而是通过“朋友”与之发生直接的相互作用，如下图所示。<br>
-<img src="/.com//3.jpg" alt="某人和陌生人间接通讯"><br>
-这时候，“朋友”实际上起到了将“某人”对“陌生人”的调用转发给“陌生人”的作用。这种传递叫做调用转发（Call Forwarding）。所谓调用转发，需要隐藏“陌生人”的存在，使得“某人”仅知道“朋友”，而不知道“陌生人”；换言之，“某人”会认为他所调用的这个方法是“朋友”的方法。</p>
-<h3 id="朋友圈的确定">朋友圈的确定</h3>
-<p>以下条件称为“朋友”条件：</p>
-<ul>
-<li>当前对象本身（this）</li>
-<li>以参量形式传入到当前对象方法中的对象</li>
-<li>当前对象的实例变量直接引用的对象</li>
-<li>当前对象的实例变量如果是一个聚集，那么聚集中的元素也都是朋友</li>
-<li>当前对象所创建的对象</li>
-</ul>
-<p>任何一个对象，如果满足上面的条件之一，就是当前对象的“朋友”；否则就是“陌生人”</p>
-<h3 id="不满足迪米特法则的系统">不满足迪米特法则的系统</h3>
-<p>这里要讨论的系统由三个类组成，分别是Someone，Friend和Stranger。其中Someone与Friend是朋友，而Friend与Stranger是朋友。系统的结构图如下：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-
-class Someone {
-    +operation1():void
-}
-
-class Friend {
-    -stranger:Stranger
-    +operation2():void
-    +provide():Stranger
-}
-
-class Stranger {
-    +operation3():void
-}
-
-Someone ..> Friend
-
-Friend o--> Stranger
-
-Someone ..> Stranger
-          </pre>
-<p>从上面的类图可以看出，Friend持有一个Stranger对象的引用，这就解释了为什么Friend与Stranger是朋友。为了解释为什么Someone与Friend是朋友，请参见这里给出的Someone的源码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> friend.provide();</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看出，Someone具有一个方法operation1()，这个方法接受Friend为参量。显然，根据“朋友”的定义，Friend是Someone的朋友。其中Friend的provide()方法会提供自己创建的Stranger的实例，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Stranger <span class="title function_">provide</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stranger;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>显然，Someone的方法operation1()不满足迪米特法则。为什么呢？因为这个方法引用了Stranger对象，而Stranger对象不是Someone的朋友。</p>
-<h3 id="使用迪米特法则进行改造">使用迪米特法则进行改造</h3>
-<p>可以使用迪米特法则对上面的例子进行改造，改造的做法就是调用转发。改造后的情况如下：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            classDiagram
-
-class Someone {
-    +operation1():void
-}
-
-class Friend {
-    -stranger:Stranger
-    +operation2():void
-    +forward():void
-}
-
-class Stranger {
-    +operation3():void
-}
-
-Someone ..> Friend
-
-Friend o--> Stranger
-          </pre>
-<p>从上面的类图可以看出，与改造前相比，在Someone与Stranger之间的联系已经没有了。Someone不需要知道Stranger的存在就可以做同样的事情。Someone的源代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        friend.forward();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从源代码可以看出，Someone通过调用自己的朋友Friend对象的forward()方法做到了原来需要调用Stranger对象才能够做到的事情。那么这个forward()方法是做什么的呢？代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;In Friend.operation2()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">()</span> &#123;</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原来Friend类的forward()方法所做的就是以前Someone要做的事情，使用了Stranger的operation3()方法，而这种forward()方法叫做转发方法。由于使用了调用转发，使得调用的具体细节被隐藏在Friend内部，从而使Someone与Stranger之间的直接联系被省略掉了。这样一来，使得系统内部的耦合度降低。在系统的某一个类需要修改时，仅仅会直接影响到这个类的“朋友”们，而不会直接影响到其余部分。</p>
-<h3 id="狭义的迪米特法则的缺点">狭义的迪米特法则的缺点</h3>
-<p>遵循狭义的迪米特法则会产生一个明显的缺点：会在系统里造出大量的小方法，散落在系统的各个角落。这些方法仅仅是传递间接的调用，因此与系统的商务逻辑无关。当设计师试图从一张类图看出总体的架构时，这些小的方法会造成迷惑和困扰。</p>
-<p>遵循类之间的迪米特法则会使一个系统的局部设计简化，因为每一个局部都不会和远距离的对象有直接的关联。但是，这也会造成系统的不同模块之间的通信效率降低，也会使系统的不同模块之间不容易协调。</p>
-<h3 id="与依赖倒转原则互补使用">与依赖倒转原则互补使用</h3>
-<p>为了克服狭义的迪米特法则的缺点，可以使用依赖倒转原则，引入一个抽象的类型引用“抽象陌生人”对象，使“某人”依赖于“抽象陌生人”。换言之，就是将“抽象陌生人”变成朋友，如下图：<br>
-<img src="/.com//4.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
-<p>&quot;某人“现在与一个抽象角色建立了朋友关系，这样做的好处是”朋友“可以随时将具体”陌生人“换掉。只要新的具体”陌生人“具有相同的抽象类型，那么”某人“就无法区分它们。这就允许”陌生人“的具体实现可以独立于”某人“而变化，如下图所示。<br>
-<img src="/.com//5.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00007</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-12 10:18:29" itemprop="dateCreated datePublished" datetime="2023-02-12T10:18:29+08:00">2023-02-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-18 14:42:53" itemprop="dateModified" datetime="2024-05-18T14:42:53+08:00">2024-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>合成/聚合复用原则(CARP)</h1>
-<p>合成/聚合复用原则(Composite/Aggregate Reuse Principle, 或CARP)，经常又叫作合成复用原则(Composite Reuse Principle或CRP)。合成/聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。</p>
-<p>这个设计原则有另一个更简短的表述：要尽量使用合成/聚合，尽量不要使用继承。</p>
-<p>合成(Composite)一词的使用很广泛，经常导致混淆。为避免这些混淆，不妨先来考察一下“合成”与“聚合”的区别。</p>
-<h2 id="合成和聚合的区别">合成和聚合的区别</h2>
-<p>合成(Composition)和聚合(Aggregation)均是关联(Association)的特殊种类。聚合用来表示“拥有”关系或者整体与部分的关系；而合成则用来表示一种强得多的“拥有”关系。在一个合成关系里，部分和整体的生命周期是一样的。一个合成的新的对象完全拥有对其组成的支配权，包括它们的创建和湮灭等。使用程序语言的术语来讲，组合而成的新对象对组成部分的内存分配、内存释放有绝对的责任。</p>
-<p>更进一步来讲，一个合成的多重性(Multiplicity)不能超过1，换言之，一个合成关系中的成分对象是不能与另一个合成关系共享的。一个成分对象在同一时间内只能属于一个合成关系。如果一个合成关系湮灭了，那么所有的成分对象要么自己湮灭所有的成分对象(这种情况较为普通)，要么就得将这一责任交给别人（这种情况较为罕见）。</p>
-<p>用C程序员较易理解的语言来讲，合成是值的聚合(Aggregation by Value), 而通常所说的聚合则是引用的聚合(Aggreation by Reference)。</p>
-<h2 id="复用的基本种类">复用的基本种类</h2>
-<p>在面向对象的设计里，有两种基本的办法可以在不同的环境中复用已有的设计和实现，即通过合成/聚合或通过继承。那么这两种不同的复用方式在可维护性上面有何区别呢？</p>
-<h3 id="合成-聚合复用">合成/聚合复用</h3>
-<p>由于合成或聚合可以将已有的对象纳入到新对象中，使之成为新对象的一部分，因此新的对象可以调用已有对象的功能。这样做有下面的好处：</p>
-<ul>
-<li>新对象存取成分对象的惟一方法是通过成分对象的接口。</li>
-<li>这种复用是黑箱复用，因为成分对象的内部细节是新对象所看不见的。</li>
-<li>这种复用支持包装。</li>
-<li>这种复用所需要的依赖较少。</li>
-<li>每一个新的类可以将焦点集中在一个任务上。</li>
-<li>这种复用可以在运行时间内动态进行，新对象可以动态地引用与成分对象类型相同的对象。<br>
-一般而言，如果一个角色得到了更多的责任，那么可以使用用合成/聚合关系将新的责任委派到合适的对象。</li>
-</ul>
-<p>当然，这种复用也有缺点。其中最主要的缺点就是通过使用这种复用建造的系统会有较多的对象需要管理。</p>
-<h3 id="通过继承达到复用的目的">通过继承达到复用的目的</h3>
-<p>合成/聚合作为复用的手段可以应用到几乎任何环境中去。而与合成/聚合不同的是，继承只能应用到很有限的一些环境中去。换言之，尽管继承是一种非常重要的复用手段，但是设计师应当首先考虑使用合成/聚合，而不是继承。</p>
-<h4 id="继承的种类">继承的种类</h4>
-<p>继承是面向对象的语言特有的复用工具，而且是最容易被滥用的复用工具。这里讨论的继承，是指从一个Java类到另一个Java类的实现性继承，也就是实现继承，并不包括接口继承。一个实现继承的例子如下图：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-
-蛋 <|-- 鸡 < pre>
-<p>继承复用通过扩展一个已有对象的实现来得到新的功能，基类明显地捕获共同的属性和方法，而子类通过增加新的属性和方法来扩展超类的实现。继承是类型的复用，比如下面都是继承的例子：</p>
-<ul>
-<li>男人和女人是人类</li>
-<li>上推排序(Bubble Sort)是排序程序的一种</li>
-<li>汽车驾照是官方文件的一种</li>
-<li>正式雇员和临时雇员均是雇员的一种</li>
-<li>经理是正式雇员的一种</li>
-</ul>
-<p>在面向对象的设计理论早期，设计师十分热衷于继承，好像继承就是最好的复用手段。随着时间的推移和实践经验的积累，人们逐渐认识到了继承关系的缺点。</p>
-<h4 id="继承复用的优点">继承复用的优点</h4>
-<p>利用继承关系达到复用的做法有下面的优点：</p>
-<ul>
-<li>新的实现较为容易，因为超类的大部分功能可以通过继承关系自动进入子类。</li>
-<li>修改或扩展继承而来的实现较为容易</li>
-</ul>
-<h4 id="继承复用的缺点">继承复用的缺点</h4>
-<p>与合成/聚合复用不同的是，继承有多个缺点：</p>
-<ul>
-<li>继承复用破坏包装，因为继承将超类的实现细节暴露给子类。由于超类的内部细节常常是对子类透明的，因此这种复用是透明的复用，又称“白箱”复用。</li>
-<li>如果超类的实现发生改变，那么子类的实现也不得不发生改变。因此，当一个基类发生改变时，这种改变会像水中投入石子引起的水波一样，将变化一圈又不圈地传导到一级又一级的子类，使设计师不得不相应地改变这些子类，以适应超类的变化。</li>
-<li>从超类继承而来的实现是静态的，不可能在运行时间内发生改变，因此没有足够的灵活性。</li>
-</ul>
-<p>由于以上的这些缺点，尽量使用合成/聚合而不是继承来达到对实现的复用，是非常重要的设计原则。</p>
-<h2 id="从代码重构的角度理解">从代码重构的角度理解</h2>
-<p>在很多情况下，缺乏经验的Java设计师之所以选择继承关系描述两个类之间的关系，是因为对继承关系的理解不够造成的。而要正确地使用继承关系，必须透彻地理解里氏代换原则和Coad法则。</p>
-<p>一般来说，对违反里氏代换原则的设计进行重构时，可以采取两个办法：一是加入一个抽象超类，这一办法已经在本书的“里氏代换原则”一章中讨论过了；二是将继承关系改写合成/聚合关系，这一点是本章讨论的重点。</p>
-<h3 id="区分“Has-A”与“Is-A”">区分“Has-A”与“Is-A”</h3>
-<p>“Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的“一种”。而”Has-A“则不同，它表示某一个角色具有某一项责任。</p>
-<p>导致错误地使用继承而不是合成/聚合的一个常见的原因是错误地把”Has-A“当作”Is-A“。”Is-A“代表一个类是另一个类的一种；”Has-A“代表一个类是另一个类的一个角色，而不是另一个的一个特殊种类。这就是Coad条件的第一条。</p>
-<p>请考虑一下下图所示的类图中所描述的例子。”人“被继承到”雇员“、”经理“、“学生”等子类。而实际上，“雇员”、“经理”和“学生”分别描述一种角色，而“人”可以同时有几种不同的角色。比如，一个“人”既然是“经理”，就必然是“雇员”；而此“人”可能同时还参加MBA课程，从而也是一个“学生”。使用继承来实现角色，则只能使每一个“人”具有“Has-A”角色，而且继承是静态的，这会使得一个“人”在成为“雇员”身份后，就永远为“雇员”，不能称为“经理”或“学生”，而这显然是不合理的。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-
-人 <|-- 雇员 人 <|-- 经理 学生 < pre>
-<p>这一错误的设计源自把“角色”的等级结构与“人”的等级结构混淆起来，把Has-A角色误解为Is-A角色。因此要纠正这一错误，关键是区分“人”和“角色”的区别。下图所示的设计就正确地做到了这一点。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-角色 <|-- 雇员 角色 <|-- 经理 学生 人 "1" *--> "*" 角色
-
-          </|--></pre>
-<p>从上图可以看出，每一个“人”都可以有一个以上的“角色”，所以一个人可以同时是“雇员”，又是“经理”，甚至同时又是“学生”。而且由于“人”与“角色”的耦合是通过合成的，因此，角色可以有动态的变化。一个“人”可以开始是一个“雇员”，然后晋升为“经理”，然后又由于他参加了MBA课程，又成为了“学生”。</p>
-<p>这就是说，当一个类是另一个类的角色时，不应当使用继承描述这种关系。</p>
-<h3 id="与里氏代换原则联合使用">与里氏代换原则联合使用</h3>
-<p>里氏代换原则是继承复用的基石。如果在任何使用B类型的地方都可以使用S类型，那么S类型才能称为B类型的子类型（Subtype），而B类型才能称为S类型的基类型（Base Type）。</p>
-<p>换言之，只有当每一个S在任何情况下都是一种B的时候，才可以将S设计成为B的子类。如果两个类的关系是&quot;Has-A“关系而不是”Is-A“关系，这两个类一定违反了里氏代换原则。</p>
-<p>只有两个类满足里氏代换原则，才有可能是”Is-A“关系。</p>
-<h3 id="Java语言API中的例子">Java语言API中的例子</h3>
-<p>在Java语言的API中，有几个明显违反这一原则的例子，其中最为著名的就是Stack和Properties。前者被不当地设置为Vector的子类，而Properties被不恰当地设置成Hashtable的子类，<br>
-<img src="/.com//1.jpg" alt="Java语言API中的例子"></p>
-<p>一个Stack不是一个Vector，所以Stack不应当设置成为Vector的子类。同样地，一个性质列（Properties）也不是一个Hashtable。在两种情况下，使用聚合比使用继承关系更合适。</p>
-<p>由于Properties继承了Hashtable的行为，因而当p是一个Properties类型的对象时，<code>p.getProperties(key)</code>和<code>p.get(key)</code>就会给出不同的结果。前者来自于Properties本身，因此会利用默认值；而后者则来自于Hashtable，因此不会利用默认值。</p>
-<p>更糟糕的是，由于Properties是Hashtable的子类，因此，客户端可以通过类型的转换，直接使用超类型的行为。比如，Properties假定所有的键和值都是String类型的，如果不是，就会导致运行崩溃。但是，客户端完全可以通过Hashtable提供的行为加入任意类型的键和值。绕过Properties的接口，并导致Properties的内部矛盾和崩溃。</p>
-<p>这样一来，Properties其实仅仅是有一些Hashtable的属性的，换言之，这是一个&quot;Has-A”的关系，而不是一个“Is-A”的关系。</p>
-</|--></pre></|--></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00006</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-08 19:53:30" itemprop="dateCreated datePublished" datetime="2023-02-08T19:53:30+08:00">2023-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-09 14:54:33" itemprop="dateModified" datetime="2023-02-09T14:54:33+08:00">2023-02-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>引言</h1>
-<p>接口隔离原则(Interface Segregation Principle, 常常缩写做ISP)，讲的是：使用多个专门的接口比使用单一的总接口要好。换言之，从一个客户类的角度来讲：一个类对另外一个类的依赖性应当是建立在最小的接口上的。</p>
-<h1>什么是接口隔离原则</h1>
-<p>正如本书在“专题：Java接口”一章中所指出的那样，人们所说的“接口”往往是指两种不同的东西：一种是指Java语言中的有严格定义的Interface结构，比如java.lang.Runnable就是一个Java接口；另一种就是一个类型所具有的方法特征的集合，也称做“接口”，但仅是一种逻辑上的抽象。对应这两种不同的用词，接口隔离原则的表达方式以及含义都有所不同。</p>
-<h2 id="角色的合理划分">角色的合理划分</h2>
-<p>将“接口”理解为一个类所提供的所有方法的特征集合，也就是一种在逻辑上才存在的概念。这样的话，接口的划分就直接带来类型的划分。</p>
-<p>一个接口相当于剧本中的一种角色，而此角色在一个舞台上由哪一个演员来演则相当于接口的实现。因此，一个接口应当简单地代表一个角色，而不是多个角色。如果系统涉及到多个角色的话，那么每一个角色都应当由一个特定的接口代表。</p>
-<p>为了避免混淆，本书将这种角色划分的原则叫做角色隔离原则。</p>
-<h2 id="定制服务">定制服务</h2>
-<p>将接口理解成为狭义的Java接口，这样一来，接口隔离原则讲的就是为同一个角色提供宽、窄不同的接口，以对付不同的客户端，如下图所示。这种办法在服务行业中叫做定制服务(Customized Service)，这也是本书给这种诠释的一个名字。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-class IService1 {
-	<<interface>>
-}
-IService1: +m1()
-IService1: +p2()
-
-class IService2 {
-	<<interface>>
-}
-IService2: +m2()
-IService2: +p1()
-
-class IService3 {
-	<<interface>>
-}
-IService3: +m1()
-IService3: +p1()
-IService3: +p2()
-
-IService1 <|-- service iservice2 <|-- iservice3 client1 --> IService1
-Client2 --> IService2
-Client3 --> IService3
-
-Service: +m1()
-Service: +m2()
-Service: +p1()
-Service: +p2()
-
-          </|--></interface></interface></interface></pre>
-<p>在上面的示意性类图中，有一个角色Service以及三个不同的客户端。这三个客户端需要的服务都是稍稍不同的，因此系统分别为它们提供了三个不同的Java接口，即IService1，IService2以及IService3。显然，每一个Java接口都仅将客户端需要的接口暴露给客户端，而没有将客户端不需要的行为放到接口中。熟悉适配器模式的读者可以辨认出，这是适配器模式的应用。</p>
-<h2 id="接口污染">接口污染</h2>
-<p>过于臃肿的接口是对接口的污染(Interface Contamination)。</p>
-<p>由于每一个接口都代表一个角色，实现一个接口的对象，在它的整个生命周期中都扮演这个角色，因此将角色区分清楚就是系统设计的一个重要工作。因此，一个符合逻辑的推断，不应当将几个不同的角色都交给同一个接口，而应当交给不同的接口。</p>
-<p>一个没有经验的设计师往往想节省接口的数目，因此将一些看上去差不多的接口合并。一些人将这看做是代码优化的一部分，这是错误的。</p>
-<p>准确而恰当地划分角色以及角色所对应的接口，是面向对象的设计的一个重要的组成部分。将没有关系的接口合并在一起，形成一个臃肿的大接口，是对角色和接口的污染。</p>
-<h2 id="现迪米特法则的关系">现迪米特法则的关系</h2>
-<p>迪米特法则要求任何一个软件实体，除非绝对需要，不然不要与外界通信。即使必须进行通信，也应当尽量限制通信的广度和深度。</p>
-<p>显然，定制服务原则拒绝向客户提供不需要提供的行为，是符合迪米特法则的。</p>
-<h1>一个角色隔离原则的例子</h1>
-<p>本节从代码重构的角度讨论怎样将一个臃肿的角色重新分割成更为合适的较小角色。</p>
-<h2 id="全文查询引擎的系统设计">全文查询引擎的系统设计</h2>
-<p>本章在这里以一个网站的全文查询引擎的系统设计为例，这个例子取材自一个真实的项目，如果读者使用过AltaVisa公司的文字搜索引擎软件包的话，就会很熟悉本例子的情形。一个动态的资料网站将大量的文件资料存储在文件中或关系数据库里面，用户可以通过输入一个或数个关键词进行全文搜索。这个搜索引擎需要维持一个索引库，在本例子里面索引库以文本文件方式存于文件系统中。在源数据被修改、删除或增加时，搜索引擎要做相应的动作，以保证引擎的索引文件也被相应地更新。</p>
-<h2 id="反面例子">反面例子</h2>
-<p>首先，下图所示为一个不好的解决方案。一个叫做BadExample的接口负责所有的操作，从提供搜索功能到建立索引的功能，甚至包括搜索结果集合的功能均在一个接口内提供。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-
-class Client {
-   -indexCursor:Indexer 
-   -searcher:Searcher
-}
-
-class BadExample {
-    <<interface>>
-    +first():void
-    +last():void
-    +next():void
-    +previous():void
-    +getExcerpt():String
-    +getFullRecord():String
-    +reIndexAll():void
-    +updateIndex():void
-    +search(keywords:String[]):void
-    +getResultset():void
-}
-
-Client o--> BadExample
-
-          </interface></pre>
-<p>这个解决方案违反了角色分割原则，把不同功能的接口放在一起，由一个接口给出包括搜索器角色、索引生成器角色以及搜索结果集角色在内的所有角色。</p>
-<h2 id="角色的分割">角色的分割</h2>
-<p>那么，遵守接口隔离原则的做法是怎么样的呢？如下图所示：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-class Indexer {
-    <<interface>>
-    +reIndexAll():void
-    +updateIndex():void
-}
-class Searcher {
-    <<interface>>
-    +search(keywords:String[]):void
-    +getResultset():void
-}
-class FileIndexer {
-    +reIndexAll():void
-    +updateIndex():void
-}
-class RdbIndexer {
-    +reIndexAll():void
-    +updateIndex():void
-}
-FileIndexer ..|>Indexer
-RdbIndexer ..|>Indexer
-class Resultset {
-    <<interface>>
-    +first():void
-    +last():void
-    +next():void
-    +previous():void
-    +getExcerpt():String
-    +getFullRecord():String
-}
-
-Searcher o--> Resultset
-
-class Client {
-    -indexCursor:Indexer
-    -searcher:Searcher
-}
-
-Client o-->Indexer
-Client o--Searcher
-
-          </interface></interface></interface></pre>
-<p>在图中可以看出，搜索引擎的功能被分割为三个角色：</p>
-<ul>
-<li>搜索器角色</li>
-<li>索引生成器角色</li>
-<li>搜索结果集角色</li>
-</ul>
-<p>以索引生成器角色为例，由于索引生成因数据的格式不同而不同，故分为RdbIndexer和FileIndexer两种实现。FileIndexer类代表诸如*.txt、*.html、 *.html、 *.doc 以及 *.pdf等文件类型的数据生成全文索引，而RdbIndexer则针对关系数据库的数据进行全文索引生成。这两个实现扮演的同为索引生成器角色，就好像扮演同样角色的两个不同演员一样。</p>
-<p>搜索器角色则是与索引生成器角色完全不同的角色，它提供用户全文搜索功能。用户传进一些关键字，搜索器角色则返回一个Resultset对象。</p>
-<p>搜索结果集角色就是Resultset。它给用户提供对集合进行迭代走访的功能，如first()将光标移到集合的第一个元素；last()将光标移到集合的最后一个元素；next()将光标移到集合的下一个元素；previous()将光标移到集合的前一个元素；而getExerpt()则返回当前记录的摘要；而getFullRecord()则将记录的全文返回。</p>
-<h1>定制服务的例子</h1>
-<p>定制服务(Customized Service)也是一个重要的设计原则。它的意思是说，如果客户端仅仅需要某一些方法的话，那么就应当向客户端提供这些需要的方法，而不要提供不需要的方法。</p>
-<p>这样做的效果是什么呢？</p>
-<ul>
-<li>这样做很整洁。从美学的角度上考虑，这是一个很好的做法。从这样的一个设计可以看出，设计师花了很多的时间在分析和划分这些接口上面。但是这并不是最重要的效果，没有人会仅仅因为美学效果而将这一原则当作面向对象的设计原则。</li>
-<li>系统的可维护性。向客户端提供public接口是一种承诺，一个public接口一旦提供，就很难撤回。作为软件提供商，没有人愿意做出过多的承诺，特别是不必要的承诺。过多的承诺会给系统的维护造成不必要的负担。如果这些接口仅仅是提供给公司内部的系统使用，那么将这些接口隔离开来，也可以降低维护的成本。因为如果一旦所提供的服务出现变化的话，设计师知道哪些客户端会受到影响，哪些不会受到影响。这显然也是符合迪米特法则的。</li>
-</ul>
-<h2 id="备忘录模式">备忘录模式</h2>
-<p>备忘录模式(Memento Pattern)的用意是在不破坏封装的条件下，捕捉一个对象的状态，并将之外部化，从而可以在将来合适的时候把这个对象还原到存储起来的状态。备忘录模式的简略类图如下所示：<br>
-<img src="/.com//1.jpg" alt="备忘录简略类图"><br>
-在这里，不破坏封装是一个关键词。为了做到这一点，必须使备忘录对象向外界提供双重接口，也即一个窄接品和一个宽接口。</p>
-<p>宽接口是为发起人角色准备的，因为这个备忘录角色所存储的状态就是属于这个发起人角色的，而且这个角色需要访问备忘录角色所存储的信息以便恢复自己的状态。</p>
-<p>窄接口是为包括负责人角色在内的所有其它对象准备的，因为它们不需要、也不应该读取备忘录角色所存储的信息。</p>
-<p>换言之，发起人角色和负责人角色就相当于备忘录角色的不同客户端，而这种为不同客户端提供不同接口的做法就是定制服务概念的体现。</p>
-<h2 id="迭代子模式">迭代子模式</h2>
-<p>迭代子模式提供一个迭代子对象，使得客户端可以顺序地访问一个聚集中的元素，而不必暴露聚集的内部表象。迭代子模式的示意图如下所示：<br>
-<img src="/.com//2.jpg" alt="迭代子模式简略类图"></p>
-<p>换言之，上面的这个系统的客户端和系统内部的迭代子对象都需要访问聚集对象，但是它们所需要的访问性质有所不同。前者仅需要通过一个迭代子接口遍历聚集元素，而迭代子对象则需要知道聚集对象的内部结构信息。</p>
-<p>因此，聚集对象向不同的客户端提供不同的接口，一个是宽接口，提供给迭代子对象；另一个是窄接口，提供给系统的客户端。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" class="post-title-link" itemprop="url">《区块链原理、设计与应用》阅读摘录-0004</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-02 13:33:15" itemprop="dateCreated datePublished" datetime="2023-02-02T13:33:15+08:00">2023-02-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-09 14:18:24" itemprop="dateModified" datetime="2023-02-09T14:18:24+08:00">2023-02-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Golang等值运算符机制详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-02-01 09:07:22 / 修改时间：10:22:06" itemprop="dateCreated datePublished" datetime="2023-02-01T09:07:22+08:00">2023-02-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>背景</h1>
-<p>这篇文章源于代码中关于nil判断的一个问题。先从一段代码看起，下面这段代码是将传入的对象转换成<code>JSON string</code>并返回，其中，如果判断<code>i==nil</code>时，会返回<code>&quot;&quot;</code>。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码初看并没有太大的问题，但实际上这里隐含了一个不容易被发现的问题，在说明这个问题之前，我们先看下这段代码在什么情况下会出现问题：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Data <span class="keyword">struct</span> &#123;</span><br><span class="line">   V <span class="type">int</span> <span class="string">`json:&quot;v&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestToJSONString</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">   a := assert.New(t)</span><br><span class="line"></span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(<span class="literal">nil</span>))</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> data *Data</span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(data))</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> k *<span class="type">int</span></span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(k))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段测试代码中三个断言分别返回：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PASS</span><br><span class="line">FAIL, Expect: &quot;&quot;, Actual: &quot;null&quot;</span><br><span class="line">FAIL, Expect: &quot;&quot;, Actual: &quot;null&quot;</span><br></pre></td></tr></table></figure>
-<p>这里很让人疑惑，data应该是nil，似乎data==nil的结论是false，为了确认这个问题，我们引入一段代码。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
-<p>结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil: true</span><br><span class="line">b == nil: true</span><br><span class="line">a == b: false // 重点</span><br></pre></td></tr></table></figure>
-<p>这个例子比较简单，让我们看一个很相似，但稍微复杂些的例子</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
-<p>结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil: true</span><br><span class="line">b == nil: false // 重点</span><br><span class="line">a == b: true</span><br></pre></td></tr></table></figure>
-<h1>到底发生了什么？</h1>
-<p>首先我们要了解的是：在Go中，每个指针都有2个基本信息，指针的类型和指针的值，后续我将会使用<code>(type, value)</code>这样的形式来体现。也就是说，<code>a := nil</code>这样的代码无法通过编译，因为它缺失了<code>type</code>，所以需要这样<code>var a *int = nil</code>。<br>
-我们可以在fmt中输出这些指针的<code>type</code>：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a.type:%T\n&quot;</span>, a) <span class="comment">// a.type:*int</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b.type:%T\n&quot;</span>, b) <span class="comment">// b.type:&lt;nil&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们现在已经了解了<code>interace&#123;&#125;</code>的默认<code>type</code>为<code>nil</code>，下面我们不使用硬编码的方式，而是将<code>a</code>传递给<code>b</code>，然后再来看下结果：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a.type:%T\n&quot;</span>, a) <span class="comment">// a.type:*int</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b.type:%T\n&quot;</span>, b) <span class="comment">// b.type:*int</span></span><br></pre></td></tr></table></figure>
-<p>也就是说，<code>b</code>现在有了一个新的类型<code>*int</code>。目前你已经了解了关于类型的一些基本机制，但还有一些问题还没有被解答.</p>
-<h1>当执行<code>==</code>时，发生了什么？</h1>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a=(%T, %v)\n&quot;</span>, a, a)</span><br><span class="line">fmt.Printf(<span class="string">&quot;b=(%T, %v)\n&quot;</span>, b, b)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=(*int, &lt;nil&gt;)</span><br><span class="line">b=(&lt;nil&gt;, &lt;nil&gt;)</span><br><span class="line">a == nil: true</span><br><span class="line">b == nil: true</span><br><span class="line">a == b: false</span><br></pre></td></tr></table></figure>
-<p>这段代码乍一看似乎不可能，像是在说：a==nil、b==nil，但a!=b。实际情况是，类型判断不仅仅只判断二者的值，还会判断其类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil // 等价于：(*int, nil) == (*int, nil)</span><br><span class="line">b == nil // 等价于：(nil, nil) == (nil, nil)</span><br><span class="line">a == b   // 等价于：(*int, nil) == (nil, nil)</span><br></pre></td></tr></table></figure>
-<p>当我们用这样的方式写出来时，我们可以很轻易的明白，a!=b是成立的，但这些信息并不会在代码中体现出来，这也正是容易出现误解的地方。在这里，如果你想要判断二者是否都是nil，你可以这样写</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a == <span class="literal">nil</span> &amp;&amp; b == <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接下来我们再来看看前面那个令人困惑的例子，相关结果直接跟在了代码后面</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a=(%T, %v)\n&quot;</span>, a, a)   <span class="comment">// a=(*int, &lt;nil&gt;)</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b=(%T, %v)\n&quot;</span>, b, b)   <span class="comment">// b=(*int, &lt;nil&gt;)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>) <span class="comment">// a == nil: true</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>) <span class="comment">// b == nil: false</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)     <span class="comment">// a == b: true</span></span><br></pre></td></tr></table></figure>
-<p>现在我们再来看b==nil这段代码会发现明朗许多：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b == <span class="literal">nil</span> <span class="comment">// 等价于：(*int, nil) == (nil, nil)</span></span><br></pre></td></tr></table></figure>
-<p>这里可能会疑惑，为什么等式右侧的<code>nil</code>，其<code>type</code>为<code>nil</code>呢？这是因为当<code>b</code>指定为<code>interface&#123;&#125;</code>类型的时候，无法确定其真实的类型，随着程序的运行，其类型可能会不断改变，所以其类型默认为<code>nil</code>。<br>
-更进一步，我们可以看一个硬编码的数字是如何进行比较判断的。数字会根据上下文来推断自己的类型，一个具体的例子如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="type">int</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> b <span class="type">float64</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a==12:&quot;</span>, a == <span class="number">12</span>) <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b==12:&quot;</span>, b == <span class="number">12</span>) <span class="comment">// true  =&gt; (float64, 12) == (float64, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;c==12:&quot;</span>, c == <span class="number">12</span>) <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a==c:&quot;</span>, a == c)   <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b==c:&quot;</span>, b == c)   <span class="comment">// false =&gt; (float64, 12) == (int, 12)</span></span><br></pre></td></tr></table></figure>
-<p>一个需要注意的点是，当<code>12</code>与一个<code>interface&#123;&#125;</code>进行比较时，会默认转换为<code>(int, 12)</code>，类似的<code>interface&#123;&#125;</code>也会被强制转换为<code>(nil, nil)</code>，如下代码展示了这个过程:</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b <span class="type">float64</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">interface</span>&#123;&#125; = b</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;c==12:&quot;</span>, c == <span class="number">12</span>) <span class="comment">// c==12: false</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;c=(%T,%v)\n&quot;</span>, c, c) <span class="comment">// c=(float64,12)</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;hard-coded=(%T,%v)\n&quot;</span>, <span class="number">12</span>, <span class="number">12</span>) <span class="comment">// hard-coded=(int,12)</span></span><br></pre></td></tr></table></figure>
-<h1>回到最开始的<code>nil</code>判断</h1>
-<p>让我们回到最开始出现问题的代码，现在再来看会清晰许多</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestToJSONString</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> data *Data</span><br><span class="line">  a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(data))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第2行中，<code>i==nil</code>的判断相当于<code>(*Data, nil) == (nil, nil)</code>，显而易见，这样的等式并不会成立。当然，我们有其他的办法处理这样的等式判断，这需要用到<code>reflect</code>包，如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> || (reflect.ValueOf(i).Kind() == reflect.Ptr &amp;&amp; reflect.ValueOf(i).IsNil()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="一个码农的自白"><span class="site-name">一个码农的自白</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">一个码农的自白</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/05/11/ingresss-nginx-controller%E9%83%A8%E7%BD%B2%E5%92%8C%E5%BA%94%E7%94%A8/" title="ingresss-nginx-controller部署和应用"><img class="post-bg" src="https://s2.loli.net/2023/05/11/oLIKATxgWyNld1Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ingresss-nginx-controller部署和应用"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/11/ingresss-nginx-controller%E9%83%A8%E7%BD%B2%E5%92%8C%E5%BA%94%E7%94%A8/" title="ingresss-nginx-controller部署和应用">ingresss-nginx-controller部署和应用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-11T06:03:11.000Z" title="发表于 2023-05-11 14:03:11">2023-05-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">基础设施</a></span></div><div class="content">Ingress是什么
+Ingress公开从集群外部到集群内服务的http和https路由。流量路由由Ingress资源上定义的规则控制。下面是一个将所有流量都发送到同一个Service的简单Ingress示例：
+
+Ingress的组成
+ingress
+ingress是一个API对象，通过yaml文件来配置，ingress对象的作用是定义请求如何发送到service的规则，可以理解为配置模板。ingress通过http或https暴露集群内部service，给service提供外部URI、负载均衡、SSL/TLS能力以及基于域名的反向代理。ingress要依靠ingress-controller来具体实现以上功能。
+Ingress-controller
+Ingress-controller是具体实现反向代理及负载均衡的程序，对ingress定义的规则进行解析，根据配置的规则来实现请求转发。ingress-controller并不是k8s自带组件，实际上ingress-controller只是一个统称，用户可以选择不同的ingress-controller实现，目前，由k8s维护的ingr ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/03/27/Cpp11-function%E5%92%8Cbind%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" title="Cpp11-function和bind用法详解"><img class="post-bg" src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cpp11-function和bind用法详解"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/27/Cpp11-function%E5%92%8Cbind%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" title="Cpp11-function和bind用法详解">Cpp11-function和bind用法详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-27T09:59:42.000Z" title="发表于 2023-03-27 17:59:42">2023-03-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/">C++</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/%E5%9F%BA%E7%A1%80/">基础</a></span></div><div class="content">在设计回调函数的时候，无可避免地会接触到可回调对象。在C++11中，提供了std::function和std::bind两个方法来对可回调对象进行统一和封装。
+可调用对象
+C++ 中有如下几种可调用对象：函数、函数指针、lambda表达式、bind对象、函数对象。其中，lambda表达式和bind对象是C++11标准中提出的（bind机制并不是新标准中首次提出，而是对旧版本中bind1st和bind2nd的合并）。个人认为五种可调用对象中，函数和函数指针本质相同，而lambda表达式、bind对象及函数对象则异曲同工。
+函数
+这里的函数指的是普通函数，没什么可拓展的。
+函数指针
+函数指针和函数类型的区别：
+
+函数指针指向的是函数而非对象。和其它指针类型一样，函数指针指向某种特定类型；
+函数类型由它的返回值和参数类型决定，与函数名无关
+
+例：
+1bool fun(int a, int b)
+上述函数的函数类型是：bool(int, int)
+上述函数的函数指针pf是：bool (*pf)(int, int)
+一般对于函数来说，函数名即为函数指针：
+12345678910111213141 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Cpp11-lambda表达式"><img class="post-bg" src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cpp11-lambda表达式"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/24/Cpp11-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Cpp11-lambda表达式">Cpp11-lambda表达式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-24T06:56:36.000Z" title="发表于 2023-03-24 14:56:36">2023-03-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/">C++</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/%E5%9F%BA%E7%A1%80/">基础</a></span></div><div class="content">引言
+lambda表达式是C++11最重要也是最常用的特性之一。lambda来源于函数式编程的概念，也是现代编程语言的一个特点。lambda表达式有如下优点：
+
+声明式编程风格：就地匿名定义目标函数或函数对象，不需要额外写一个命名函数或者函数对象。以更直接的方式去写程序，好的可读性和可维护性。
+简洁：不需要额外再写一个函数或者函数对象，避免了代码膨胀和功能分散，让开发者更加集中精力在手边的问题，同时也获取了更高的生产率。
+在需要的时间和地点实现功能闭包，使程序更灵活。
+
+lambda表达式的概念和基本用法
+lambda表达式定义了一个匿名函数，并且可以捕获一定范围内的变量。lambda表达式的语法形式可简单归纳如下：
+1[capture](params)opt-&gt;ret&#123;body;&#125;;
+
+其中capture是捕获列表，params是参数列表，opt是函数选项，ret是返回值类型，body是函数体。
+
+因此，一个完整的lambda表达式看起来像这样：
+12345...auto f = [](int a) -&gt; int &#123; return a + 1 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" title="Primihub核心模型"><img class="post-bg" src="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primihub核心模型"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" title="Primihub核心模型">Primihub核心模型</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-13T01:29:02.000Z" title="发表于 2023-03-13 09:29:02">2023-03-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">联邦学习</a></span></div><div class="content">核心模型
+初步了解PrimiHub是如何工作的：
+
+节点（Node）：一个加载安全协议和接收计算请求的可执行程序，节点为上层协议执行提供基础服务，目前提供的基础服务有数据集元数据服务、数据缓存服务；
+协议（Protocol）：指多方安全计算MPC协议
+虚拟节点（VMNode）：虚拟节点是节点上所有任务的执行器
+虚拟节点的角色（VMNode role）：指在一次行务执行中扮演的角色，分为两种：a.控制节点（Scheduler） b.工作节点（Worker）
+数据集（Dataset）：指任务需要计算的数据
+算法（Algorithm）：指任务执行的具体逻辑，将根据协议分配到指定节点上执行
+任务（Task）：特定协议正在执行的MPC计算任务，一个计算任务需要指定算法、数据集、协议（协议可自动由节点根据算法自动协商或人工指定）
+运行时（Worker）：任务（Task）的加载和运行器，一个运行时在启动时由VMNode分配使用的协议（Protocol）；
+运行时参与角色（Worker party）：运行时角色根据传入的安全协议指定与安全协议相关的角色
+
+核心模型如何工作
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Primihub环境搭建"><img class="post-bg" src="https://s2.loli.net/2023/03/08/g4aocDiYqFANJRd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primihub环境搭建"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Primihub环境搭建">Primihub环境搭建</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-08T03:33:56.000Z" title="发表于 2023-03-08 11:33:56">2023-03-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">联邦学习</a></span></div><div class="content">快速开始
+准备工作
+安装docker和docker-compose，或者下载PrimiHub整理好的安装包, 下载后解压执行
+1bash install_docker.sh
+完成docker和docker-compose的安装。
+然后下载仓库并进入到代码目录：
+12git clone https://github.com/primihub/primihub.gitcd primihub
+启动节点
+启动测试用的节点
+使用docker-compose启动容器。容器包括：启动点、redis(数据集查找默认使用redis)、三个节点
+1docker-compose up -d
+查看运行起来的docker容器：
+1docker-compose ps -a
+如果一切顺利会看到类似如下的信息：
+123456NAME                    COMMAND                  SERVICE                 STATUS              PORTSprimihub-node0          &quot;/bin/bash -c &#x27;./ ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" title="重读《JAVA与模式》笔记系列-00008"><img class="post-bg" src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00008"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" title="重读《JAVA与模式》笔记系列-00008">重读《JAVA与模式》笔记系列-00008</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-18T02:19:39.000Z" title="发表于 2023-02-18 10:19:39">2023-02-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/">设计原则的体现</a></span></div><div class="content">迪米特法则（LoD）
+迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。
+迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Demeter）的项目设计提出的，因此叫做迪米特法则。这条法则实际上是很多著名系统，比如火星登录软件系统、木星的欧罗巴卫星轨道飞船的软件系统的指导设计原则。
+迪米特法则的各种表述
+没有任何一个其它的OO设计原则像迪米特法则这样有如此之多的表述方式，下面给出的也只是众多的表述中较有代表性的几种：
+
+只与你直接的朋友们通信（Only talk to your immediate friends)。
+不要跟“陌生人”说话（Don’t talk to strangers)。
+每一个软件单位对其它的单位都只有最少的知识，而且局限于那些与本单位密切相关的软件单位
+
+在上面的表述里面，什么是“直接”、“陌生”和 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" title="重读《JAVA与模式》笔记系列-00007"><img class="post-bg" src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00007"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" title="重读《JAVA与模式》笔记系列-00007">重读《JAVA与模式》笔记系列-00007</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-12T02:18:29.000Z" title="发表于 2023-02-12 10:18:29">2023-02-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/">设计原则的体现</a></span></div><div class="content">合成/聚合复用原则(CARP)
+合成/聚合复用原则(Composite/Aggregate Reuse Principle, 或CARP)，经常又叫作合成复用原则(Composite Reuse Principle或CRP)。合成/聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。
+这个设计原则有另一个更简短的表述：要尽量使用合成/聚合，尽量不要使用继承。
+合成(Composite)一词的使用很广泛，经常导致混淆。为避免这些混淆，不妨先来考察一下“合成”与“聚合”的区别。
+合成和聚合的区别
+合成(Composition)和聚合(Aggregation)均是关联(Association)的特殊种类。聚合用来表示“拥有”关系或者整体与部分的关系；而合成则用来表示一种强得多的“拥有”关系。在一个合成关系里，部分和整体的生命周期是一样的。一个合成的新的对象完全拥有对其组成的支配权，包括它们的创建和湮灭等。使用程序语言的术语来讲，组合而成的新对象对组成部分的内存分配、内存释放有绝对的责任。
+更进一步来讲，一个合成的多 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/" title="重读《JAVA与模式》笔记系列-00006"><img class="post-bg" src="https://s2.loli.net/2022/12/17/7192THZ4UMEcb3Y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重读《JAVA与模式》笔记系列-00006"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/" title="重读《JAVA与模式》笔记系列-00006">重读《JAVA与模式》笔记系列-00006</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-08T11:53:30.000Z" title="发表于 2023-02-08 19:53:30">2023-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/">设计原则的体现</a></span></div><div class="content">引言
+接口隔离原则(Interface Segregation Principle, 常常缩写做ISP)，讲的是：使用多个专门的接口比使用单一的总接口要好。换言之，从一个客户类的角度来讲：一个类对另外一个类的依赖性应当是建立在最小的接口上的。
+什么是接口隔离原则
+正如本书在“专题：Java接口”一章中所指出的那样，人们所说的“接口”往往是指两种不同的东西：一种是指Java语言中的有严格定义的Interface结构，比如java.lang.Runnable就是一个Java接口；另一种就是一个类型所具有的方法特征的集合，也称做“接口”，但仅是一种逻辑上的抽象。对应这两种不同的用词，接口隔离原则的表达方式以及含义都有所不同。
+角色的合理划分
+将“接口”理解为一个类所提供的所有方法的特征集合，也就是一种在逻辑上才存在的概念。这样的话，接口的划分就直接带来类型的划分。
+一个接口相当于剧本中的一种角色，而此角色在一个舞台上由哪一个演员来演则相当于接口的实现。因此，一个接口应当简单地代表一个角色，而不是多个角色。如果系统涉及到多个角色的话，那么每一个角色都应当由一个特定的接口代表。
+为了避免混淆，本 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" title="《区块链原理、设计与应用》阅读摘录-0004"><img class="post-bg" src="https://s2.loli.net/2022/10/14/txqQJYhyZmMe3Xp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《区块链原理、设计与应用》阅读摘录-0004"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" title="《区块链原理、设计与应用》阅读摘录-0004">《区块链原理、设计与应用》阅读摘录-0004</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-02T05:33:15.000Z" title="发表于 2023-02-02 13:33:15">2023-02-02</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" title="Golang等值运算符机制详解"><img class="post-bg" src="https://s2.loli.net/2022/12/15/mugAGU9jBbTWs4Q.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Golang等值运算符机制详解"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" title="Golang等值运算符机制详解">Golang等值运算符机制详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-01T01:07:22.000Z" title="发表于 2023-02-01 09:07:22">2023-02-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/">Golang</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/%E5%9F%BA%E7%A1%80/">基础</a></span></div><div class="content">背景
+这篇文章源于代码中关于nil判断的一个问题。先从一段代码看起，下面这段代码是将传入的对象转换成JSON string并返回，其中，如果判断i==nil时，会返回&quot;&quot;。
+1234567func ToJSONString(i interface&#123;&#125;) string &#123;   if i == nil &#123;      return &quot;&quot;   &#125;   bytes, _ := json.Marshal(i)   return string(bytes)&#125;
+这段代码初看并没有太大的问题，但实际上这里隐含了一个不容易被发现的问题，在说明这个问题之前，我们先看下这段代码在什么情况下会出现问题：
+123456789101112131415type Data struct &#123;   V int `json:&quot;v&quot;`&#125;func TestToJSONString(t *testing.T) &#123;   a := assert.New(t)   a.Equal(&quo ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#content-inner">8</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点02"/></a><div class="content"><a class="title" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02">Docker知识点02</a><time datetime="2024-05-17T02:21:25.000Z" title="发表于 2024-05-17 10:21:25">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vcpkg的使用记录"/></a><div class="content"><a class="title" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录">vcpkg的使用记录</a><time datetime="2024-04-24T00:24:30.000Z" title="发表于 2024-04-24 08:24:30">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm"><img src="https://s2.loli.net/2024/03/05/l7IdcjQfewYZRAa.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="源码编译安装nasm"/></a><div class="content"><a class="title" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm">源码编译安装nasm</a><time datetime="2024-03-05T03:26:47.000Z" title="发表于 2024-03-05 11:26:47">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点01"/></a><div class="content"><a class="title" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01">Docker知识点01</a><time datetime="2024-02-19T01:16:00.000Z" title="发表于 2024-02-19 09:16:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录"><img src="https://s2.loli.net/2024/02/18/SofQ9nNGWbZesBy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nfs共享目录"/></a><div class="content"><a class="title" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录">nfs共享目录</a><time datetime="2024-02-18T07:17:59.000Z" title="发表于 2024-02-18 15:17:59">2024-02-18</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C++</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/GUI/"><span class="card-category-list-name">GUI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"><span class="card-category-list-name">开发环境</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/"><span class="card-category-list-name">Golang</span><span class="card-category-list-count">8</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/CGO/"><span class="card-category-list-name">CGO</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%BA%93/"><span class="card-category-list-name">库</span><span class="card-category-list-count">2</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/window/" style="font-size: 1.1em; color: #999">window</a> <a href="/tags/fedora/" style="font-size: 1.1em; color: #999">fedora</a> <a href="/tags/Option/" style="font-size: 1.3em; color: #99a1ac">Option</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密登录</a> <a href="/tags/git/" style="font-size: 1.1em; color: #999">git</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">多线程</a> <a href="/tags/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD/" style="font-size: 1.1em; color: #999">去中心化身份</a> <a href="/tags/C-Development-Tools-and-Libraries/" style="font-size: 1.1em; color: #999">C Development Tools and Libraries</a> <a href="/tags/Coad%E6%B3%95%E6%B5%8B/" style="font-size: 1.1em; color: #999">Coad法测</a> <a href="/tags/benchmark-test/" style="font-size: 1.1em; color: #999">benchmark test</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">关联关系</a> <a href="/tags/spark/" style="font-size: 1.1em; color: #999">spark</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">网络结构</a> <a href="/tags/key/" style="font-size: 1.1em; color: #999">key</a> <a href="/tags/mtu/" style="font-size: 1.1em; color: #999">mtu</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E7%A0%81/" style="font-size: 1.1em; color: #999">机器码</a> <a href="/tags/Spark/" style="font-size: 1.5em; color: #99a9bf">Spark</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" style="font-size: 1.1em; color: #999">服务发现</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.1em; color: #999">指针</a> <a href="/tags/wasm-chaincode/" style="font-size: 1.1em; color: #999">wasm chaincode</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 1.3em; color: #99a1ac">内存</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">联邦学习</a> <a href="/tags/Rust/" style="font-size: 1.1em; color: #999">Rust</a> <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" style="font-size: 1.1em; color: #999">接口文档</a> <a href="/tags/CMake/" style="font-size: 1.1em; color: #999">CMake</a> <a href="/tags/%E5%B5%8C%E5%A5%97/" style="font-size: 1.1em; color: #999">嵌套</a> <a href="/tags/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">聚合关系</a> <a href="/tags/nasm/" style="font-size: 1.1em; color: #999">nasm</a> <a href="/tags/LoD/" style="font-size: 1.1em; color: #999">LoD</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密码登录</a> <a href="/tags/ISP/" style="font-size: 1.1em; color: #999">ISP</a> <a href="/tags/Mutex/" style="font-size: 1.1em; color: #999">Mutex</a> <a href="/tags/Fabric/" style="font-size: 1.3em; color: #99a1ac">Fabric</a> <a href="/tags/%E5%A4%9A%E6%96%B9%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97/" style="font-size: 1.1em; color: #999">多方安全计算</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">反向代理</a> <a href="/tags/Solo/" style="font-size: 1.1em; color: #999">Solo</a> <a href="/tags/CARP/" style="font-size: 1.1em; color: #999">CARP</a> <a href="/tags/Peer/" style="font-size: 1.1em; color: #999">Peer</a> <a href="/tags/cobra/" style="font-size: 1.1em; color: #999">cobra</a> <a href="/tags/wasm-pack/" style="font-size: 1.1em; color: #999">wasm-pack</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">77</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-05-18T09:25:30.464Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
   }
-</script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">暂留白</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">77</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">36</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">169</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">暂留白</span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
--->
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
-
-
-  
-
-  
-
-</body>
-</html>
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

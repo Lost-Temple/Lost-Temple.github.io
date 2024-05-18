@@ -1,261 +1,146 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta name="description" content="概率是机器学习中最常见的概念，在分类算法(Classification)中经常出现，而Logit也是逻辑回归（Logistic Regression）中的重要概念，本文将总结概率（Probability），发生比（Odds）和Logit（log(odds)）之间的关系。 概率，发生比与Logit的定义 概率 概率是指一个事件发生的可能性，假设一个袋子里有若干红球和蓝球，用P来表示概率。 $P_{">
-<meta property="og:type" content="article">
-<meta property="og:title" content="机器学习基础-概率和发生比以及Logit">
-<meta property="og:url" content="http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/index.html">
-<meta property="og:site_name" content="一个码农的自白">
-<meta property="og:description" content="概率是机器学习中最常见的概念，在分类算法(Classification)中经常出现，而Logit也是逻辑回归（Logistic Regression）中的重要概念，本文将总结概率（Probability），发生比（Odds）和Logit（log(odds)）之间的关系。 概率，发生比与Logit的定义 概率 概率是指一个事件发生的可能性，假设一个袋子里有若干红球和蓝球，用P来表示概率。 $P_{">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.blockchainof.com/.com//%E6%A6%82%E7%8E%87-%E5%8F%91%E7%94%9F%E6%AF%94-Logit.jpg">
-<meta property="article:published_time" content="2023-10-31T10:57:17.000Z">
-<meta property="article:modified_time" content="2023-11-01T02:26:56.283Z">
-<meta property="article:author" content="暂留白">
-<meta property="article:tag" content="机器学习">
-<meta property="article:tag" content="发生比">
-<meta property="article:tag" content="Logit">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.blockchainof.com/.com//%E6%A6%82%E7%8E%87-%E5%8F%91%E7%94%9F%E6%AF%94-Logit.jpg">
-
-<link rel="canonical" href="http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>机器学习基础-概率和发生比以及Logit | 一个码农的自白</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">一个码农的自白</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fas fa-folder-open fa-fw"></i>分类</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          机器学习基础-概率和发生比以及Logit
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-31 18:57:17" itemprop="dateCreated datePublished" datetime="2023-10-31T18:57:17+08:00">2023-10-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-01 10:26:56" itemprop="dateModified" datetime="2023-11-01T10:26:56+08:00">2023-11-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">机器学习基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>机器学习基础-概率和发生比以及Logit | 一个码农的自白</title><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概率是机器学习中最常见的概念，在分类算法(Classification)中经常出现，而Logit也是逻辑回归（Logistic Regression）中的重要概念，本文将总结概率（Probability），发生比（Odds）和Logit（log(odds)）之间的关系。 概率，发生比与Logit的"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '机器学习基础-概率和发生比以及Logit',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-01 10:26:56'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-        <hr>
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/10/31/rl56CdDAOqneHZQ.png')"><nav id="nav"><span id="blog-info"><a href="/" title="一个码农的自白"><span class="site-name">一个码农的自白</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">机器学习基础-概率和发生比以及Logit</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-31T10:57:17.000Z" title="发表于 2023-10-31 18:57:17">2023-10-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-01T02:26:56.283Z" title="更新于 2023-11-01 10:26:56">2023-11-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">联邦学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">机器学习基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器学习基础-概率和发生比以及Logit"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
 <p>概率是机器学习中最常见的概念，在分类算法(Classification)中经常出现，而Logit也是逻辑回归（Logistic Regression）中的重要概念，本文将总结概率（Probability），发生比（Odds）和Logit（log(odds)）之间的关系。</p>
 <h2 id="概率，发生比与Logit的定义">概率，发生比与Logit的定义</h2>
 <h3 id="概率">概率</h3>
@@ -394,222 +279,40 @@
 <p><img src="/.com//%E6%A6%82%E7%8E%87-%E5%8F%91%E7%94%9F%E6%AF%94-Logit.jpg" alt="概率和发生比以及Logit"></p>
 <h2 id="小结">小结</h2>
 <p>由于逻辑回归模型的需求，我们引入了发生比这一概念，但发生比本身的不对称性让我们难以直观地比较发生比，因此我们引入了Logit这一概念。<strong>Logit赋予了发生比更强的”对称“性</strong>，让我们更容易比较不同发生比之间的关系。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com">暂留白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/">http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blockchainof.com" target="_blank">一个码农的自白</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E5%8F%91%E7%94%9F%E6%AF%94/">发生比</a><a class="post-meta__tags" href="/tags/Logit/">Logit</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/10/31/rl56CdDAOqneHZQ.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/" title="Storm、Spark与Flink对比"><img class="cover" src="https://s2.loli.net/2023/12/06/rZykfszoeKCjVhL.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Storm、Spark与Flink对比</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/" title="PySpark基础"><img class="cover" src="https://s2.loli.net/2023/10/19/u6bMAmBNIaPnzje.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PySpark基础</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%EF%BC%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%B8%8ELogit%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">概率，发生比与Logit的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E7%8E%87"><span class="toc-number">1.1.</span> <span class="toc-text">概率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E7%94%9F%E6%AF%94"><span class="toc-number">1.2.</span> <span class="toc-text">发生比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Logit"><span class="toc-number">1.3.</span> <span class="toc-text">Logit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E5%8F%91%E7%94%9F%E6%AF%94%E4%B8%8ELogit%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.</span> <span class="toc-text">概率发生比与Logit的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点02"/></a><div class="content"><a class="title" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02">Docker知识点02</a><time datetime="2024-05-17T02:21:25.000Z" title="发表于 2024-05-17 10:21:25">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vcpkg的使用记录"/></a><div class="content"><a class="title" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录">vcpkg的使用记录</a><time datetime="2024-04-24T00:24:30.000Z" title="发表于 2024-04-24 08:24:30">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm"><img src="https://s2.loli.net/2024/03/05/l7IdcjQfewYZRAa.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="源码编译安装nasm"/></a><div class="content"><a class="title" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm">源码编译安装nasm</a><time datetime="2024-03-05T03:26:47.000Z" title="发表于 2024-03-05 11:26:47">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点01"/></a><div class="content"><a class="title" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01">Docker知识点01</a><time datetime="2024-02-19T01:16:00.000Z" title="发表于 2024-02-19 09:16:00">2024-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录"><img src="https://s2.loli.net/2024/02/18/SofQ9nNGWbZesBy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nfs共享目录"/></a><div class="content"><a class="title" href="/2024/02/18/nfs%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" title="nfs共享目录">nfs共享目录</a><time datetime="2024-02-18T07:17:59.000Z" title="发表于 2024-02-18 15:17:59">2024-02-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    </div>
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
-    
-    
-    
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
-              <a href="/tags/%E5%8F%91%E7%94%9F%E6%AF%94/" rel="tag"># 发生比</a>
-              <a href="/tags/Logit/" rel="tag"># Logit</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/" rel="prev" title="PySpark基础">
-      <i class="fa fa-chevron-left"></i> PySpark基础
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/" rel="next" title="Storm、Spark与Flink对比">
-      Storm、Spark与Flink对比 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
   }
-</script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%EF%BC%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%B8%8ELogit%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">概率，发生比与Logit的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87"><span class="nav-number">1.1.</span> <span class="nav-text">概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E7%94%9F%E6%AF%94"><span class="nav-number">1.2.</span> <span class="nav-text">发生比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logit"><span class="nav-number">1.3.</span> <span class="nav-text">Logit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%8F%91%E7%94%9F%E6%AF%94%E4%B8%8ELogit%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">概率发生比与Logit的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">暂留白</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">77</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">36</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">169</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">暂留白</span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
--->
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
-
-
-  
-
-  
-
-</body>
-</html>
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
