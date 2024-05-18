@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="类图中的关系 在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。 一般化关系 一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相">
+  <meta name="description" content="类图中的关系在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。 一般化关系一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重读《JAVA与模式》笔记系列-00001">
 <meta property="og:url" content="http://www.blockchainof.com/2022/12/16/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00001/index.html">
 <meta property="og:site_name" content="一个码农的自白">
-<meta property="og:description" content="类图中的关系 在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。 一般化关系 一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相">
+<meta property="og:description" content="类图中的关系在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。 一般化关系一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-16T13:57:50.000Z">
 <meta property="article:modified_time" content="2024-05-18T06:45:06.660Z">
@@ -256,10 +256,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>类图中的关系</h1>
-<p>在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。</p>
-<h2 id="一般化关系">一般化关系</h2>
-<p>一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，如下图所示：</p>
+        <h1 id="类图中的关系"><a href="#类图中的关系" class="headerlink" title="类图中的关系"></a>类图中的关系</h1><p>在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。</p>
+<h2 id="一般化关系"><a href="#一般化关系" class="headerlink" title="一般化关系"></a>一般化关系</h2><p>一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，如下图所示：</p>
 <pre class="mermaid" style="text-align: center;">
             
             
@@ -268,8 +266,8 @@ class Interface1 {
 	<<interface>>
 }
 Interface1 <|.. class1 interface1 <|.. class2 parentclass <|-- childclass1 childclass2 < pre>
-<h2 id="关联关系">关联关系</h2>
-<p>关联(Association)关系是类与类之间的联接，它使一个类知道另一个类的属性和方法。关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头。单向的关联有一个箭头，表示关联的方向，如下图所示。单向的关联更为普遍，通常不鼓励使用双向的关联。</p>
+
+<h2 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a>关联关系</h2><p>关联(Association)关系是类与类之间的联接，它使一个类知道另一个类的属性和方法。关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头。单向的关联有一个箭头，表示关联的方向，如下图所示。单向的关联更为普遍，通常不鼓励使用双向的关联。</p>
 <pre class="mermaid" style="text-align: center;">
             
             
@@ -280,6 +278,7 @@ class Dirver {
 }
 
           </pre>
+
 <p>关联关系是使用实例变量实现的，比如上面的<code>Driver</code>类中，就出现了下个类型为<code>Car</code>的实例变量，这个变量实现了这两个类之间的关联关系。每一个关联都有一个名字，在上面的例子里，关联的名字是<code>Drives</code>。</p>
 <p>在每一个关联的端点，还可以有一个基数(Multiplicity)，表明这一端的类可以有几个实例。比如，唐僧和他的徒弟形成一个关联关系，在这个关系里面，唐僧只能有一个，而徒弟可以有好几个，如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
@@ -290,7 +289,7 @@ classDiagram
 
 徒弟 <|-- 悟空 徒弟 <|-- 悟能 悟净 < pre>
 <blockquote>
-<p>唐僧和徒弟之间的箭头应该是 1 --&gt; * （一对多的关系）</p>
+<p>唐僧和徒弟之间的箭头应该是 1 –&gt; * （一对多的关系）</p>
 </blockquote>
 <blockquote>
 <p>唐僧类中应包含徒弟的集合，形成关联关系</p>
@@ -302,13 +301,12 @@ classDiagram
 <th>含义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>0…1</td>
+<tbody><tr>
+<td>0..1</td>
 <td>0个或者1个实例</td>
 </tr>
 <tr>
-<td>0…*</td>
+<td>0..*</td>
 <td>对实例的数目没有限制（可以是0）</td>
 </tr>
 <tr>
@@ -316,14 +314,12 @@ classDiagram
 <td>只有一个实例</td>
 </tr>
 <tr>
-<td>1…*</td>
+<td>1..*</td>
 <td>至少有一个实例</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>一个关联关系往往可以进一步确定为聚合关系或者合成关系。比如，唐僧与他的徒弟的关系就可以 进一步确定为聚合关系。</p>
-<h1>聚合关系</h1>
-<p>聚合（Aggregation)关系是关联关系的一种，是强的关联关系。聚合是整体和个体之间的关系。</p>
+<h1 id="聚合关系"><a href="#聚合关系" class="headerlink" title="聚合关系"></a>聚合关系</h1><p>聚合（Aggregation)关系是关联关系的一种，是强的关联关系。聚合是整体和个体之间的关系。</p>
 <pre class="mermaid" style="text-align: center;">
             
             
@@ -335,8 +331,8 @@ class Car {
 }
 
           </pre>
-<h1>合成关系</h1>
-<p>合成(Composition)关系是关联关系的一种，是比聚合关系强的关系。它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期，合成关系是不能共享的。</p>
+
+<h1 id="合成关系"><a href="#合成关系" class="headerlink" title="合成关系"></a>合成关系</h1><p>合成(Composition)关系是关联关系的一种，是比聚合关系强的关系。它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期，合成关系是不能共享的。</p>
 <p>代表整体的对象需要负责保持部分对象的存活，在一些情况下负责将代表部分的对象湮灭掉。代表整体的对象可以将代表部分的对象传递给另一个对象，由后者负责此对象的生命周期。换言之，代表部分的对象在每一个时刻只能与一个对象发生合成关系，由后者排他地负责其生命周期。聚合关系和合成关系的类图如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -351,10 +347,10 @@ MonkeyKing "1" *--> "4" Limb
 MonkeyKing "1" o--> "1" GoldRingedStaff
 
           </pre>
+
 <p>在上面的类图中，显示了美猴王（MonkeyKing）以及他的四肢（Limb）和他的金箍棒（GoldRingedStaff)之间的关系。可以看出，MonkeyKing与GoldRingedStaff之间是聚合关系；而MonkeyKing与Limb之间的关系要比前者更强，是合成关系，因为美猴王的四肢完全由美猴王自己负责，并且不能共享。</p>
 <p>如果不能确定一个关系是不是合成关系，可以将之设置为聚合关系，甚至关联关系。</p>
-<h1>依赖关系</h1>
-<p>依赖（Dependency)也是类与类之间的连接，<strong>依赖总是单向的</strong>。依赖关系表示一个类依赖于另一个类的定义。一个人（Person）可以买车（Car）和房子（House），Person类依赖于Car类和House类，如下图所示。</p>
+<h1 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h1><p>依赖（Dependency)也是类与类之间的连接，<strong>依赖总是单向的</strong>。依赖关系表示一个类依赖于另一个类的定义。一个人（Person）可以买车（Car）和房子（House），Person类依赖于Car类和House类，如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
             
             
@@ -365,8 +361,10 @@ Person : +buy(...) void
 Person : +buy(...) void
 
           </pre>
+
 <p>用golang代码表达一下上面的类图就是：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> House <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyCar()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyHouse()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>一般而言，依赖关系体现为局部变量、方法的参数，以及对静态方法的调用。换言之，一个类A的某一个局部变量的类型是另一个类B，那么类A就依赖于类B。如果一个方法的参数是另一个类B的实例，那么这个方法所在的类A依赖于类B。</p>
 <p>如果类B出现在类A的实例变量中，那么类A与类B的关系就超越了依赖关系，而变成了某一种关联关系。</p>
 </|--></pre></|..></interface></pre>
@@ -457,7 +455,7 @@ Person : +buy(...) void
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">类图中的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8C%96%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.</span> <span class="nav-text">一般化关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">关联关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">聚合关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">合成关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">依赖关系</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE%E4%B8%AD%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">类图中的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8C%96%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.</span> <span class="nav-text">一般化关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">关联关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">聚合关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%88%E6%88%90%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">合成关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">依赖关系</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -482,7 +480,7 @@ Person : +buy(...) void
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">167</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

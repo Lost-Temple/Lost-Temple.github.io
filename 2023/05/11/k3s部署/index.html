@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="一、官方文档 二、安装步骤  使用docker作为容器(默认为containerd) 设置docker拉取的http代理 安装K3S 使用ingress-nginx(默认是traefik)  使用docker作为容器  可以使用Rancher的一个Docker安装脚本来安装Docker 也可以根据Docker官方文档手动ubuntu下安装docker  卸载旧版 1sudo apt-get rem">
+  <meta name="description" content="一、官方文档二、安装步骤 使用docker作为容器(默认为containerd) 设置docker拉取的http代理 安装K3S 使用ingress-nginx(默认是traefik)  使用docker作为容器 可以使用Rancher的一个Docker安装脚本来安装Docker 也可以根据Docker官方文档手动ubuntu下安装docker  卸载旧版1sudo apt-get remove">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k3s部署">
 <meta property="og:url" content="http://www.blockchainof.com/2023/05/11/k3s%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="一个码农的自白">
-<meta property="og:description" content="一、官方文档 二、安装步骤  使用docker作为容器(默认为containerd) 设置docker拉取的http代理 安装K3S 使用ingress-nginx(默认是traefik)  使用docker作为容器  可以使用Rancher的一个Docker安装脚本来安装Docker 也可以根据Docker官方文档手动ubuntu下安装docker  卸载旧版 1sudo apt-get rem">
+<meta property="og:description" content="一、官方文档二、安装步骤 使用docker作为容器(默认为containerd) 设置docker拉取的http代理 安装K3S 使用ingress-nginx(默认是traefik)  使用docker作为容器 可以使用Rancher的一个Docker安装脚本来安装Docker 也可以根据Docker官方文档手动ubuntu下安装docker  卸载旧版1sudo apt-get remove">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-11T06:07:04.000Z">
 <meta property="article:modified_time" content="2023-06-13T00:27:25.946Z">
@@ -251,52 +251,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>一、<a target="_blank" rel="noopener" href="https://docs.k3s.io/zh/quick-start">官方文档</a></h1>
-<h1>二、安装步骤</h1>
-<ul>
+        <h1 id="一、官方文档"><a href="#一、官方文档" class="headerlink" title="一、官方文档"></a>一、<a target="_blank" rel="noopener" href="https://docs.k3s.io/zh/quick-start">官方文档</a></h1><h1 id="二、安装步骤"><a href="#二、安装步骤" class="headerlink" title="二、安装步骤"></a>二、安装步骤</h1><ul>
 <li>使用docker作为容器(默认为containerd)</li>
 <li>设置docker拉取的http代理</li>
 <li>安装K3S</li>
 <li>使用ingress-nginx(默认是traefik)</li>
 </ul>
-<h2 id="使用docker作为容器">使用docker作为容器</h2>
-<ul>
+<h2 id="使用docker作为容器"><a href="#使用docker作为容器" class="headerlink" title="使用docker作为容器"></a>使用docker作为容器</h2><ul>
 <li>可以使用<code>Rancher</code>的一个<a target="_blank" rel="noopener" href="https://github.com/rancher/install-docker">Docker安装脚本</a>来安装Docker</li>
 <li>也可以根据Docker官方文档手动<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">ubuntu下安装docker</a></li>
 </ul>
-<h3 id="卸载旧版">卸载旧版</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
-<h3 id="设置repository">设置<code>repository</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
+<h3 id="卸载旧版"><a href="#卸载旧版" class="headerlink" title="卸载旧版"></a>卸载旧版</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置repository"><a href="#设置repository" class="headerlink" title="设置repository"></a>设置<code>repository</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo chmod a+r /etc/apt/keyrings/docker.gpg</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo \</span><br><span class="line">  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span><br><span class="line">  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \</span><br><span class="line">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
-<h3 id="安装Docker-Engine">安装<code>Docker Engine</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Docker-Engine"><a href="#安装Docker-Engine" class="headerlink" title="安装Docker Engine"></a>安装<code>Docker Engine</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
-<h2 id="设置docker拉取的http代理">设置docker拉取的http代理</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">cd /etc/systemd/system/docker.service.d</span><br><span class="line">sudo vim proxy.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置docker拉取的http代理"><a href="#设置docker拉取的http代理" class="headerlink" title="设置docker拉取的http代理"></a>设置docker拉取的http代理</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">cd /etc/systemd/system/docker.service.d</span><br><span class="line">sudo vim proxy.conf</span><br></pre></td></tr></table></figure>
 <p>文件内容如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="安装K3S">安装<code>K3S</code></h2>
-<p>以Docker为容器</p>
+
+<h2 id="安装K3S"><a href="#安装K3S" class="headerlink" title="安装K3S"></a>安装<code>K3S</code></h2><p>以Docker为容器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://get.k3s.io | sh -s - --docker</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果服务器网络环境复杂，需要指定K3S服务节点的IP，则 <code>--node-ip=192.168.10.100</code></p>
 </blockquote>
-<h2 id="使用ingress-nginx作为反向代理">使用ingress-nginx作为反向代理</h2>
-<p>之前在K3S搭建的环境中，默认是使用<code>traefik</code>的，在使用FedLCM部署FATE相关组件，里面使用了ingress-nginx，如果使用FedLCM去部署ingress-nginx，则会有一个坑：这个ingress-nginx在k3s中是部署成功了，但是FedLCM使用K8S的API去查询ingress-nginx是否部署完成返回的值是跟实际情况不符的。如果把<code>traefik</code>禁用了，就能避坑，这应该是K3S的一个bug(目前应该是解决了，后来我又部署过几次，没这个问题了)。</p>
+<h2 id="使用ingress-nginx作为反向代理"><a href="#使用ingress-nginx作为反向代理" class="headerlink" title="使用ingress-nginx作为反向代理"></a>使用ingress-nginx作为反向代理</h2><p>之前在K3S搭建的环境中，默认是使用<code>traefik</code>的，在使用FedLCM部署FATE相关组件，里面使用了ingress-nginx，如果使用FedLCM去部署ingress-nginx，则会有一个坑：这个ingress-nginx在k3s中是部署成功了，但是FedLCM使用K8S的API去查询ingress-nginx是否部署完成返回的值是跟实际情况不符的。如果把<code>traefik</code>禁用了，就能避坑，这应该是K3S的一个bug(目前应该是解决了，后来我又部署过几次，没这个问题了)。</p>
 <blockquote>
 <p>解决方法是：只需使用 <code>--disable=traefik</code> 启动 K3s Server，然后部署你的 Ingress 即可。</p>
 </blockquote>
 <p>具体步骤：</p>
 <ul>
 <li>安装kubectl<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载kubectl</span></span><br><span class="line">curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装kubectl</span></span><br><span class="line">sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.kube</span><br><span class="line">sudo cat /etc/rancher/k3s/k3s.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在~/.kube/下创建一个`config`文件把k3s.yaml中的内容放入到`config`中</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>安装helm<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</span><br></pre></td></tr></table></figure>
-</li>
-<li>安装 ingress-nginx<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.kube</span><br><span class="line">sudo cat /etc/rancher/k3s/k3s.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在~/.kube/下创建一个`config`文件把k3s.yaml中的内容放入到`config`中</span></span><br></pre></td></tr></table></figure></li>
+<li>安装helm<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</span><br></pre></td></tr></table></figure></li>
+<li>安装 ingress-nginx<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace</span><br></pre></td></tr></table></figure></li>
 <li>查看 ingress-nginx controller信息<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n ingress-nginx ingress-nginx-controller</span><br></pre></td></tr></table></figure>
 ingress controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</code>,这两种模式下，访问那些通过ingress反向代理的服务时，使用的IP地址是有区别的，<code>NodePort</code>模式下，没有<code>EXTERNAL-IP</code></li>
 </ul>
@@ -383,7 +378,7 @@ ingress controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">一、官方文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">二、安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8docker%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">使用docker作为容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88"><span class="nav-number">2.1.1.</span> <span class="nav-text">卸载旧版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AErepository"><span class="nav-number">2.1.2.</span> <span class="nav-text">设置repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker-Engine"><span class="nav-number">2.1.3.</span> <span class="nav-text">安装Docker Engine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEdocker%E6%8B%89%E5%8F%96%E7%9A%84http%E4%BB%A3%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">设置docker拉取的http代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85K3S"><span class="nav-number">2.3.</span> <span class="nav-text">安装K3S</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8ingress-nginx%E4%BD%9C%E4%B8%BA%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">使用ingress-nginx作为反向代理</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">一、官方文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">二、安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8docker%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">使用docker作为容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88"><span class="nav-number">2.1.1.</span> <span class="nav-text">卸载旧版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AErepository"><span class="nav-number">2.1.2.</span> <span class="nav-text">设置repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker-Engine"><span class="nav-number">2.1.3.</span> <span class="nav-text">安装Docker Engine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEdocker%E6%8B%89%E5%8F%96%E7%9A%84http%E4%BB%A3%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">设置docker拉取的http代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85K3S"><span class="nav-number">2.3.</span> <span class="nav-text">安装K3S</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8ingress-nginx%E4%BD%9C%E4%B8%BA%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">使用ingress-nginx作为反向代理</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -408,7 +403,7 @@ ingress controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">167</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
