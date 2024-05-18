@@ -1,37 +1,517 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="合成&#x2F;聚合复用原则(CARP) 合成&#x2F;聚合复用原则(Composite&#x2F;Aggregate Reuse Principle, 或CARP)，经常又叫作合成复用原则(Composite Reuse Principle或CRP)。合成&#x2F;聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。 这个设计原则有另一个更简短的表述：要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重读《JAVA与模式》笔记系列-00007">
+<meta property="og:url" content="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="合成&#x2F;聚合复用原则(CARP) 合成&#x2F;聚合复用原则(Composite&#x2F;Aggregate Reuse Principle, 或CARP)，经常又叫作合成复用原则(Composite Reuse Principle或CRP)。合成&#x2F;聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。 这个设计原则有另一个更简短的表述：要">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg">
+<meta property="article:published_time" content="2023-02-12T02:18:29.000Z">
+<meta property="article:modified_time" content="2024-05-18T06:42:53.019Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="CARP">
+<meta property="article:tag" content="合成">
+<meta property="article:tag" content="聚合">
+<meta property="article:tag" content="复用原则">
+<meta property="article:tag" content="里氏代换">
+<meta property="article:tag" content="Coad法测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg">
+
+<link rel="canonical" href="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>重读《JAVA与模式》笔记系列-00007 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          重读《JAVA与模式》笔记系列-00007
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-12 10:18:29" itemprop="dateCreated datePublished" datetime="2023-02-12T10:18:29+08:00">2023-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-18 14:42:53" itemprop="dateModified" datetime="2024-05-18T14:42:53+08:00">2024-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>合成/聚合复用原则(CARP)</h1>
+<p>合成/聚合复用原则(Composite/Aggregate Reuse Principle, 或CARP)，经常又叫作合成复用原则(Composite Reuse Principle或CRP)。合成/聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。</p>
+<p>这个设计原则有另一个更简短的表述：要尽量使用合成/聚合，尽量不要使用继承。</p>
+<p>合成(Composite)一词的使用很广泛，经常导致混淆。为避免这些混淆，不妨先来考察一下“合成”与“聚合”的区别。</p>
+<h2 id="合成和聚合的区别">合成和聚合的区别</h2>
+<p>合成(Composition)和聚合(Aggregation)均是关联(Association)的特殊种类。聚合用来表示“拥有”关系或者整体与部分的关系；而合成则用来表示一种强得多的“拥有”关系。在一个合成关系里，部分和整体的生命周期是一样的。一个合成的新的对象完全拥有对其组成的支配权，包括它们的创建和湮灭等。使用程序语言的术语来讲，组合而成的新对象对组成部分的内存分配、内存释放有绝对的责任。</p>
+<p>更进一步来讲，一个合成的多重性(Multiplicity)不能超过1，换言之，一个合成关系中的成分对象是不能与另一个合成关系共享的。一个成分对象在同一时间内只能属于一个合成关系。如果一个合成关系湮灭了，那么所有的成分对象要么自己湮灭所有的成分对象(这种情况较为普通)，要么就得将这一责任交给别人（这种情况较为罕见）。</p>
+<p>用C程序员较易理解的语言来讲，合成是值的聚合(Aggregation by Value), 而通常所说的聚合则是引用的聚合(Aggreation by Reference)。</p>
+<h2 id="复用的基本种类">复用的基本种类</h2>
+<p>在面向对象的设计里，有两种基本的办法可以在不同的环境中复用已有的设计和实现，即通过合成/聚合或通过继承。那么这两种不同的复用方式在可维护性上面有何区别呢？</p>
+<h3 id="合成-聚合复用">合成/聚合复用</h3>
+<p>由于合成或聚合可以将已有的对象纳入到新对象中，使之成为新对象的一部分，因此新的对象可以调用已有对象的功能。这样做有下面的好处：</p>
+<ul>
+<li>新对象存取成分对象的惟一方法是通过成分对象的接口。</li>
+<li>这种复用是黑箱复用，因为成分对象的内部细节是新对象所看不见的。</li>
+<li>这种复用支持包装。</li>
+<li>这种复用所需要的依赖较少。</li>
+<li>每一个新的类可以将焦点集中在一个任务上。</li>
+<li>这种复用可以在运行时间内动态进行，新对象可以动态地引用与成分对象类型相同的对象。<br>
+一般而言，如果一个角色得到了更多的责任，那么可以使用用合成/聚合关系将新的责任委派到合适的对象。</li>
+</ul>
+<p>当然，这种复用也有缺点。其中最主要的缺点就是通过使用这种复用建造的系统会有较多的对象需要管理。</p>
+<h3 id="通过继承达到复用的目的">通过继承达到复用的目的</h3>
+<p>合成/聚合作为复用的手段可以应用到几乎任何环境中去。而与合成/聚合不同的是，继承只能应用到很有限的一些环境中去。换言之，尽管继承是一种非常重要的复用手段，但是设计师应当首先考虑使用合成/聚合，而不是继承。</p>
+<h4 id="继承的种类">继承的种类</h4>
+<p>继承是面向对象的语言特有的复用工具，而且是最容易被滥用的复用工具。这里讨论的继承，是指从一个Java类到另一个Java类的实现性继承，也就是实现继承，并不包括接口继承。一个实现继承的例子如下图：</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+
+蛋 <|-- 鸡
+
+          </pre>
+<p>继承复用通过扩展一个已有对象的实现来得到新的功能，基类明显地捕获共同的属性和方法，而子类通过增加新的属性和方法来扩展超类的实现。继承是类型的复用，比如下面都是继承的例子：</p>
+<ul>
+<li>男人和女人是人类</li>
+<li>上推排序(Bubble Sort)是排序程序的一种</li>
+<li>汽车驾照是官方文件的一种</li>
+<li>正式雇员和临时雇员均是雇员的一种</li>
+<li>经理是正式雇员的一种</li>
+</ul>
+<p>在面向对象的设计理论早期，设计师十分热衷于继承，好像继承就是最好的复用手段。随着时间的推移和实践经验的积累，人们逐渐认识到了继承关系的缺点。</p>
+<h4 id="继承复用的优点">继承复用的优点</h4>
+<p>利用继承关系达到复用的做法有下面的优点：</p>
+<ul>
+<li>新的实现较为容易，因为超类的大部分功能可以通过继承关系自动进入子类。</li>
+<li>修改或扩展继承而来的实现较为容易</li>
+</ul>
+<h4 id="继承复用的缺点">继承复用的缺点</h4>
+<p>与合成/聚合复用不同的是，继承有多个缺点：</p>
+<ul>
+<li>继承复用破坏包装，因为继承将超类的实现细节暴露给子类。由于超类的内部细节常常是对子类透明的，因此这种复用是透明的复用，又称“白箱”复用。</li>
+<li>如果超类的实现发生改变，那么子类的实现也不得不发生改变。因此，当一个基类发生改变时，这种改变会像水中投入石子引起的水波一样，将变化一圈又不圈地传导到一级又一级的子类，使设计师不得不相应地改变这些子类，以适应超类的变化。</li>
+<li>从超类继承而来的实现是静态的，不可能在运行时间内发生改变，因此没有足够的灵活性。</li>
+</ul>
+<p>由于以上的这些缺点，尽量使用合成/聚合而不是继承来达到对实现的复用，是非常重要的设计原则。</p>
+<h2 id="从代码重构的角度理解">从代码重构的角度理解</h2>
+<p>在很多情况下，缺乏经验的Java设计师之所以选择继承关系描述两个类之间的关系，是因为对继承关系的理解不够造成的。而要正确地使用继承关系，必须透彻地理解里氏代换原则和Coad法则。</p>
+<p>一般来说，对违反里氏代换原则的设计进行重构时，可以采取两个办法：一是加入一个抽象超类，这一办法已经在本书的“里氏代换原则”一章中讨论过了；二是将继承关系改写合成/聚合关系，这一点是本章讨论的重点。</p>
+<h3 id="区分“Has-A”与“Is-A”">区分“Has-A”与“Is-A”</h3>
+<p>“Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的“一种”。而”Has-A“则不同，它表示某一个角色具有某一项责任。</p>
+<p>导致错误地使用继承而不是合成/聚合的一个常见的原因是错误地把”Has-A“当作”Is-A“。”Is-A“代表一个类是另一个类的一种；”Has-A“代表一个类是另一个类的一个角色，而不是另一个的一个特殊种类。这就是Coad条件的第一条。</p>
+<p>请考虑一下下图所示的类图中所描述的例子。”人“被继承到”雇员“、”经理“、“学生”等子类。而实际上，“雇员”、“经理”和“学生”分别描述一种角色，而“人”可以同时有几种不同的角色。比如，一个“人”既然是“经理”，就必然是“雇员”；而此“人”可能同时还参加MBA课程，从而也是一个“学生”。使用继承来实现角色，则只能使每一个“人”具有“Has-A”角色，而且继承是静态的，这会使得一个“人”在成为“雇员”身份后，就永远为“雇员”，不能称为“经理”或“学生”，而这显然是不合理的。</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+
+人 <|-- 雇员
+人 <|-- 经理
+人 <|-- 学生
+
+          </pre>
+<p>这一错误的设计源自把“角色”的等级结构与“人”的等级结构混淆起来，把Has-A角色误解为Is-A角色。因此要纠正这一错误，关键是区分“人”和“角色”的区别。下图所示的设计就正确地做到了这一点。</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+角色 <|-- 雇员
+角色 <|-- 经理
+角色 <|-- 学生
+人 "1" *--> "*" 角色
+
+          </pre>
+<p>从上图可以看出，每一个“人”都可以有一个以上的“角色”，所以一个人可以同时是“雇员”，又是“经理”，甚至同时又是“学生”。而且由于“人”与“角色”的耦合是通过合成的，因此，角色可以有动态的变化。一个“人”可以开始是一个“雇员”，然后晋升为“经理”，然后又由于他参加了MBA课程，又成为了“学生”。</p>
+<p>这就是说，当一个类是另一个类的角色时，不应当使用继承描述这种关系。</p>
+<h3 id="与里氏代换原则联合使用">与里氏代换原则联合使用</h3>
+<p>里氏代换原则是继承复用的基石。如果在任何使用B类型的地方都可以使用S类型，那么S类型才能称为B类型的子类型（Subtype），而B类型才能称为S类型的基类型（Base Type）。</p>
+<p>换言之，只有当每一个S在任何情况下都是一种B的时候，才可以将S设计成为B的子类。如果两个类的关系是&quot;Has-A“关系而不是”Is-A“关系，这两个类一定违反了里氏代换原则。</p>
+<p>只有两个类满足里氏代换原则，才有可能是”Is-A“关系。</p>
+<h3 id="Java语言API中的例子">Java语言API中的例子</h3>
+<p>在Java语言的API中，有几个明显违反这一原则的例子，其中最为著名的就是Stack和Properties。前者被不当地设置为Vector的子类，而Properties被不恰当地设置成Hashtable的子类，<br>
+<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg" alt="Java语言API中的例子"></p>
+<p>一个Stack不是一个Vector，所以Stack不应当设置成为Vector的子类。同样地，一个性质列（Properties）也不是一个Hashtable。在两种情况下，使用聚合比使用继承关系更合适。</p>
+<p>由于Properties继承了Hashtable的行为，因而当p是一个Properties类型的对象时，<code>p.getProperties(key)</code>和<code>p.get(key)</code>就会给出不同的结果。前者来自于Properties本身，因此会利用默认值；而后者则来自于Hashtable，因此不会利用默认值。</p>
+<p>更糟糕的是，由于Properties是Hashtable的子类，因此，客户端可以通过类型的转换，直接使用超类型的行为。比如，Properties假定所有的键和值都是String类型的，如果不是，就会导致运行崩溃。但是，客户端完全可以通过Hashtable提供的行为加入任意类型的键和值。绕过Properties的接口，并导致Properties的内部矛盾和崩溃。</p>
+<p>这样一来，Properties其实仅仅是有一些Hashtable的属性的，换言之，这是一个&quot;Has-A”的关系，而不是一个“Is-A”的关系。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CARP/" rel="tag"># CARP</a>
+              <a href="/tags/%E5%90%88%E6%88%90/" rel="tag"># 合成</a>
+              <a href="/tags/%E8%81%9A%E5%90%88/" rel="tag"># 聚合</a>
+              <a href="/tags/%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99/" rel="tag"># 复用原则</a>
+              <a href="/tags/%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2/" rel="tag"># 里氏代换</a>
+              <a href="/tags/Coad%E6%B3%95%E6%B5%8B/" rel="tag"># Coad法测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/" rel="prev" title="重读《JAVA与模式》笔记系列-00006">
+      <i class="fa fa-chevron-left"></i> 重读《JAVA与模式》笔记系列-00006
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" rel="next" title="重读《JAVA与模式》笔记系列-00008">
+      重读《JAVA与模式》笔记系列-00008 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">合成&#x2F;聚合复用原则(CARP)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%88%90%E5%92%8C%E8%81%9A%E5%90%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">合成和聚合的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">复用的基本种类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E6%88%90-%E8%81%9A%E5%90%88%E5%A4%8D%E7%94%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">合成&#x2F;聚合复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BB%A7%E6%89%BF%E8%BE%BE%E5%88%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-number">1.2.2.</span> <span class="nav-text">通过继承达到复用的目的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">继承的种类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%A4%8D%E7%94%A8%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">继承复用的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%A4%8D%E7%94%A8%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">继承复用的缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84%E7%9A%84%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">从代码重构的角度理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%88%86%E2%80%9CHas-A%E2%80%9D%E4%B8%8E%E2%80%9CIs-A%E2%80%9D"><span class="nav-number">1.3.1.</span> <span class="nav-text">区分“Has-A”与“Is-A”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2%E5%8E%9F%E5%88%99%E8%81%94%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">与里氏代换原则联合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80API%E4%B8%AD%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.3.3.</span> <span class="nav-text">Java语言API中的例子</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

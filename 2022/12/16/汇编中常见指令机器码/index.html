@@ -1,37 +1,489 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="pop和push    pop机器码 含义 push机器码 含义     5f pop edi 57 push edi   5e pop esi 56 push esi   5d pop ebp 55 push ebp   5c pop esp 54 push esp   5b pop ebx 53 push ebx   5a pop edx 52 push edx   59 pop ecx 51">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编中常见指令机器码">
+<meta property="og:url" content="http://www.blockchainof.com/2022/12/16/%E6%B1%87%E7%BC%96%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4%E6%9C%BA%E5%99%A8%E7%A0%81/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="pop和push    pop机器码 含义 push机器码 含义     5f pop edi 57 push edi   5e pop esi 56 push esi   5d pop ebp 55 push ebp   5c pop esp 54 push esp   5b pop ebx 53 push ebx   5a pop edx 52 push edx   59 pop ecx 51">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-16T08:56:55.000Z">
+<meta property="article:modified_time" content="2022-12-16T09:33:51.557Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="汇编">
+<meta property="article:tag" content="指令">
+<meta property="article:tag" content="机器码">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/2022/12/16/%E6%B1%87%E7%BC%96%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4%E6%9C%BA%E5%99%A8%E7%A0%81/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>汇编中常见指令机器码 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/16/%E6%B1%87%E7%BC%96%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4%E6%9C%BA%E5%99%A8%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          汇编中常见指令机器码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 16:56:55 / 修改时间：17:33:51" itemprop="dateCreated datePublished" datetime="2022-12-16T16:56:55+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96/" itemprop="url" rel="index"><span itemprop="name">汇编</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96/%E6%8C%87%E4%BB%A4/" itemprop="url" rel="index"><span itemprop="name">指令</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>pop和push</h1>
+<table>
+<thead>
+<tr>
+<th>pop机器码</th>
+<th>含义</th>
+<th>push机器码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5f</td>
+<td>pop edi</td>
+<td>57</td>
+<td>push edi</td>
+</tr>
+<tr>
+<td>5e</td>
+<td>pop esi</td>
+<td>56</td>
+<td>push esi</td>
+</tr>
+<tr>
+<td>5d</td>
+<td>pop ebp</td>
+<td>55</td>
+<td>push ebp</td>
+</tr>
+<tr>
+<td>5c</td>
+<td>pop esp</td>
+<td>54</td>
+<td>push esp</td>
+</tr>
+<tr>
+<td>5b</td>
+<td>pop ebx</td>
+<td>53</td>
+<td>push ebx</td>
+</tr>
+<tr>
+<td>5a</td>
+<td>pop edx</td>
+<td>52</td>
+<td>push edx</td>
+</tr>
+<tr>
+<td>59</td>
+<td>pop ecx</td>
+<td>51</td>
+<td>push ecx</td>
+</tr>
+<tr>
+<td>58</td>
+<td>pop eax</td>
+<td>50</td>
+<td>push eax</td>
+</tr>
+</tbody>
+</table>
+<h1>call</h1>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> (short) <span class="built_in">eax</span></span><br><span class="line"><span class="comment">; 1.将当前指令的下一条指令的地址压栈</span></span><br><span class="line"><span class="comment">; 2.JMP到eax这个地址</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> (long) <span class="built_in">eax</span></span><br><span class="line"><span class="comment">; 1.将CS压栈</span></span><br><span class="line"><span class="comment">; 2.将当前指令的下一条指令的地址压栈</span></span><br><span class="line"><span class="comment">; 3.JMP到eax这个地址</span></span><br></pre></td></tr></table></figure>
+<h1>retn 和 retf</h1>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retn</span></span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈</span></span><br><span class="line"><span class="comment">; 2.JMP到这个地址</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retn</span> k</span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈</span></span><br><span class="line"><span class="comment">; 2.JMP到这个地址</span></span><br><span class="line"><span class="comment">; 3.弹出栈顶的k个字节的数据</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retf</span></span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈给EIP</span></span><br><span class="line"><span class="comment">; 2.将当前的ESP中指向的地址出栈给CS</span></span><br><span class="line"><span class="comment">; 3.JMP到这个地址</span></span><br></pre></td></tr></table></figure>
+<h1>jmp</h1>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; jmp 短跳</span></span><br><span class="line">\xeb\xf6: <span class="keyword">jmp</span> short $-<span class="number">8</span> <span class="comment">;(其中$指代当前EIP)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 在Asm2MachineCode(x86)中如果要尝试jmp short $-8,是不可能实现的，但是我们可以：</span></span><br><span class="line"><span class="comment">; 1. ImageBase (hex) 设置为0012ff60 (此处为当前的EIP地址)</span></span><br><span class="line"><span class="comment">; 2. jmp short 0012FF58</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; jmp长跳</span></span><br><span class="line">\xE9\x2B\xFF\xFF\xFF\xFF: <span class="keyword">jmp</span> <span class="number">0x0012FF30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 在Asm2MachineCode(x86)中如果要尝试jmp short $-8，是不可能实现的，但是我们可以：</span></span><br><span class="line"><span class="comment">; 1. ImageBase（hex）设置为0012ff58 (此处为当前的EIP地址)</span></span><br><span class="line"><span class="comment">; 2. jmp 0012FE88</span></span><br></pre></td></tr></table></figure>
+<h1>cmp</h1>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmp</span> op1, op2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ZF=1 这个简单，说明两个操作数相等</span><br><span class="line"></span><br><span class="line">当无符号时：</span><br><span class="line">CF=1 则说明了有进位或借位，cmp是进行的减操作，故可以看出为借位，所以，此时oprd1&lt;oprd2</span><br><span class="line">CF=0 则说明了无借位，但此时要注意ZF是否为0，若为0，则说明结果不为0，故此时oprd1&gt;oprd2</span><br><span class="line"></span><br><span class="line">当有符号时：</span><br><span class="line">若SF=0，OF=0 则说明了此时的值为正数，没有溢出，可以直观的看出，oprd1&gt;oprd2</span><br><span class="line">若SF=1，OF=0 则说明了此时的值为负数，没有溢出，则为oprd1&lt;oprd2</span><br><span class="line">若SF=0，OF=1 则说明了此时的值为正数，有溢出，可以看出oprd1&lt;oprd2</span><br><span class="line">若SF=1，OF=1则说明了此时的值为负数，有溢出，可以看出oprd1&gt;oprd2</span><br><span class="line"></span><br><span class="line">最后两个可以作出这种判断的原因是，溢出的本质问题：</span><br><span class="line">两数同为正，相加，值为负，则说明溢出</span><br><span class="line">两数同为负，相加，值为正，则说明溢出</span><br><span class="line">故有，正正得负则溢出，负负得正则溢出</span><br></pre></td></tr></table></figure>
+<h1>leave</h1>
+<p>leave在32位汇编下相当于</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move <span class="built_in">esp</span>, <span class="built_in">ebp</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ebp</span></span><br></pre></td></tr></table></figure>
+<h1>les</h1>
+<p>LES( load ES)指令的功能是：把内存中指定位置的双字操作数的低位字装入指令中指定的寄存器、高位字装入ES寄存器。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LES</span> DSET，SRC</span><br><span class="line"><span class="keyword">LES</span> REG，MEM</span><br><span class="line"><span class="comment">; DEST为destination(目的地址)，SRC为source(源地址)；</span></span><br><span class="line"><span class="comment">; REG为register(CPU寄存器)，MEM为memory(内存地址)。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DEST=WORD PTR[SRC]</span><br><span class="line"></span><br><span class="line">ES=WORD PTR[SRC+2]</span><br><span class="line"></span><br><span class="line">DEST赋值为SRC处双字的低位；</span><br><span class="line"></span><br><span class="line">ES赋值为SRC处双字的高位；</span><br></pre></td></tr></table></figure>
+<h1>比较</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A（above）大于、B（below）小于、E（equal）等于，用于比较无符号数</span><br><span class="line"></span><br><span class="line">G（great）大于、L（less than）小于、E（equal）等于，用于比较带符号数</span><br><span class="line"></span><br><span class="line">其实这些地方也是漏洞点，有时候比较没有对是否有符号进行确定，所以可能会出问题。</span><br></pre></td></tr></table></figure>
+<h1>lods/stos</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lodsb指令，将esi指向的地址处的数据取出来赋给AL寄存器, esi=esi+1；</span><br><span class="line"></span><br><span class="line">lodsw指令则取得是一个字。</span><br><span class="line"></span><br><span class="line">lodsd指令，取得是双字节，即mov eax，[esi]，esi=esi+4；</span><br><span class="line"></span><br><span class="line">stosb指令，将AL寄存器的值取出来赋给edi所指向的地址处。mov [edi]，AL；edi=edi+1；</span><br><span class="line"></span><br><span class="line">stosw指令去的是一个字。</span><br><span class="line"></span><br><span class="line">stosd指令，取得是双字节，mov [edi]，eax；edi=edi+4；</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B1%87%E7%BC%96/" rel="tag"># 汇编</a>
+              <a href="/tags/%E6%8C%87%E4%BB%A4/" rel="tag"># 指令</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E7%A0%81/" rel="tag"># 机器码</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/15/cobra%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" rel="prev" title="cobra基本命令">
+      <i class="fa fa-chevron-left"></i> cobra基本命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/16/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00001/" rel="next" title="重读《JAVA与模式》笔记系列-00001">
+      重读《JAVA与模式》笔记系列-00001 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">pop和push</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">retn 和 retf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">jmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">cmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">leave</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">les</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">lods&#x2F;stos</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

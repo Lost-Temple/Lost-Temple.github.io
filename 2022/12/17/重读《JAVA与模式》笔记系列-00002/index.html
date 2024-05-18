@@ -1,37 +1,456 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="什么是“开-闭”原则 “开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。  Software entities should be open for extension, but closed for modification.  这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。 满足“开-闭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重读《JAVA与模式》笔记系列-00002">
+<meta property="og:url" content="http://www.blockchainof.com/2022/12/17/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00002/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="什么是“开-闭”原则 “开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。  Software entities should be open for extension, but closed for modification.  这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。 满足“开-闭">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-17T06:58:27.000Z">
+<meta property="article:modified_time" content="2022-12-18T04:21:43.936Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="开闭原则">
+<meta property="article:tag" content="OCP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/2022/12/17/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00002/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>重读《JAVA与模式》笔记系列-00002 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/17/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00002/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          重读《JAVA与模式》笔记系列-00002
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-17 14:58:27" itemprop="dateCreated datePublished" datetime="2022-12-17T14:58:27+08:00">2022-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-18 12:21:43" itemprop="dateModified" datetime="2022-12-18T12:21:43+08:00">2022-12-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" rel="index"><span itemprop="name">基本概念</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>什么是“开-闭”原则</h1>
+<p>“开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。</p>
+<blockquote>
+<p>Software entities should be open for extension, but closed for modification.</p>
+</blockquote>
+<p>这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。</p>
+<p>满足“开-闭”原则的设计可以给一个软件系统两个无可比拟的优越性：</p>
+<ul>
+<li>通过扩展已有的软件系统，可以提供新的行为，以满足对软件的新需求，使变化中的软件系统中有一定的适应性和灵活性。</li>
+<li>已有的软件模块，特别是最重要的抽象层模块不能再修改，这就使变化中的软件系统有一定的稳定性和延续性。</li>
+</ul>
+<h1>抽象化是关键</h1>
+<p>解决问题的关键在于抽象化。面向对象的编程语言里面，可以给系统定义出一个一劳永逸、不再更改的抽象设计，此设计允许有无穷无尽的行为在实现层被实现。这个抽象层预见了所有的可能扩展，因此，在任何扩展情况下都不会改变。这就使得系统的抽象层不需修改，从而满足了“开-闭”原则的第二条：对修改关闭。</p>
+<p>同时，由于从抽象层导出一个或多个新的具体类可以改变系统的行为，因此系统的设计对扩展是开放的，这就满足了“开-闭”原则的第一条。</p>
+<h1>对可变性的封装原则</h1>
+<p>“开-闭”原则如果从另外一个角度讲述，就是所谓的“对可变性的封装原则”（Principle of Encapsulation of Variation，常常略写做EVP).&quot;</p>
+<p>可变性原则的思路：考虑的不是什么会导致设计改变，而是考虑你允许什么发生变化而不让这一变化导致重新设计。</p>
+<p>[SHALL01]将这一思想用一句话总结为：找到一个系统的可变因素，将它封装起来，并将它命名为“对可变性的封装原则”，对可变性的封装原则意味着两点：</p>
+<ul>
+<li>一种可变性不应当散落在代码的很多角落里，而应当被封装到一个对象里面。同一种可变性的不同表象意味着同一继承等级结构中的具体子类。</li>
+<li>一种可变性不应当与另一种可变性混合在一起。即类图中的继承结构一般都不会超过两层。不然就意味着将两种不同的可变性混合在了一起。</li>
+</ul>
+<blockquote>
+<p>显然，”对可变性的封装原则“从工程的角度讲解了如何实现”开-闭“原则。</p>
+</blockquote>
+<h1>与其它设计原则的关系</h1>
+<p>做到”开-闭“原则不是一件容易的事，但是也是有很多规律可循的。这些规律也同样以设计原则的身份出现，但是它们都是”开-闭“原则的手段和工具，是附属于”开-闭“原则的。</p>
+<h2 id="里氏代换原则">里氏代换原则</h2>
+<p><strong>里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。</strong></p>
+<p>里氏代换原则是对”开-闭“原则的补充。正如前面所谈到的，实现”开-闭“原则的关键步骤就是抽象化。而基类与子类的继承关系就是抽象化的具体体现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p>
+<p>一般而言，违反里氏代换原则的，也违背”开-闭“原则，反过来并不一定成立。</p>
+<h2 id="依赖倒转原则">依赖倒转原则</h2>
+<p><strong>依赖倒转原则讲的是，要依赖于抽象，不要依赖于实现。</strong></p>
+<p>看上去和”开-闭”原则有很大的相似之处，实际上，它们之间的关系是目标和手段的关系。“开-闭”原则是目标，而达到这一目标的手段是依赖倒转原则。</p>
+<p>换言之，要想实现“开-闭”原则，就应当坚持依赖倒转原则，违反依赖倒转原则，就不可能达到“开-闭”原则的要求。</p>
+<h2 id="合成-聚合复用原则">合成/聚合复用原则</h2>
+<p><strong>合成/聚合复用原则讲的是，要尽量使用合成/聚合，而不是继承关系达到复用的目的。</strong></p>
+<p>合成/聚合复用原则是与里氏代换原则相辅相成的，两者又都是对实现“开-闭”原则的具体步骤的规范。</p>
+<p>遵守合成/聚合复用原则是实现“开-闭”原则的必要条件；违反了这一原则就无法使系统实现“开-闭”原则这一目标。</p>
+<h2 id="迪米特法则">迪米特法则</h2>
+<p><strong>迪米特法则讲的是，一个软件实体应当与尽可能少的其它实体发生相互作用。</strong></p>
+<p>当一个系统面临功能扩展时，其中会有一些模块，它们需要修改的压力比其它一些模块要大。最后的结果可能是这些模块需要修改或者不需要修改。但是不论是哪一种情况，如果这些模块是相对孤立的，那么它们就不会将修改的压力传递给其它的模块。</p>
+<p>这就是说，一个遵守迪米特原则设计出来的系统在功能需要扩展时，会相对更容易地做到对修改的半闭。也就是说，迪米特法则是一条通向“开-闭”原则的道路。</p>
+<h2 id="接口隔离原则">接口隔离原则</h2>
+<p><strong>接口隔离原则讲的是，应当为客户端提供尽可能小的单独接口，而不要提供大的总接口。</strong></p>
+<p>显然，接口隔离原则与广义的迪米特法则都是对一个软件实体与其它的软件实体的通信的限制。广义的迪米特法则要求尽可能限制通信的宽度和深度。接口隔离原则所限制的是通信的宽度，也就是说，通信应当尽可能地窄。</p>
+<p>遵循隔离原则与迪米特法则，会使一个软件系统在功能扩展的过程当中，不会将修改的压力传递到其它对象。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99/" rel="tag"># 开闭原则</a>
+              <a href="/tags/OCP/" rel="tag"># OCP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/16/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00001/" rel="prev" title="重读《JAVA与模式》笔记系列-00001">
+      <i class="fa fa-chevron-left"></i> 重读《JAVA与模式》笔记系列-00001
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/21/Golang%E9%A1%B9%E7%9B%AESwagger%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" rel="next" title="Golang项目Swagger接口文档">
+      Golang项目Swagger接口文档 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">什么是“开-闭”原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">抽象化是关键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">对可变性的封装原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">与其它设计原则的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2%E5%8E%9F%E5%88%99"><span class="nav-number">4.1.</span> <span class="nav-text">里氏代换原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99"><span class="nav-number">4.2.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%88%90-%E8%81%9A%E5%90%88%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">4.3.</span> <span class="nav-text">合成&#x2F;聚合复用原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99"><span class="nav-number">4.4.</span> <span class="nav-text">迪米特法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99"><span class="nav-number">4.5.</span> <span class="nav-text">接口隔离原则</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

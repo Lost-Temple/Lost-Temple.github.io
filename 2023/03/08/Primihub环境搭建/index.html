@@ -1,37 +1,463 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="快速开始 准备工作 安装docker和docker-compose，或者下载PrimiHub整理好的安装包, 下载后解压执行 1bash install_docker.sh 完成docker和docker-compose的安装。 然后下载仓库并进入到代码目录： 12git clone https:&#x2F;&#x2F;github.com&#x2F;primihub&#x2F;primihub.gitcd primihub 启动节点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Primihub环境搭建">
+<meta property="og:url" content="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="快速开始 准备工作 安装docker和docker-compose，或者下载PrimiHub整理好的安装包, 下载后解压执行 1bash install_docker.sh 完成docker和docker-compose的安装。 然后下载仓库并进入到代码目录： 12git clone https:&#x2F;&#x2F;github.com&#x2F;primihub&#x2F;primihub.gitcd primihub 启动节点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-08T03:33:56.000Z">
+<meta property="article:modified_time" content="2023-03-13T01:18:40.715Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="联邦学习">
+<meta property="article:tag" content="多方安全计算">
+<meta property="article:tag" content="primihub">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Primihub环境搭建 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Primihub环境搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-08 11:33:56" itemprop="dateCreated datePublished" datetime="2023-03-08T11:33:56+08:00">2023-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-13 09:18:40" itemprop="dateModified" datetime="2023-03-13T09:18:40+08:00">2023-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>快速开始</h1>
+<h2 id="准备工作">准备工作</h2>
+<p>安装<code>docker</code>和<code>docker-compose</code>，或者下载<code>PrimiHub</code>整理好的<a target="_blank" rel="noopener" href="https://primihub.oss-cn-beijing.aliyuncs.com/dev/docker20.10.tar.gz">安装包</a>, 下载后解压执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash install_docker.sh</span><br></pre></td></tr></table></figure>
+<p>完成<code>docker</code>和<code>docker-compose</code>的安装。</p>
+<p>然后下载仓库并进入到代码目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/primihub/primihub.git</span><br><span class="line">cd primihub</span><br></pre></td></tr></table></figure>
+<h2 id="启动节点">启动节点</h2>
+<h3 id="启动测试用的节点">启动测试用的节点</h3>
+<p>使用<code>docker-compose</code>启动容器。容器包括：启动点、redis(数据集查找默认使用redis)、三个节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>查看运行起来的docker容器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps -a</span><br></pre></td></tr></table></figure>
+<p>如果一切顺利会看到类似如下的信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME                    COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">primihub-node0          &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:8050-&gt;50050/tcp</span><br><span class="line">primihub-node1          &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:8051-&gt;50051/tcp</span><br><span class="line">primihub-node2          &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:8052-&gt;50052/tcp</span><br><span class="line">redis                   &quot;docker-entrypoint.s…&quot;   redis                   running             0.0.0.0:6379-&gt;6379/tcp</span><br><span class="line">simple_bootstrap_node   &quot;/app/simple-bootstr…&quot;   simple_bootstrap_node   running             0.0.0.0:4001-&gt;4001/tcp</span><br></pre></td></tr></table></figure>
+<p>但是，我这里遇到坑了，node0, node1, node2 这3个容器的状态为restarting。并且是不断restarting。使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs 容器ID</span><br></pre></td></tr></table></figure>
+<p>查看日志是加载mysql客户端的一个动态库文件失败。这个容器没打包好？issue总共也没有几条，更不用说搜索有没有遇到类似的问题了，可见这个项目用的人少得可怜，文档也不健全。</p>
+<p>解决方法: 检出另外的分支，再使用 docker-compose up -d</p>
+<blockquote>
+<p>测试了 feature/node_as_share_lib 是可以的，develope和master都不行</p>
+</blockquote>
+<h2 id="创建一个MPC任务">创建一个MPC任务</h2>
+<p>让三个节点共同执行一个多方安全计算（MPC)的逻辑回归任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run &quot;--network=host&quot; -it primihub/primihub-node:1.1.0 ./primihub-cli &quot;--server=127.0.0.1:8050&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：注意primihub-node的版本，要和前一章节中docker-compose启动的primihub-node版本一致</p>
+</blockquote>
+<h1>使用docker-compose部署</h1>
+<h2 id="下载安装包，执行脚本，完成部署">下载安装包，执行脚本，完成部署</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://get.primihub.com/release/latest/docker-deploy.tar.gz | tar zxf -</span><br><span class="line">cd docker-deploy</span><br><span class="line">bash deploy.sh</span><br></pre></td></tr></table></figure>
+<h2 id="查看部署结果">查看部署结果</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker-compose ps -a</span></span><br><span class="line">NAME                COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">application1        &quot;/bin/sh -c &#x27;java -j…&quot;   application1            running             </span><br><span class="line">application2        &quot;/bin/sh -c &#x27;java -j…&quot;   application2            running             </span><br><span class="line">application3        &quot;/bin/sh -c &#x27;java -j…&quot;   application3            running             </span><br><span class="line">bootstrap-node      &quot;/app/simple-bootstr…&quot;   simple-bootstrap-node   running             4001/tcp</span><br><span class="line">fusion              &quot;/bin/sh -c &#x27;java -j…&quot;   fusion                  running             </span><br><span class="line">gateway1            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway1                running             </span><br><span class="line">gateway2            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway2                running             </span><br><span class="line">gateway3            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway3                running             </span><br><span class="line">loki                &quot;/usr/bin/loki -conf…&quot;   loki                    running             0.0.0.0:3100-&gt;3100/tcp, :::3100-&gt;3100/tcp</span><br><span class="line">manage-web1         &quot;/docker-entrypoint.…&quot;   nginx1                  running             0.0.0.0:30811-&gt;80/tcp, :::30811-&gt;80/tcp</span><br><span class="line">manage-web2         &quot;/docker-entrypoint.…&quot;   nginx2                  running             0.0.0.0:30812-&gt;80/tcp, :::30812-&gt;80/tcp</span><br><span class="line">manage-web3         &quot;/docker-entrypoint.…&quot;   nginx3                  running             0.0.0.0:30813-&gt;80/tcp, :::30813-&gt;80/tcp</span><br><span class="line">mysql               &quot;docker-entrypoint.s…&quot;   mysql                   running             0.0.0.0:3306-&gt;3306/tcp, :::3306-&gt;3306/tcp</span><br><span class="line">nacos-server        &quot;bin/docker-startup.…&quot;   nacos                   running             0.0.0.0:8848-&gt;8848/tcp, 0.0.0.0:9555-&gt;9555/tcp, 0.0.0.0:9848-&gt;9848/tcp, :::8848-&gt;8848/tcp, :::9555-&gt;9555/tcp, :::9848-&gt;9848/tcp</span><br><span class="line">primihub-node0      &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:50050-&gt;50050/tcp, :::6666-&gt;6666/tcp, :::50050-&gt;50050/tcp</span><br><span class="line">primihub-node1      &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:50051-&gt;50051/tcp, :::6667-&gt;6667/tcp, :::50051-&gt;50051/tcp</span><br><span class="line">primihub-node2      &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:50052-&gt;50052/tcp, :::6668-&gt;6668/tcp, :::50052-&gt;50052/tcp</span><br><span class="line">rabbitmq1           &quot;docker-entrypoint.s…&quot;   rabbitmq1               running             25672/tcp</span><br><span class="line">rabbitmq2           &quot;docker-entrypoint.s…&quot;   rabbitmq2               running             25672/tcp</span><br><span class="line">rabbitmq3           &quot;docker-entrypoint.s…&quot;   rabbitmq3               running             25672/tcp</span><br><span class="line">redis               &quot;docker-entrypoint.s…&quot;   redis                   running             6379/tcp</span><br></pre></td></tr></table></figure>
+<h2 id="使用说明">使用说明</h2>
+<p>docker-compose.yaml 文件中的nginx1、nginx2、nginx3 模拟 3 个机构的管理后台，启动完成后在浏览器分别访问</p>
+<p><a target="_blank" rel="noopener" href="http://xn--IP-b47cy15d:30811">http://机器IP:30811</a></p>
+<p><a target="_blank" rel="noopener" href="http://xn--IP-b47cy15d:30812">http://机器IP:30812</a></p>
+<p><a target="_blank" rel="noopener" href="http://xn--IP-b47cy15d:30813">http://机器IP:30813</a></p>
+<p>默认用户密码都是 admin / 123456</p>
+<p>具体的联邦建模、隐私求交、匿踪查询等功能的操作步骤请参考 <a target="_blank" rel="noopener" href="https://docs.primihub.com/docs/quick-start-platform">快速试用管理平台</a></p>
+<h1>primihub代码编译</h1>
+<h2 id="Mac-Silicon-M1">Mac Silicon M1</h2>
+<ul>
+<li>安装Xcode</li>
+<li>安装Bazel 5.0.0，最好是直接brew install bazelisk</li>
+<li>安装CMake，这个最坑，缺了这个，在这里卡了好久</li>
+<li>编写一个shell脚本，用来执行编译命令:  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./pre_build.sh</span><br><span class="line">bazel build --config=darwin_arm64 --config=macos  :node :cli :opt_paillier_c2py :linkcontext</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1>节点运行</h1>
+<p>在编译成功后，在源码目录下生成了可执行文件，路径为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel_bin/node</span><br></pre></td></tr></table></figure>
+<p>可使用下面命令运行node</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node0 --service_port=50050 --config=./config/node0.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node1 --service_port=50051 --config=./config/node1.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node2 --service_port=50052 --config=./config/node2.yaml</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 联邦学习</a>
+              <a href="/tags/%E5%A4%9A%E6%96%B9%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97/" rel="tag"># 多方安全计算</a>
+              <a href="/tags/primihub/" rel="tag"># primihub</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" rel="prev" title="重读《JAVA与模式》笔记系列-00008">
+      <i class="fa fa-chevron-left"></i> 重读《JAVA与模式》笔记系列-00008
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" rel="next" title="Primihub核心模型">
+      Primihub核心模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%8A%82%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">启动节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%94%A8%E7%9A%84%E8%8A%82%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">启动测试用的节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAMPC%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">创建一个MPC任务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">使用docker-compose部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85%EF%BC%8C%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%AE%8C%E6%88%90%E9%83%A8%E7%BD%B2"><span class="nav-number">2.1.</span> <span class="nav-text">下载安装包，执行脚本，完成部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%83%A8%E7%BD%B2%E7%BB%93%E6%9E%9C"><span class="nav-number">2.2.</span> <span class="nav-text">查看部署结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">2.3.</span> <span class="nav-text">使用说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">primihub代码编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-Silicon-M1"><span class="nav-number">3.1.</span> <span class="nav-text">Mac Silicon M1</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">节点运行</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,37 +1,441 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第一部分：服务端操作 1. 安装git和nginx 1yum install -y nginx git 2. 添加用户并做免密码登录 2.1 服务器端root用户免密登录 1vim ~&#x2F;.ssh&#x2F;authorized_keys    #root用户的免密码登录，将本地机器的ssh公钥添加进去 2.2 服务器端添加git用户 12345678910useradd gitpasswd git# 给gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo服务器搭建">
+<meta property="og:url" content="http://www.blockchainof.com/2022/10/12/Hexo%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="第一部分：服务端操作 1. 安装git和nginx 1yum install -y nginx git 2. 添加用户并做免密码登录 2.1 服务器端root用户免密登录 1vim ~&#x2F;.ssh&#x2F;authorized_keys    #root用户的免密码登录，将本地机器的ssh公钥添加进去 2.2 服务器端添加git用户 12345678910useradd gitpasswd git# 给gi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-12T14:09:36.000Z">
+<meta property="article:modified_time" content="2022-12-03T10:47:59.176Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="免密码登录">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/2022/10/12/Hexo%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Hexo服务器搭建 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/10/12/Hexo%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo服务器搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-12 22:09:36" itemprop="dateCreated datePublished" datetime="2022-10-12T22:09:36+08:00">2022-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-03 18:47:59" itemprop="dateModified" datetime="2022-12-03T18:47:59+08:00">2022-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-Hexo/" itemprop="url" rel="index"><span itemprop="name">环境搭建-Hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>第一部分：服务端操作</h1>
+<h2 id="1-安装git和nginx">1. 安装git和nginx</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nginx git</span><br></pre></td></tr></table></figure>
+<h2 id="2-添加用户并做免密码登录">2. 添加用户并做免密码登录</h2>
+<h3 id="2-1-服务器端root用户免密登录">2.1 服务器端root用户免密登录</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/authorized_keys    #root用户的免密码登录，将本地机器的ssh公钥添加进去</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-服务器端添加git用户">2.2 服务器端添加git用户</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">useradd git</span><br><span class="line">passwd git</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">给git用户配置sudo权限</span></span><br><span class="line">chmod 740 /etc/sudoers</span><br><span class="line">vim /etc/sudoers</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">找到root ALL=(ALL) ALL，在它下方加入一行</span></span><br><span class="line">git ALL=(ALL) ALL</span><br><span class="line"></span><br><span class="line">chmod 400 /etc/sudoers</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-git用户免密登录">2.3 git用户免密登录</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">su - git</span><br><span class="line">mkdir -p ~/.ssh</span><br><span class="line">touch ~/.ssh/authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorzied_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br><span class="line">vim ~/.ssh/authorized_keys   #git用户的免密码登录，将本地机器的ssh公钥添加进去</span><br></pre></td></tr></table></figure>
+<h2 id="3-创建仓库并使用git-hooks实现自动部署">3. 创建仓库并使用git-hooks实现自动部署</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /var/repo #新建目录，这是git仓库的位置</span><br><span class="line">sudo mkdir -p /var/www/hexo #站点根目录</span><br><span class="line">cd /var/repo</span><br><span class="line">sudo git init --bare blog.git #创建一个名叫blog的仓库</span><br></pre></td></tr></table></figure>
+<h2 id="4-创建post-update脚本">4. 创建post-update脚本</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /var/repo/blog.git/hooks/post-update</span><br></pre></td></tr></table></figure>
+<p>脚本内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">git --work-tree=/var/www/hexo --git-dir=/var/repo/blog.git checkout -f</span><br></pre></td></tr></table></figure>
+<p>添加权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /var/repo/blog.git/hooks/</span><br><span class="line">sudo chown -R git:git /var/repo/</span><br><span class="line">sudo chown -R git:git /var/www/hexo</span><br><span class="line">sudo chmod +x post-update  #赋予其可执行权限</span><br></pre></td></tr></table></figure>
+<h2 id="5-配置nginx">5.配置nginx</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/nginx/conf.d</span><br><span class="line">vim blog.conf</span><br></pre></td></tr></table></figure>
+<p><code>blog.conf</code>的内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen    80 default_server;</span><br><span class="line">    listen    [::] default_server;</span><br><span class="line">    server_name    www.blockchainof.com;</span><br><span class="line">    root    /var/www/hexo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>检查Nginx配置语法并重启nginx:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx -t # 检查语法</span><br><span class="line">nginx -s reload # 重新加载</span><br></pre></td></tr></table></figure>
+<h1>第二部分：本地配置（Mac）</h1>
+<h2 id="1-安装Hexo及其插件">1. 安装Hexo及其插件</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-cli hexo-server hexo-deployer-git -g</span><br></pre></td></tr></table></figure>
+<h2 id="2-本地初始化博客站点">2. 本地初始化博客站点</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init ~/blog</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h2 id="3-本地Hexo配置">3. 本地Hexo配置</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改Hexo的deploy配置</span></span><br><span class="line">cd blog</span><br><span class="line">vim _config.yml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">找到deploy配置部分</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Deployment</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Docs: https://hexo.io/docs/deployment.html</span></span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: root@xxx.xx.xxx.xxx:/var/repo/blog.git # IP填写自己服务器的IP即可</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<h2 id="4-将本地Hexo部署到远程服务器">4. 将本地Hexo部署到远程服务器</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">清除缓存</span></span><br><span class="line">hexo clean</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成静态页面</span></span><br><span class="line">hexo generate</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将本地静态页面目录部署到云服务器</span></span><br><span class="line">hexo delopy</span><br></pre></td></tr></table></figure>
+<p>可以将上面的3条指令放在一个shell脚本内，方便部署</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
+              <a href="/tags/%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" rel="tag"># 免密码登录</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/13/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/" rel="next" title="Rust学习-知识点-1">
+      Rust学习-知识点-1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">第一部分：服务端操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85git%E5%92%8Cnginx"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装git和nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%B9%B6%E5%81%9A%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="nav-number">1.2.</span> <span class="nav-text">2. 添加用户并做免密码登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AFroot%E7%94%A8%E6%88%B7%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 服务器端root用户免密登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%B7%BB%E5%8A%A0git%E7%94%A8%E6%88%B7"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 服务器端添加git用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-git%E7%94%A8%E6%88%B7%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 git用户免密登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8git-hooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2"><span class="nav-number">1.3.</span> <span class="nav-text">3. 创建仓库并使用git-hooks实现自动部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%9B%E5%BB%BApost-update%E8%84%9A%E6%9C%AC"><span class="nav-number">1.4.</span> <span class="nav-text">4. 创建post-update脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AEnginx"><span class="nav-number">1.5.</span> <span class="nav-text">5.配置nginx</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">第二部分：本地配置（Mac）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85Hexo%E5%8F%8A%E5%85%B6%E6%8F%92%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1. 安装Hexo及其插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9C%AC%E5%9C%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">2. 本地初始化博客站点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0Hexo%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">3. 本地Hexo配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B0%86%E6%9C%AC%E5%9C%B0Hexo%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">4. 将本地Hexo部署到远程服务器</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

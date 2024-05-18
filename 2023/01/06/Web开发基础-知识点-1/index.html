@@ -1,37 +1,443 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="什么是反向代理 反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？ 转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web开发基础-知识点-1">
+<meta property="og:url" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="什么是反向代理 反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？ 转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg">
+<meta property="article:published_time" content="2023-01-06T02:43:07.000Z">
+<meta property="article:modified_time" content="2023-01-06T03:34:47.776Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="转发代理">
+<meta property="article:tag" content="反向代理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg">
+
+<link rel="canonical" href="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Web开发基础-知识点-1 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Web开发基础-知识点-1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-01-06 10:43:07 / 修改时间：11:34:47" itemprop="dateCreated datePublished" datetime="2023-01-06T10:43:07+08:00">2023-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%BC%80%E5%8F%91/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">基础知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>什么是反向代理</h1>
+<p><code>反向代理</code>是位于<code>Web服务器</code>前面的服务器，其将<code>客户端</code>（例如<code>Web浏览器</code>）请求转发到这些<code>Web服务器</code>。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是<code>代理服务器</code>。</p>
+<h1>什么是代理服务器？</h1>
+<p><code>转发代理</code>，通常称为<code>代理</code>、<code>代理服务器</code>或<code>Web代理</code>，是位于一组客户端计算机之前的服务器。当这些计算机向<code>Internet</code>上的站点和服务发出请求时，代理服务器将拦截这些请求，然后代表客户端与<code>Web服务器</code>进行通信，起到中间设备的作用。</p>
+<p>例如，典型的转发代理通信中涉及3台计算机：</p>
+<ul>
+<li>A：这是用户的家用计算机</li>
+<li>B：这是一个转发代理服务器</li>
+<li>C：这是网站的源站（用于存储网站数据）</li>
+</ul>
+<p><img src="Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理"></p>
+<p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code> 将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给 <code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而 <code>B</code> 则将响应转发给 <code>A</code>。</p>
+<p>为什么要将这个多余的中间设备添加到 Internet 活动中？使用转发代理可能有几个原因：</p>
+<ul>
+<li>为避免浏览限制: 一些政府、学校和其他组织使用防火墙来使用户访问受限版本的互联网。转发代理可用于绕过这些限制，因为它们使用户可以连接到代理，而不是直接连接到他们正在访问的站点。</li>
+<li>阻止访问某些内容: 相对的，也可以设置代理以阻止特定用户群访问某些站点。例如，学校网络可能配置为通过启用内容筛选规则的代理连接到 Web，以拒绝转发来自 Facebook 和其他社交媒体网站的响应。</li>
+<li>保护自己的在线身份—: 在某些情况下，常规互联网用户希望增加在线匿名性，但在其他情况下，互联网用户居住在政府可能对政治异议者施加严重后果的地方。在网络论坛或社交媒体上批评政府可能会导致这些用户受到罚款或监禁。如果持不同政见者使用转发代理连接到他们发布政治敏感评论的网站，则用于发表评论的<code>IP地址</code>将更难追溯到持不同政见者。仅<code>代理服务器</code>的<code>IP地址</code>将对他人可见。</li>
+</ul>
+<h1>反向代理有何不同?</h1>
+<p>反向代理是位于一个或多个<code>Web服务器</code>前面的服务器，拦截来自<code>客户端</code>的请求。这与转发代理不同:在转发代理中，<code>代理</code>位于<code>客户端</code>的前面。使用<code>反向代理</code>，当<code>客户端</code>将请求发送到网站的<code>源服务器</code>时，<code>反向代理服务器</code>会在网络边缘拦截这些请求。然后，<code>反向代理服务器</code>将向<code>源服务器</code>发送请求并从<code>源服务器</code>接收响应。</p>
+<p><code>转发代理</code>和<code>反向代理</code>之间的区别非常细微，但非常重要。简单概括而言，<code>转发代理</code>位于客户端的前面，确保没有源站直接与该特定客户端通信；而<code>反向代理服务器</code>位于源站前面，确保没有客户端直接与该源站通信。</p>
+<p>这一次，所涉及的计算机包括：</p>
+<ul>
+<li>D：任意数量的用户家用计算机</li>
+<li>E：这是反向代理服务器</li>
+<li>F：一台或多台源站</li>
+</ul>
+<p><img src="Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理"></p>
+<p>通常，来自<code>D</code>的所有请求都将直接发送到<code>F</code>，而<code>F</code>会直接将响应发送到<code>D</code>。使用<code>反向代理</code>，来自<code>D</code>的所有请求都将直接发送给<code>E</code>，而<code>E</code>会将其请求发送到<code>F</code>并从<code>F</code>接收响应，然后将适当响应传递给<code>D</code>。</p>
+<p>下面是反向代理的一些好处：</p>
+<ul>
+<li>负载均衡: 一个每天吸引数百万用户的热门网站可能无法使用单个源服务器处理所有传入站点流量。但该站点可以分布在不同服务器的池中，让所有服务器都处理同一站点的请求。在这种情况下，反向代理可以提供一种负载均衡解决方案，在不同服务器之间平均分配传入流量，以防止单个服务器过载。如果某台服务器完全无法运转，则其他服务器可以代为处理流量。</li>
+<li>防范攻击: 配备反向代理后，网站或服务无需透露其源服务器的<code>IP地址</code>。这使得攻击者更难利用针对性攻击，例如<code>DDoS</code>攻击。这时候，攻击者只能针对反向代理。</li>
+<li>全局服务器负载平衡(GSLB): 在这种负载均衡形式中，一个网站可以分布在全球各地的多个服务器上，反向代理会将客户端发送到地理位置上最接近它们的服务器。这样可以减少请求和响应传播的距离，从而最大程度地减少加载时间。</li>
+<li>缓存: 反向代理还可以缓存内容，从而提高速度。例如，如果巴黎的用户访问使用反向代理而<code>Web服务器</code>位于洛杉矶的网站，则该用户实际上可能连接到巴黎本地的<code>反向代理服务器</code>，然后该本地<code>反向代理服务器</code>必须与洛杉矶的<code>源服务器</code>进行通信。之后，<code>代理服务器</code>可以缓存（或临时保存）响应数据。随后浏览该站点的巴黎用户将从巴黎<code>反向代理服务器</code>处获取本地缓存的响应，从而享受到更快的性能。</li>
+<li>SSL加密: 加密和解密每个客户端的<code>SSL（或 TLS）</code>通信对于源服务器可能需要耗费大量计算资源。可以配置由反向代理解密所有传入请求并加密所有传出响应，腾出源服务器上的宝贵资源。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AC%E5%8F%91%E4%BB%A3%E7%90%86/" rel="tag"># 转发代理</a>
+              <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" rel="tag"># 反向代理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/" rel="prev" title="Golang学习-知识点-1">
+      <i class="fa fa-chevron-left"></i> Golang学习-知识点-1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/" rel="next" title="重读《JAVA与模式》笔记系列-00005">
+      重读《JAVA与模式》笔记系列-00005 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">什么是反向代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">什么是代理服务器？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">反向代理有何不同?</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

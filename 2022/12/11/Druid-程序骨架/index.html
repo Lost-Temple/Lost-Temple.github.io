@@ -1,37 +1,411 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Cargo.toml 123456789101112131415161718[package]name &#x3D; &quot;druid-gui-app&quot;version &#x3D; &quot;0.1.0&quot;edition &#x3D; &quot;2021&quot;# See more keys and their definitions at https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Druid-程序骨架">
+<meta property="og:url" content="http://www.blockchainof.com/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="Cargo.toml 123456789101112131415161718[package]name &#x3D; &quot;druid-gui-app&quot;version &#x3D; &quot;0.1.0&quot;edition &#x3D; &quot;2021&quot;# See more keys and their definitions at https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;c">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-11T10:16:19.000Z">
+<meta property="article:modified_time" content="2022-12-11T12:12:38.125Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="GUI">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Druid-程序骨架 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Druid-程序骨架
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-11 18:16:19 / 修改时间：20:12:38" itemprop="dateCreated datePublished" datetime="2022-12-11T18:16:19+08:00">2022-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/GUI/" itemprop="url" rel="index"><span itemprop="name">GUI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>Cargo.toml</h1>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;druid-gui-app&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">druid</span> = &#123; git = <span class="string">&quot;https://github.com/linebender/druid.git&quot;</span> &#125;</span><br><span class="line"><span class="attr">tracing</span> = &#123; version = <span class="string">&quot;0.1.22&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="section">[[bin]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;druid-gui-app&quot;</span></span><br><span class="line"><span class="attr">path</span> = <span class="string">&quot;./src/main.rs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[bin]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;example&quot;</span></span><br><span class="line"><span class="attr">path</span> = <span class="string">&quot;./previews/example.rs&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有两个[[bin]]，example可以用来编写一些示例用来预览效果，另外一个是真正的需要编写的程序。分别用下面的命令运行</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cargo run --bin example # 运行示例程序</span><br><span class="line">cargo run --bin druid-gui-app # 运行主程序</span><br></pre></td></tr></table></figure>
+<h1><a target="_blank" rel="noopener" href="http://main.rs">main.rs</a></h1>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![windows_subsystem = <span class="string">&quot;windows&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> druid::widget::prelude::*;</span><br><span class="line"><span class="keyword">use</span> druid::widget::&#123;Align, BackgroundBrush, Button, Controller, ControllerHost, Flex, Label, Padding, TextBox&#125;;</span><br><span class="line"><span class="keyword">use</span> druid::Target::Global;</span><br><span class="line"><span class="keyword">use</span> druid::&#123;commands <span class="keyword">as</span> sys_cmds, AppDelegate, AppLauncher, Application, Color, Command, Data, DelegateCtx, Handled, LocalizedString, Menu, MenuItem, Target, WindowDesc, WindowHandle, WindowId, WidgetExt, lens&#125;;</span><br><span class="line"><span class="keyword">use</span> tracing::&#123;</span><br><span class="line">    info, warn, error,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">///可以定义多个这样的结构体，用来自定义数据和组件进行一个“绑定”</span></span><br><span class="line"><span class="comment">///把这个结构体和组件的data变量进行一个关联</span></span><br><span class="line"><span class="meta">#[derive(Data, Clone)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">AppData</span> &#123;</span><br><span class="line">    data: <span class="type">String</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///程序入口函数</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// window 绑定菜单栏</span></span><br><span class="line">    <span class="comment">// let window = WindowDesc::new(ui_builder()).menu(make_menu);</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">window</span> = WindowDesc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">ui_builder</span>()).<span class="title function_ invoke__">window_size</span>((<span class="number">900</span>.,<span class="number">600</span>.)).<span class="title function_ invoke__">title</span>(<span class="string">&quot;窗口标题&quot;</span>).<span class="title function_ invoke__">menu</span>(make_menu);</span><br><span class="line">    AppLauncher::<span class="title function_ invoke__">with_window</span>(window)</span><br><span class="line">        .<span class="title function_ invoke__">log_to_console</span>()</span><br><span class="line">        .<span class="title function_ invoke__">delegate</span>(Delegate &#123; windows: <span class="built_in">vec!</span>[] &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">launch</span>(AppData &#123;</span><br><span class="line">            data: <span class="type">String</span>::<span class="title function_ invoke__">new</span>(),</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">///构建主界面</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">ui_builder</span>() <span class="punctuation">-&gt;</span> <span class="keyword">impl</span> <span class="title class_">Widget</span>&lt;AppData&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">data</span> = lens!(AppData, data);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">text</span> = TextBox::<span class="title function_ invoke__">new</span>().<span class="title function_ invoke__">lens</span>(data).<span class="title function_ invoke__">expand</span>().<span class="title function_ invoke__">controller</span>(ContextMenuController &#123;&#125;);</span><br><span class="line">    text</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 定义这个结构体，实现 Controller Trait，可以在实现对相关部件的事件处理</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContextMenuController</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">///保存程序中所有的窗口的ID到Vec</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Delegate</span> &#123;</span><br><span class="line">    windows: <span class="type">Vec</span>&lt;WindowId&gt;, </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">///Controller 是一种管理子组件、重写或自定义其事件处理或更新行为的类型</span></span><br><span class="line"><span class="comment">///这里Hook主界面的的那个TexBox组件的事件，然后进行相应的处理</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="keyword">impl</span>&lt;W: Widget&lt;AppData&gt;&gt; Controller&lt;AppData, W&gt; <span class="keyword">for</span> <span class="title class_">ContextMenuController</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">event</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        child: &amp;<span class="keyword">mut</span> W,</span><br><span class="line">        ctx: &amp;<span class="keyword">mut</span> EventCtx,</span><br><span class="line">        event: &amp;Event,</span><br><span class="line">        data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        env: &amp;Env,</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">match</span> event &#123;<span class="comment">//事件匹配</span></span><br><span class="line">            Event::<span class="title function_ invoke__">MouseDown</span>(<span class="keyword">ref</span> mouse) <span class="keyword">if</span> mouse.button.<span class="title function_ invoke__">is_right</span>() =&gt; &#123;<span class="comment">//这个语法...比较丝滑, 但和其它语言确实不太一样</span></span><br><span class="line">                ctx.<span class="title function_ invoke__">show_context_menu</span>(<span class="title function_ invoke__">make_context_menu</span>(), mouse.pos);</span><br><span class="line">            &#125;</span><br><span class="line">            _ =&gt; child.<span class="title function_ invoke__">event</span>(ctx, event, data, env),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///这里是Hook顶层事件，可以Hook顶层事件进行自定义处理，可以取出cmd的值，判断是什么事件</span></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">AppDelegate</span>&lt;AppData&gt; <span class="keyword">for</span> <span class="title class_">Delegate</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">command</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        ctx: &amp;<span class="keyword">mut</span> DelegateCtx,</span><br><span class="line">        _target: Target,</span><br><span class="line">        cmd: &amp;Command,</span><br><span class="line">        data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        _env: &amp;Env,</span><br><span class="line">    ) <span class="punctuation">-&gt;</span> Handled &#123;</span><br><span class="line">        info!(<span class="string">&quot;u can handle system command here...&quot;</span>);</span><br><span class="line">        Handled::No</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">window_added</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        id: WindowId,</span><br><span class="line">        _handle: WindowHandle,</span><br><span class="line">        _data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        _env: &amp;Env,</span><br><span class="line">        _ctx: &amp;<span class="keyword">mut</span> DelegateCtx,</span><br><span class="line">    ) &#123;</span><br><span class="line">        info!(<span class="string">&quot;Window added, id: &#123;:?&#125;&quot;</span>, id);</span><br><span class="line">        <span class="keyword">self</span>.windows.<span class="title function_ invoke__">push</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">window_removed</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        id: WindowId,</span><br><span class="line">        _data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        _env: &amp;Env,</span><br><span class="line">        _ctx: &amp;<span class="keyword">mut</span> DelegateCtx,</span><br><span class="line">    ) &#123;</span><br><span class="line">        info!(<span class="string">&quot;Window removed, id: &#123;:?&#125;&quot;</span>, id);</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(pos) = <span class="keyword">self</span>.windows.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">position</span>(|x| *x == id) &#123;</span><br><span class="line">            <span class="keyword">self</span>.windows.<span class="title function_ invoke__">remove</span>(pos);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.windows.<span class="title function_ invoke__">len</span>() == <span class="number">0</span> &#123;</span><br><span class="line">            Application::<span class="title function_ invoke__">global</span>().<span class="title function_ invoke__">quit</span>(); <span class="comment">// 这里如果所有窗口都已关闭，那就退出APP</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///主菜单的构建</span></span><br><span class="line"><span class="meta">#[allow(unused_assignments)]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">make_menu</span>(_: <span class="type">Option</span>&lt;WindowId&gt;, data: &amp;AppData, _: &amp;Env) <span class="punctuation">-&gt;</span> Menu&lt;AppData&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">base</span> = Menu::<span class="title function_ invoke__">empty</span>();</span><br><span class="line">    <span class="meta">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// base = druid::platform_menus::mac::menu_bar();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#[cfg(any(</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;windows&quot;</span>,</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;freebsd&quot;</span>,</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;linux&quot;</span>,</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;openbsd&quot;</span></span></span><br><span class="line"><span class="meta">    ))]</span></span><br><span class="line">    &#123;</span><br><span class="line">        base = base.<span class="title function_ invoke__">entry</span>(druid::platform_menus::win::file::<span class="title function_ invoke__">default</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    base = base.<span class="title function_ invoke__">entry</span>(MenuItem::<span class="title function_ invoke__">new</span>(<span class="string">&quot;新建&quot;</span>).<span class="title function_ invoke__">on_activate</span>(|_ctx, data: &amp;<span class="keyword">mut</span> AppData, _env| &#123;</span><br><span class="line">        info!(<span class="string">&quot;appdata:&#123;&#125;&quot;</span>, data.data);</span><br><span class="line">    &#125;));</span><br><span class="line">    base</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///主界面中的TextBox组件的右键菜单的构建</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">make_context_menu</span>() <span class="punctuation">-&gt;</span> Menu&lt;AppData&gt; &#123;</span><br><span class="line">    Menu::<span class="title function_ invoke__">empty</span>()</span><br><span class="line">        .<span class="title function_ invoke__">entry</span>(</span><br><span class="line">            MenuItem::<span class="title function_ invoke__">new</span>(<span class="string">&quot;右键菜单1&quot;</span>)</span><br><span class="line">                .<span class="title function_ invoke__">on_activate</span>(|_ctx, data: &amp;<span class="keyword">mut</span> AppData, _env| &#123;</span><br><span class="line">                    info!(<span class="string">&quot;可以在这里添加右键菜单1的响应事件&quot;</span>);</span><br><span class="line">                &#125;),</span><br><span class="line">        )</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"># Rust</a>
+              <a href="/tags/GUI/" rel="tag"># GUI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/08/Cpp-GUI-imgui%E5%BA%93%E4%BD%BF%E7%94%A8%E6%A0%B7%E6%9D%BFCMakefile/" rel="prev" title="C++ GUI--imgui库使用样板CMakefile">
+      <i class="fa fa-chevron-left"></i> C++ GUI--imgui库使用样板CMakefile
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/15/cobra%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" rel="next" title="cobra基本命令">
+      cobra基本命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Cargo.toml</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">main.rs</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,37 +1,476 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="网络基本结构 Faric网络中存在四种不同角色的服务节点，彼此协作完成整个区块链系统的记账功能。  背书节点(Endorser Peer):一些特殊的Peer节点，对交易提案（Transaction Proposal）进行检查，执行智能合约，计算交易执行结果（读写集合）并对其进行背书。 记帐节点(Committer Peer):负责维护账本的Peer节点，检查排序后交易结果的合法性，并更新到本地账">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《区块链原理、设计与应用》阅读摘录-0001">
+<meta property="og:url" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="网络基本结构 Faric网络中存在四种不同角色的服务节点，彼此协作完成整个区块链系统的记账功能。  背书节点(Endorser Peer):一些特殊的Peer节点，对交易提案（Transaction Proposal）进行检查，执行智能合约，计算交易执行结果（读写集合）并对其进行背书。 记帐节点(Committer Peer):负责维护账本的Peer节点，检查排序后交易结果的合法性，并更新到本地账">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/FabricDockerImages.jpeg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-01.jpeg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-02.jpeg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-03.jpeg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-04.jpeg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/bootstrap.jpeg">
+<meta property="og:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/topology.jpeg">
+<meta property="article:published_time" content="2023-01-12T07:17:07.000Z">
+<meta property="article:modified_time" content="2023-01-12T10:09:33.275Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="Hyperledger">
+<meta property="article:tag" content="Fabric">
+<meta property="article:tag" content="网络结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/FabricDockerImages.jpeg">
+
+<link rel="canonical" href="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>《区块链原理、设计与应用》阅读摘录-0001 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《区块链原理、设计与应用》阅读摘录-0001
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-01-12 15:17:07 / 修改时间：18:09:33" itemprop="dateCreated datePublished" datetime="2023-01-12T15:17:07+08:00">2023-01-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>网络基本结构</h1>
+<p>Faric网络中存在四种不同角色的服务节点，彼此协作完成整个区块链系统的记账功能。</p>
+<ul>
+<li>背书节点(Endorser Peer):一些特殊的Peer节点，对交易提案（Transaction Proposal）进行检查，执行智能合约，计算交易执行结果（读写集合）并对其进行背书。</li>
+<li>记帐节点(Committer Peer):负责维护账本的Peer节点，检查排序后交易结果的合法性，并更新到本地账本。目前所有Peer默认都是记账节点。</li>
+<li>排序节点(Orderer):负责接收交易，并对网络中所有交易进行排序，整理为区块结构。记账节点会从排序节点拉取新区块并提交到本地账本。</li>
+<li>证书节点(CA):提供标准的PKI服务，负责对网络中所有的证书进行管理，包括签发和撤销。不参与网络中的交易过程。</li>
+</ul>
+<p>角色划分是Fabric设计的一个特色。根据性能和安全需求，不同的节点可以由不同组织分别管理，共同构建联盟链。</p>
+<p>此外，网络支持多个账本绑定对应通道(Channel)。每个通道内的成员可以共享账本，不同通道的账本彼此隔离。客户端可以向通道发送交易，经过共识后被通道内的Peer节点接收并更新到本地账本。</p>
+<h1>Fabric中的配置辅助工具</h1>
+<ul>
+<li>cryptogen(本地生成组织结构和身份文件)</li>
+<li>configtxgen(生成配置区块和配置交易)</li>
+<li>configtxlator(解析转换配置信息)</li>
+<li>discover(拓扑探测)</li>
+<li>idemixgen(Idemix证书生成)</li>
+</ul>
+<h1>fabric项目相关的docker镜像</h1>
+<p>这些镜像都在hyperledger仓库中，它们之间的相互依赖关系如下图：<br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/FabricDockerImages.jpeg" alt="Fabric Docker 镜像"></p>
+<p>根据不同用途，Docker镜像可以大致分为三类：核心镜像、辅助镜像和第三方镜像。</p>
+<ul>
+<li>
+<p>核心镜像</p>
+<p>提供Fabric网络运行的核心功能，目前包括<code>fabric-peer</code>、<code>fabric-orderer</code>、<code>fabric-ca</code>、<code>fabric-baseos</code>、<code>fabric-ccenv</code>、<code>fabric-javaenv</code>、<code>fabric-nodeenv</code>共7个镜像，如下图：<br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-01.jpeg" alt="images-01"><br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-02.jpeg" alt="images-02"></p>
+</li>
+<li>
+<p>辅助镜像</p>
+<p>提供支持功能，目前包括<code>fabric-baseimage</code>、<code>fabric-tools</code>镜像，如下图<br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-03.jpeg" alt="images-03"></p>
+</li>
+<li>
+<p>第3方镜像</p>
+<p>主要是由一些第3方开源软件提供支持功能，目前包括<code>fabric-couchdb</code>、<code>fabric-kafka</code>、<code>fabric-zookeeper</code>3个镜像。如下图：<br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-04.jpeg" alt="images-04"></p>
+</li>
+</ul>
+<h1>从源码生成Docker镜像</h1>
+<p>可以通过如下命令在本地快速生成<code>fabric-baseos</code>、<code>fabric-peer</code>、<code>fabric-orderer</code>、<code>fabric-ccenv</code>、<code>fabric-tools</code>等多个Docker镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make docker</span><br></pre></td></tr></table></figure>
+<h1>用本地方式启动Fabric网络</h1>
+<p>启动一个Fabric网络主要包括如下步骤：</p>
+<ul>
+<li><strong>规划初始网络拓扑</strong>。根据联盟的需求规划拓扑信息，包括联盟成员、排序服务集群、应用通道初始成员等；</li>
+<li><strong>准备启动配置文件</strong>。包括网络中组织结构和对应的身份证书（可使用<code>cryptogen</code>工具或<code>fabric-ca</code>完成）、系统通道的初始配置区块文件（可使用<code>configtxgen</code>工具完成）。</li>
+<li><strong>启动排序节点</strong>。使用系统通道的初始区块文件启动排序服务，排序服务启动后自动按照指定配置创建系统通道。</li>
+<li><strong>启动Peer节点</strong>。不同的组织按照预置角色分别启动Peer节点。</li>
+<li><strong>创建通道</strong>。客户端使用新建应用通道的配置更新交易文件，向系统通道发送交易，创建新的应用通道。</li>
+<li><strong>加入通道</strong>。<code>Peer</code>节点利用初始区块加入所创建的应用通道。<br>
+主要步骤如下图：<br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/bootstrap.jpeg" alt="启动步骤"></li>
+</ul>
+<h1>规划初始网络拓扑</h1>
+<p>示例网络拓扑如下图所示，包括3个<code>Orderer</code>节点和4个<code>Peer</code>节点，以及1个客户端操作节点（负责生成相关启动文件，在网络启动后作为客户端执行命令）。</p>
+<p>其中，<code>Orderer</code>服务采用<code>Raft</code>模式，所有节点都加入新建的<code>businesschannel</code>中。4个<code>Peer</code>节点分属两个组织:<code>Org1</code>和<code>Org2</code>，也都是应用通道成员。每个组织中的peer0节点作为锚节点负责与其它组织节点分享信息。<br>
+<img src="%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/topology.jpeg" alt="示例拓扑"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hyperledger/" rel="tag"># Hyperledger</a>
+              <a href="/tags/Fabric/" rel="tag"># Fabric</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84/" rel="tag"># 网络结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/10/Fabric%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C/" rel="prev" title="Fabric开发模式运行">
+      <i class="fa fa-chevron-left"></i> Fabric开发模式运行
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/13/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0002/" rel="next" title="《区块链原理、设计与应用》阅读摘录-0002">
+      《区块链原理、设计与应用》阅读摘录-0002 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">网络基本结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Fabric中的配置辅助工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">fabric项目相关的docker镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">从源码生成Docker镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">用本地方式启动Fabric网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">规划初始网络拓扑</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

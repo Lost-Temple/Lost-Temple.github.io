@@ -1,37 +1,445 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="背景 这篇文章源于代码中关于nil判断的一个问题。先从一段代码看起，下面这段代码是将传入的对象转换成JSON string并返回，其中，如果判断i&#x3D;&#x3D;nil时，会返回&quot;&quot;。 1234567func ToJSONString(i interface&#123;&#125;) string &#123;   if i &#x3D;&#x3D; nil &#123;      return &quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang等值运算符机制详解">
+<meta property="og:url" content="http://www.blockchainof.com/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:description" content="背景 这篇文章源于代码中关于nil判断的一个问题。先从一段代码看起，下面这段代码是将传入的对象转换成JSON string并返回，其中，如果判断i&#x3D;&#x3D;nil时，会返回&quot;&quot;。 1234567func ToJSONString(i interface&#123;&#125;) string &#123;   if i &#x3D;&#x3D; nil &#123;      return &quot;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-01T01:07:22.000Z">
+<meta property="article:modified_time" content="2023-02-01T02:22:06.562Z">
+<meta property="article:author" content="暂留白">
+<meta property="article:tag" content="nil">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Golang等值运算符机制详解 | 一个码农的自白</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Golang等值运算符机制详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-01 09:07:22 / 修改时间：10:22:06" itemprop="dateCreated datePublished" datetime="2023-02-01T09:07:22+08:00">2023-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>背景</h1>
+<p>这篇文章源于代码中关于nil判断的一个问题。先从一段代码看起，下面这段代码是将传入的对象转换成<code>JSON string</code>并返回，其中，如果判断<code>i==nil</code>时，会返回<code>&quot;&quot;</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码初看并没有太大的问题，但实际上这里隐含了一个不容易被发现的问题，在说明这个问题之前，我们先看下这段代码在什么情况下会出现问题：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Data <span class="keyword">struct</span> &#123;</span><br><span class="line">   V <span class="type">int</span> <span class="string">`json:&quot;v&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestToJSONString</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">   a := assert.New(t)</span><br><span class="line"></span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(<span class="literal">nil</span>))</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> data *Data</span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(data))</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> k *<span class="type">int</span></span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(k))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段测试代码中三个断言分别返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PASS</span><br><span class="line">FAIL, Expect: &quot;&quot;, Actual: &quot;null&quot;</span><br><span class="line">FAIL, Expect: &quot;&quot;, Actual: &quot;null&quot;</span><br></pre></td></tr></table></figure>
+<p>这里很让人疑惑，data应该是nil，似乎data==nil的结论是false，为了确认这个问题，我们引入一段代码。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil: true</span><br><span class="line">b == nil: true</span><br><span class="line">a == b: false // 重点</span><br></pre></td></tr></table></figure>
+<p>这个例子比较简单，让我们看一个很相似，但稍微复杂些的例子</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil: true</span><br><span class="line">b == nil: false // 重点</span><br><span class="line">a == b: true</span><br></pre></td></tr></table></figure>
+<h1>到底发生了什么？</h1>
+<p>首先我们要了解的是：在Go中，每个指针都有2个基本信息，指针的类型和指针的值，后续我将会使用<code>(type, value)</code>这样的形式来体现。也就是说，<code>a := nil</code>这样的代码无法通过编译，因为它缺失了<code>type</code>，所以需要这样<code>var a *int = nil</code>。<br>
+我们可以在fmt中输出这些指针的<code>type</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a.type:%T\n&quot;</span>, a) <span class="comment">// a.type:*int</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b.type:%T\n&quot;</span>, b) <span class="comment">// b.type:&lt;nil&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们现在已经了解了<code>interace&#123;&#125;</code>的默认<code>type</code>为<code>nil</code>，下面我们不使用硬编码的方式，而是将<code>a</code>传递给<code>b</code>，然后再来看下结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a.type:%T\n&quot;</span>, a) <span class="comment">// a.type:*int</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b.type:%T\n&quot;</span>, b) <span class="comment">// b.type:*int</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，<code>b</code>现在有了一个新的类型<code>*int</code>。目前你已经了解了关于类型的一些基本机制，但还有一些问题还没有被解答.</p>
+<h1>当执行<code>==</code>时，发生了什么？</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a=(%T, %v)\n&quot;</span>, a, a)</span><br><span class="line">fmt.Printf(<span class="string">&quot;b=(%T, %v)\n&quot;</span>, b, b)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=(*int, &lt;nil&gt;)</span><br><span class="line">b=(&lt;nil&gt;, &lt;nil&gt;)</span><br><span class="line">a == nil: true</span><br><span class="line">b == nil: true</span><br><span class="line">a == b: false</span><br></pre></td></tr></table></figure>
+<p>这段代码乍一看似乎不可能，像是在说：a==nil、b==nil，但a!=b。实际情况是，类型判断不仅仅只判断二者的值，还会判断其类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil // 等价于：(*int, nil) == (*int, nil)</span><br><span class="line">b == nil // 等价于：(nil, nil) == (nil, nil)</span><br><span class="line">a == b   // 等价于：(*int, nil) == (nil, nil)</span><br></pre></td></tr></table></figure>
+<p>当我们用这样的方式写出来时，我们可以很轻易的明白，a!=b是成立的，但这些信息并不会在代码中体现出来，这也正是容易出现误解的地方。在这里，如果你想要判断二者是否都是nil，你可以这样写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a == <span class="literal">nil</span> &amp;&amp; b == <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来我们再来看看前面那个令人困惑的例子，相关结果直接跟在了代码后面</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a=(%T, %v)\n&quot;</span>, a, a)   <span class="comment">// a=(*int, &lt;nil&gt;)</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b=(%T, %v)\n&quot;</span>, b, b)   <span class="comment">// b=(*int, &lt;nil&gt;)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>) <span class="comment">// a == nil: true</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>) <span class="comment">// b == nil: false</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)     <span class="comment">// a == b: true</span></span><br></pre></td></tr></table></figure>
+<p>现在我们再来看b==nil这段代码会发现明朗许多：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b == <span class="literal">nil</span> <span class="comment">// 等价于：(*int, nil) == (nil, nil)</span></span><br></pre></td></tr></table></figure>
+<p>这里可能会疑惑，为什么等式右侧的<code>nil</code>，其<code>type</code>为<code>nil</code>呢？这是因为当<code>b</code>指定为<code>interface&#123;&#125;</code>类型的时候，无法确定其真实的类型，随着程序的运行，其类型可能会不断改变，所以其类型默认为<code>nil</code>。<br>
+更进一步，我们可以看一个硬编码的数字是如何进行比较判断的。数字会根据上下文来推断自己的类型，一个具体的例子如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="type">int</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> b <span class="type">float64</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a==12:&quot;</span>, a == <span class="number">12</span>) <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b==12:&quot;</span>, b == <span class="number">12</span>) <span class="comment">// true  =&gt; (float64, 12) == (float64, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;c==12:&quot;</span>, c == <span class="number">12</span>) <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a==c:&quot;</span>, a == c)   <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b==c:&quot;</span>, b == c)   <span class="comment">// false =&gt; (float64, 12) == (int, 12)</span></span><br></pre></td></tr></table></figure>
+<p>一个需要注意的点是，当<code>12</code>与一个<code>interface&#123;&#125;</code>进行比较时，会默认转换为<code>(int, 12)</code>，类似的<code>interface&#123;&#125;</code>也会被强制转换为<code>(nil, nil)</code>，如下代码展示了这个过程:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b <span class="type">float64</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">interface</span>&#123;&#125; = b</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;c==12:&quot;</span>, c == <span class="number">12</span>) <span class="comment">// c==12: false</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;c=(%T,%v)\n&quot;</span>, c, c) <span class="comment">// c=(float64,12)</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;hard-coded=(%T,%v)\n&quot;</span>, <span class="number">12</span>, <span class="number">12</span>) <span class="comment">// hard-coded=(int,12)</span></span><br></pre></td></tr></table></figure>
+<h1>回到最开始的<code>nil</code>判断</h1>
+<p>让我们回到最开始出现问题的代码，现在再来看会清晰许多</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestToJSONString</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> data *Data</span><br><span class="line">  a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(data))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第2行中，<code>i==nil</code>的判断相当于<code>(*Data, nil) == (nil, nil)</code>，显而易见，这样的等式并不会成立。当然，我们有其他的办法处理这样的等式判断，这需要用到<code>reflect</code>包，如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> || (reflect.ValueOf(i).Kind() == reflect.Ptr &amp;&amp; reflect.ValueOf(i).IsNil()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/nil/" rel="tag"># nil</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/" rel="prev" title="Fabric-Idemix说明">
+      <i class="fa fa-chevron-left"></i> Fabric-Idemix说明
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" rel="next" title="《区块链原理、设计与应用》阅读摘录-0004">
+      《区块链原理、设计与应用》阅读摘录-0004 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">到底发生了什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">当执行&#x3D;&#x3D;时，发生了什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">回到最开始的nil判断</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
