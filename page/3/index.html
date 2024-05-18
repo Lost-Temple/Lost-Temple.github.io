@@ -188,6 +188,132 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/05/11/k3s%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/11/k3s%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">k3s部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-11 14:07:04" itemprop="dateCreated datePublished" datetime="2023-05-11T14:07:04+08:00">2023-05-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-13 08:27:25" itemprop="dateModified" datetime="2023-06-13T08:27:25+08:00">2023-06-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>一、<a target="_blank" rel="noopener" href="https://docs.k3s.io/zh/quick-start">官方文档</a></h1>
+<h1>二、安装步骤</h1>
+<ul>
+<li>使用docker作为容器(默认为containerd)</li>
+<li>设置docker拉取的http代理</li>
+<li>安装K3S</li>
+<li>使用ingress-nginx(默认是traefik)</li>
+</ul>
+<h2 id="使用docker作为容器">使用docker作为容器</h2>
+<ul>
+<li>可以使用<code>Rancher</code>的一个<a target="_blank" rel="noopener" href="https://github.com/rancher/install-docker">Docker安装脚本</a>来安装Docker</li>
+<li>也可以根据Docker官方文档手动<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">ubuntu下安装docker</a></li>
+</ul>
+<h3 id="卸载旧版">卸载旧版</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+<h3 id="设置repository">设置<code>repository</code></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo chmod a+r /etc/apt/keyrings/docker.gpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo \</span><br><span class="line">  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span><br><span class="line">  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \</span><br><span class="line">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
+<h3 id="安装Docker-Engine">安装<code>Docker Engine</code></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
+<h2 id="设置docker拉取的http代理">设置docker拉取的http代理</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">cd /etc/systemd/system/docker.service.d</span><br><span class="line">sudo vim proxy.conf</span><br></pre></td></tr></table></figure>
+<p>文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="安装K3S">安装<code>K3S</code></h2>
+<p>以Docker为容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://get.k3s.io | sh -s - --docker</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果服务器网络环境复杂，需要指定K3S服务节点的IP，则 <code>--node-ip=192.168.10.100</code></p>
+</blockquote>
+<h2 id="使用ingress-nginx作为反向代理">使用ingress-nginx作为反向代理</h2>
+<p>之前在K3S搭建的环境中，默认是使用<code>traefik</code>的，在使用FedLCM部署FATE相关组件，里面使用了ingress-nginx，如果使用FedLCM去部署ingress-nginx，则会有一个坑：这个ingress-nginx在k3s中是部署成功了，但是FedLCM使用K8S的API去查询ingress-nginx是否部署完成返回的值是跟实际情况不符的。如果把<code>traefik</code>禁用了，就能避坑，这应该是K3S的一个bug(目前应该是解决了，后来我又部署过几次，没这个问题了)。</p>
+<blockquote>
+<p>解决方法是：只需使用 <code>--disable=traefik</code> 启动 K3s Server，然后部署你的 Ingress 即可。</p>
+</blockquote>
+<p>具体步骤：</p>
+<ul>
+<li>安装kubectl<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载kubectl</span></span><br><span class="line">curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装kubectl</span></span><br><span class="line">sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.kube</span><br><span class="line">sudo cat /etc/rancher/k3s/k3s.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在~/.kube/下创建一个`config`文件把k3s.yaml中的内容放入到`config`中</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>安装helm<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</span><br></pre></td></tr></table></figure>
+</li>
+<li>安装 ingress-nginx<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace</span><br></pre></td></tr></table></figure>
+</li>
+<li>查看 ingress-nginx controller信息<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n ingress-nginx ingress-nginx-controller</span><br></pre></td></tr></table></figure>
+ingress controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</code>,这两种模式下，访问那些通过ingress反向代理的服务时，使用的IP地址是有区别的，<code>NodePort</code>模式下，没有<code>EXTERNAL-IP</code></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/05/11/ingresss-nginx-controller%E9%83%A8%E7%BD%B2%E5%92%8C%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1469,121 +1595,6 @@ Client o--Searcher
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个码农的自白">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/01/Golang%E7%AD%89%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Golang等值运算符机制详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-02-01 09:07:22 / 修改时间：10:22:06" itemprop="dateCreated datePublished" datetime="2023-02-01T09:07:22+08:00">2023-02-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>背景</h1>
-<p>这篇文章源于代码中关于nil判断的一个问题。先从一段代码看起，下面这段代码是将传入的对象转换成<code>JSON string</code>并返回，其中，如果判断<code>i==nil</code>时，会返回<code>&quot;&quot;</code>。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码初看并没有太大的问题，但实际上这里隐含了一个不容易被发现的问题，在说明这个问题之前，我们先看下这段代码在什么情况下会出现问题：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Data <span class="keyword">struct</span> &#123;</span><br><span class="line">   V <span class="type">int</span> <span class="string">`json:&quot;v&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestToJSONString</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">   a := assert.New(t)</span><br><span class="line"></span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(<span class="literal">nil</span>))</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> data *Data</span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(data))</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> k *<span class="type">int</span></span><br><span class="line">   a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(k))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段测试代码中三个断言分别返回：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PASS</span><br><span class="line">FAIL, Expect: &quot;&quot;, Actual: &quot;null&quot;</span><br><span class="line">FAIL, Expect: &quot;&quot;, Actual: &quot;null&quot;</span><br></pre></td></tr></table></figure>
-<p>这里很让人疑惑，data应该是nil，似乎data==nil的结论是false，为了确认这个问题，我们引入一段代码。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
-<p>结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil: true</span><br><span class="line">b == nil: true</span><br><span class="line">a == b: false // 重点</span><br></pre></td></tr></table></figure>
-<p>这个例子比较简单，让我们看一个很相似，但稍微复杂些的例子</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
-<p>结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil: true</span><br><span class="line">b == nil: false // 重点</span><br><span class="line">a == b: true</span><br></pre></td></tr></table></figure>
-<h1>到底发生了什么？</h1>
-<p>首先我们要了解的是：在Go中，每个指针都有2个基本信息，指针的类型和指针的值，后续我将会使用<code>(type, value)</code>这样的形式来体现。也就是说，<code>a := nil</code>这样的代码无法通过编译，因为它缺失了<code>type</code>，所以需要这样<code>var a *int = nil</code>。<br>
-我们可以在fmt中输出这些指针的<code>type</code>：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a.type:%T\n&quot;</span>, a) <span class="comment">// a.type:*int</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b.type:%T\n&quot;</span>, b) <span class="comment">// b.type:&lt;nil&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们现在已经了解了<code>interace&#123;&#125;</code>的默认<code>type</code>为<code>nil</code>，下面我们不使用硬编码的方式，而是将<code>a</code>传递给<code>b</code>，然后再来看下结果：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a.type:%T\n&quot;</span>, a) <span class="comment">// a.type:*int</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b.type:%T\n&quot;</span>, b) <span class="comment">// b.type:*int</span></span><br></pre></td></tr></table></figure>
-<p>也就是说，<code>b</code>现在有了一个新的类型<code>*int</code>。目前你已经了解了关于类型的一些基本机制，但还有一些问题还没有被解答.</p>
-<h1>当执行<code>==</code>时，发生了什么？</h1>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a=(%T, %v)\n&quot;</span>, a, a)</span><br><span class="line">fmt.Printf(<span class="string">&quot;b=(%T, %v)\n&quot;</span>, b, b)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=(*int, &lt;nil&gt;)</span><br><span class="line">b=(&lt;nil&gt;, &lt;nil&gt;)</span><br><span class="line">a == nil: true</span><br><span class="line">b == nil: true</span><br><span class="line">a == b: false</span><br></pre></td></tr></table></figure>
-<p>这段代码乍一看似乎不可能，像是在说：a==nil、b==nil，但a!=b。实际情况是，类型判断不仅仅只判断二者的值，还会判断其类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == nil // 等价于：(*int, nil) == (*int, nil)</span><br><span class="line">b == nil // 等价于：(nil, nil) == (nil, nil)</span><br><span class="line">a == b   // 等价于：(*int, nil) == (nil, nil)</span><br></pre></td></tr></table></figure>
-<p>当我们用这样的方式写出来时，我们可以很轻易的明白，a!=b是成立的，但这些信息并不会在代码中体现出来，这也正是容易出现误解的地方。在这里，如果你想要判断二者是否都是nil，你可以这样写</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a == <span class="literal">nil</span> &amp;&amp; b == <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接下来我们再来看看前面那个令人困惑的例子，相关结果直接跟在了代码后面</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">&quot;a=(%T, %v)\n&quot;</span>, a, a)   <span class="comment">// a=(*int, &lt;nil&gt;)</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;b=(%T, %v)\n&quot;</span>, b, b)   <span class="comment">// b=(*int, &lt;nil&gt;)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a == nil:&quot;</span>, a == <span class="literal">nil</span>) <span class="comment">// a == nil: true</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b == nil:&quot;</span>, b == <span class="literal">nil</span>) <span class="comment">// b == nil: false</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a == b:&quot;</span>, a == b)     <span class="comment">// a == b: true</span></span><br></pre></td></tr></table></figure>
-<p>现在我们再来看b==nil这段代码会发现明朗许多：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b == <span class="literal">nil</span> <span class="comment">// 等价于：(*int, nil) == (nil, nil)</span></span><br></pre></td></tr></table></figure>
-<p>这里可能会疑惑，为什么等式右侧的<code>nil</code>，其<code>type</code>为<code>nil</code>呢？这是因为当<code>b</code>指定为<code>interface&#123;&#125;</code>类型的时候，无法确定其真实的类型，随着程序的运行，其类型可能会不断改变，所以其类型默认为<code>nil</code>。<br>
-更进一步，我们可以看一个硬编码的数字是如何进行比较判断的。数字会根据上下文来推断自己的类型，一个具体的例子如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="type">int</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> b <span class="type">float64</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">interface</span>&#123;&#125; = a</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;a==12:&quot;</span>, a == <span class="number">12</span>) <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b==12:&quot;</span>, b == <span class="number">12</span>) <span class="comment">// true  =&gt; (float64, 12) == (float64, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;c==12:&quot;</span>, c == <span class="number">12</span>) <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;a==c:&quot;</span>, a == c)   <span class="comment">// true  =&gt; (int, 12) == (int, 12)</span></span><br><span class="line">fmt.Println(<span class="string">&quot;b==c:&quot;</span>, b == c)   <span class="comment">// false =&gt; (float64, 12) == (int, 12)</span></span><br></pre></td></tr></table></figure>
-<p>一个需要注意的点是，当<code>12</code>与一个<code>interface&#123;&#125;</code>进行比较时，会默认转换为<code>(int, 12)</code>，类似的<code>interface&#123;&#125;</code>也会被强制转换为<code>(nil, nil)</code>，如下代码展示了这个过程:</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b <span class="type">float64</span> = <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">interface</span>&#123;&#125; = b</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;c==12:&quot;</span>, c == <span class="number">12</span>) <span class="comment">// c==12: false</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;c=(%T,%v)\n&quot;</span>, c, c) <span class="comment">// c=(float64,12)</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;hard-coded=(%T,%v)\n&quot;</span>, <span class="number">12</span>, <span class="number">12</span>) <span class="comment">// hard-coded=(int,12)</span></span><br></pre></td></tr></table></figure>
-<h1>回到最开始的<code>nil</code>判断</h1>
-<p>让我们回到最开始出现问题的代码，现在再来看会清晰许多</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestToJSONString</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> data *Data</span><br><span class="line">  a.Equal(<span class="string">&quot;&quot;</span>, ToJSONString(data))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第2行中，<code>i==nil</code>的判断相当于<code>(*Data, nil) == (nil, nil)</code>，显而易见，这样的等式并不会成立。当然，我们有其他的办法处理这样的等式判断，这需要用到<code>reflect</code>包，如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToJSONString</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> i == <span class="literal">nil</span> || (reflect.ValueOf(i).Kind() == reflect.Ptr &amp;&amp; reflect.ValueOf(i).IsNil()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   bytes, _ := json.Marshal(i)</span><br><span class="line">   <span class="keyword">return</span> <span class="type">string</span>(bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1653,7 +1664,7 @@ Client o--Searcher
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
