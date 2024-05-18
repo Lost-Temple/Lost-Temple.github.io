@@ -30,9 +30,9 @@
 <meta property="article:published_time" content="2022-11-04T02:33:27.000Z">
 <meta property="article:modified_time" content="2022-12-03T11:37:50.582Z">
 <meta property="article:author" content="暂留白">
+<meta property="article:tag" content="rust">
 <meta property="article:tag" content="wasm">
 <meta property="article:tag" content="chaincode">
-<meta property="article:tag" content="rust">
 <meta property="article:tag" content="wasm-pack">
 <meta property="article:tag" content="build">
 <meta name="twitter:card" content="summary">
@@ -255,12 +255,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>编译rust源码为wasm</h1>
+        <h1 id="编译rust源码为wasm">编译rust源码为wasm</h1>
 <h2 id="安装工具链">安装工具链</h2>
 <p>可以使用以下两条命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br><span class="line">curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh</span><br></pre></td></tr></table></figure>
 <p>也可以参考<a target="_blank" rel="noopener" href="https://rustwasm.github.io/book/game-of-life/setup.html">官方安装向导</a></p>
-<h2 id="创建rust-lib工程">创建<code>rust</code> <code>lib</code>工程</h2>
+<h2 id="创建rust-lib工程">创建<code>rust</code>
+<code>lib</code>工程</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new hello_world --lib</span><br></pre></td></tr></table></figure>
 <p>生成的<code>Cargo.toml</code>内容为：</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello_world&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -270,26 +271,25 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Cargo.toml</span><br><span class="line">└── src</span><br><span class="line">   └── lib.rs</span><br></pre></td></tr></table></figure>
 <p>在<code>lib.rs</code>中编写<code>rust</code>代码实现函数，因为在wasmcc的特殊性，这里的编写的代码也具有一些特殊性：</p>
 <ul>
-<li>
-<p>可以导入调用在wasmcc中实现的函数</p>
+<li><p>可以导入调用在wasmcc中实现的函数</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__print</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter</span>(paramNumber: <span class="type">usize</span>, result: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter_size</span>(paramNumber: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state_size</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__put_state</span>(key: *<span class="keyword">const</span> <span class="type">u8</span>, key_len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>, value_len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__delete_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__return_result</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>这些函数可以在编写<code>rust</code>代码时直接调用，不需要自己实现，这些是相当在Host程序中实现，可以被 <code>wasm</code>代码调用的函数</strong></p>
+<p><strong>这些函数可以在编写<code>rust</code>代码时直接调用，不需要自己实现，这些是相当在Host程序中实现，可以被
+<code>wasm</code>代码调用的函数</strong></p>
 <p>在rust的导出函数中,即wasm代码的对外接口中，可以调用上述的函数，如：</p>
 <ul>
 <li>通过__get_parameter_size(0)可以取得第1个参数的长度__</li>
 <li>通过__get_parameter可以取得参数的值，具体用法就是传入一个序号，一个vec!的指针</li>
-</ul>
-</li>
-<li>
-<p>实现<code>init</code>函数（必须实现，<code>wasmcc</code>的<code>create</code>函数用来创建 wasm chaincode时就会调用wasm代码中的<code>init</code>函数</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">init</span>(args: <span class="type">i64</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+</ul></li>
+<li><p>实现<code>init</code>函数（必须实现，<code>wasmcc</code>的<code>create</code>函数用来创建
+wasm chaincode时就会调用wasm代码中的<code>init</code>函数</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">init</span>(args: <span class="type">i64</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="编译">编译</h2>
 <p>在<code>rust</code>工程的根目录下，运行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm-pack build</span><br></pre></td></tr></table></figure>
 <p>如果成功的话，会在当前目录下生成<code>pkg/hello_world_bg.wasm</code></p>
-<p>关于C语言编写代码，再编译成wasm，文档中说是需要安装clang8 和 llvm。<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/sample-wasm-chaincode">文档</a>中是<a target="_blank" rel="noopener" href="https://apt.llvm.org/">Linux的几个发行版的环境</a>，由于我的是Mac M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找不到<code>__print</code>、<code>__get_parameter</code>等几个函数的找不到实现部分，所以链接的时候出错，这个理论上说得通，能编译成功才是不能理解的。不知道文档中说的方法是怎么编译成功的，到时候有空用Linux环境试一下吧。</p>
+<p>关于C语言编写代码，再编译成wasm，文档中说是需要安装clang8 和 llvm。<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/sample-wasm-chaincode">文档</a>中是<a target="_blank" rel="noopener" href="https://apt.llvm.org/">Linux的几个发行版的环境</a>，由于我的是Mac
+M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找不到<code>__print</code>、<code>__get_parameter</code>等几个函数的找不到实现部分，所以链接的时候出错，这个理论上说得通，能编译成功才是不能理解的。不知道文档中说的方法是怎么编译成功的，到时候有空用Linux环境试一下吧。</p>
 
     </div>
 
@@ -299,9 +299,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/rust/" rel="tag"># rust</a>
               <a href="/tags/wasm/" rel="tag"># wasm</a>
               <a href="/tags/chaincode/" rel="tag"># chaincode</a>
-              <a href="/tags/rust/" rel="tag"># rust</a>
               <a href="/tags/wasm-pack/" rel="tag"># wasm-pack</a>
               <a href="/tags/build/" rel="tag"># build</a>
           </div>
@@ -377,7 +377,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">编译rust源码为wasm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-number">1.1.</span> <span class="nav-text">安装工具链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BArust-lib%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">创建rust lib工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.3.</span> <span class="nav-text">编译</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm"><span class="nav-number">1.</span> <span class="nav-text">编译rust源码为wasm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-number">1.1.</span> <span class="nav-text">安装工具链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BArust-lib%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">创建rust
+lib工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.3.</span> <span class="nav-text">编译</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -391,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

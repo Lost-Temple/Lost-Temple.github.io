@@ -250,41 +250,45 @@
 
       
         <p>实现“开-闭”原则的关键是抽象化，并且从抽象化导出具体化实现。如果说“开-闭”原则是面向对象设计的目标的话，依赖倒置原则就是这个面向对象设计的主要机制。</p>
-<h1>为何而“倒转”</h1>
+<h1 id="为何而倒转">为何而“倒转”</h1>
 <p>传统的过程性系统的设计办法倾向于使高层次依赖于低层次的模块；抽象层次依赖于具体层次。倒转原则是要把这个错误的依赖关系倒转过来，这就是“依赖倒转原则”的来由。</p>
-<p>抽象层依赖于具体层次的含义是什么呢？抽象层次包含的是应用系统的商务逻辑和宏观的、对整个系统来说重要的战略性决定，是必然性的体现；而具体层次则含有一些次要的与实现有关的算法和逻辑，以及战术性的决定，带有相当大的偶然性选择。具体层次的代码是会经常有变动的，不能避免出现错误。抽象层次依赖于具体层次，使许多具体层次的细节的算法变化立即影响到抽象层次的宏观商务逻辑，导致微观决定宏观，战术决定战略，偶然决定必然。如下图所示：<br>
+<p>抽象层依赖于具体层次的含义是什么呢？抽象层次包含的是应用系统的商务逻辑和宏观的、对整个系统来说重要的战略性决定，是必然性的体现；而具体层次则含有一些次要的与实现有关的算法和逻辑，以及战术性的决定，带有相当大的偶然性选择。具体层次的代码是会经常有变动的，不能避免出现错误。抽象层次依赖于具体层次，使许多具体层次的细节的算法变化立即影响到抽象层次的宏观商务逻辑，导致微观决定宏观，战术决定战略，偶然决定必然。如下图所示：
 <img src="/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/1.jpg" alt="错误的层次依赖关系"></p>
-<p>依赖倒转原则(Dependence Inversion Principle或简称为DIP)，就是要把错误的依赖关系再倒转过来，如下图：<br>
-<img src="/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/2.jpg" alt="依赖倒转的关系图"></p>
-<blockquote>
-<p>依赖倒转原则是COM/CORBA/JavaBean以及EJB等构建设计模型背后的基本原则。</p>
-</blockquote>
-<h1>复用与可维护性的“倒转”</h1>
+<p>依赖倒转原则(Dependence Inversion
+Principle或简称为DIP)，就是要把错误的依赖关系再倒转过来，如下图： <img src="/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/2.jpg" alt="依赖倒转的关系图">
+&gt;依赖倒转原则是COM/CORBA/JavaBean以及EJB等构建设计模型背后的基本原则。</p>
+<h1 id="复用与可维护性的倒转">复用与可维护性的“倒转”</h1>
 <p>从复用的角度来看，高层次的模块是设计者应当复用的。但是在传统的过程性设计中，复用却侧重于具体层次模块的复用，比如算法的复用、数据结构的复用、函数库的复用等，都不可避免是具体层次模块里面的复用。较高层次的结构依赖于较低层次的结构，较低层次的结构又进一步依赖于更低层次的结构，如此继续，直到依赖于每一行的代码。较低层次上的修改，会造成较高层次的修改，直到高层次逻辑的修改。</p>
 <p>同样，传统的做法也强调具体层次上的可维护性，包括一个函数、数据结构等的可维护性，而不是高级层次上的可维护性。</p>
 <p>从复用的意义上讲，既然抽象层次含有一个应用系统最重要的宏观商务逻辑，是做战略性判断和决定的地方，那么抽象层次就应当是较为稳定的，应当是复用的重点。由于现有的复用侧重于具体模块和细节的复用，因此“倒转”一词则是指复用应当将复用的重点放在抽象层次上。如果抽象层次的模块相对独立于具体层次的模块的话，那么抽象层次的模块的复用便是相对较为容易的了。</p>
-<h1>依赖倒转原则</h1>
-<h2 id="依赖（或者耦合）关系">依赖（或者耦合）关系</h2>
+<h1 id="依赖倒转原则">依赖倒转原则</h1>
+<h2 id="依赖或者耦合关系">依赖（或者耦合）关系</h2>
 <ul>
-<li>零耦合(Nil Coupling)关系：如果两个类没有耦合关系，就称之为零耦合。</li>
-<li>具体耦合(Concrete Coupling)关系：具本性耦合发生在两个具体的（可实例化的）类之间，经由一个类对另一个具体类的直接引用造成</li>
-<li>抽象耦合(Abstract Coupling)关系：抽象耦合关系发生在一个具体类和一个抽象类（或者Java接口）之间，使两个必须发生关系的类之间存有最大的灵活性。</li>
+<li>零耦合(Nil
+Coupling)关系：如果两个类没有耦合关系，就称之为零耦合。</li>
+<li>具体耦合(Concrete
+Coupling)关系：具本性耦合发生在两个具体的（可实例化的）类之间，经由一个类对另一个具体类的直接引用造成</li>
+<li>抽象耦合(Abstract
+Coupling)关系：抽象耦合关系发生在一个具体类和一个抽象类（或者Java接口）之间，使两个必须发生关系的类之间存有最大的灵活性。</li>
 </ul>
-<h1>什么是依赖倒转原则</h1>
-<p>简单地说，依赖倒转原则(Dependency Inversion Principle)要求客户端依赖于抽象耦合。依赖倒转原则的表述是：</p>
-<ul>
-<li>表述1：抽象不应该依赖于细节；细节应当依赖于抽象。(Abstractions should not depend upon details.Details should depend upon abstractions)</li>
-<li>表述2：要针对接口编程，不要针对实现编程。（Program to an interface, not an implementation)</li>
-</ul>
+<h1 id="什么是依赖倒转原则">什么是依赖倒转原则</h1>
+<p>简单地说，依赖倒转原则(Dependency Inversion
+Principle)要求客户端依赖于抽象耦合。依赖倒转原则的表述是： -
+表述1：抽象不应该依赖于细节；细节应当依赖于抽象。(Abstractions should
+not depend upon details.Details should depend upon abstractions) -
+表述2：要针对接口编程，不要针对实现编程。（Program to an interface, not
+an implementation)</p>
 <p>针对接口编程的意思就是说，应当使用Java接口和Java抽象类进行变量的类型声明、参量的类型声明、方法的返还类型声明，以及数据类型的转换等。</p>
 <p>不要针对实现编程的意思就是说，不应当使用Java具体类进行变量的类型声明、参量的类型声明、方法的返还类型声明，以及数据类型的转换等。</p>
 <p><font color="red"><strong>要保证做到这一点，一个具体类应当只实现接口和抽象类中声明过的方法，而不应当给出多余的方法。</strong></font></p>
 <p>倒转依赖关系强调一个系统内的实体之间关系的灵活性。基本上，如果设计师希望遵守“开-闭”原则，那么倒转依赖原则便是达到要求的途径。</p>
-<h1>变量的静态类型和真实类型</h1>
-<p>变量被声明时的类型叫做变量的静态类型(Static Type)，有些地方把静态类型叫做明显类型(Apparent Type)，变量所引用的对象的真实类型叫做变量的实际类型(Actual Type)。例如：</p>
+<h1 id="变量的静态类型和真实类型">变量的静态类型和真实类型</h1>
+<p>变量被声明时的类型叫做变量的静态类型(Static
+Type)，有些地方把静态类型叫做明显类型(Apparent
+Type)，变量所引用的对象的真实类型叫做变量的实际类型(Actual Type)。例如：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span> <span class="variable">employees</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Vector</span>();</span><br></pre></td></tr></table></figure>
-<p><code>Vector</code>是一个具体类（实际类型），而<code>List</code>是一个接口（静态类型）。</p>
-<h1>引用对象的抽象类型</h1>
+<code>Vector</code>是一个具体类（实际类型），而<code>List</code>是一个接口（静态类型）。</p>
+<h1 id="引用对象的抽象类型">引用对象的抽象类型</h1>
 <p>在很多情况下，一个Java程序需要引用一个对象。这个时候，如果这个对象有一个抽象类型的话，应当使用这个抽象类型作为变量的静态类型。这就是针对接口编程的含义。</p>
 
     </div>
@@ -370,7 +374,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">为何而“倒转”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">复用与可维护性的“倒转”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">依赖倒转原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%EF%BC%88%E6%88%96%E8%80%85%E8%80%A6%E5%90%88%EF%BC%89%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.</span> <span class="nav-text">依赖（或者耦合）关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">什么是依赖倒转原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">变量的静态类型和真实类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">引用对象的抽象类型</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BD%95%E8%80%8C%E5%80%92%E8%BD%AC"><span class="nav-number">1.</span> <span class="nav-text">为何而“倒转”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E5%80%92%E8%BD%AC"><span class="nav-number">2.</span> <span class="nav-text">复用与可维护性的“倒转”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">依赖倒转原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%88%96%E8%80%85%E8%80%A6%E5%90%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.</span> <span class="nav-text">依赖（或者耦合）关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">什么是依赖倒转原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9C%9F%E5%AE%9E%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">变量的静态类型和真实类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">引用对象的抽象类型</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -384,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

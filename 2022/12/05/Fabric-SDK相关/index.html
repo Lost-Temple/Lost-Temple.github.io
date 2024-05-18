@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="Fabric SDK 介绍 Fabric的Peer节点和Orderer节点都提供了基于gRPC协议的接口，用于和Peer节点与Orderer节点进行命令&#x2F;数据交互。为了简化开发，为开发人员开发应用程序提供操作Fabric区块链网络的API，Fabric官方提供了多种语言版本的SDK。 Fabric提供了多种语言版本的SDK：  fabric-sdk-java fabric-sdk-go fabri">
+  <meta name="description" content="Fabric SDK 介绍 Fabric的Peer节点和Orderer节点都提供了基于gRPC协议的接口，用于和Peer节点与Orderer节点进行命令&#x2F;数据交互。为了简化开发，为开发人员开发应用程序提供操作Fabric区块链网络的API，Fabric官方提供了多种语言版本的SDK。 Fabric提供了多种语言版本的SDK： - fabric-sdk-java - fabric-sdk-go -">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fabric SDK相关">
 <meta property="og:url" content="http://www.blockchainof.com/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="自留地">
-<meta property="og:description" content="Fabric SDK 介绍 Fabric的Peer节点和Orderer节点都提供了基于gRPC协议的接口，用于和Peer节点与Orderer节点进行命令&#x2F;数据交互。为了简化开发，为开发人员开发应用程序提供操作Fabric区块链网络的API，Fabric官方提供了多种语言版本的SDK。 Fabric提供了多种语言版本的SDK：  fabric-sdk-java fabric-sdk-go fabri">
+<meta property="og:description" content="Fabric SDK 介绍 Fabric的Peer节点和Orderer节点都提供了基于gRPC协议的接口，用于和Peer节点与Orderer节点进行命令&#x2F;数据交互。为了简化开发，为开发人员开发应用程序提供操作Fabric区块链网络的API，Fabric官方提供了多种语言版本的SDK。 Fabric提供了多种语言版本的SDK： - fabric-sdk-java - fabric-sdk-go -">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-05T08:28:37.000Z">
 <meta property="article:modified_time" content="2022-12-05T09:21:18.628Z">
@@ -249,58 +249,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>Fabric SDK 介绍</h1>
-<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。<br>
-Fabric提供了多种语言版本的SDK：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></li>
-</ul>
-<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：</p>
-<ul>
-<li>创建通道</li>
-<li>将<code>Peer</code>节点加入通道</li>
-<li>在<code>Peer</code>节点安装链码</li>
-<li>在通道实例化链码</li>
-<li>通过链码调用交易</li>
-<li>查询交易或区块的账本</li>
-</ul>
-<h1>Fabric SDK 安装</h1>
+        <h1 id="fabric-sdk-介绍">Fabric SDK 介绍</h1>
+<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。
+Fabric提供了多种语言版本的SDK： - <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a>
+- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a> -
+<a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a>
+- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></p>
+<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：
+- 创建通道 - 将<code>Peer</code>节点加入通道 -
+在<code>Peer</code>节点安装链码 - 在通道实例化链码 - 通过链码调用交易 -
+查询交易或区块的账本</p>
+<h1 id="fabric-sdk-安装">Fabric SDK 安装</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/hyperledger/fabric-sdk-go</span><br></pre></td></tr></table></figure>
-<h1>Fabric Go SDK 源码结构</h1>
+<h1 id="fabric-go-sdk-源码结构">Fabric Go SDK 源码结构</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">total 624</span><br><span class="line">-rw-r--r--   1 mao  staff   170K Aug 15 14:45 CHANGELOG.md</span><br><span class="line">-rw-r--r--   1 mao  staff   108B Aug 15 14:45 CODEOWNERS</span><br><span class="line">-rw-r--r--   1 mao  staff   577B Aug 15 14:45 CODE_OF_CONDUCT.md</span><br><span class="line">-rw-r--r--   1 mao  staff   661B Aug 15 14:45 CONTRIBUTING.md</span><br><span class="line">-rw-r--r--   1 mao  staff    11K Aug 15 14:45 LICENSE</span><br><span class="line">-rw-r--r--   1 mao  staff   910B Nov  2 08:36 MAINTAINERS.md</span><br><span class="line">-rw-r--r--   1 mao  staff    33K Aug 15 14:45 Makefile</span><br><span class="line">-rw-r--r--   1 mao  staff   7.3K Aug 15 14:45 README.md</span><br><span class="line">-rw-r--r--   1 mao  staff   1.0K Aug 15 14:45 SECURITY.md</span><br><span class="line">drwxr-xr-x   4 mao  staff   128B Aug 15 14:45 ci</span><br><span class="line">-rw-r--r--   1 mao  staff   143B Aug 15 14:45 ci.properties</span><br><span class="line">-rw-r--r--   1 mao  staff   2.3K Aug 15 14:45 doc.go</span><br><span class="line">-rw-r--r--   1 mao  staff   1.2K Aug 15 14:45 go.mod</span><br><span class="line">-rw-r--r--   1 mao  staff    45K Aug 15 14:45 go.sum</span><br><span class="line">-rwxr-xr-x   1 mao  staff   1.6K Aug 15 14:45 golangci.yml</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 internal</span><br><span class="line">drwxr-xr-x  11 mao  staff   352B Aug 15 14:45 pkg</span><br><span class="line">drwxr-xr-x   5 mao  staff   160B Aug 15 14:45 scripts</span><br><span class="line">drwxr-xr-x   7 mao  staff   224B Aug 15 14:45 test</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 third_party</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>pkg/fabsdk</code>: Fabric SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
+<li><code>pkg/fabsdk</code>: Fabric
+SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
 <li><code>pkg/client/channel</code>: 提供通道交易相关功能</li>
 <li><code>pkg/client/event</code>: 提供通道事件相关功能</li>
-<li><code>pkg/client/ledger</code>: 启用对通道底层账本的查询相关功能</li>
+<li><code>pkg/client/ledger</code>:
+启用对通道底层账本的查询相关功能</li>
 <li><code>pkg/client/resmgmt</code>: 提供资源管理功能，例如安装链码</li>
 <li><code>pkg/client/msp</code>: 启用身份管理相关功能</li>
 </ul>
-<h1>Fabric SDK功能模块</h1>
-<h2 id="API">API</h2>
+<h1 id="fabric-sdk功能模块">Fabric SDK功能模块</h1>
+<h2 id="api">API</h2>
 <p>对于应用开发者来说，插件化的API可以支持SDK提供的关键接口的可选实现。对于每个接口，都有内置的默认实现，也可以灵活自定义。</p>
 <h2 id="fabric-client">fabric-client</h2>
-<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：</p>
-<ul>
-<li>创建<code>channel</code></li>
-<li>请求<code>Peer</code>节点加入通道</li>
-<li>在<code>Peer</code>节点中安装链码</li>
-<li>在通道中实例化链码</li>
-<li>通过调用链码来调用事务</li>
-<li>多种查询</li>
-<li>监听事件</li>
-</ul>
+<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：
+- 创建<code>channel</code> - 请求<code>Peer</code>节点加入通道 -
+在<code>Peer</code>节点中安装链码 - 在通道中实例化链码 -
+通过调用链码来调用事务 - 多种查询 - 监听事件</p>
 <h2 id="fabric-ca-client">fabric-ca-client</h2>
-<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：</p>
-<ul>
-<li>注册新用户</li>
-<li>注册用户以获得由<code>Fabric CA</code>签名的注册证书</li>
-<li>通过注册ID撤销现有用户或撤消证书</li>
-<li>可定制的持久化存储</li>
-</ul>
+<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：
+- 注册新用户 - 注册用户以获得由<code>Fabric CA</code>签名的注册证书 -
+通过注册ID撤销现有用户或撤消证书 - 可定制的持久化存储</p>
 
     </div>
 
@@ -388,7 +372,7 @@ Fabric提供了多种语言版本的SDK：</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Fabric SDK 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Fabric SDK 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Fabric Go SDK 源码结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">Fabric SDK功能模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">4.1.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fabric-client"><span class="nav-number">4.2.</span> <span class="nav-text">fabric-client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fabric-ca-client"><span class="nav-number">4.3.</span> <span class="nav-text">fabric-ca-client</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fabric-sdk-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Fabric SDK 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fabric-sdk-%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">Fabric SDK 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fabric-go-sdk-%E6%BA%90%E7%A0%81%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">Fabric Go SDK 源码结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fabric-sdk%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97"><span class="nav-number">4.</span> <span class="nav-text">Fabric SDK功能模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#api"><span class="nav-number">4.1.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fabric-client"><span class="nav-number">4.2.</span> <span class="nav-text">fabric-client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fabric-ca-client"><span class="nav-number">4.3.</span> <span class="nav-text">fabric-ca-client</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -402,7 +386,7 @@ Fabric提供了多种语言版本的SDK：</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

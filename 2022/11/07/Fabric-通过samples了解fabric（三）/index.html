@@ -254,25 +254,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure>
-<h1>部署<code>wasmcc</code></h1>
+        <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure></p>
+<h1 id="部署wasmcc">部署<code>wasmcc</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn wasmcc -ccp /Users/mao/work/wasm/opensource/hyperledger/fabric-chaincode-wasm/wasmcc -ccv 1.0 -ccl go</span><br></pre></td></tr></table></figure>
-<h1>调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
-<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），<br>
+<h1 id="调用wasmcc部署wasm-chaincode">调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
+<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），
 然后通过以下命令部置这个<code>wasm chaincode</code>,**注：命令中的<code>wasm二进制数据的十六进制表示字符串</code>需要按实际的数据进行替换。这个把wasm字节码转为十六进制表示（字符串）的工具是<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/file-encoder">file-encoder</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;create&quot;,&quot;balancewasm&quot;,&quot;wasm二进制数据的十六进制表示字符串&quot;,&quot;account1&quot;,&quot;100&quot;,&quot;account2&quot;,&quot;1000&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>调用命令查看目前已部署的<code>wasm chaincode</code></h1>
+<h1 id="调用命令查看目前已部署的wasm-chaincode">调用命令查看目前已部署的<code>wasm chaincode</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;installedChaincodes&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
+<h1 id="通过wasmcc查询wasm-chaincode中的account1的余额">通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;query&quot;,&quot;account1&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
+<h1 id="通过wasmcc调用wasm-chaincode中的函数invoke">通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;invoke&quot;,&quot;account2&quot;,&quot;account1&quot;,&quot;10&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
-<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。<br>
-使用命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure>
-<p><code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
+<h1 id="通过工具wasm-pusher安装wasm-chaincode">通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
+<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。
+使用命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure> <code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
 
     </div>
 
@@ -359,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">部署wasmcc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">调用wasmcc部署wasm chaincode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">调用命令查看目前已部署的wasm chaincode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">通过wasmcc查询wasm chaincode中的account1的余额</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">通过wasmcc调用wasm chaincode中的函数invoke</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">通过工具WASM Pusher安装wasm chaincode</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2wasmcc"><span class="nav-number">1.</span> <span class="nav-text">部署wasmcc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E7%94%A8wasmcc%E9%83%A8%E7%BD%B2wasm-chaincode"><span class="nav-number">2.</span> <span class="nav-text">调用wasmcc部署wasm chaincode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E7%9B%AE%E5%89%8D%E5%B7%B2%E9%83%A8%E7%BD%B2%E7%9A%84wasm-chaincode"><span class="nav-number">3.</span> <span class="nav-text">调用命令查看目前已部署的wasm chaincode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87wasmcc%E6%9F%A5%E8%AF%A2wasm-chaincode%E4%B8%AD%E7%9A%84account1%E7%9A%84%E4%BD%99%E9%A2%9D"><span class="nav-number">4.</span> <span class="nav-text">通过wasmcc查询wasm chaincode中的account1的余额</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87wasmcc%E8%B0%83%E7%94%A8wasm-chaincode%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0invoke"><span class="nav-number">5.</span> <span class="nav-text">通过wasmcc调用wasm chaincode中的函数invoke</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%B7%A5%E5%85%B7wasm-pusher%E5%AE%89%E8%A3%85wasm-chaincode"><span class="nav-number">6.</span> <span class="nav-text">通过工具WASM Pusher安装wasm chaincode</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -373,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
