@@ -1,393 +1,1432 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一个码农的自白</title><meta name="author" content="暂留白"><meta name="copyright" content="暂留白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/favicon.svg"><link rel="canonical" href="http://www.blockchainof.com/page/6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '一个码农的自白',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2024-05-18 15:50:09'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
-
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
-
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.svg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">78</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="一个码农的自白"><span class="site-name">一个码农的自白</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">一个码农的自白</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/12/15/cobra%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" title="cobra基本命令"><img class="post-bg" src="https://s2.loli.net/2022/12/15/EeoKWxL21fUIRsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cobra基本命令"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/15/cobra%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" title="cobra基本命令">cobra基本命令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-15T00:58:45.000Z" title="发表于 2022-12-15 08:58:45">2022-12-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/">Golang</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/%E5%BA%93/">库</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/%E5%BA%93/cobra/">cobra</a></span></div><div class="content">基本命令使用
-12345678910111213141516171819202122package mainimport (	&quot;fmt&quot;	&quot;github.com/spf13/cobra&quot;	&quot;strings&quot;)func main() &#123;	// 定义一个命令	echoCmd := cobra.Command &#123;		//命令名称		Use: &quot;echo&quot;,		// 命令执行过程，功能就是直接打印出命令行中的输入参数		Run: func(cmd *cobra.Command, args []string) &#123;			fmt.Println(strings.Join(args, &quot; &quot;))		&#125;,	&#125;	// 执行命令	echoCmd.Execute()&#125;
-cobra中的Cmd结构体
-1234567891011121314151617181920212223242526272829303132333435363738394041424344 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/" title="Druid-程序骨架"><img class="post-bg" src="https://s2.loli.net/2022/10/14/ydOW3hI8DkSJsrg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Druid-程序骨架"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/" title="Druid-程序骨架">Druid-程序骨架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-11T10:16:19.000Z" title="发表于 2022-12-11 18:16:19">2022-12-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Rust/">Rust</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Rust/GUI/">GUI</a></span></div><div class="content">Cargo.toml
-123456789101112131415161718[package]name = &quot;druid-gui-app&quot;version = &quot;0.1.0&quot;edition = &quot;2021&quot;# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html[dependencies]druid = &#123; git = &quot;https://github.com/linebender/druid.git&quot; &#125;tracing = &#123; version = &quot;0.1.22&quot; &#125;[[bin]]name = &quot;druid-gui-app&quot;path = &quot;./src/main.rs&quot;[[bin]]name = &quot;example&quot;path = &quot;./previews ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/12/08/Cpp-GUI-imgui%E5%BA%93%E4%BD%BF%E7%94%A8%E6%A0%B7%E6%9D%BFCMakefile/" title="C++ GUI--imgui库使用样板CMakefile"><img class="post-bg" src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++ GUI--imgui库使用样板CMakefile"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/08/Cpp-GUI-imgui%E5%BA%93%E4%BD%BF%E7%94%A8%E6%A0%B7%E6%9D%BFCMakefile/" title="C++ GUI--imgui库使用样板CMakefile">C++ GUI--imgui库使用样板CMakefile</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-08T05:26:48.000Z" title="发表于 2022-12-08 13:26:48">2022-12-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/">C++</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/GUI/">GUI</a></span></div><div class="content">imgui
-先上链接：github地址
-imgui是一个轻量级，但是小而全的一个cpp界面库。作者应该是游戏开发行业的，这个库用来实现开发游戏还是比较适合的。虽然它是跨平台的，但是例子代码全是用visual studio的工程。在mac或linux下还不能做到完全的开箱即用。所以在网上搜索了一番，找到了一个CMakeFile.txt可以跨平台的，我在Mac下尝试编译了一下，完全可以，非常感谢！
-但是它的工程中使用的imgui不是最新的，我就拉取了一下imgui代码，替换掉它这个工程中的imgui，然后目录结构也稍作了一下调整。CMakeFile也稍相应地作了一下调整。
-CMakeFile.txt
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798cmake_minim ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/" title="Fabric SDK相关"><img class="post-bg" src="https://s2.loli.net/2022/11/02/ePMCo3xnyr49zV8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric SDK相关"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/" title="Fabric SDK相关">Fabric SDK相关</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-05T08:28:37.000Z" title="发表于 2022-12-05 16:28:37">2022-12-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/">Fabric</a></span></div><div class="content">Fabric SDK 介绍
-Fabric的Peer节点和Orderer节点都提供了基于gRPC协议的接口，用于和Peer节点与Orderer节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作Fabric区块链网络的API，Fabric官方提供了多种语言版本的SDK。
-Fabric提供了多种语言版本的SDK：
-
-fabric-sdk-java
-fabric-sdk-go
-fabric-sdk-node
-fabric-sdk-py
-
-Fabric区块链应用可以通过SDK访问Fabric区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与Fabric区块链网络进行交互，Fabric SDK API提供了如下功能：
-
-创建通道
-将Peer节点加入通道
-在Peer节点安装链码
-在通道实例化链码
-通过链码调用交易
-查询交易或区块的账本
-
-Fabric SDK 安装
-1go get -u github.com/hyperledger/fabric-sdk-go
-Fabric Go SDK 源码结构
-123456789101112131415161718 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/12/04/x64%E5%AF%84%E5%AD%98%E5%99%A8/" title="x64寄存器"><img class="post-bg" src="https://s2.loli.net/2022/12/03/Yl21cqHxspZKegm.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="x64寄存器"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/04/x64%E5%AF%84%E5%AD%98%E5%99%A8/" title="x64寄存器">x64寄存器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-04T04:34:18.000Z" title="发表于 2022-12-04 12:34:18">2022-12-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B1%87%E7%BC%96/">汇编</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B1%87%E7%BC%96/%E6%8C%87%E4%BB%A4/">指令</a></span></div><div class="content">
-
-
-64位寄存器
-低32位
-低16位
-低8位
-
-
-
-
-rax
-eax
-ax
-al
-
-
-rcx
-ecx
-cx
-cl
-
-
-rdx
-edx
-dx
-dl
-
-
-rbx
-ebx
-bx
-bl
-
-
-rsp
-esp
-sp
-spl
-
-
-rbp
-ebp
-bp
-bpl
-
-
-rsi
-esi
-si
-sil
-
-
-rdi
-edi
-di
-dil
-
-
-r8
-r8d
-r8w
-r8b
-
-
-r9
-r9d
-r9w
-r9b
-
-
-r10
-r10d
-r10w
-r10b
-
-
-r11
-r11d
-r11w
-r11b
-
-
-r12
-r12d
-r12w
-r12b
-
-
-r13
-r13d
-r13w
-r13b
-
-
-r14
-r14d
-r14w
-r14b
-
-
-r15
-r15d
-r15w
-r15b
-
-
-
-
-此外还有rip， xmm0~xmm15的多媒体用寄存器，rflags。
-
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/12/03/NOP%E6%8C%87%E4%BB%A4/" title="NOP指令"><img class="post-bg" src="https://s2.loli.net/2022/12/03/Yl21cqHxspZKegm.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NOP指令"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/03/NOP%E6%8C%87%E4%BB%A4/" title="NOP指令">NOP指令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-03T12:52:22.000Z" title="发表于 2022-12-03 20:52:22">2022-12-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B1%87%E7%BC%96/">汇编</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B1%87%E7%BC%96/%E6%8C%87%E4%BB%A4/">指令</a></span></div><div class="content">
-Jdk9 源码有一段关于NOP汇编指令的注释，摘抄记录一下
-
-Intel源码链接
-12345678910111213141516171819// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for Intel//  1: 0x90//  2: 0x66 0x90//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)//  4: 0x0F 0x1F 0x40 0x00//  5: 0x0F 0x1F 0x44 0x00 0x00//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00// 10: 0x6 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/" title="Golang单元测试和基准测试"><img class="post-bg" src="https://s2.loli.net/2022/11/18/KvsLg6YXrU154aj.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Golang单元测试和基准测试"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/" title="Golang单元测试和基准测试">Golang单元测试和基准测试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-12-02T12:02:09.000Z" title="发表于 2022-12-02 20:02:09">2022-12-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/">Golang</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/%E6%B5%8B%E8%AF%95/">测试</a></span></div><div class="content">单元测试
-
-
-测试需要用到的断言，依赖
-github.com/stretchr/testify
-
-
-编写单元测试，文件命名带_test.go
-helloworld_test.go
-
-
-1234import &quot;testing&quot;func TestHelloWorld(t *testing.T) &#123;    t.Log(&quot;hello world&quot;)&#125;
-
-测试所有用例
-
-1go test -v helloworld_test.go
-
-指定用例
-
-1go test -v -run TestHelloWorld helloworld_test.go
-
-测试文件夹下所有的测试用例
-
-1go test -v ./directory
-基准测试
-
-非并发方式
-benchmark_test.go
-
-123456func Benchmark_Add(b *testing.B) &#123;    var n int    for i := 0; i &lt; b.N; i++ &#123;        n++    &#125;&#125;
-
-注：b ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/" title="centos 多gcc版本环境"><img class="post-bg" src="https://s2.loli.net/2022/11/30/vjtgMefxIDyu8EH.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos 多gcc版本环境"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/" title="centos 多gcc版本环境">centos 多gcc版本环境</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-30T04:31:59.000Z" title="发表于 2022-11-30 12:31:59">2022-11-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">背景
-
-在本地PC使用Jetbrains gateway新建ssh远程开发, 打开服务器上的代码进行开发
-CentOS 系统中的gcc和g++版本太低。不支持c++11标准，需要安装新的开发环境
-CLion 项目中的CMakeList.txt需要配置能编译c++11标准的gcc和g++
-
-编译工具安装
-12sudo yum install centos-release-scl-rhsudo yum install devtoolset-11-gcc-c++
-
-安装完成后，执行以下命令可以切换到新的编译环境
-
-1sudo scl enable devtoolset-11 bash
-
-可以查看devtoolset-11相关工具的版本及它们的路径
-
-12g++ --versiongcc --version
-12which g++which gcc
-开发工具中的配置修改
-
-需要指定编译器路径(根据自己编译器路径进行修改)
-
-12SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)SET(CMAKE_CX ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" title="CGO内存踩坑记录"><img class="post-bg" src="https://s2.loli.net/2022/11/24/WLiMOjehw3zvR6H.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CGO内存踩坑记录"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" title="CGO内存踩坑记录">CGO内存踩坑记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-24T02:56:03.000Z" title="发表于 2022-11-24 10:56:03">2022-11-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/">Golang</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Golang/CGO/">CGO</a></span></div><div class="content">应用场景
-将 Go 内存中的字符串或字节切片传入 C 语言函数的应用场景。
-里面的坑
-假设一个极端场景：我们将一块位于某 goroutine 的栈上的Go语言内存传入了 C 语言函数后，在此C语言函数执行时，如果 goroutinue 的栈因为空间不足的原因发生了扩展，也就是导致了原来的 Go 语言内存被移动到了新的位置。但是这时C语言函数并不知道该 Go 语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是**“野指针”**。不是必现，要看内存中的数据是否发生移动。
-以上操作本质上看是一种**“传引用”**，可以借助 C 语言内存稳定的特性（谁malloc就由谁来free，代码编写者自己对内存进行管理），在 C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C 的内存空间（复制了一个副本过去）。下面的例子是这种思路的具体实现：
-例1
-123456789101112131415161718192021222324package main/*#include &lt;stdlib.h&gt;#include &lt;stdio.h&gt;void printStri ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/11/20/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-7/" title="Rust学习-知识点-7"><img class="post-bg" src="https://s2.loli.net/2022/11/19/1FMB2dWImuyEX9i.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust学习-知识点-7"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/11/20/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-7/" title="Rust学习-知识点-7">Rust学习-知识点-7</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-20T04:08:16.000Z" title="发表于 2022-11-20 12:08:16">2022-11-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Rust/">Rust</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Rust/%E5%9F%BA%E7%A1%80/">基础</a></span></div><div class="content">前方高能，过份帅气
-
-</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#content-inner">7</a><a class="page-number" href="/page/8/#content-inner">8</a><a class="extend next" rel="next" href="/page/7/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">暂留白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">78</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lost-Temple"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">码农的自留地</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/18/hello-world/" title="Hello World"><img src="https://s2.loli.net/2022/10/14/txqQJYhyZmMe3Xp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2024/05/18/hello-world/" title="Hello World">Hello World</a><time datetime="2024-05-18T07:05:04.307Z" title="发表于 2024-05-18 15:05:04">2024-05-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点02"/></a><div class="content"><a class="title" href="/2024/05/17/Docker%E7%9F%A5%E8%AF%86%E7%82%B902/" title="Docker知识点02">Docker知识点02</a><time datetime="2024-05-17T02:21:25.000Z" title="发表于 2024-05-17 10:21:25">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录"><img src="https://s2.loli.net/2022/12/08/VAJF2c3elutXjDM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vcpkg的使用记录"/></a><div class="content"><a class="title" href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="vcpkg的使用记录">vcpkg的使用记录</a><time datetime="2024-04-24T00:24:30.000Z" title="发表于 2024-04-24 08:24:30">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm"><img src="https://s2.loli.net/2024/03/05/l7IdcjQfewYZRAa.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="源码编译安装nasm"/></a><div class="content"><a class="title" href="/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/" title="源码编译安装nasm">源码编译安装nasm</a><time datetime="2024-03-05T03:26:47.000Z" title="发表于 2024-03-05 11:26:47">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01"><img src="https://s2.loli.net/2024/02/20/fnPqBZJia8KLhEW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker知识点01"/></a><div class="content"><a class="title" href="/2024/02/19/Docker%E7%9F%A5%E8%AF%86%E7%82%B901/" title="Docker知识点01">Docker知识点01</a><time datetime="2024-02-19T01:16:00.000Z" title="发表于 2024-02-19 09:16:00">2024-02-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
-            <i class="fas fa-folder-open"></i>
-            <span>分类</span>
-            <a class="card-more-btn" href="/categories/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a>
-            </div>
-            <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C++</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/GUI/"><span class="card-category-list-name">GUI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"><span class="card-category-list-name">开发环境</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/"><span class="card-category-list-name">Golang</span><span class="card-category-list-count">8</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/CGO/"><span class="card-category-list-name">CGO</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">基础</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Golang/%E5%BA%93/"><span class="card-category-list-name">库</span><span class="card-category-list-count">2</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E9%94%99%E8%AF%AF%E4%BC%A0%E6%92%AD/" style="font-size: 1.3em; color: #99a1ac">错误传播</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密登录</a> <a href="/tags/nil/" style="font-size: 1.1em; color: #999">nil</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" style="font-size: 1.1em; color: #999">免密码登录</a> <a href="/tags/Fabric/" style="font-size: 1.3em; color: #99a1ac">Fabric</a> <a href="/tags/ingress-niginx-controller/" style="font-size: 1.1em; color: #999">ingress-niginx-controller</a> <a href="/tags/JSON/" style="font-size: 1.1em; color: #999">JSON</a> <a href="/tags/kwargs/" style="font-size: 1.1em; color: #999">kwargs</a> <a href="/tags/%E6%8C%87%E4%BB%A4/" style="font-size: 1.3em; color: #99a1ac">指令</a> <a href="/tags/bridge/" style="font-size: 1.1em; color: #999">bridge</a> <a href="/tags/GUI/" style="font-size: 1.1em; color: #999">GUI</a> <a href="/tags/wasm-pack/" style="font-size: 1.1em; color: #999">wasm-pack</a> <a href="/tags/Jetbrains-gateway/" style="font-size: 1.1em; color: #999">Jetbrains gateway</a> <a href="/tags/lambda/" style="font-size: 1.1em; color: #999">lambda</a> <a href="/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/" style="font-size: 1.1em; color: #999">跨平台</a> <a href="/tags/golang/" style="font-size: 1.1em; color: #999">golang</a> <a href="/tags/wasm-chaincode/" style="font-size: 1.1em; color: #999">wasm chaincode</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">联邦学习</a> <a href="/tags/gRPC/" style="font-size: 1.1em; color: #999">gRPC</a> <a href="/tags/CMake/" style="font-size: 1.1em; color: #999">CMake</a> <a href="/tags/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" style="font-size: 1.1em; color: #999">零知识证明</a> <a href="/tags/chaincode/" style="font-size: 1.5em; color: #99a9bf">chaincode</a> <a href="/tags/%E5%90%88%E6%88%90%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">合成关系</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/swagger/" style="font-size: 1.1em; color: #999">swagger</a> <a href="/tags/c/" style="font-size: 1.5em; color: #99a9bf">c++</a> <a href="/tags/Plugin/" style="font-size: 1.1em; color: #999">Plugin</a> <a href="/tags/%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/" style="font-size: 1.1em; color: #999">接口隔离原则</a> <a href="/tags/function/" style="font-size: 1.1em; color: #999">function</a> <a href="/tags/benchmark-test/" style="font-size: 1.1em; color: #999">benchmark test</a> <a href="/tags/Coad%E6%B3%95%E6%B5%8B/" style="font-size: 1.1em; color: #999">Coad法测</a> <a href="/tags/nginx/" style="font-size: 1.1em; color: #999">nginx</a> <a href="/tags/cmake/" style="font-size: 1.3em; color: #99a1ac">cmake</a> <a href="/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.1em; color: #999">表达式</a> <a href="/tags/ingress/" style="font-size: 1.1em; color: #999">ingress</a> <a href="/tags/Peer/" style="font-size: 1.1em; color: #999">Peer</a> <a href="/tags/%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99/" style="font-size: 1.1em; color: #999">开闭原则</a> <a href="/tags/Storm/" style="font-size: 1.1em; color: #999">Storm</a> <a href="/tags/ssh/" style="font-size: 1.1em; color: #999">ssh</a> <a href="/tags/fedora/" style="font-size: 1.1em; color: #999">fedora</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">78</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-05-18T07:50:09.414Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By 暂留白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
-    window.loadMermaid = true
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
-
-    Array.from($mermaid).forEach((item, index) => {
-      const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
-      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
-
-      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
-        mermaidSrc.insertAdjacentHTML('afterend', svg)
-      }
-
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
-    })
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="一个码农的自白">
+<meta property="og:url" content="http://www.blockchainof.com/page/6/index.html">
+<meta property="og:site_name" content="一个码农的自白">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="暂留白">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.blockchainof.com/page/6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一个码农的自白</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
   }
 
-  const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个码农的自白</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/11/Druid-%E7%A8%8B%E5%BA%8F%E9%AA%A8%E6%9E%B6/" class="post-title-link" itemprop="url">Druid-程序骨架</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-11 18:16:19 / 修改时间：20:12:38" itemprop="dateCreated datePublished" datetime="2022-12-11T18:16:19+08:00">2022-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/GUI/" itemprop="url" rel="index"><span itemprop="name">GUI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>Cargo.toml</h1>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;druid-gui-app&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">druid</span> = &#123; git = <span class="string">&quot;https://github.com/linebender/druid.git&quot;</span> &#125;</span><br><span class="line"><span class="attr">tracing</span> = &#123; version = <span class="string">&quot;0.1.22&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="section">[[bin]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;druid-gui-app&quot;</span></span><br><span class="line"><span class="attr">path</span> = <span class="string">&quot;./src/main.rs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[bin]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;example&quot;</span></span><br><span class="line"><span class="attr">path</span> = <span class="string">&quot;./previews/example.rs&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有两个[[bin]]，example可以用来编写一些示例用来预览效果，另外一个是真正的需要编写的程序。分别用下面的命令运行</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cargo run --bin example # 运行示例程序</span><br><span class="line">cargo run --bin druid-gui-app # 运行主程序</span><br></pre></td></tr></table></figure>
+<h1><a target="_blank" rel="noopener" href="http://main.rs">main.rs</a></h1>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![windows_subsystem = <span class="string">&quot;windows&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> druid::widget::prelude::*;</span><br><span class="line"><span class="keyword">use</span> druid::widget::&#123;Align, BackgroundBrush, Button, Controller, ControllerHost, Flex, Label, Padding, TextBox&#125;;</span><br><span class="line"><span class="keyword">use</span> druid::Target::Global;</span><br><span class="line"><span class="keyword">use</span> druid::&#123;commands <span class="keyword">as</span> sys_cmds, AppDelegate, AppLauncher, Application, Color, Command, Data, DelegateCtx, Handled, LocalizedString, Menu, MenuItem, Target, WindowDesc, WindowHandle, WindowId, WidgetExt, lens&#125;;</span><br><span class="line"><span class="keyword">use</span> tracing::&#123;</span><br><span class="line">    info, warn, error,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">///可以定义多个这样的结构体，用来自定义数据和组件进行一个“绑定”</span></span><br><span class="line"><span class="comment">///把这个结构体和组件的data变量进行一个关联</span></span><br><span class="line"><span class="meta">#[derive(Data, Clone)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">AppData</span> &#123;</span><br><span class="line">    data: <span class="type">String</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///程序入口函数</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// window 绑定菜单栏</span></span><br><span class="line">    <span class="comment">// let window = WindowDesc::new(ui_builder()).menu(make_menu);</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">window</span> = WindowDesc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">ui_builder</span>()).<span class="title function_ invoke__">window_size</span>((<span class="number">900</span>.,<span class="number">600</span>.)).<span class="title function_ invoke__">title</span>(<span class="string">&quot;窗口标题&quot;</span>).<span class="title function_ invoke__">menu</span>(make_menu);</span><br><span class="line">    AppLauncher::<span class="title function_ invoke__">with_window</span>(window)</span><br><span class="line">        .<span class="title function_ invoke__">log_to_console</span>()</span><br><span class="line">        .<span class="title function_ invoke__">delegate</span>(Delegate &#123; windows: <span class="built_in">vec!</span>[] &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">launch</span>(AppData &#123;</span><br><span class="line">            data: <span class="type">String</span>::<span class="title function_ invoke__">new</span>(),</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">///构建主界面</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">ui_builder</span>() <span class="punctuation">-&gt;</span> <span class="keyword">impl</span> <span class="title class_">Widget</span>&lt;AppData&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">data</span> = lens!(AppData, data);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">text</span> = TextBox::<span class="title function_ invoke__">new</span>().<span class="title function_ invoke__">lens</span>(data).<span class="title function_ invoke__">expand</span>().<span class="title function_ invoke__">controller</span>(ContextMenuController &#123;&#125;);</span><br><span class="line">    text</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 定义这个结构体，实现 Controller Trait，可以在实现对相关部件的事件处理</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContextMenuController</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">///保存程序中所有的窗口的ID到Vec</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Delegate</span> &#123;</span><br><span class="line">    windows: <span class="type">Vec</span>&lt;WindowId&gt;, </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">///Controller 是一种管理子组件、重写或自定义其事件处理或更新行为的类型</span></span><br><span class="line"><span class="comment">///这里Hook主界面的的那个TexBox组件的事件，然后进行相应的处理</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="keyword">impl</span>&lt;W: Widget&lt;AppData&gt;&gt; Controller&lt;AppData, W&gt; <span class="keyword">for</span> <span class="title class_">ContextMenuController</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">event</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        child: &amp;<span class="keyword">mut</span> W,</span><br><span class="line">        ctx: &amp;<span class="keyword">mut</span> EventCtx,</span><br><span class="line">        event: &amp;Event,</span><br><span class="line">        data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        env: &amp;Env,</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">match</span> event &#123;<span class="comment">//事件匹配</span></span><br><span class="line">            Event::<span class="title function_ invoke__">MouseDown</span>(<span class="keyword">ref</span> mouse) <span class="keyword">if</span> mouse.button.<span class="title function_ invoke__">is_right</span>() =&gt; &#123;<span class="comment">//这个语法...比较丝滑, 但和其它语言确实不太一样</span></span><br><span class="line">                ctx.<span class="title function_ invoke__">show_context_menu</span>(<span class="title function_ invoke__">make_context_menu</span>(), mouse.pos);</span><br><span class="line">            &#125;</span><br><span class="line">            _ =&gt; child.<span class="title function_ invoke__">event</span>(ctx, event, data, env),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///这里是Hook顶层事件，可以Hook顶层事件进行自定义处理，可以取出cmd的值，判断是什么事件</span></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">AppDelegate</span>&lt;AppData&gt; <span class="keyword">for</span> <span class="title class_">Delegate</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">command</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        ctx: &amp;<span class="keyword">mut</span> DelegateCtx,</span><br><span class="line">        _target: Target,</span><br><span class="line">        cmd: &amp;Command,</span><br><span class="line">        data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        _env: &amp;Env,</span><br><span class="line">    ) <span class="punctuation">-&gt;</span> Handled &#123;</span><br><span class="line">        info!(<span class="string">&quot;u can handle system command here...&quot;</span>);</span><br><span class="line">        Handled::No</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">window_added</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        id: WindowId,</span><br><span class="line">        _handle: WindowHandle,</span><br><span class="line">        _data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        _env: &amp;Env,</span><br><span class="line">        _ctx: &amp;<span class="keyword">mut</span> DelegateCtx,</span><br><span class="line">    ) &#123;</span><br><span class="line">        info!(<span class="string">&quot;Window added, id: &#123;:?&#125;&quot;</span>, id);</span><br><span class="line">        <span class="keyword">self</span>.windows.<span class="title function_ invoke__">push</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">window_removed</span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        id: WindowId,</span><br><span class="line">        _data: &amp;<span class="keyword">mut</span> AppData,</span><br><span class="line">        _env: &amp;Env,</span><br><span class="line">        _ctx: &amp;<span class="keyword">mut</span> DelegateCtx,</span><br><span class="line">    ) &#123;</span><br><span class="line">        info!(<span class="string">&quot;Window removed, id: &#123;:?&#125;&quot;</span>, id);</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(pos) = <span class="keyword">self</span>.windows.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">position</span>(|x| *x == id) &#123;</span><br><span class="line">            <span class="keyword">self</span>.windows.<span class="title function_ invoke__">remove</span>(pos);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.windows.<span class="title function_ invoke__">len</span>() == <span class="number">0</span> &#123;</span><br><span class="line">            Application::<span class="title function_ invoke__">global</span>().<span class="title function_ invoke__">quit</span>(); <span class="comment">// 这里如果所有窗口都已关闭，那就退出APP</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///主菜单的构建</span></span><br><span class="line"><span class="meta">#[allow(unused_assignments)]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">make_menu</span>(_: <span class="type">Option</span>&lt;WindowId&gt;, data: &amp;AppData, _: &amp;Env) <span class="punctuation">-&gt;</span> Menu&lt;AppData&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">base</span> = Menu::<span class="title function_ invoke__">empty</span>();</span><br><span class="line">    <span class="meta">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// base = druid::platform_menus::mac::menu_bar();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#[cfg(any(</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;windows&quot;</span>,</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;freebsd&quot;</span>,</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;linux&quot;</span>,</span></span><br><span class="line"><span class="meta">    target_os = <span class="string">&quot;openbsd&quot;</span></span></span><br><span class="line"><span class="meta">    ))]</span></span><br><span class="line">    &#123;</span><br><span class="line">        base = base.<span class="title function_ invoke__">entry</span>(druid::platform_menus::win::file::<span class="title function_ invoke__">default</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    base = base.<span class="title function_ invoke__">entry</span>(MenuItem::<span class="title function_ invoke__">new</span>(<span class="string">&quot;新建&quot;</span>).<span class="title function_ invoke__">on_activate</span>(|_ctx, data: &amp;<span class="keyword">mut</span> AppData, _env| &#123;</span><br><span class="line">        info!(<span class="string">&quot;appdata:&#123;&#125;&quot;</span>, data.data);</span><br><span class="line">    &#125;));</span><br><span class="line">    base</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///主界面中的TextBox组件的右键菜单的构建</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">make_context_menu</span>() <span class="punctuation">-&gt;</span> Menu&lt;AppData&gt; &#123;</span><br><span class="line">    Menu::<span class="title function_ invoke__">empty</span>()</span><br><span class="line">        .<span class="title function_ invoke__">entry</span>(</span><br><span class="line">            MenuItem::<span class="title function_ invoke__">new</span>(<span class="string">&quot;右键菜单1&quot;</span>)</span><br><span class="line">                .<span class="title function_ invoke__">on_activate</span>(|_ctx, data: &amp;<span class="keyword">mut</span> AppData, _env| &#123;</span><br><span class="line">                    info!(<span class="string">&quot;可以在这里添加右键菜单1的响应事件&quot;</span>);</span><br><span class="line">                &#125;),</span><br><span class="line">        )</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/08/Cpp-GUI-imgui%E5%BA%93%E4%BD%BF%E7%94%A8%E6%A0%B7%E6%9D%BFCMakefile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/08/Cpp-GUI-imgui%E5%BA%93%E4%BD%BF%E7%94%A8%E6%A0%B7%E6%9D%BFCMakefile/" class="post-title-link" itemprop="url">C++ GUI--imgui库使用样板CMakefile</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-08 13:26:48" itemprop="dateCreated datePublished" datetime="2022-12-08T13:26:48+08:00">2022-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-18 13:40:23" itemprop="dateModified" datetime="2022-12-18T13:40:23+08:00">2022-12-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/GUI/" itemprop="url" rel="index"><span itemprop="name">GUI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>imgui</h1>
+<p>先上链接：<a target="_blank" rel="noopener" href="https://github.com/ocornut/imgui">github地址</a></p>
+<p><code>imgui</code>是一个轻量级，但是小而全的一个<code>cpp</code>界面库。作者应该是游戏开发行业的，这个库用来实现开发游戏还是比较适合的。虽然它是跨平台的，但是例子代码全是用<code>visual studio</code>的工程。在mac或linux下还不能做到完全的开箱即用。所以在网上搜索了一番，找到了一个<a target="_blank" rel="noopener" href="https://github.com/tashaxing/imgui_cmake_starter">CMakeFile.txt</a>可以跨平台的，我在<code>Mac</code>下尝试编译了一下，完全可以，非常感谢！</p>
+<p>但是它的工程中使用的imgui不是最新的，我就拉取了一下imgui代码，替换掉它这个工程中的imgui，然后目录结构也稍作了一下调整。CMakeFile也稍相应地作了一下调整。</p>
+<h1>CMakeFile.txt</h1>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.0)</span><br><span class="line"></span><br><span class="line">project(imgui_cmake_starter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add header path</span></span><br><span class="line">include_directories(</span><br><span class="line">	$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/3rd/imgui</span><br><span class="line">	$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/3rd/imgui/backends</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">if (APPLE)</span><br><span class="line">    <span class="comment"># for &lt;GLFW/glfw3.h&gt;</span></span><br><span class="line">    include_directories(</span><br><span class="line">        /usr/local/<span class="keyword">include</span></span><br><span class="line">        /opt/local/<span class="keyword">include</span></span><br><span class="line">        /opt/homebrew/<span class="keyword">include</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set common source</span></span><br><span class="line">file(GLOB SRC</span><br><span class="line">    ./3rd/imgui/*.h</span><br><span class="line">    ./3rd/imgui/*.cpp</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># set specific source and other option for platform</span></span><br><span class="line">if (WIN32)</span><br><span class="line">    file (GLOB PLATFORM_SRC</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_win32.*</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_dx12.*</span><br><span class="line">        ./src/win/main.cpp</span><br><span class="line">    )</span><br><span class="line">elseif (UNIX)</span><br><span class="line">    <span class="comment"># support both mac and linux</span></span><br><span class="line">    add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GL3W)</span><br><span class="line"></span><br><span class="line">    include_directories(</span><br><span class="line">        $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/3rd/imgui/examples/libs/gl3w <span class="comment"># for GL/gl3w.h</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    file (GLOB PLATFORM_SRC</span><br><span class="line">        ./3rd/imgui/examples/libs/gl3w/GL/gl3w.*</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_glfw.*</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_opengl3.*</span><br><span class="line">        ./src/unix/main.cpp</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># add link path</span></span><br><span class="line">if (APPLE)</span><br><span class="line">    link_directories(</span><br><span class="line">        /usr/local/lib</span><br><span class="line">        /opt/homebrew/lib</span><br><span class="line"><span class="comment">#       这下面根据需要添加lib路径</span></span><br><span class="line"><span class="comment">#       /opt/local/lib</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># specify the C++ standard</span></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line">set(CMAKE_CXX_STANDARD_REQUIRED True)</span><br><span class="line"></span><br><span class="line"><span class="comment"># generate binary</span></span><br><span class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;SRC&#125; $&#123;PLATFORM_SRC&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># link lib, should install glfw first or prebuild lib and embed in project</span></span><br><span class="line">if (WIN32)</span><br><span class="line">    target_link_libraries($&#123;PROJECT_NAME&#125;</span><br><span class="line">        d3d12.lib</span><br><span class="line">        d3dcompiler.lib</span><br><span class="line">        dxgi.lib</span><br><span class="line">    )</span><br><span class="line">elseif (APPLE)</span><br><span class="line">    <span class="comment"># mac: brew install glfw3</span></span><br><span class="line">    find_library(OPENGL_LIBRARY OpenGL REQUIRED)</span><br><span class="line">    find_library(COCOA_LIBRARY Cocoa REQUIRED)</span><br><span class="line">    find_library(IOKIT_LIBRARY IOKit REQUIRED)</span><br><span class="line">    find_library(COREVID_LIBRARY CoreVideo REQUIRED)</span><br><span class="line">    message($&#123;COCOA_LIBRARY&#125;)</span><br><span class="line">    message($&#123;IOKIT_LIBRARY&#125;)</span><br><span class="line">    message($&#123;COREVID_LIBRARY&#125;)</span><br><span class="line"></span><br><span class="line">    target_link_libraries($&#123;PROJECT_NAME&#125;</span><br><span class="line">        $&#123;OPENGL_LIBRARY&#125;</span><br><span class="line">        $&#123;COCOA_LIBRARY&#125;</span><br><span class="line">        $&#123;IOKIT_LIBRARY&#125;</span><br><span class="line">        $&#123;COREVID_LIBRARY&#125;</span><br><span class="line">        glfw <span class="comment"># use this lib name</span></span><br><span class="line">    )</span><br><span class="line">elseif (UNIX AND NOT APPLE)</span><br><span class="line">    <span class="comment"># linux: sudo apt install libglfw3-dev</span></span><br><span class="line">    target_link_libraries($&#123;PROJECT_NAME&#125;</span><br><span class="line">        GL</span><br><span class="line">        glfw <span class="comment"># use this lib name</span></span><br><span class="line">        dl</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上的CMakeFile.txt文件内容我稍作调整：imgui我git pull了最新的代码下来，放在了工程目录下的3rd目录下面；我使用mac编译这个工程最到两个小问题，稍作记录</p>
+</blockquote>
+<h2 id="问题1">问题1</h2>
+<ul>
+<li>问题描述：我拉取的imgui版本使用的语法需要C++11标准的支撑，如果版本编译器的C++标准较低则会出现编译问题</li>
+<li>解决办法：在CMakeFile.txt中指定C++标准  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># specify the C++ standard</span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line">set(CMAKE_CXX_STANDARD_REQUIRED True)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="问题2">问题2</h2>
+<ul>
+<li>
+<p>问题描述：我拉取的imgui代码目录<code>imgui/examples/libs/gl3w</code> 是不存在的，编译时<code>main.cpp</code>中以下语句会报错</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/gl3w.h&gt;</span>    </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>问题解决：缺什么补什么，就缺一个目录及几个文件，给它配齐就好</p>
+</li>
+</ul>
+<h1>跨平台玩耍起来</h1>
+<p>以上部分已经完成了，<a target="_blank" rel="noopener" href="https://github.com/Lost-Temple/imgui-starter">代码</a><br>
+要用imgui进行跨平台开发桌面应用啥的，直接拉取代码后当作个脚手架就可以开干了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">Fabric SDK相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-05 16:28:37 / 修改时间：17:21:18" itemprop="dateCreated datePublished" datetime="2022-12-05T16:28:37+08:00">2022-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>Fabric SDK 介绍</h1>
+<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。<br>
+Fabric提供了多种语言版本的SDK：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></li>
+</ul>
+<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：</p>
+<ul>
+<li>创建通道</li>
+<li>将<code>Peer</code>节点加入通道</li>
+<li>在<code>Peer</code>节点安装链码</li>
+<li>在通道实例化链码</li>
+<li>通过链码调用交易</li>
+<li>查询交易或区块的账本</li>
+</ul>
+<h1>Fabric SDK 安装</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/hyperledger/fabric-sdk-go</span><br></pre></td></tr></table></figure>
+<h1>Fabric Go SDK 源码结构</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">total 624</span><br><span class="line">-rw-r--r--   1 mao  staff   170K Aug 15 14:45 CHANGELOG.md</span><br><span class="line">-rw-r--r--   1 mao  staff   108B Aug 15 14:45 CODEOWNERS</span><br><span class="line">-rw-r--r--   1 mao  staff   577B Aug 15 14:45 CODE_OF_CONDUCT.md</span><br><span class="line">-rw-r--r--   1 mao  staff   661B Aug 15 14:45 CONTRIBUTING.md</span><br><span class="line">-rw-r--r--   1 mao  staff    11K Aug 15 14:45 LICENSE</span><br><span class="line">-rw-r--r--   1 mao  staff   910B Nov  2 08:36 MAINTAINERS.md</span><br><span class="line">-rw-r--r--   1 mao  staff    33K Aug 15 14:45 Makefile</span><br><span class="line">-rw-r--r--   1 mao  staff   7.3K Aug 15 14:45 README.md</span><br><span class="line">-rw-r--r--   1 mao  staff   1.0K Aug 15 14:45 SECURITY.md</span><br><span class="line">drwxr-xr-x   4 mao  staff   128B Aug 15 14:45 ci</span><br><span class="line">-rw-r--r--   1 mao  staff   143B Aug 15 14:45 ci.properties</span><br><span class="line">-rw-r--r--   1 mao  staff   2.3K Aug 15 14:45 doc.go</span><br><span class="line">-rw-r--r--   1 mao  staff   1.2K Aug 15 14:45 go.mod</span><br><span class="line">-rw-r--r--   1 mao  staff    45K Aug 15 14:45 go.sum</span><br><span class="line">-rwxr-xr-x   1 mao  staff   1.6K Aug 15 14:45 golangci.yml</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 internal</span><br><span class="line">drwxr-xr-x  11 mao  staff   352B Aug 15 14:45 pkg</span><br><span class="line">drwxr-xr-x   5 mao  staff   160B Aug 15 14:45 scripts</span><br><span class="line">drwxr-xr-x   7 mao  staff   224B Aug 15 14:45 test</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 third_party</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>pkg/fabsdk</code>: Fabric SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
+<li><code>pkg/client/channel</code>: 提供通道交易相关功能</li>
+<li><code>pkg/client/event</code>: 提供通道事件相关功能</li>
+<li><code>pkg/client/ledger</code>: 启用对通道底层账本的查询相关功能</li>
+<li><code>pkg/client/resmgmt</code>: 提供资源管理功能，例如安装链码</li>
+<li><code>pkg/client/msp</code>: 启用身份管理相关功能</li>
+</ul>
+<h1>Fabric SDK功能模块</h1>
+<h2 id="API">API</h2>
+<p>对于应用开发者来说，插件化的API可以支持SDK提供的关键接口的可选实现。对于每个接口，都有内置的默认实现，也可以灵活自定义。</p>
+<h2 id="fabric-client">fabric-client</h2>
+<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：</p>
+<ul>
+<li>创建<code>channel</code></li>
+<li>请求<code>Peer</code>节点加入通道</li>
+<li>在<code>Peer</code>节点中安装链码</li>
+<li>在通道中实例化链码</li>
+<li>通过调用链码来调用事务</li>
+<li>多种查询</li>
+<li>监听事件</li>
+</ul>
+<h2 id="fabric-ca-client">fabric-ca-client</h2>
+<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：</p>
+<ul>
+<li>注册新用户</li>
+<li>注册用户以获得由<code>Fabric CA</code>签名的注册证书</li>
+<li>通过注册ID撤销现有用户或撤消证书</li>
+<li>可定制的持久化存储</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/04/x64%E5%AF%84%E5%AD%98%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/04/x64%E5%AF%84%E5%AD%98%E5%99%A8/" class="post-title-link" itemprop="url">x64寄存器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-04 12:34:18 / 修改时间：12:59:36" itemprop="dateCreated datePublished" datetime="2022-12-04T12:34:18+08:00">2022-12-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96/" itemprop="url" rel="index"><span itemprop="name">汇编</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96/%E6%8C%87%E4%BB%A4/" itemprop="url" rel="index"><span itemprop="name">指令</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <table>
+<thead>
+<tr>
+<th>64位寄存器</th>
+<th>低32位</th>
+<th>低16位</th>
+<th>低8位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rax</td>
+<td>eax</td>
+<td>ax</td>
+<td>al</td>
+</tr>
+<tr>
+<td>rcx</td>
+<td>ecx</td>
+<td>cx</td>
+<td>cl</td>
+</tr>
+<tr>
+<td>rdx</td>
+<td>edx</td>
+<td>dx</td>
+<td>dl</td>
+</tr>
+<tr>
+<td>rbx</td>
+<td>ebx</td>
+<td>bx</td>
+<td>bl</td>
+</tr>
+<tr>
+<td>rsp</td>
+<td>esp</td>
+<td>sp</td>
+<td>spl</td>
+</tr>
+<tr>
+<td>rbp</td>
+<td>ebp</td>
+<td>bp</td>
+<td>bpl</td>
+</tr>
+<tr>
+<td>rsi</td>
+<td>esi</td>
+<td>si</td>
+<td>sil</td>
+</tr>
+<tr>
+<td>rdi</td>
+<td>edi</td>
+<td>di</td>
+<td>dil</td>
+</tr>
+<tr>
+<td>r8</td>
+<td>r8d</td>
+<td>r8w</td>
+<td>r8b</td>
+</tr>
+<tr>
+<td>r9</td>
+<td>r9d</td>
+<td>r9w</td>
+<td>r9b</td>
+</tr>
+<tr>
+<td>r10</td>
+<td>r10d</td>
+<td>r10w</td>
+<td>r10b</td>
+</tr>
+<tr>
+<td>r11</td>
+<td>r11d</td>
+<td>r11w</td>
+<td>r11b</td>
+</tr>
+<tr>
+<td>r12</td>
+<td>r12d</td>
+<td>r12w</td>
+<td>r12b</td>
+</tr>
+<tr>
+<td>r13</td>
+<td>r13d</td>
+<td>r13w</td>
+<td>r13b</td>
+</tr>
+<tr>
+<td>r14</td>
+<td>r14d</td>
+<td>r14w</td>
+<td>r14b</td>
+</tr>
+<tr>
+<td>r15</td>
+<td>r15d</td>
+<td>r15w</td>
+<td>r15b</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>此外还有rip， xmm0~xmm15的多媒体用寄存器，rflags。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/03/NOP%E6%8C%87%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/03/NOP%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">NOP指令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-03 20:52:22 / 修改时间：22:39:07" itemprop="dateCreated datePublished" datetime="2022-12-03T20:52:22+08:00">2022-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96/" itemprop="url" rel="index"><span itemprop="name">汇编</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96/%E6%8C%87%E4%BB%A4/" itemprop="url" rel="index"><span itemprop="name">指令</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Jdk9 源码有一段关于NOP汇编指令的注释，摘抄记录一下</p>
+</blockquote>
+<h1>Intel<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2792">源码链接</a></h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for Intel</span><br><span class="line">//  1: 0x90</span><br><span class="line">//  2: 0x66 0x90</span><br><span class="line">//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)</span><br><span class="line">//  4: 0x0F 0x1F 0x40 0x00</span><br><span class="line">//  5: 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 10: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 11: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line"></span><br><span class="line">// The rest coding is Intel specific - don&#x27;t use consecutive address nops</span><br><span class="line"></span><br><span class="line">// 12: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 13: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 14: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 15: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br></pre></td></tr></table></figure>
+<h1>AMD<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2876">源码链接</a></h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for AMD.</span><br><span class="line">//  1: 0x90</span><br><span class="line">//  2: 0x66 0x90</span><br><span class="line">//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)</span><br><span class="line">//  4: 0x0F 0x1F 0x40 0x00</span><br><span class="line">//  5: 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 10: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 11: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line"></span><br><span class="line">// The rest coding is AMD specific - use consecutive address nops</span><br><span class="line"></span><br><span class="line">// 12: 0x66 0x0F 0x1F 0x44 0x00 0x00 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">// 13: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">// 14: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">// 15: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">// 16: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//     Size prefixes (0x66) are added for larger sizes</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">Golang单元测试和基准测试</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-02 20:02:09" itemprop="dateCreated datePublished" datetime="2022-12-02T20:02:09+08:00">2022-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-15 13:34:51" itemprop="dateModified" datetime="2022-12-15T13:34:51+08:00">2022-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>单元测试</h1>
+<ul>
+<li>
+<p>测试需要用到的断言，依赖<br>
+<code>github.com/stretchr/testify</code></p>
+</li>
+<li>
+<p>编写单元测试，文件命名带<code>_test.go</code><br>
+<code>helloworld_test.go</code></p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试所有用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v helloworld_test.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v -run TestHelloWorld helloworld_test.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试文件夹下所有的测试用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v ./directory</span><br></pre></td></tr></table></figure>
+<h1>基准测试</h1>
+<ul>
+<li>非并发方式<br>
+<code>benchmark_test.go</code></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Add</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        n++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：b.N 由基准测试框架提供。测试代码需要保证函数可重入性及无状态，也就是说，测试代码不使用全局变量等带有记忆性质的数据结构。避免多次运行同一段代码时的环境不一致，不能假设 N 值范围。</strong></p>
+</blockquote>
+<ul>
+<li>并发方式</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Dosomething</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	b.SetParallelism(<span class="number">8</span>)</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Dosomething()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：SetParallelism用来设置协程数量</strong></p>
+</blockquote>
+<h1>基准测试脚本编写</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line">go test -bench=. -run=none \</span><br><span class="line">  -benchtime=300s \</span><br><span class="line">  -benchmem -memprofile=mem.pprof \</span><br><span class="line">  -cpuprofile=cpu.pprof \</span><br><span class="line">  -cpu=8 \</span><br><span class="line">  -timeout=0 \</span><br><span class="line">  -blockprofile=block.pprof ./directory/</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>基准测试默认10分钟，如果测试总时长超过10分钟，测试的进程会被kill掉，所以指定timeout=0表示不限时长</strong></p>
+</blockquote>
+<h1>go基准测试源码中<code>benchmark.go</code></h1>
+<p>有这么一个核心方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// launch launches the benchmark function. It gradually increases the number</span></span><br><span class="line"><span class="comment">// of benchmark iterations until the benchmark runs for the requested benchtime.</span></span><br><span class="line"><span class="comment">// launch is run by the doBench function as a separate goroutine.</span></span><br><span class="line"><span class="comment">// run1 must have been called on b.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *B)</span></span> launch() &#123;</span><br><span class="line">	<span class="comment">// Signal that we&#x27;re done whether we return normally</span></span><br><span class="line">	<span class="comment">// or by FailNow&#x27;s runtime.Goexit.</span></span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		b.signal &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run the benchmark for at least the specified amount of time.</span></span><br><span class="line">	<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">0</span> &#123; <span class="comment">// 这里表示测试时是使用了次数限制，例如指定了参数-benchtime=1000x表示执行1000次</span></span><br><span class="line">		<span class="comment">// We already ran a single iteration in run1.</span></span><br><span class="line">		<span class="comment">// If -benchtime=1x was requested, use that result.</span></span><br><span class="line">		<span class="comment">// See https://golang.org/issue/32051.</span></span><br><span class="line">		<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			b.runN(b.benchTime.n)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// 这个分支表示指定的是时间限制（区别于次数限制），例如指定了参数-benchtime=5s给示每个用例执行5s（这里会根据实际情况运行，而非精确的5s）</span></span><br><span class="line">		d := b.benchTime.d</span><br><span class="line">        <span class="comment">// 注意下面循环条件中的n的值的上限</span></span><br><span class="line">		<span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">			last := n</span><br><span class="line">			<span class="comment">// Predict required iterations.</span></span><br><span class="line">			goalns := d.Nanoseconds()</span><br><span class="line">			prevIters := <span class="type">int64</span>(b.N)</span><br><span class="line">			prevns := b.duration.Nanoseconds()</span><br><span class="line">			<span class="keyword">if</span> prevns &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// Round up, to avoid div by zero.</span></span><br><span class="line">				prevns = <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Order of operations matters.</span></span><br><span class="line">			<span class="comment">// For very fast benchmarks, prevIters ~= prevns.</span></span><br><span class="line">			<span class="comment">// If you divide first, you get 0 or 1,</span></span><br><span class="line">			<span class="comment">// which can hide an order of magnitude in execution time.</span></span><br><span class="line">			<span class="comment">// So multiply first, then divide.</span></span><br><span class="line">			n = goalns * prevIters / prevns</span><br><span class="line">			<span class="comment">// Run more iterations than we think we&#x27;ll need (1.2x).</span></span><br><span class="line">			n += n / <span class="number">5</span></span><br><span class="line">			<span class="comment">// Don&#x27;t grow too fast in case we had timing errors previously.</span></span><br><span class="line">			n = min(n, <span class="number">100</span>*last)</span><br><span class="line">			<span class="comment">// Be sure to run at least one more than last time.</span></span><br><span class="line">			n = max(n, last+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// Don&#x27;t run more than 1e9 times. (This also keeps n in int range on 32 bit platforms.)</span></span><br><span class="line">			n = min(n, <span class="number">1e9</span>)</span><br><span class="line">			b.runN(<span class="type">int</span>(n))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	b.result = BenchmarkResult&#123;b.N, b.duration, b.bytes, b.netAllocs, b.netBytes, b.extra&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在基准测试时，如果设定的是时间限制，即每个测试用例执行多少时间。因为每次执行的时间都不可能完全一致，所以用例的执行次数到底应该为多少次，这个值是会被估算出来的，估算的过程就是在以下的循环中。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明确了大体的流程后，我们来分析一下细节：
+<ul>
+<li>
+<p>n的上限问题</p>
+<blockquote>
+<p>设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p>
+</blockquote>
+</li>
+<li>
+<p>n的估算中有一个公式的问题</p>
+<p><code>n = goalns * prevIters / prevns</code></p>
+<ul>
+<li><code>goalns</code>是用例执行的目标时间，单位ns</li>
+<li><code>prevIters</code>是<code>上一轮</code>用例的执行次数</li>
+<li><code>prevens</code>是<code>上一轮</code>用例的执行时间，单位ns</li>
+</ul>
+<blockquote>
+<p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。<br>
+变成负值之后,n的增长逻辑就不一样了，分析一下：<br>
+n += n / 5  -&gt; n还是负值<br>
+n = min(n, 100*last) -&gt; n的值还是n<br>
+n = max(n, last+1) -&gt; 变为上一轮估算的值+1 == (last + 1)<br>
+n = min(n, 1e9) -&gt; n == (last + 1)<br>
+同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为 1e8，那n的值变化规率为100000001, 100000002, 100000003, …,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮, 而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢…这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h1>基准测试问题重现方法</h1>
+<ul>
+<li>写一个耗时很短的用例</li>
+<li>设置一个较长的用例测试时间（不用太长，比如200s就行，只要想办法让n值溢出即可）</li>
+<li>执行一下…就等着10min钟以后吧</li>
+</ul>
+<h1>解决办法</h1>
+<ul>
+<li>
+<ol>
+<li>上面提到的n溢出问题，虽然觉得benchmark.go里面的代码确实有点问题，可以把n的数据类型再改大一些如float64，在方法中增加判断溢出后进行特殊处理。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>出现这种情况，说明被测试的用例做长时间测试的必要性值得商榷</li>
+</ol>
+</li>
+</ul>
+<h1>另外</h1>
+<blockquote>
+<p>func (b *B) launch() 是非并行模式下会被调用的方法；同样在并行模式下，调用的是func (b *B) RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">centos 多gcc版本环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-30 12:31:59" itemprop="dateCreated datePublished" datetime="2022-11-30T12:31:59+08:00">2022-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-03 18:53:34" itemprop="dateModified" datetime="2022-12-03T18:53:34+08:00">2022-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>背景</h1>
+<ul>
+<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发, 打开服务器上的代码进行开发</li>
+<li>CentOS 系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
+<li>CLion 项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
+</ul>
+<h1>编译工具安装</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install centos-release-scl-rh</span><br><span class="line">sudo yum install devtoolset-11-gcc-c++</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装完成后，执行以下命令可以切换到新的编译环境</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以查看devtoolset-11相关工具的版本及它们的路径</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure>
+<h1>开发工具中的配置修改</h1>
+<blockquote>
+<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure>
+<h1>调用动态库需要注意的点</h1>
+<blockquote>
+<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include &lt;dlfcn.h&gt;<br>
+在CMakefile.txt里面添加编译选项，如：<br>
+TARGET_LINK_LIBRARIES(projName dl)<br>
+其中<code>projName</code>为项目的名称</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">CGO内存踩坑记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-24 10:56:03" itemprop="dateCreated datePublished" datetime="2022-11-24T10:56:03+08:00">2022-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-15 13:35:12" itemprop="dateModified" datetime="2022-12-15T13:35:12+08:00">2022-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/CGO/" itemprop="url" rel="index"><span itemprop="name">CGO</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>应用场景</h1>
+<p>将 Go 内存中的字符串或字节切片传入 C 语言函数的应用场景。</p>
+<h1>里面的坑</h1>
+<p>假设一个极端场景：我们将一块位于某 <code>goroutine</code> 的栈上的<code>Go</code>语言内存传入了 <code>C </code>语言函数后，在此<code>C</code>语言函数执行时，如果 <code>goroutinue </code>的栈因为空间不足的原因发生了<strong>扩展</strong>，也就是导致了原来的 <code>Go </code>语言内存被移动到了新的位置。但是这时<code>C</code>语言函数并不知道该 <code>Go </code>语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是**“野指针”**。不是必现，要看内存中的数据是否发生移动。</p>
+<p>以上操作本质上看是一种**“传引用”**，可以借助 C 语言内存稳定的特性（谁<code>malloc</code>就由谁来<code>free</code>，代码编写者自己对内存进行管理），在 C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C 的内存空间（<strong>复制了一个副本过去</strong>）。下面的例子是这种思路的具体实现：</p>
+<h1>例1</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s) &#123;</span></span><br><span class="line"><span class="comment">    printf(&quot;%s&quot;, s);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;unsafe&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    cs := C.CString(s) <span class="comment">// 这里会在C的内存空间里面开辟一块空间，把GO中的字符串s的值拷贝过去</span></span><br><span class="line">    <span class="keyword">defer</span> C.free(unsafe.Pointer(cs)) <span class="comment">// 这里用defer 进行延迟操作，释放这块在C里面开辟的空间，不然就是内存泄漏</span></span><br><span class="line"></span><br><span class="line">    C.printString(cs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式虽然解决了问题，但是，写法有点啰嗦，还要自己手动<code>C.free</code>。最主要的是：性能效率有损失，因为要从<code>GO</code>环境把内存复制到<code>C</code>语言环境内存中。</p>
+<h1>例2</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s, int n) &#123;</span></span><br><span class="line"><span class="comment">    int i;</span></span><br><span class="line"><span class="comment">    for(i = 0; i &lt; n; i++) &#123;</span></span><br><span class="line"><span class="comment">        putchar(s[i]);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    putchar(&#x27;\n&#x27;);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">    C.printString((*C.char)(unsafe.Pointer(p.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在的处理方式更加直接，且避免了分配额外的内存，而且CGO会保证在C函数调用期间（从C语言函数被调用到C语言函数调用结束），传入的指针指向的这块GO语言开辟的内存不会被移动。注意：<s><strong><code>CGO只会保证在C函数调用期间</code></strong>。</s> 在网上有看到这个说法，但是我实践中似乎有出入。我实践中就是用这个用法，结果GG了，我实践中它好像也不能保证这一点，这个后续再研究研究。</p>
+<p>就算CGO会保证在C函数调用期间保证内存不会被移动，这里还有有一个容易踩的坑：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误的代码</span></span><br><span class="line">p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">tmp := <span class="type">uintptr</span>(p)</span><br><span class="line">ptr := (*reflect.StringHeader)(unsafe.Pointer(tmp))</span><br><span class="line">C.printString((*C.char)(unsafe.Pointer(ptr.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br></pre></td></tr></table></figure>
+<p>因为 tmp 并不是指针类型(它只是表示内存地址，但并没有指针的<strong>语义</strong>，指针和内存地址还是有点差别的，差别在于指针是有数据类型的，是和指向的内存中的数据进行了“绑定的”，而内存地址仅仅是地址而已)。在它获取到<code>Go</code>对象地址之后<code>s</code>对象可能会被移动，但是因为不是<code>tmp</code>没有指针语义，所以不会被<code> Go</code> 语言运行时更新成新内存的地址(<code>s</code>对象新的移动后的位置）。在<code>tmp</code>中保持 <code>Go</code> 对象的地址，和在<code> C</code> 语言环境保持<code> Go</code> 对象的地址的效果是一样的：如果原始的<code>Go</code>对象内存发生了移动，Go 语言运行时并不会同步更新它们。这样就还是会触发一开始的那个问题。</p>
+<p>所以，还是慎用例2的方法吧</p>
+<p>**续：**我去看了<code>StringHeader</code>的数据结构和<code>SliceHeader</code>数据结构</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StringHeader is the runtime representation of a string.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SliceHeader is the runtime representation of a slice.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">	Cap  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到<code>Data</code>的类型是<code>uintptr</code>就感觉不妙了…这里自己实现一个可能能解决问题，我能想到的，go标准库的开发者会想不吗？肯定是有什么原因的。所以，还是最好不用<code>StringHeader</code>了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data unsafe.Pointer</span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/20/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/20/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-7/" class="post-title-link" itemprop="url">Rust学习-知识点-7</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-20 12:08:16" itemprop="dateCreated datePublished" datetime="2022-11-20T12:08:16+08:00">2022-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-11 20:15:30" itemprop="dateModified" datetime="2022-12-11T20:15:30+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://github.com/usagi/rust-memory-container-cs">前方高能，过份帅气</a></p>
+<p><img src="https://s2.loli.net/2022/11/20/iIUBf4FDuCOs7jq.png" alt="rust-memory-container-cs-3840x2160-dark-back.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/19/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个码农的自白">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/19/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-6/" class="post-title-link" itemprop="url">Rust学习-知识点-6</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-19 20:48:59" itemprop="dateCreated datePublished" datetime="2022-11-19T20:48:59+08:00">2022-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-11 20:15:10" itemprop="dateModified" datetime="2022-12-11T20:15:10+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>语句和表达式</h1>
+<ul>
+<li>函数体由一系列语句组成</li>
+<li>函数可以由一个表达式结束（这种情况下，表达式的值为函数的返回值）</li>
+<li><code>rust</code>是基于表达式的语言</li>
+<li>语句是执行一些动作的指令</li>
+<li>表达式会计算产生一个值</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">1</span>; <span class="comment">// 我就是第5行</span></span><br><span class="line">    x + <span class="number">1</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注：第5行， x + 1 后面的无<code>;</code>。这里<code>x + 1</code>就是一个表达式，它的计算结果就返回赋值给了<code>y</code>。</strong></p>
+<p>那如果<code>x + 1</code>后面加上<code>;</code>呢？即：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">1</span>; <span class="comment">// 我就是第5行</span></span><br><span class="line">    x + <span class="number">1</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个编译出是可以通过的，这个时候<code>y</code>的数据类型是<code>空的元组</code>类型，也就是<code>()</code>； 类似的：<code>rust</code>中没有显示指定函数返回值的，那这个函数返回值类型为<code>()</code>。就相当于<code>c++</code>里面的返回类型为<code>void</code>的函数</p>
+<p>看下面一个例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">counter</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">result</span> = <span class="keyword">loop</span> &#123;</span><br><span class="line">    counter += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> counter == <span class="number">10</span> &#123;</span><br><span class="line">      <span class="keyword">break</span> counter * <span class="number">2</span>; <span class="comment">// 第6行</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>loop</code>为死循环，一个死循环赋值给了<code>result</code>, 是不是有点费解，这里就要理解第6行的代码的意思了。这里面使用了<code>break</code>语句。</p>
+<p><code>break count * 2;</code>的意思就是跳出循环，并返回<code>break</code>后面的表达式的值。这里有人会疑惑，刚才不是说表达式是不带<code>;</code>的吗？那现在<code>counter * 2;</code>这里不是有<code>;</code>吗？<code>break counter * 2;</code> 是个语句，它是需要<code>;</code>的。所以这里的<code>;</code>是整个语句的分号，这个语句是用<code>break</code>跳出循环并返回表达式<code>counter * 2</code>，没毛病。</p>
+<p><strong>每天进步一点点，学海无涯！</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
+</script>
 
-  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">暂留白</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">暂留白</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
