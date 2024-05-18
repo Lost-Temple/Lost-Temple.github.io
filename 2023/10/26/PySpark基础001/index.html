@@ -159,7 +159,7 @@
 </ul>
 <h2 id="DAG">DAG</h2>
 <p>全称是Directed Acyclic Graph, 中文名是：有向无环图。Spark就是借用了DAG对RDD之间的关系进行了建模，用来描述RDD之间的因果依赖关系。因为在一个Spark作业调度中，多个作业任务之间也是相互依赖的，有些任务需要在一些任务执行完成了才可以执行的。在Spark调度中就是有DAGscheduler，它负责将job分成若干组Task组成的Stage。<br>
-<img src="/.com//dag.jpg" alt="DAG"></p>
+<img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/dag.jpg" alt="DAG"></p>
 <h2 id="Spark运行模式">Spark运行模式</h2>
 <p>主要有local模式、Standalone模式、Mesos模式、YARN模式。</p>
 <ul>
@@ -238,7 +238,7 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
 <li>Executor进程启动后会向Driver反向注册，Executor全部注册完成后Driver开始执行main函数；</li>
 <li>之后执行到Action算子时，触发一个Job，并根据宽依赖开始划分Stage，每个Stage生成对应的TaskSet，之后将Task分发到各个Executor上执行。</li>
 </ol>
-<p><img src="/.com//yarn-client.png" alt="yarn-client模式"></p>
+<p><img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/yarn-client.png" alt="yarn-client模式"></p>
 <h4 id="YARN-Cluster-模式">YARN Cluster 模式</h4>
 <ol>
 <li>任务提交后会和ResourceManager通讯申请启动ApplicationMaster;</li>
@@ -247,7 +247,7 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
 <li>Executor进程启动后会向Driver反向注册;</li>
 <li>Executor全部注册完成后Driver开始执行main函数，之后执行到Action算子时，触发一个job，并根据宽依赖开始划分stage，每个stage生成对应的taskSet，之后将task分发到各个Executor上执行;</li>
 </ol>
-<p><img src="/.com//yarn-cluster.jpg" alt="yarn-cluster模式"></p>
+<p><img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/yarn-cluster.jpg" alt="yarn-cluster模式"></p>
 <h2 id="Shuffle操作是什么">Shuffle操作是什么</h2>
 <p>Shuffle指的是数据从Map端到Reduce端的数据传输过程，Shuffle性能的高低会直接影响程序的性能。因为Reduce task需要跨节点去拉分布在不同节点上的Map task计算结果，这一个过程是需要有磁盘IO消耗以及数据网络传输的消耗的，所以需要根据实际数据情况进行适当调整。另外，Shuffle可以分为两部分，分别是Map阶段的数据准备与Reduce阶段的数据拷贝处理，在Map端我们叫Shuffle Write，在Reduce端我们叫Shuffle Read。</p>
 <h2 id="什么是惰性执行">什么是惰性执行</h2>
@@ -314,7 +314,7 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
 <p>如果是Python的DataFrame，我们就需要多做一步把它转换为SparkDataFrame，其余操作就一样了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> HiveContext</span><br><span class="line"></span><br><span class="line">conf = SparkConf()\</span><br><span class="line">      .setAppName(<span class="string">&quot;test&quot;</span>)\</span><br><span class="line">      .<span class="built_in">set</span>(<span class="string">&quot;hive.exec.dynamic.partition.mode&quot;</span>, <span class="string">&quot;nonstrict&quot;</span>) <span class="comment"># 动态写入hive分区表</span></span><br><span class="line">sc = SparkContext(conf=conf)</span><br><span class="line">hc = HiveContext(sc)</span><br><span class="line">sc.setLogLevel(<span class="string">&quot;ERROR&quot;</span>)</span><br><span class="line">    </span><br><span class="line">result_df = pd.DataFrame([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], columns=[<span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">save_table = <span class="string">&quot;tmp.samshare_pyspark_savedata&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取DataFrame的schema</span></span><br><span class="line">c1 = <span class="built_in">list</span>(result_df.columns)</span><br><span class="line"><span class="comment"># 转为SparkDataFrame</span></span><br><span class="line">result = hc.createDataFrame(result_df.astype(<span class="built_in">str</span>), c1)</span><br><span class="line">result.write.<span class="built_in">format</span>(<span class="string">&quot;hive&quot;</span>).mode(<span class="string">&quot;overwrite&quot;</span>).saveAsTable(save_table) <span class="comment"># 或者改成append模式</span></span><br><span class="line"><span class="built_in">print</span>(datetime.now().strftime(<span class="string">&quot;%y/%m/%d %H:%M:%S&quot;</span>), <span class="string">&quot;测试数据写入到表&quot;</span> + save_table)</span><br></pre></td></tr></table></figure>
 <h2 id="Spark-调优思路">Spark 调优思路</h2>
-<p><img src="/.com//%E8%B0%83%E4%BC%98%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.jpg" alt="调优"></p>
+<p><img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/%E8%B0%83%E4%BC%98%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.jpg" alt="调优"></p>
 <h3 id="开发习惯优化">开发习惯优化</h3>
 <h4 id="尽可能使用同一RDD，避免重复创建，并且适当持久化数据">尽可能使用同一RDD，避免重复创建，并且适当持久化数据</h4>
 <p>这种开发习惯是需要我们对于即将要开发的应用逻辑有比较深刻的思考，并且可以通过code review来发现的，讲白了就是要记得我们创建过啥数据集，可以复用的尽量广播（broadcast）下，能很好提升性能。</p>
@@ -375,8 +375,8 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
 <p>如果因为业务需要，一定要使用shuffle操作，无法用map类的算子来替代，那么尽量使用可以map-side预聚合的算子。</p>
 <p>所谓的map-side预聚合，说的是在每个节点本地对相同的key进行一次聚合操作，类似于MapReduce中的本地combiner。map-side预聚合之后，每个节点本地就只会有一条相同的key，因为多条相同的key都被聚合起来了。其他节点在拉取所有节点上的相同key时，就会大大减少需要拉取的数据数量，从而也就减少了磁盘IO以及网络传输开销。通常来说，在可能的情况下，建议使用reduceByKey或者aggregateByKey算子来替代掉groupByKey算子。因为reduceByKey和aggregateByKey算子都会使用用户自定义的函数对每个节点本地的相同key进行预聚合。而groupByKey算子是不会进行预聚合的，全量的数据会在集群的各个节点之间分发和传输，性能相对来说比较差。</p>
 <p>比如下两幅图，就是典型的例子，分别基于reduceByKey和groupByKey进行单词计数。其中第一张图是groupByKey的原理图，可以看到，没有进行任何本地聚合时，所有数据都会在集群节点之间传输；第二张图是reduceByKey的原理图，可以看到，每个节点本地的相同key数据，都进行了预聚合，然后才传输到其他节点上进行全局聚合。</p>
-<p><img src="/.com//map-side-shuffle0.png" alt="groupByKey原理"><br>
-<img src="/.com//map-side-shuffle1.png" alt="reduceByKey原理"></p>
+<p><img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/map-side-shuffle0.png" alt="groupByKey原理"><br>
+<img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/map-side-shuffle1.png" alt="reduceByKey原理"></p>
 <h4 id="尽量使用高性能算子">尽量使用高性能算子</h4>
 <p>除了shuffle相关的算子有优化原则之外，其他的算子也都有着相应的优化原则。</p>
 <h5 id="使用reduceByKey-aggregateByKey替代groupByKey">使用reduceByKey/aggregateByKey替代groupByKey</h5>
@@ -409,7 +409,7 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建SparkConf对象。</span></span><br><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(...).setAppName(...)</span><br><span class="line"><span class="comment">// 设置序列化器为KryoSerializer。</span></span><br><span class="line">conf.set(<span class="string">&quot;spark.serializer&quot;</span>, <span class="string">&quot;org.apache.spark.serializer.KryoSerializer&quot;</span>)</span><br><span class="line"><span class="comment">// 注册要序列化的自定义类型。</span></span><br><span class="line">conf.registerKryoClasses(<span class="type">Array</span>(classOf[<span class="type">MyClass1</span>], classOf[<span class="type">MyClass2</span>]))</span><br></pre></td></tr></table></figure>
 <h4 id="Spark作业基本原理">Spark作业基本原理</h4>
 <p>如果要进行资源调优，我们就必须先知道Spark运行的机制与流程。</p>
-<p><img src="/.com//Spark%E4%BD%9C%E4%B8%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86.png" alt="Spark作业基本运行原理"></p>
+<p><img src="/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/Spark%E4%BD%9C%E4%B8%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86.png" alt="Spark作业基本运行原理"></p>
 <p>详细原理见上图。我们使用spark-submit提交一个Spark作业之后，这个作业就会启动一个对应的Driver进程。根据你使用的部署模式（deploy-mode）不同，Driver进程可能在本地启动，也可能在集群中某个工作节点上启动。Driver进程本身会根据我们设置的参数，占有一定数量的内存和CPU core。而Driver进程要做的第一件事情，就是向集群管理器（可以是Spark Standalone集群，也可以是其他的资源管理集群）申请运行Spark作业需要使用的资源，这里的资源指的就是Executor进程。YARN集群管理器会根据我们为Spark作业设置的资源参数，在各个工作节点上，启动一定数量的Executor进程，每个Executor进程都占有一定数量的内存和CPU core。</p>
 <p>在申请到了作业执行所需的资源之后，Driver进程就会开始调度和执行我们编写的作业代码了。Driver进程会将我们编写的Spark作业代码分拆为多个stage，每个stage执行一部分代码片段，并为每个stage创建一批task，然后将这些task分配到各个Executor进程中执行。**task是最小的计算单元，负责执行一模一样的计算逻辑（也就是我们自己编写的某个代码片段），只是每个task处理的数据不同而已。**一个stage的所有task都执行完毕之后，会在各个节点本地的磁盘文件中写入计算中间结果，然后Driver就会调度运行下一个stage。下一个stage的task的输入数据就是上一个stage输出的中间结果。如此循环往复，直到将我们自己编写的代码逻辑全部执行完，并且计算完所有的数据，得到我们想要的结果为止。</p>
 <p>**Spark是根据shuffle类算子来进行stage的划分。**如果我们的代码中执行了某个shuffle类算子（比如reduceByKey、join等），那么就会在该算子处，划分出一个stage界限来。可以大致理解为，shuffle算子执行之前的代码会被划分为一个stage，shuffle算子执行以及之后的代码会被划分为下一个stage。因此一个stage刚开始执行的时候，<strong>它的每个task可能都会从上一个stage的task所在的节点，去通过网络传输拉取需要自己处理的所有key，然后对拉取到的所有相同的key使用我们自己编写的算子函数执行聚合操作（比如reduceByKey()算子接收的函数）。这个过程就是shuffle。</strong></p>

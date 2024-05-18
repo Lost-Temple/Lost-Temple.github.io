@@ -147,12 +147,12 @@
 <li>
 <p>查看一下fate-10000这个命名空间</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get all  -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//fate-10000.jpg" alt="查看命名空间"></p>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/fate-10000.jpg" alt="查看命名空间"></p>
 </li>
 <li>
 <p>先查看一下<code>site-portal</code>前端<code>pod</code>的描述信息：例子中为<code>fate-10000</code>命名空间下的<code>frontend-85b6fdffc4-4lkpc</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod frontend-85b6fdffc4-4lkpc -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//frontend.jpg" alt="frontend描述信息"></p>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/frontend.jpg" alt="frontend描述信息"></p>
 </li>
 </ul>
 <blockquote>
@@ -162,17 +162,17 @@
 <li>
 <p>查看命名空间下的configMap</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get cm -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//get-cm.jpg" alt="configMap"></p>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/get-cm.jpg" alt="configMap"></p>
 </li>
 <li>
 <p>编辑configMap中的内容</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//edit-cm.jpg" alt="编辑configMap"></p>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/edit-cm.jpg" alt="编辑configMap"></p>
 </li>
 <li>
 <p>获取deployment</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//deployment.jpg" alt="deployment"></p>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/deployment.jpg" alt="deployment"></p>
 </li>
 <li>
 <p>用另外一种方式确认某个pod是否和某个configMap有关联</p>
@@ -189,7 +189,7 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
 <p>上述命令会使用nano打开configMap,可以对configMap进行编辑<br>
-<img src="/.com//edit-cm.jpg" alt="编辑configMap"></p>
+<img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/edit-cm.jpg" alt="编辑configMap"></p>
 <ul>
 <li>重启frontend</li>
 </ul>

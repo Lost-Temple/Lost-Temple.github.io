@@ -230,7 +230,7 @@ classDiagram
 <p>只有两个类满足里氏代换原则，才有可能是”Is-A“关系。</p>
 <h3 id="Java语言API中的例子">Java语言API中的例子</h3>
 <p>在Java语言的API中，有几个明显违反这一原则的例子，其中最为著名的就是Stack和Properties。前者被不当地设置为Vector的子类，而Properties被不恰当地设置成Hashtable的子类，<br>
-<img src="/.com//1.jpg" alt="Java语言API中的例子"></p>
+<img src="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg" alt="Java语言API中的例子"></p>
 <p>一个Stack不是一个Vector，所以Stack不应当设置成为Vector的子类。同样地，一个性质列（Properties）也不是一个Hashtable。在两种情况下，使用聚合比使用继承关系更合适。</p>
 <p>由于Properties继承了Hashtable的行为，因而当p是一个Properties类型的对象时，<code>p.getProperties(key)</code>和<code>p.get(key)</code>就会给出不同的结果。前者来自于Properties本身，因此会利用默认值；而后者则来自于Hashtable，因此不会利用默认值。</p>
 <p>更糟糕的是，由于Properties是Hashtable的子类，因此，客户端可以通过类型的转换，直接使用超类型的行为。比如，Properties假定所有的键和值都是String类型的，如果不是，就会导致运行崩溃。但是，客户端完全可以通过Hashtable提供的行为加入任意类型的键和值。绕过Properties的接口，并导致Properties的内部矛盾和崩溃。</p>

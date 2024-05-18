@@ -189,7 +189,7 @@
 <p>第二类则是基于Micro-batch，数据流被切分为一个一个小的批次， 然后再逐个被引擎处理。这些batch一般是以时间为单位进行切分，单位一般是‘秒‘，其中的典型代表则是spark了，不论是老的spark DStream还是2.0以后推出的spark structured streaming都是这样的处理机制；另外一个基于Micro-batch实现的就是storm trident，它是对storm的更高层的抽象，因为以batch为单位，所以storm trident的一些处理变得简单且高效。</p>
 </li>
 </ul>
-<p><img src="/.com//Snipaste_2023-12-06_17-54-25.png" alt="分类"></p>
+<p><img src="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/Snipaste_2023-12-06_17-54-25.png" alt="分类"></p>
 <h1>流框架比较的关键指标</h1>
 <p>从流处理的角度将flink与spark和storm这两个框架进行比较，会主要关注以下几点，后续的对比也主要基于这几点展开：</p>
 <ul>
@@ -215,7 +215,7 @@
 </li>
 <li>
 <p>Ingestion Time: 摄入时间是事件进入 Flink 的时间。</p>
-<p><img src="/.com//times_clocks.svg" alt="时钟"></p>
+<p><img src="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/times_clocks.svg" alt="时钟"></p>
 <p>spark DStream和storm 1.0以前版本往往都折中地使用processing time来近似地实现event time相关的业务。显然，使用processing time模拟event time必然会产生一些误差， 特别是在产生数据堆积的时候，误差则更明显，甚至导致计算结果不可用。</p>
 <p>在使用event time时，自然而然需要解决由网络延迟等因素导致的迟到或者乱序数据的问题。为了解决这个问题， spark、storm及flink都参考<a target="_blank" rel="noopener" href="https://www.oreilly.com/radar/the-world-beyond-batch-streaming-102/">streaming 102</a>引入了watermark和lateness的概念。</p>
 </li>
@@ -232,7 +232,7 @@
 <li>
 <p>Flink</p>
 <p>首先，我们结合图来看flink， 时间轴从左往右增大。当watermark WM处于时 间窗口区间内时，即WM ∈ [start, end] , event time落在窗口范围内的任何乱序数据都会被接受；随着WM的增长并超过了窗口的结束时间，但还未超过可容忍的lateness时间范围，即WM ∈ (window_end,window_end+ lateness]， 这时乱序数据仍然可以被接受； 只有当WM超过 window_end+lateness, 即WM ∈ (window_end+ lateness, ∞)， 迟到的数据将会被丢弃。</p>
-<p><img src="/.com//handle-late-records.jpg" alt="handle-late-records"></p>
+<p><img src="/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/handle-late-records.jpg" alt="handle-late-records"></p>
 <p>fiink中watermark的计算也比较灵活，可以选择build-in的（如最大时间戳），也可以通过继承接口自定义实现。此外，用户可以选择周期性更新或者事件触发更新watermark。</p>
 </li>
 <li>
