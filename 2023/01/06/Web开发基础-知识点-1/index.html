@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="什么是反向代理反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出请求">
+  <meta name="description" content="什么是反向代理 反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？ 转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web开发基础-知识点-1">
 <meta property="og:url" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/index.html">
 <meta property="og:site_name" content="一个码农的自白">
-<meta property="og:description" content="什么是反向代理反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出请求">
+<meta property="og:description" content="什么是反向代理 反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？ 转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg">
 <meta property="og:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg">
@@ -249,40 +249,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="什么是反向代理"><a href="#什么是反向代理" class="headerlink" title="什么是反向代理"></a>什么是反向代理</h1><p><code>反向代理</code>是位于<code>Web服务器</code>前面的服务器，其将<code>客户端</code>（例如<code>Web浏览器</code>）请求转发到这些<code>Web服务器</code>。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是<code>代理服务器</code>。</p>
-<h1 id="什么是代理服务器？"><a href="#什么是代理服务器？" class="headerlink" title="什么是代理服务器？"></a>什么是代理服务器？</h1><p><code>转发代理</code>，通常称为<code>代理</code>、<code>代理服务器</code>或<code>Web代理</code>，是位于一组客户端计算机之前的服务器。当这些计算机向<code>Internet</code>上的站点和服务发出请求时，代理服务器将拦截这些请求，然后代表客户端与<code>Web服务器</code>进行通信，起到中间设备的作用。</p>
-<p>例如，典型的转发代理通信中涉及3台计算机：</p>
-<ul>
-<li>A：这是用户的家用计算机</li>
-<li>B：这是一个转发代理服务器</li>
-<li>C：这是网站的源站（用于存储网站数据）</li>
-</ul>
-<p><img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理"></p>
-<p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code> 将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给 <code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而 <code>B</code> 则将响应转发给 <code>A</code>。</p>
-<p>为什么要将这个多余的中间设备添加到 Internet 活动中？使用转发代理可能有几个原因：</p>
-<ul>
-<li>为避免浏览限制: 一些政府、学校和其他组织使用防火墙来使用户访问受限版本的互联网。转发代理可用于绕过这些限制，因为它们使用户可以连接到代理，而不是直接连接到他们正在访问的站点。</li>
-<li>阻止访问某些内容: 相对的，也可以设置代理以阻止特定用户群访问某些站点。例如，学校网络可能配置为通过启用内容筛选规则的代理连接到 Web，以拒绝转发来自 Facebook 和其他社交媒体网站的响应。</li>
-<li>保护自己的在线身份—: 在某些情况下，常规互联网用户希望增加在线匿名性，但在其他情况下，互联网用户居住在政府可能对政治异议者施加严重后果的地方。在网络论坛或社交媒体上批评政府可能会导致这些用户受到罚款或监禁。如果持不同政见者使用转发代理连接到他们发布政治敏感评论的网站，则用于发表评论的<code>IP地址</code>将更难追溯到持不同政见者。仅<code>代理服务器</code>的<code>IP地址</code>将对他人可见。</li>
-</ul>
-<h1 id="反向代理有何不同"><a href="#反向代理有何不同" class="headerlink" title="反向代理有何不同?"></a>反向代理有何不同?</h1><p>反向代理是位于一个或多个<code>Web服务器</code>前面的服务器，拦截来自<code>客户端</code>的请求。这与转发代理不同:在转发代理中，<code>代理</code>位于<code>客户端</code>的前面。使用<code>反向代理</code>，当<code>客户端</code>将请求发送到网站的<code>源服务器</code>时，<code>反向代理服务器</code>会在网络边缘拦截这些请求。然后，<code>反向代理服务器</code>将向<code>源服务器</code>发送请求并从<code>源服务器</code>接收响应。</p>
+        <h1 id="什么是反向代理">什么是反向代理</h1>
+<p><code>反向代理</code>是位于<code>Web服务器</code>前面的服务器，其将<code>客户端</code>（例如<code>Web浏览器</code>）请求转发到这些<code>Web服务器</code>。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是<code>代理服务器</code>。</p>
+<h1 id="什么是代理服务器">什么是代理服务器？</h1>
+<p><code>转发代理</code>，通常称为<code>代理</code>、<code>代理服务器</code>或<code>Web代理</code>，是位于一组客户端计算机之前的服务器。当这些计算机向<code>Internet</code>上的站点和服务发出请求时，代理服务器将拦截这些请求，然后代表客户端与<code>Web服务器</code>进行通信，起到中间设备的作用。</p>
+<p>例如，典型的转发代理通信中涉及3台计算机： - A：这是用户的家用计算机 -
+B：这是一个转发代理服务器 - C：这是网站的源站（用于存储网站数据）</p>
+<figure>
+<img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理">
+<figcaption aria-hidden="true">转发代理</figcaption>
+</figure>
+<p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code>
+将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给
+<code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而
+<code>B</code> 则将响应转发给 <code>A</code>。</p>
+<p>为什么要将这个多余的中间设备添加到 Internet
+活动中？使用转发代理可能有几个原因： - 为避免浏览限制:
+一些政府、学校和其他组织使用防火墙来使用户访问受限版本的互联网。转发代理可用于绕过这些限制，因为它们使用户可以连接到代理，而不是直接连接到他们正在访问的站点。
+- 阻止访问某些内容:
+相对的，也可以设置代理以阻止特定用户群访问某些站点。例如，学校网络可能配置为通过启用内容筛选规则的代理连接到
+Web，以拒绝转发来自 Facebook 和其他社交媒体网站的响应。 -
+保护自己的在线身份—:
+在某些情况下，常规互联网用户希望增加在线匿名性，但在其他情况下，互联网用户居住在政府可能对政治异议者施加严重后果的地方。在网络论坛或社交媒体上批评政府可能会导致这些用户受到罚款或监禁。如果持不同政见者使用转发代理连接到他们发布政治敏感评论的网站，则用于发表评论的<code>IP地址</code>将更难追溯到持不同政见者。仅<code>代理服务器</code>的<code>IP地址</code>将对他人可见。</p>
+<h1 id="反向代理有何不同">反向代理有何不同?</h1>
+<p>反向代理是位于一个或多个<code>Web服务器</code>前面的服务器，拦截来自<code>客户端</code>的请求。这与转发代理不同:在转发代理中，<code>代理</code>位于<code>客户端</code>的前面。使用<code>反向代理</code>，当<code>客户端</code>将请求发送到网站的<code>源服务器</code>时，<code>反向代理服务器</code>会在网络边缘拦截这些请求。然后，<code>反向代理服务器</code>将向<code>源服务器</code>发送请求并从<code>源服务器</code>接收响应。</p>
 <p><code>转发代理</code>和<code>反向代理</code>之间的区别非常细微，但非常重要。简单概括而言，<code>转发代理</code>位于客户端的前面，确保没有源站直接与该特定客户端通信；而<code>反向代理服务器</code>位于源站前面，确保没有客户端直接与该源站通信。</p>
-<p>这一次，所涉及的计算机包括：</p>
-<ul>
-<li>D：任意数量的用户家用计算机</li>
-<li>E：这是反向代理服务器</li>
-<li>F：一台或多台源站</li>
-</ul>
-<p><img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理"></p>
+<p>这一次，所涉及的计算机包括： - D：任意数量的用户家用计算机 -
+E：这是反向代理服务器 - F：一台或多台源站</p>
+<figure>
+<img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理">
+<figcaption aria-hidden="true">反向代理</figcaption>
+</figure>
 <p>通常，来自<code>D</code>的所有请求都将直接发送到<code>F</code>，而<code>F</code>会直接将响应发送到<code>D</code>。使用<code>反向代理</code>，来自<code>D</code>的所有请求都将直接发送给<code>E</code>，而<code>E</code>会将其请求发送到<code>F</code>并从<code>F</code>接收响应，然后将适当响应传递给<code>D</code>。</p>
-<p>下面是反向代理的一些好处：</p>
-<ul>
-<li>负载均衡: 一个每天吸引数百万用户的热门网站可能无法使用单个源服务器处理所有传入站点流量。但该站点可以分布在不同服务器的池中，让所有服务器都处理同一站点的请求。在这种情况下，反向代理可以提供一种负载均衡解决方案，在不同服务器之间平均分配传入流量，以防止单个服务器过载。如果某台服务器完全无法运转，则其他服务器可以代为处理流量。</li>
-<li>防范攻击: 配备反向代理后，网站或服务无需透露其源服务器的<code>IP地址</code>。这使得攻击者更难利用针对性攻击，例如<code>DDoS</code>攻击。这时候，攻击者只能针对反向代理。</li>
-<li>全局服务器负载平衡(GSLB): 在这种负载均衡形式中，一个网站可以分布在全球各地的多个服务器上，反向代理会将客户端发送到地理位置上最接近它们的服务器。这样可以减少请求和响应传播的距离，从而最大程度地减少加载时间。</li>
-<li>缓存: 反向代理还可以缓存内容，从而提高速度。例如，如果巴黎的用户访问使用反向代理而<code>Web服务器</code>位于洛杉矶的网站，则该用户实际上可能连接到巴黎本地的<code>反向代理服务器</code>，然后该本地<code>反向代理服务器</code>必须与洛杉矶的<code>源服务器</code>进行通信。之后，<code>代理服务器</code>可以缓存（或临时保存）响应数据。随后浏览该站点的巴黎用户将从巴黎<code>反向代理服务器</code>处获取本地缓存的响应，从而享受到更快的性能。</li>
-<li>SSL加密: 加密和解密每个客户端的<code>SSL（或 TLS）</code>通信对于源服务器可能需要耗费大量计算资源。可以配置由反向代理解密所有传入请求并加密所有传出响应，腾出源服务器上的宝贵资源。</li>
-</ul>
+<p>下面是反向代理的一些好处： - 负载均衡:
+一个每天吸引数百万用户的热门网站可能无法使用单个源服务器处理所有传入站点流量。但该站点可以分布在不同服务器的池中，让所有服务器都处理同一站点的请求。在这种情况下，反向代理可以提供一种负载均衡解决方案，在不同服务器之间平均分配传入流量，以防止单个服务器过载。如果某台服务器完全无法运转，则其他服务器可以代为处理流量。
+- 防范攻击:
+配备反向代理后，网站或服务无需透露其源服务器的<code>IP地址</code>。这使得攻击者更难利用针对性攻击，例如<code>DDoS</code>攻击。这时候，攻击者只能针对反向代理。
+- 全局服务器负载平衡(GSLB):
+在这种负载均衡形式中，一个网站可以分布在全球各地的多个服务器上，反向代理会将客户端发送到地理位置上最接近它们的服务器。这样可以减少请求和响应传播的距离，从而最大程度地减少加载时间。
+- 缓存:
+反向代理还可以缓存内容，从而提高速度。例如，如果巴黎的用户访问使用反向代理而<code>Web服务器</code>位于洛杉矶的网站，则该用户实际上可能连接到巴黎本地的<code>反向代理服务器</code>，然后该本地<code>反向代理服务器</code>必须与洛杉矶的<code>源服务器</code>进行通信。之后，<code>代理服务器</code>可以缓存（或临时保存）响应数据。随后浏览该站点的巴黎用户将从巴黎<code>反向代理服务器</code>处获取本地缓存的响应，从而享受到更快的性能。
+- SSL加密:
+加密和解密每个客户端的<code>SSL（或 TLS）</code>通信对于源服务器可能需要耗费大量计算资源。可以配置由反向代理解密所有传入请求并加密所有传出响应，腾出源服务器上的宝贵资源。</p>
 
     </div>
 
@@ -367,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">什么是反向代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么是代理服务器？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C"><span class="nav-number">3.</span> <span class="nav-text">反向代理有何不同?</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">什么是反向代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">什么是代理服务器？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C"><span class="nav-number">3.</span> <span class="nav-text">反向代理有何不同?</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

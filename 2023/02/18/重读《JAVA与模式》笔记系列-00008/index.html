@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="迪米特法则（LoD）迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。 迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Dem">
+  <meta name="description" content="迪米特法则（LoD） 迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。 迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（De">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重读《JAVA与模式》笔记系列-00008">
 <meta property="og:url" content="http://www.blockchainof.com/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/index.html">
 <meta property="og:site_name" content="一个码农的自白">
-<meta property="og:description" content="迪米特法则（LoD）迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。 迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Dem">
+<meta property="og:description" content="迪米特法则（LoD） 迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。 迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（De">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.blockchainof.com/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/1.jpg">
 <meta property="og:image" content="http://www.blockchainof.com/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/2.jpg">
@@ -258,27 +258,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="迪米特法则（LoD）"><a href="#迪米特法则（LoD）" class="headerlink" title="迪米特法则（LoD）"></a>迪米特法则（LoD）</h1><p>迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。</p>
-<p>迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Demeter）的项目设计提出的，因此叫做迪米特法则。这条法则实际上是很多著名系统，比如火星登录软件系统、木星的欧罗巴卫星轨道飞船的软件系统的指导设计原则。</p>
-<h2 id="迪米特法则的各种表述"><a href="#迪米特法则的各种表述" class="headerlink" title="迪米特法则的各种表述"></a>迪米特法则的各种表述</h2><p>没有任何一个其它的OO设计原则像迪米特法则这样有如此之多的表述方式，下面给出的也只是众多的表述中较有代表性的几种：</p>
-<ul>
-<li>只与你直接的朋友们通信（Only talk to your immediate friends)。</li>
-<li>不要跟“陌生人”说话（Don’t talk to strangers)。</li>
-<li>每一个软件单位对其它的单位都只有最少的知识，而且局限于那些与本单位密切相关的软件单位</li>
-</ul>
+        <h1 id="迪米特法则lod">迪米特法则（LoD）</h1>
+<p>迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least
+Knowledge
+Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。</p>
+<p>迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian
+Holland在美国东北大学（Northeastern
+University）为一个叫做迪米特（Demeter）的项目设计提出的，因此叫做迪米特法则。这条法则实际上是很多著名系统，比如火星登录软件系统、木星的欧罗巴卫星轨道飞船的软件系统的指导设计原则。</p>
+<h2 id="迪米特法则的各种表述">迪米特法则的各种表述</h2>
+<p>没有任何一个其它的OO设计原则像迪米特法则这样有如此之多的表述方式，下面给出的也只是众多的表述中较有代表性的几种：
+- 只与你直接的朋友们通信（Only talk to your immediate friends)。 -
+不要跟“陌生人”说话（Don't talk to strangers)。 -
+每一个软件单位对其它的单位都只有最少的知识，而且局限于那些与本单位密切相关的软件单位</p>
 <p>在上面的表述里面，什么是“直接”、“陌生”和“密切”则被有意地模糊化了，以便在不同的环境下可以有不同的解释。</p>
-<h2 id="狭义的迪米特法则"><a href="#狭义的迪米特法则" class="headerlink" title="狭义的迪米特法则"></a>狭义的迪米特法则</h2><p>如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用。如果其中的一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。</p>
-<h3 id="朋友圈与陌生人"><a href="#朋友圈与陌生人" class="headerlink" title="朋友圈与陌生人"></a>朋友圈与陌生人</h3><p>如下图所示，“某人”与一个“朋友”组成自己的朋友圈，两个人都需要与一个圈外的“陌生人”发生相互作用。<br><img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/1.jpg" alt="某人的朋友圈"><br>“朋友”与“陌生人”若是朋友，组成“朋友”的朋友圈如下图所示。<br><img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/2.jpg" alt="朋友的朋友圈"><br>相比较之下，“某人”其实并不需要与“陌生人”直接发生相互作用，但是“朋友”则更需要与“陌生人”发生相互作用。这时候，迪米特法则建议“某人”不要直接与“陌生人”发生相互作用，而是通过“朋友”与之发生直接的相互作用，如下图所示。<br><img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/3.jpg" alt="某人和陌生人间接通讯"><br>这时候，“朋友”实际上起到了将“某人”对“陌生人”的调用转发给“陌生人”的作用。这种传递叫做调用转发（Call Forwarding）。所谓调用转发，需要隐藏“陌生人”的存在，使得“某人”仅知道“朋友”，而不知道“陌生人”；换言之，“某人”会认为他所调用的这个方法是“朋友”的方法。</p>
-<h3 id="朋友圈的确定"><a href="#朋友圈的确定" class="headerlink" title="朋友圈的确定"></a>朋友圈的确定</h3><p>以下条件称为“朋友”条件：</p>
-<ul>
-<li>当前对象本身（this）</li>
-<li>以参量形式传入到当前对象方法中的对象</li>
-<li>当前对象的实例变量直接引用的对象</li>
-<li>当前对象的实例变量如果是一个聚集，那么聚集中的元素也都是朋友</li>
-<li>当前对象所创建的对象</li>
-</ul>
+<h2 id="狭义的迪米特法则">狭义的迪米特法则</h2>
+<p>如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用。如果其中的一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。</p>
+<h3 id="朋友圈与陌生人">朋友圈与陌生人</h3>
+<p>如下图所示，“某人”与一个“朋友”组成自己的朋友圈，两个人都需要与一个圈外的“陌生人”发生相互作用。
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/1.jpg" alt="某人的朋友圈">
+“朋友”与“陌生人”若是朋友，组成“朋友”的朋友圈如下图所示。 <img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/2.jpg" alt="朋友的朋友圈">
+相比较之下，“某人”其实并不需要与“陌生人”直接发生相互作用，但是“朋友”则更需要与“陌生人”发生相互作用。这时候，迪米特法则建议“某人”不要直接与“陌生人”发生相互作用，而是通过“朋友”与之发生直接的相互作用，如下图所示。
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/3.jpg" alt="某人和陌生人间接通讯">
+这时候，“朋友”实际上起到了将“某人”对“陌生人”的调用转发给“陌生人”的作用。这种传递叫做调用转发（Call
+Forwarding）。所谓调用转发，需要隐藏“陌生人”的存在，使得“某人”仅知道“朋友”，而不知道“陌生人”；换言之，“某人”会认为他所调用的这个方法是“朋友”的方法。</p>
+<h3 id="朋友圈的确定">朋友圈的确定</h3>
+<p>以下条件称为“朋友”条件： - 当前对象本身（this） -
+以参量形式传入到当前对象方法中的对象 - 当前对象的实例变量直接引用的对象
+- 当前对象的实例变量如果是一个聚集，那么聚集中的元素也都是朋友 -
+当前对象所创建的对象</p>
 <p>任何一个对象，如果满足上面的条件之一，就是当前对象的“朋友”；否则就是“陌生人”</p>
-<h3 id="不满足迪米特法则的系统"><a href="#不满足迪米特法则的系统" class="headerlink" title="不满足迪米特法则的系统"></a>不满足迪米特法则的系统</h3><p>这里要讨论的系统由三个类组成，分别是Someone，Friend和Stranger。其中Someone与Friend是朋友，而Friend与Stranger是朋友。系统的结构图如下：</p>
+<h3 id="不满足迪米特法则的系统">不满足迪米特法则的系统</h3>
+<p>这里要讨论的系统由三个类组成，分别是Someone，Friend和Stranger。其中Someone与Friend是朋友，而Friend与Stranger是朋友。系统的结构图如下：</p>
 <pre class="mermaid" style="text-align: center;">
             
             
@@ -304,14 +314,13 @@ Friend o--> Stranger
 
 Someone ..> Stranger
           </pre>
-
-
-<p>从上面的类图可以看出，Friend持有一个Stranger对象的引用，这就解释了为什么Friend与Stranger是朋友。为了解释为什么Someone与Friend是朋友，请参见这里给出的Someone的源码：</p>
+<p>从上面的类图可以看出，Friend持有一个Stranger对象的引用，这就解释了为什么Friend与Stranger是朋友。为了解释为什么Someone与Friend是朋友，请参见这里给出的Someone的源码：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> friend.provide();</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看出，Someone具有一个方法operation1()，这个方法接受Friend为参量。显然，根据“朋友”的定义，Friend是Someone的朋友。其中Friend的provide()方法会提供自己创建的Stranger的实例，代码如下：</p>
+可以看出，Someone具有一个方法operation1()，这个方法接受Friend为参量。显然，根据“朋友”的定义，Friend是Someone的朋友。其中Friend的provide()方法会提供自己创建的Stranger的实例，代码如下：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Stranger <span class="title function_">provide</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stranger;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>显然，Someone的方法operation1()不满足迪米特法则。为什么呢？因为这个方法引用了Stranger对象，而Stranger对象不是Someone的朋友。</p>
-<h3 id="使用迪米特法则进行改造"><a href="#使用迪米特法则进行改造" class="headerlink" title="使用迪米特法则进行改造"></a>使用迪米特法则进行改造</h3><p>可以使用迪米特法则对上面的例子进行改造，改造的做法就是调用转发。改造后的情况如下：</p>
+显然，Someone的方法operation1()不满足迪米特法则。为什么呢？因为这个方法引用了Stranger对象，而Stranger对象不是Someone的朋友。</p>
+<h3 id="使用迪米特法则进行改造">使用迪米特法则进行改造</h3>
+<p>可以使用迪米特法则对上面的例子进行改造，改造的做法就是调用转发。改造后的情况如下：</p>
 <pre class="mermaid" style="text-align: center;">
             
             classDiagram
@@ -334,16 +343,19 @@ Someone ..> Friend
 
 Friend o--> Stranger
           </pre>
-
-<p>从上面的类图可以看出，与改造前相比，在Someone与Stranger之间的联系已经没有了。Someone不需要知道Stranger的存在就可以做同样的事情。Someone的源代码如下：</p>
+<p>从上面的类图可以看出，与改造前相比，在Someone与Stranger之间的联系已经没有了。Someone不需要知道Stranger的存在就可以做同样的事情。Someone的源代码如下：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        friend.forward();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从源代码可以看出，Someone通过调用自己的朋友Friend对象的forward()方法做到了原来需要调用Stranger对象才能够做到的事情。那么这个forward()方法是做什么的呢？代码如下：</p>
+从源代码可以看出，Someone通过调用自己的朋友Friend对象的forward()方法做到了原来需要调用Stranger对象才能够做到的事情。那么这个forward()方法是做什么的呢？代码如下：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;In Friend.operation2()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">()</span> &#123;</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原来Friend类的forward()方法所做的就是以前Someone要做的事情，使用了Stranger的operation3()方法，而这种forward()方法叫做转发方法。由于使用了调用转发，使得调用的具体细节被隐藏在Friend内部，从而使Someone与Stranger之间的直接联系被省略掉了。这样一来，使得系统内部的耦合度降低。在系统的某一个类需要修改时，仅仅会直接影响到这个类的“朋友”们，而不会直接影响到其余部分。</p>
-<h3 id="狭义的迪米特法则的缺点"><a href="#狭义的迪米特法则的缺点" class="headerlink" title="狭义的迪米特法则的缺点"></a>狭义的迪米特法则的缺点</h3><p>遵循狭义的迪米特法则会产生一个明显的缺点：会在系统里造出大量的小方法，散落在系统的各个角落。这些方法仅仅是传递间接的调用，因此与系统的商务逻辑无关。当设计师试图从一张类图看出总体的架构时，这些小的方法会造成迷惑和困扰。</p>
+原来Friend类的forward()方法所做的就是以前Someone要做的事情，使用了Stranger的operation3()方法，而这种forward()方法叫做转发方法。由于使用了调用转发，使得调用的具体细节被隐藏在Friend内部，从而使Someone与Stranger之间的直接联系被省略掉了。这样一来，使得系统内部的耦合度降低。在系统的某一个类需要修改时，仅仅会直接影响到这个类的“朋友”们，而不会直接影响到其余部分。</p>
+<h3 id="狭义的迪米特法则的缺点">狭义的迪米特法则的缺点</h3>
+<p>遵循狭义的迪米特法则会产生一个明显的缺点：会在系统里造出大量的小方法，散落在系统的各个角落。这些方法仅仅是传递间接的调用，因此与系统的商务逻辑无关。当设计师试图从一张类图看出总体的架构时，这些小的方法会造成迷惑和困扰。</p>
 <p>遵循类之间的迪米特法则会使一个系统的局部设计简化，因为每一个局部都不会和远距离的对象有直接的关联。但是，这也会造成系统的不同模块之间的通信效率降低，也会使系统的不同模块之间不容易协调。</p>
-<h3 id="与依赖倒转原则互补使用"><a href="#与依赖倒转原则互补使用" class="headerlink" title="与依赖倒转原则互补使用"></a>与依赖倒转原则互补使用</h3><p>为了克服狭义的迪米特法则的缺点，可以使用依赖倒转原则，引入一个抽象的类型引用“抽象陌生人”对象，使“某人”依赖于“抽象陌生人”。换言之，就是将“抽象陌生人”变成朋友，如下图：<br><img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/4.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
-<p>“某人“现在与一个抽象角色建立了朋友关系，这样做的好处是”朋友“可以随时将具体”陌生人“换掉。只要新的具体”陌生人“具有相同的抽象类型，那么”某人“就无法区分它们。这就允许”陌生人“的具体实现可以独立于”某人“而变化，如下图所示。<br><img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/5.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
+<h3 id="与依赖倒转原则互补使用">与依赖倒转原则互补使用</h3>
+<p>为了克服狭义的迪米特法则的缺点，可以使用依赖倒转原则，引入一个抽象的类型引用“抽象陌生人”对象，使“某人”依赖于“抽象陌生人”。换言之，就是将“抽象陌生人”变成朋友，如下图：
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/4.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
+<p>"某人“现在与一个抽象角色建立了朋友关系，这样做的好处是”朋友“可以随时将具体”陌生人“换掉。只要新的具体”陌生人“具有相同的抽象类型，那么”某人“就无法区分它们。这就允许”陌生人“的具体实现可以独立于”某人“而变化，如下图所示。
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/5.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
 
     </div>
 
@@ -428,7 +440,7 @@ Friend o--> Stranger
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%EF%BC%88LoD%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">迪米特法则（LoD）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E7%9A%84%E5%90%84%E7%A7%8D%E8%A1%A8%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">迪米特法则的各种表述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%AD%E4%B9%89%E7%9A%84%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">狭义的迪米特法则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8B%E5%8F%8B%E5%9C%88%E4%B8%8E%E9%99%8C%E7%94%9F%E4%BA%BA"><span class="nav-number">1.2.1.</span> <span class="nav-text">朋友圈与陌生人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-number">1.2.2.</span> <span class="nav-text">朋友圈的确定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%BB%A1%E8%B6%B3%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">不满足迪米特法则的系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E8%BF%9B%E8%A1%8C%E6%94%B9%E9%80%A0"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用迪米特法则进行改造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AD%E4%B9%89%E7%9A%84%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.5.</span> <span class="nav-text">狭义的迪米特法则的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99%E4%BA%92%E8%A1%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.6.</span> <span class="nav-text">与依赖倒转原则互补使用</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99lod"><span class="nav-number">1.</span> <span class="nav-text">迪米特法则（LoD）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E7%9A%84%E5%90%84%E7%A7%8D%E8%A1%A8%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">迪米特法则的各种表述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%AD%E4%B9%89%E7%9A%84%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">狭义的迪米特法则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8B%E5%8F%8B%E5%9C%88%E4%B8%8E%E9%99%8C%E7%94%9F%E4%BA%BA"><span class="nav-number">1.2.1.</span> <span class="nav-text">朋友圈与陌生人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-number">1.2.2.</span> <span class="nav-text">朋友圈的确定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%BB%A1%E8%B6%B3%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">不满足迪米特法则的系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E8%BF%9B%E8%A1%8C%E6%94%B9%E9%80%A0"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用迪米特法则进行改造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AD%E4%B9%89%E7%9A%84%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.5.</span> <span class="nav-text">狭义的迪米特法则的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99%E4%BA%92%E8%A1%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.6.</span> <span class="nav-text">与依赖倒转原则互补使用</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
