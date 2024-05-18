@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="一个码农的自白">
 <meta property="og:description" content="合成&#x2F;聚合复用原则(CARP) 合成&#x2F;聚合复用原则(Composite&#x2F;Aggregate Reuse Principle, 或CARP)，经常又叫作合成复用原则(Composite Reuse Principle或CRP)。合成&#x2F;聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。 这个设计原则有另一个更简短的表述：要">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg">
+<meta property="og:image" content="http://www.blockchainof.com/.com//1.jpg">
 <meta property="article:published_time" content="2023-02-12T02:18:29.000Z">
 <meta property="article:modified_time" content="2024-05-18T06:42:53.019Z">
 <meta property="article:author" content="暂留白">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="里氏代换">
 <meta property="article:tag" content="Coad法测">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg">
+<meta name="twitter:image" content="http://www.blockchainof.com/.com//1.jpg">
 
 <link rel="canonical" href="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/">
 
@@ -289,9 +289,7 @@
             
 classDiagram
 
-蛋 <|-- 鸡
-
-          </pre>
+蛋 <|-- 鸡 < pre>
 <p>继承复用通过扩展一个已有对象的实现来得到新的功能，基类明显地捕获共同的属性和方法，而子类通过增加新的属性和方法来扩展超类的实现。继承是类型的复用，比如下面都是继承的例子：</p>
 <ul>
 <li>男人和女人是人类</li>
@@ -327,22 +325,15 @@ classDiagram
             
 classDiagram
 
-人 <|-- 雇员
-人 <|-- 经理
-人 <|-- 学生
-
-          </pre>
+人 <|-- 雇员 人 <|-- 经理 学生 < pre>
 <p>这一错误的设计源自把“角色”的等级结构与“人”的等级结构混淆起来，把Has-A角色误解为Is-A角色。因此要纠正这一错误，关键是区分“人”和“角色”的区别。下图所示的设计就正确地做到了这一点。</p>
 <pre class="mermaid" style="text-align: center;">
             
             
 classDiagram
-角色 <|-- 雇员
-角色 <|-- 经理
-角色 <|-- 学生
-人 "1" *--> "*" 角色
+角色 <|-- 雇员 角色 <|-- 经理 学生 人 "1" *--> "*" 角色
 
-          </pre>
+          </|--></pre>
 <p>从上图可以看出，每一个“人”都可以有一个以上的“角色”，所以一个人可以同时是“雇员”，又是“经理”，甚至同时又是“学生”。而且由于“人”与“角色”的耦合是通过合成的，因此，角色可以有动态的变化。一个“人”可以开始是一个“雇员”，然后晋升为“经理”，然后又由于他参加了MBA课程，又成为了“学生”。</p>
 <p>这就是说，当一个类是另一个类的角色时，不应当使用继承描述这种关系。</p>
 <h3 id="与里氏代换原则联合使用">与里氏代换原则联合使用</h3>
@@ -351,12 +342,12 @@ classDiagram
 <p>只有两个类满足里氏代换原则，才有可能是”Is-A“关系。</p>
 <h3 id="Java语言API中的例子">Java语言API中的例子</h3>
 <p>在Java语言的API中，有几个明显违反这一原则的例子，其中最为著名的就是Stack和Properties。前者被不当地设置为Vector的子类，而Properties被不恰当地设置成Hashtable的子类，<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg" alt="Java语言API中的例子"></p>
+<img src="/.com//1.jpg" alt="Java语言API中的例子"></p>
 <p>一个Stack不是一个Vector，所以Stack不应当设置成为Vector的子类。同样地，一个性质列（Properties）也不是一个Hashtable。在两种情况下，使用聚合比使用继承关系更合适。</p>
 <p>由于Properties继承了Hashtable的行为，因而当p是一个Properties类型的对象时，<code>p.getProperties(key)</code>和<code>p.get(key)</code>就会给出不同的结果。前者来自于Properties本身，因此会利用默认值；而后者则来自于Hashtable，因此不会利用默认值。</p>
 <p>更糟糕的是，由于Properties是Hashtable的子类，因此，客户端可以通过类型的转换，直接使用超类型的行为。比如，Properties假定所有的键和值都是String类型的，如果不是，就会导致运行崩溃。但是，客户端完全可以通过Hashtable提供的行为加入任意类型的键和值。绕过Properties的接口，并导致Properties的内部矛盾和崩溃。</p>
 <p>这样一来，Properties其实仅仅是有一些Hashtable的属性的，换言之，这是一个&quot;Has-A”的关系，而不是一个“Is-A”的关系。</p>
-
+</|--></pre></|--></pre>
     </div>
 
     

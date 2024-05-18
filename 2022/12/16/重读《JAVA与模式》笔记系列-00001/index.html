@@ -267,13 +267,7 @@ classDiagram
 class Interface1 {
 	<<interface>>
 }
-Interface1 <|.. Class1
-Interface1 <|.. Class2
-
-ParentClass <|-- ChildClass1
-ParentClass <|-- ChildClass2
-
-          </pre>
+Interface1 <|.. class1 interface1 <|.. class2 parentclass <|-- childclass1 childclass2 < pre>
 <h2 id="关联关系">关联关系</h2>
 <p>关联(Association)关系是类与类之间的联接，它使一个类知道另一个类的属性和方法。关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头。单向的关联有一个箭头，表示关联的方向，如下图所示。单向的关联更为普遍，通常不鼓励使用双向的关联。</p>
 <pre class="mermaid" style="text-align: center;">
@@ -294,11 +288,7 @@ class Dirver {
 classDiagram
 唐僧 "1" --> "*" 徒弟
 
-徒弟 <|-- 悟空 
-徒弟 <|-- 悟能
-徒弟 <|-- 悟净
-
-          </pre>
+徒弟 <|-- 悟空 徒弟 <|-- 悟能 悟净 < pre>
 <blockquote>
 <p>唐僧和徒弟之间的箭头应该是 1 --&gt; * （一对多的关系）</p>
 </blockquote>
@@ -379,7 +369,7 @@ Person : +buy(...) void
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> House <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyCar()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyHouse()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>一般而言，依赖关系体现为局部变量、方法的参数，以及对静态方法的调用。换言之，一个类A的某一个局部变量的类型是另一个类B，那么类A就依赖于类B。如果一个方法的参数是另一个类B的实例，那么这个方法所在的类A依赖于类B。</p>
 <p>如果类B出现在类A的实例变量中，那么类A与类B的关系就超越了依赖关系，而变成了某一种关联关系。</p>
-
+</|--></pre></|..></interface></pre>
     </div>
 
     

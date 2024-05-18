@@ -321,14 +321,11 @@ class ChaincodeStub {
 	...
 }
 
-ChaincodeStubInterface <|.. ChaincodeStub
-ImportResolver <|.. Resolver
-WASMChaincode <-- VirtualMachine
-WASMChaincode ..> ChaincodeStubInterface
+ChaincodeStubInterface <|.. chaincodestub importresolver <|.. resolver wasmchaincode <-- virtualmachine ..> ChaincodeStubInterface
 VirtualMachine ..> ImportResolver
 Resolver --> WASMChaincode
 
-          </pre>
+          </|..></interface></interface></pre>
 <p><strong>wasm链码的创建流程（create/execute/installedChaincodes三个流程类似）</strong></p>
 <pre class="mermaid" style="text-align: center;">
             

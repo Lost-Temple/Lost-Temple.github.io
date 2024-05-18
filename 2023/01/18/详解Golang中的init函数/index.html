@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="一个码农的自白">
 <meta property="og:description" content="init函数说明 初始化每个包后，会自动执行init()函数，并且执行优先级高于主函数的执行优先级。init函数通常用于：  变量初始化 检查&#x2F;修复状态 注册器 运行计算  包初始化 为了使用导入的程序包，必须首先对其进行初始化。初始化始终在单个线程中执行，并且以程序包依赖关系的顺序执行。这由Golang运行时系统控制，如下图所示：  初始化导入的包（递归导入） 计算并为块中声明的变量分配初始值">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/18/%E8%AF%A6%E8%A7%A3Golang%E4%B8%AD%E7%9A%84init%E5%87%BD%E6%95%B0/%E8%AF%A6%E8%A7%A3Golang%E4%B8%AD%E7%9A%84init%E5%87%BD%E6%95%B0/init%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.jpg">
+<meta property="og:image" content="http://www.blockchainof.com/.com//init%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.jpg">
 <meta property="article:published_time" content="2023-01-18T07:47:02.000Z">
 <meta property="article:modified_time" content="2023-01-18T08:40:34.550Z">
 <meta property="article:author" content="暂留白">
 <meta property="article:tag" content="init">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.blockchainof.com/2023/01/18/%E8%AF%A6%E8%A7%A3Golang%E4%B8%AD%E7%9A%84init%E5%87%BD%E6%95%B0/%E8%AF%A6%E8%A7%A3Golang%E4%B8%AD%E7%9A%84init%E5%87%BD%E6%95%B0/init%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.jpg">
+<meta name="twitter:image" content="http://www.blockchainof.com/.com//init%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.jpg">
 
 <link rel="canonical" href="http://www.blockchainof.com/2023/01/18/%E8%AF%A6%E8%A7%A3Golang%E4%B8%AD%E7%9A%84init%E5%87%BD%E6%95%B0/">
 
@@ -262,7 +262,7 @@
 <li>计算并为块中声明的变量分配初始值</li>
 <li>在包中执行初始化函数</li>
 </ul>
-<p><img src="%E8%AF%A6%E8%A7%A3Golang%E4%B8%AD%E7%9A%84init%E5%87%BD%E6%95%B0/init%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.jpg" alt="init调用顺序"></p>
+<p><img src="/.com//init%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.jpg" alt="init调用顺序"></p>
 <h1>示例代码</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _ <span class="type">int64</span>=s()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;init function&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">s</span><span class="params">()</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;function s()&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>执行结果：</p>

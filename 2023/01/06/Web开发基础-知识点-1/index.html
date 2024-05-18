@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="一个码农的自白">
 <meta property="og:description" content="什么是反向代理 反向代理是位于Web服务器前面的服务器，其将客户端（例如Web浏览器）请求转发到这些Web服务器。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是代理服务器。 什么是代理服务器？ 转发代理，通常称为代理、代理服务器或Web代理，是位于一组客户端计算机之前的服务器。当这些计算机向Internet上的站点和服务发出">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg">
+<meta property="og:image" content="http://www.blockchainof.com/.com//forward-proxy-flow.svg">
+<meta property="og:image" content="http://www.blockchainof.com/.com//reverse-proxy-flow.svg">
 <meta property="article:published_time" content="2023-01-06T02:43:07.000Z">
 <meta property="article:modified_time" content="2023-01-06T03:34:47.776Z">
 <meta property="article:author" content="暂留白">
 <meta property="article:tag" content="转发代理">
 <meta property="article:tag" content="反向代理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg">
+<meta name="twitter:image" content="http://www.blockchainof.com/.com//forward-proxy-flow.svg">
 
 <link rel="canonical" href="http://www.blockchainof.com/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/">
 
@@ -259,7 +259,7 @@
 <li>B：这是一个转发代理服务器</li>
 <li>C：这是网站的源站（用于存储网站数据）</li>
 </ul>
-<p><img src="Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理"></p>
+<p><img src="/.com//forward-proxy-flow.svg" alt="转发代理"></p>
 <p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code> 将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给 <code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而 <code>B</code> 则将响应转发给 <code>A</code>。</p>
 <p>为什么要将这个多余的中间设备添加到 Internet 活动中？使用转发代理可能有几个原因：</p>
 <ul>
@@ -276,7 +276,7 @@
 <li>E：这是反向代理服务器</li>
 <li>F：一台或多台源站</li>
 </ul>
-<p><img src="Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理"></p>
+<p><img src="/.com//reverse-proxy-flow.svg" alt="反向代理"></p>
 <p>通常，来自<code>D</code>的所有请求都将直接发送到<code>F</code>，而<code>F</code>会直接将响应发送到<code>D</code>。使用<code>反向代理</code>，来自<code>D</code>的所有请求都将直接发送给<code>E</code>，而<code>E</code>会将其请求发送到<code>F</code>并从<code>F</code>接收响应，然后将适当响应传递给<code>D</code>。</p>
 <p>下面是反向代理的一些好处：</p>
 <ul>

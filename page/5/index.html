@@ -247,19 +247,19 @@
 <h1>工厂方法模式</h1>
 <p>正如前面所谈到的，应当使消费一个对象的客户端只依赖于对象的抽象类型，而不是它的具体类型。但是<code>Java</code>语言要求在将一个（具体）类实例化的时候，必须调用这个具体类的构造子，所以<code>Java</code>语言给出的类的实例化方法无法做到只依赖于抽象类型。</p>
 <p>但是设计模式给出了解决这个问题的可行方案，其中最重要的方案就是工厂模式。工厂方法模式是几个工厂模式中最为典型的一个，下图所示就是工厂方法模式的简略类图。<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/FactoryMethod.jpg" alt="工厂方法模式简略类图"></p>
+<img src="/.com//FactoryMethod.jpg" alt="工厂方法模式简略类图"></p>
 <p>工厂模式将创建一个类的实例的过程封装起来，消费这个实例的客户端仅仅得到实例化的结果，以及这个实例的抽象类型。当然，任何方法都无法回避<code>Java</code>语言所要求的<code>new</code>关键字和直接调用具体类的构造子的做法。简单工厂模式将这个违反“开-闭”原则以及依赖倒转原则的做法封装到一个类里面，而工厂方法模式将这个违反原则的做法推迟到了具体工厂角色中，如下图所示：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/FactoryMethod1.jpg" alt="工厂方法模式简略类图"></p>
+<img src="/.com//FactoryMethod1.jpg" alt="工厂方法模式简略类图"></p>
 <p>这样，通过适当地封装，工厂模式可以净化大部分的结构，而将违反原则的做法孤立到易于控制的地方。</p>
 <h1>模版方法模式</h1>
 <p>在模版方法模式里面，有一个抽象类将重要的宏观逻辑以<code>具体方法</code>以及<code>具体构造子</code>的形式实现，然后声明一些抽象方法来迫子类实现剩余的具体细节上的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对<strong>剩余的逻辑</strong>有不同的实现。模版方法模式支持依赖倒转原则，如下图所示。<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/TemplateMethod.jpg" alt="模版方法模式简略类图"></p>
+<img src="/.com//TemplateMethod.jpg" alt="模版方法模式简略类图"></p>
 <p>具体子类不能影响抽象类的宏观逻辑，而抽象逻辑的改变则会导致细节逻辑的改变。</p>
 <h1>迭代子模式</h1>
 <p>迭代子模式用一个工厂方法向客户端提供一个聚集的内部迭代功能，客户端得到的是一个<code>Iterator</code>抽象类型，并不知道迭代子的具体实现以及聚集对象的内部结构。迭代子模式的简略类图如下图所示。</p>
-<p><img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/Iterator1.jpg" alt="迭代子模式简略类图"></p>
+<p><img src="/.com//Iterator1.jpg" alt="迭代子模式简略类图"></p>
 <p>这样一来，聚集的内部结构的改变就不会波及到客户端，从而实现了对抽象接口的依赖，如下图所示。<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/Iterator2.jpg" alt="迭代子模式简略类图"></p>
+<img src="/.com//Iterator2.jpg" alt="迭代子模式简略类图"></p>
 
       
     </div>
@@ -341,7 +341,7 @@
 <li>B：这是一个转发代理服务器</li>
 <li>C：这是网站的源站（用于存储网站数据）</li>
 </ul>
-<p><img src="Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理"></p>
+<p><img src="/.com//forward-proxy-flow.svg" alt="转发代理"></p>
 <p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code> 将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给 <code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而 <code>B</code> 则将响应转发给 <code>A</code>。</p>
 <p>为什么要将这个多余的中间设备添加到 Internet 活动中？使用转发代理可能有几个原因：</p>
 <ul>
@@ -358,7 +358,7 @@
 <li>E：这是反向代理服务器</li>
 <li>F：一台或多台源站</li>
 </ul>
-<p><img src="Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理"></p>
+<p><img src="/.com//reverse-proxy-flow.svg" alt="反向代理"></p>
 <p>通常，来自<code>D</code>的所有请求都将直接发送到<code>F</code>，而<code>F</code>会直接将响应发送到<code>D</code>。使用<code>反向代理</code>，来自<code>D</code>的所有请求都将直接发送给<code>E</code>，而<code>E</code>会将其请求发送到<code>F</code>并从<code>F</code>接收响应，然后将适当响应传递给<code>D</code>。</p>
 <p>下面是反向代理的一些好处：</p>
 <ul>
@@ -444,7 +444,7 @@
 <h1>channel的用法</h1>
 <h2 id="什么是channel">什么是channel</h2>
 <p><code>channel</code>是<code>goroutine</code>之间用来接收或发送消息的安全消息队列。<code>channel</code>就像是它的字面意思：通道。它就是两个<code>goroutine</code>之间用来同步资源的一个通道。<br>
-<img src="Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/1.jpg" alt="channel示意图"></p>
+<img src="/.com//1.jpg" alt="channel示意图"></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">1</span>) <span class="comment">// 创建一个类型为int,缓冲区大小为1的channel</span></span><br><span class="line">	ch &lt;<span class="number">-2</span> <span class="comment">// 将2发送到channel中</span></span><br><span class="line">	n, ok := &lt;-ch <span class="comment">// n从channel中接收数据</span></span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		fmt.Println(n) <span class="comment">// 2</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ch) <span class="comment">// 关闭channel</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="使用时的注意点">使用时的注意点</h2>
 <ul>
@@ -473,9 +473,9 @@
 </ul>
 <p>引用<a target="_blank" rel="noopener" href="https://www.ardanlabs.com/blog/2014/02/the-nature-of-channels-in-go.html">The Nature Of Channels In Go</a>中的两张图来说明<code>Unbuffered channels</code>与<code>Buffered channels</code></p>
 <h2 id="Unbuffered-channels">Unbuffered channels</h2>
-<p><img src="Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/2.png" alt="Unbuffered channels"></p>
+<p><img src="/.com//2.png" alt="Unbuffered channels"></p>
 <h2 id="Buffered-channels">Buffered channels</h2>
-<p><img src="Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/3.png" alt="Buffered channels"></p>
+<p><img src="/.com//3.png" alt="Buffered channels"></p>
 <h3 id="unbuffered-channel示例">unbuffered channel示例</h3>
 <p>让我们构建一个示例程序，它使用四个 goroutine 和一个通道来模拟接力赛。比赛中的参赛者将被称为“ Goroutines”，通道将被用来在每个参赛者之间交换接力棒。这是一个典型的例子，说明了如何在 goroutines 之间传递资源，以及通道如何控制与之交互的 goroutines 的行为。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Runner</span><span class="params">(baton <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> newRunner <span class="type">int</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Wait to receive the baton</span></span><br><span class="line">	runner := &lt;-baton</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Start running around the track</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Runner %d Running With Baton\n&quot;</span>, runner)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// New runner to the line</span></span><br><span class="line">	<span class="keyword">if</span> runner != <span class="number">4</span> &#123;</span><br><span class="line">		newRunner = runner + <span class="number">1</span></span><br><span class="line">		fmt.Printf(<span class="string">&quot;Runner %d To The Line\n&quot;</span>, newRunner)</span><br><span class="line">		<span class="keyword">go</span> Runner(baton)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Running around the track</span></span><br><span class="line">	time.Sleep(<span class="number">100</span> * time.Millisecond)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Is the race over</span></span><br><span class="line">	<span class="keyword">if</span> runner == <span class="number">4</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Runner %d Finished, Race Over\n&quot;</span>, runner)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Exchange the baton for the next runner</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Runner %d Exchange With Runner %d\n&quot;</span>, runner, newRunner)</span><br><span class="line">	baton &lt;- newRunner</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create an unbufferd channel</span></span><br><span class="line">	baton := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// First runner to his mark</span></span><br><span class="line">	<span class="keyword">go</span> Runner(baton)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Start the race</span></span><br><span class="line">	baton &lt;- <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Give the runners time to race</span></span><br><span class="line">	time.Sleep(<span class="number">500</span> * time.Millisecond)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -568,9 +568,9 @@
 <h1>为何而“倒转”</h1>
 <p>传统的过程性系统的设计办法倾向于使高层次依赖于低层次的模块；抽象层次依赖于具体层次。倒转原则是要把这个错误的依赖关系倒转过来，这就是“依赖倒转原则”的来由。</p>
 <p>抽象层依赖于具体层次的含义是什么呢？抽象层次包含的是应用系统的商务逻辑和宏观的、对整个系统来说重要的战略性决定，是必然性的体现；而具体层次则含有一些次要的与实现有关的算法和逻辑，以及战术性的决定，带有相当大的偶然性选择。具体层次的代码是会经常有变动的，不能避免出现错误。抽象层次依赖于具体层次，使许多具体层次的细节的算法变化立即影响到抽象层次的宏观商务逻辑，导致微观决定宏观，战术决定战略，偶然决定必然。如下图所示：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/1.jpg" alt="错误的层次依赖关系"></p>
+<img src="/.com//1.jpg" alt="错误的层次依赖关系"></p>
 <p>依赖倒转原则(Dependence Inversion Principle或简称为DIP)，就是要把错误的依赖关系再倒转过来，如下图：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/2.jpg" alt="依赖倒转的关系图"></p>
+<img src="/.com//2.jpg" alt="依赖倒转的关系图"></p>
 <blockquote>
 <p>依赖倒转原则是COM/CORBA/JavaBean以及EJB等构建设计模型背后的基本原则。</p>
 </blockquote>
@@ -593,7 +593,7 @@
 </ul>
 <p>针对接口编程的意思就是说，应当使用Java接口和Java抽象类进行变量的类型声明、参量的类型声明、方法的返还类型声明，以及数据类型的转换等。</p>
 <p>不要针对实现编程的意思就是说，不应当使用Java具体类进行变量的类型声明、参量的类型声明、方法的返还类型声明，以及数据类型的转换等。</p>
-<p><font color=red><strong>要保证做到这一点，一个具体类应当只实现接口和抽象类中声明过的方法，而不应当给出多余的方法。</strong></font></p>
+<p><font color="red"><strong>要保证做到这一点，一个具体类应当只实现接口和抽象类中声明过的方法，而不应当给出多余的方法。</strong></font></p>
 <p>倒转依赖关系强调一个系统内的实体之间关系的灵活性。基本上，如果设计师希望遵守“开-闭”原则，那么倒转依赖原则便是达到要求的途径。</p>
 <h1>变量的静态类型和真实类型</h1>
 <p>变量被声明时的类型叫做变量的静态类型(Static Type)，有些地方把静态类型叫做明显类型(Apparent Type)，变量所引用的对象的真实类型叫做变量的实际类型(Actual Type)。例如：</p>
@@ -716,28 +716,28 @@ NoDiscountStrategy --|> DiscountStrategy
 FlatRateStrategy --|> DiscountStrategy
 PercentageStrategy --|> DiscountStrategy
 
-          </pre>
+          </abstract></pre>
 <h2 id="简单工厂模式">简单工厂模式</h2>
 <p>“开-闭”原则要求系统允许新的产品加入系统中而无需对现有代码进行修改。在简单工厂模式中，这对于产品消费角色是成立的，而对于工厂模式是不成立的。简单工厂模式结构如下图：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/SimpleFactory.jpg" alt="简单工厂模式"></p>
+<img src="/.com//SimpleFactory.jpg" alt="简单工厂模式"></p>
 <h2 id="工厂方法模式">工厂方法模式</h2>
 <p>在工厂方法模式中，具体的工厂类都有共同的接口，它们“生产”出很多处于同一等级结构中的产品对象。使得这个系统可以加入新的产品类型（增加产品的具体工厂）。工厂方法模式的简略类图如下：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/FactoryMethod.jpg" alt="工厂方法模式"></p>
+<img src="/.com//FactoryMethod.jpg" alt="工厂方法模式"></p>
 <h2 id="抽象工厂模式">抽象工厂模式</h2>
 <p>抽象工厂模式封装了产品对象家族的可变性，从而一方面可以使系统动态地决定将哪一个产品族的产品对象实例化，另一方面可以将新的产品引进到已有系统中而不必修改已有的系统。抽象工厂模式的简略图如下：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/AbstractFactory.jpg" alt="抽象工厂模式"></p>
+<img src="/.com//AbstractFactory.jpg" alt="抽象工厂模式"></p>
 <h2 id="建造模式">建造模式</h2>
 <p>建造模式封装了建造一个有内部结构的产品对象的过程，因此这样的系统是向产品内部表象的改变开放的。<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Build.jpg" alt="抽象工厂模式"></p>
+<img src="/.com//Build.jpg" alt="抽象工厂模式"></p>
 <h2 id="桥梁模式">桥梁模式</h2>
 <p>桥梁模式是“对可变性的封装原则”的极好例子。在桥梁模式中，具体实现化类代表不同的实现逻辑，但是所有的具体实现化类又有共同的接口。新的实现逻辑可以通过创建新的具体实现化类加入到系统里面。桥梁模式的简略类图如下：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Bridge.jpg" alt="桥梁模式"></p>
+<img src="/.com//Bridge.jpg" alt="桥梁模式"></p>
 <h2 id="门面模式">门面模式</h2>
 <p>假设一个系统开始的时候与某一个子系统耦合在一起，后来又不得不换成另外一个子系统，那么门面模式便可以发挥门面模式和适配器模式两种作用，将新的子系统仍然与本系统耦合在一起。这样一来，使用门面模式便可以改变子系统内部功能而不会影响到客户端。门面模式的简略类图如下：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Facade.jpg" alt="门面模式"></p>
+<img src="/.com//Facade.jpg" alt="门面模式"></p>
 <h2 id="迭代子模式">迭代子模式</h2>
 <p>迭代子模式将访问聚集元素的逻辑封装起来，并且使它独立于聚集对象的封装。这就提供了聚集存储逻辑与迭代逻辑独立演变的空间，使系统可以在无需修改消费迭代子的客户端的情况下，对聚集对象的内部结构进行功能扩展。迭代子模式的简略类图如下：<br>
-<img src="%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Iterator.jpg" alt="迭代子模式"></p>
+<img src="/.com//Iterator.jpg" alt="迭代子模式"></p>
 <blockquote>
 <p>当学习设计模式的时候，要学会问一个问题：这个设计模式可以对什么样的变换开放，以及它做到这一点所付出的代价是什么。通过这样的思考，可以更加透彻地了解这种模式对“开-闭”原则的支持程度，以及这种设计模式本身。</p>
 </blockquote>
@@ -1088,13 +1088,7 @@ classDiagram
 class Interface1 {
 	<<interface>>
 }
-Interface1 <|.. Class1
-Interface1 <|.. Class2
-
-ParentClass <|-- ChildClass1
-ParentClass <|-- ChildClass2
-
-          </pre>
+Interface1 <|.. class1 interface1 <|.. class2 parentclass <|-- childclass1 childclass2 < pre>
 <h2 id="关联关系">关联关系</h2>
 <p>关联(Association)关系是类与类之间的联接，它使一个类知道另一个类的属性和方法。关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头。单向的关联有一个箭头，表示关联的方向，如下图所示。单向的关联更为普遍，通常不鼓励使用双向的关联。</p>
 <pre class="mermaid" style="text-align: center;">
@@ -1115,11 +1109,7 @@ class Dirver {
 classDiagram
 唐僧 "1" --> "*" 徒弟
 
-徒弟 <|-- 悟空 
-徒弟 <|-- 悟能
-徒弟 <|-- 悟净
-
-          </pre>
+徒弟 <|-- 悟空 徒弟 <|-- 悟能 悟净 < pre>
 <blockquote>
 <p>唐僧和徒弟之间的箭头应该是 1 --&gt; * （一对多的关系）</p>
 </blockquote>
@@ -1200,7 +1190,7 @@ Person : +buy(...) void
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> House <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyCar()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyHouse()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>一般而言，依赖关系体现为局部变量、方法的参数，以及对静态方法的调用。换言之，一个类A的某一个局部变量的类型是另一个类B，那么类A就依赖于类B。如果一个方法的参数是另一个类B的实例，那么这个方法所在的类A依赖于类B。</p>
 <p>如果类B出现在类A的实例变量中，那么类A与类B的关系就超越了依赖关系，而变成了某一种关联关系。</p>
-
+</|--></pre></|..></interface></pre>
       
     </div>
 

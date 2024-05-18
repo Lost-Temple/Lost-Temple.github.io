@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="一个码农的自白">
 <meta property="og:description" content="抄自这个链接 Idemix是什么 Idemix(Identity Mixer)的核心是零知识证明(Zero Knowledge Proof)，用户无需暴露私有数据以及任何有用的信息，也能证明自己拥有这些私有数据，对方能够进行有效验证，这就是零知识证明。 Idemix是一个密码协议套件(X.509+加密算法)，保留隐私实现匿名性，交易时不用透露交易者的身份，而且交易间是无关联的，不可往前追溯。 Id">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-1.png">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-2.png">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-3.png">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-4.png">
-<meta property="og:image" content="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-5.png">
+<meta property="og:image" content="http://www.blockchainof.com/.com//Idemix-1.png">
+<meta property="og:image" content="http://www.blockchainof.com/.com//Idemix-2.png">
+<meta property="og:image" content="http://www.blockchainof.com/.com//Idemix-3.png">
+<meta property="og:image" content="http://www.blockchainof.com/.com//Idemix-4.png">
+<meta property="og:image" content="http://www.blockchainof.com/.com//Idemix-5.png">
 <meta property="article:published_time" content="2023-01-30T03:31:21.000Z">
 <meta property="article:modified_time" content="2023-01-30T07:51:37.912Z">
 <meta property="article:author" content="暂留白">
 <meta property="article:tag" content="零知识证明">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-1.png">
+<meta name="twitter:image" content="http://www.blockchainof.com/.com//Idemix-1.png">
 
 <link rel="canonical" href="http://www.blockchainof.com/2023/01/30/Fabric-Idemix%E8%AF%B4%E6%98%8E/">
 
@@ -260,18 +260,18 @@
 <li>用户：通过Idemix生成一个proof，证明自己知道某个秘密</li>
 <li>发行者：(Fabric CA或idemixgen工具)验证用户的隶属属性，然后颁发一个证书</li>
 <li>验证者：(fabric MSP)验证proof<br>
-<img src="Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-1.png" alt="Identity Mixer Overview"></li>
+<img src="/.com//Idemix-1.png" alt="Identity Mixer Overview"></li>
 </ul>
 <h1>Idemix的实现</h1>
 <p>Fabric中Peer通过Fabric CA进行Enroll、Register、Revoke的操作、还可以通过Identity Mixer对交易进行签名验签的操作；Identity Mixer和Fabric CA都需要调用加密包进行具体的流程。<br>
-<img src="Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-2.png" alt="实现流程"></p>
+<img src="/.com//Idemix-2.png" alt="实现流程"></p>
 <h2 id="带有Identity-Mixer的MSP">带有Identity Mixer的MSP</h2>
 <p>除了X.509证书外，还可以通过发行Idemix凭据来实现MSP。fabric MSP作为验证者（Verifier），发行者为用户颁发数字证书，用户生成Idenmix凭据后向验证者提供proof，用于验证属性是否正确。目前Idemix凭据只支持3个属性，包括：</p>
 <ul>
 <li>OU</li>
 <li>isAdmin</li>
 <li>Enrollment ID<br>
-<img src="Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-3.png" alt="Identity Mixer In Hyperledger Fabric"></li>
+<img src="/.com//Idemix-3.png" alt="Identity Mixer In Hyperledger Fabric"></li>
 </ul>
 <h1>Idemix的特性</h1>
 <p>Idemix与X.509的相同点：</p>
@@ -284,9 +284,9 @@
 <li>Idemix通过零知识证明来确保不会泄露知识或信息，并且用户拥有凭证密钥；而X.509通过最初签名的公钥来验证，知道私钥的人才能生成证明；</li>
 <li>Idemix是各个信息间是无关联的，且不可往回追溯；而X.509显示所有属性，因此所有用于签发交易的X.509证书使用都是关联的。</li>
 </ul>
-<p><img src="Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-4.png" alt="两者对比"><br>
+<p><img src="/.com//Idemix-4.png" alt="两者对比"><br>
 Idemix与X.509是可以共存的，可以通过在configtx.yam里面指定“msptype: idemix”来支持Idemix，如下所示：<br>
-<img src="Fabric-Idemix%E8%AF%B4%E6%98%8E/Idemix-5.png" alt="配置支持Idemix"><br>
+<img src="/.com//Idemix-5.png" alt="配置支持Idemix"><br>
 Idemix仍然有一些局限性：</p>
 <ul>
 <li>只支持固定的属性，例如OU、Role attribute、Enrollment ID、Revocation Handle attribute等；</li>
