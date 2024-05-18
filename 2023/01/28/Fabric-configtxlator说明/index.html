@@ -247,45 +247,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="作用">作用</h1>
+        <h1>作用</h1>
 <p>因为无论配置交易文件<code>.tx</code>和初始区块文件<code>.block</code>都是二进制格式，用户无法直接编辑。<code>configtxlator</code>工具将这些配置文件在二进制格式和方便阅读的<code>json</code>格式之间进行转换。开发<code>configtxlator</code>工具是为了支持独立于<code>SDK</code>来进行重新配置。<code>configtxlator</code>工具被设计为提供一个API让任意SDK的用户都能够与之交互来更新配置。工具的名称是<code>configtx</code>和<code>translator</code>的拼接，意在传达该工具简单地在不同的等效数据之间进行转换。它不产生配置，也不提交或撤回配置。它不修改配置本身，只是简单地提供一些配置格式的不同的映射展现。</p>
-<p>本地命令行可使用命令： - 编码(proto_encode) - 解码(proto_decode) -
-对比修改结构(compute_update) - 版本信息(version)</p>
-<p>远程<code>RESTful</code>路由: - 编码(proto_encode) -
-解码(proto_decode) - 对比修改结构(compute_update)</p>
-<h1 id="使用步骤">使用步骤</h1>
+<p>本地命令行可使用命令：</p>
+<ul>
+<li>编码(proto_encode)</li>
+<li>解码(proto_decode)</li>
+<li>对比修改结构(compute_update)</li>
+<li>版本信息(version)</li>
+</ul>
+<p>远程<code>RESTful</code>路由:</p>
+<ul>
+<li>编码(proto_encode)</li>
+<li>解码(proto_decode)</li>
+<li>对比修改结构(compute_update)</li>
+</ul>
+<h1>使用步骤</h1>
 <ul>
 <li>使用SDK获取最新的配置</li>
 <li>然后使用<code>configtxlator</code>工具将二进制文件转换为可读的配置文件</li>
 <li>编辑可读的配置文件</li>
 <li>使用<code>configtxlator</code>工具计算更新的配置与原有配置的差异</li>
-<li><h2 id="使用sdk提交配置以及签名">使用SDK提交配置以及签名</h2>
-<h2 id="本地使用">本地使用</h2>
-在<code>cli</code>中动态增加组织的时候，我们在命令行下直接使用<code>configtxlator proto_encode</code>和<code>configtxlator proto_decode</code>这种方式。</li>
+<li>使用SDK提交配置以及签名</li>
 </ul>
-<p><code>proto_encode</code>和<code>proto_decode</code>两个命令所拥有的参数是一样的，都需要以下几个参数：
-- <code>type</code>: 消息结构类型 - <code>input</code>:
-输入参数，encode时值为json格式，decode时值为proto格式的字节数组。 -
-<code>output</code>:
-输出结果，和输入相对，输出的是json或者proto格式。</p>
-<p>type包含以下几种: | -- | -- | | type | description | | -- | -- | |
-common.Block | 区块结构 | | common.Envelope |
-带有效载荷和数字签名的数字信封，区块的数据部分就是序列化后的数字信封 | |
-common.ConfigEnvelope |
-包含链配置的数字信封，内容包含ConfigUpdateEnvelope | |
-common.ConfigUpdateEnvelope | 提交给排序节点的配置数字信封 | |
-common.Config | ConfigEnvelope的配置部分 | | common.ConfigUpdate |
-ConfigUpdateEnvelope的一部分 |</p>
-<p><code>compute_update</code>计算修改量，命令有以下几个参数 -
-<code>original</code>: 原始proto - <code>updated</code>: 修改后的proto -
-<code>channel_id</code>: 通道id - <code>output</code>:
-对比计算后的目标配置proto</p>
-<p>举例：将当前<code>channel</code>的块消息的配置<code>decode</code>为<code>json</code>文件
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configtxlator proto_decode --input orderer.block --type common.Block</span><br></pre></td></tr></table></figure> &gt; 这里所使用的 orderer.block 文件请参考 <a href="http://www.blockchainof.com/2023/01/10/Fabric%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C/">Fabric开发模式运行</a>
-2.4中所生成的创始块对应的文件。只要是区块数据，都可以使用这个命令进行解析。</p>
-<h2 id="远程调用restful接口">远程调用RESTful接口</h2>
-<p>和本地调用类似，不详细介绍，直接举例吧： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST --data-binary @orderer.block &quot;$&#123;CONFIGTXLATOR_URL&#125;/protolator/decode/common.Block&quot;</span><br></pre></td></tr></table></figure></p>
-
+<hr>
+<h2 id="本地使用">本地使用</h2>
+<p>在<code>cli</code>中动态增加组织的时候，我们在命令行下直接使用<code>configtxlator proto_encode</code>和<code>configtxlator proto_decode</code>这种方式。</p>
+<p><code>proto_encode</code>和<code>proto_decode</code>两个命令所拥有的参数是一样的，都需要以下几个参数：</p>
+<ul>
+<li><code>type</code>: 消息结构类型</li>
+<li><code>input</code>: 输入参数，encode时值为json格式，decode时值为proto格式的字节数组。</li>
+<li><code>output</code>: 输出结果，和输入相对，输出的是json或者proto格式。</li>
+</ul>
+<p>type包含以下几种:<br>
+| – | – |</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>common.Block</td>
+<td>区块结构</td>
+</tr>
+<tr>
+<td>common.Envelope</td>
+<td>带有效载荷和数字签名的数字信封，区块的数据部分就是序列化后的数字信封</td>
+</tr>
+<tr>
+<td>common.ConfigEnvelope</td>
+<td>包含链配置的数字信封，内容包含ConfigUpdateEnvelope</td>
+</tr>
+<tr>
+<td>common.ConfigUpdateEnvelope</td>
+<td>提交给排序节点的配置数字信封</td>
+</tr>
+<tr>
+<td>common.Config</td>
+<td>ConfigEnvelope的配置部分</td>
+</tr>
+<tr>
+<td>common.ConfigUpdate</td>
+<td>ConfigUpdateEnvelope的一部分</td>
+</tr>
+</tbody>
+</table>
+<p><code>compute_update</code>计算修改量，命令有以下几个参数</p>
+<ul>
+<li><code>original</code>: 原始proto</li>
+<li><code>updated</code>: 修改后的proto</li>
+<li><code>channel_id</code>: 通道id</li>
+<li><code>output</code>: 对比计算后的目标配置proto</li>
+</ul>
+<p>举例：将当前<code>channel</code>的块消息的配置<code>decode</code>为<code>json</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configtxlator proto_decode --input orderer.block --type common.Block</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里所使用的 orderer.block 文件请参考 <a href="http://www.blockchainof.com/2023/01/10/Fabric%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C/">Fabric开发模式运行</a> 2.4中所生成的创始块对应的文件。只要是区块数据，都可以使用这个命令进行解析。</p>
+</blockquote>
+<h2 id="远程调用RESTful接口">远程调用RESTful接口</h2>
+<p>和本地调用类似，不详细介绍，直接举例吧：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST --data-binary @orderer.block &quot;$&#123;CONFIGTXLATOR_URL&#125;/protolator/decode/common.Block&quot;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -370,7 +414,7 @@ ConfigUpdateEnvelope的一部分 |</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">使用步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8sdk%E6%8F%90%E4%BA%A4%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E7%AD%BE%E5%90%8D"><span class="nav-number">2.1.</span> <span class="nav-text">使用SDK提交配置以及签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">本地使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8restful%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.3.</span> <span class="nav-text">远程调用RESTful接口</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">使用步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">本地使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8RESTful%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.</span> <span class="nav-text">远程调用RESTful接口</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
