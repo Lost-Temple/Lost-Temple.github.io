@@ -188,6 +188,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/" class="post-title-link" itemprop="url">《区块链原理、设计与应用》阅读摘录-0001</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-01-12 15:17:07 / 修改时间：18:09:33" itemprop="dateCreated datePublished" datetime="2023-01-12T15:17:07+08:00">2023-01-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="网络基本结构">网络基本结构</h1>
+<p>Faric网络中存在四种不同角色的服务节点，彼此协作完成整个区块链系统的记账功能。
+- 背书节点(Endorser Peer):一些特殊的Peer节点，对交易提案（Transaction
+Proposal）进行检查，执行智能合约，计算交易执行结果（读写集合）并对其进行背书。
+- 记帐节点(Committer
+Peer):负责维护账本的Peer节点，检查排序后交易结果的合法性，并更新到本地账本。目前所有Peer默认都是记账节点。
+-
+排序节点(Orderer):负责接收交易，并对网络中所有交易进行排序，整理为区块结构。记账节点会从排序节点拉取新区块并提交到本地账本。
+-
+证书节点(CA):提供标准的PKI服务，负责对网络中所有的证书进行管理，包括签发和撤销。不参与网络中的交易过程。</p>
+<p>角色划分是Fabric设计的一个特色。根据性能和安全需求，不同的节点可以由不同组织分别管理，共同构建联盟链。</p>
+<p>此外，网络支持多个账本绑定对应通道(Channel)。每个通道内的成员可以共享账本，不同通道的账本彼此隔离。客户端可以向通道发送交易，经过共识后被通道内的Peer节点接收并更新到本地账本。</p>
+<h1 id="fabric中的配置辅助工具">Fabric中的配置辅助工具</h1>
+<ul>
+<li>cryptogen(本地生成组织结构和身份文件)</li>
+<li>configtxgen(生成配置区块和配置交易)</li>
+<li>configtxlator(解析转换配置信息)</li>
+<li>discover(拓扑探测)</li>
+<li>idemixgen(Idemix证书生成)</li>
+</ul>
+<h1 id="fabric项目相关的docker镜像">fabric项目相关的docker镜像</h1>
+<p>这些镜像都在hyperledger仓库中，它们之间的相互依赖关系如下图： <img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/FabricDockerImages.jpeg" alt="Fabric Docker 镜像"></p>
+<p>根据不同用途，Docker镜像可以大致分为三类：核心镜像、辅助镜像和第三方镜像。
+- 核心镜像</p>
+<p>提供Fabric网络运行的核心功能，目前包括<code>fabric-peer</code>、<code>fabric-orderer</code>、<code>fabric-ca</code>、<code>fabric-baseos</code>、<code>fabric-ccenv</code>、<code>fabric-javaenv</code>、<code>fabric-nodeenv</code>共7个镜像，如下图：
+<img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-01.jpeg" alt="images-01"> <img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-02.jpeg" alt="images-02"> - 辅助镜像</p>
+<p>提供支持功能，目前包括<code>fabric-baseimage</code>、<code>fabric-tools</code>镜像，如下图
+<img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-03.jpeg" alt="images-03"></p>
+<ul>
+<li><p>第3方镜像</p>
+<p>主要是由一些第3方开源软件提供支持功能，目前包括<code>fabric-couchdb</code>、<code>fabric-kafka</code>、<code>fabric-zookeeper</code>3个镜像。如下图：
+<img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/images-04.jpeg" alt="images-04"></p></li>
+</ul>
+<h1 id="从源码生成docker镜像">从源码生成Docker镜像</h1>
+<p>可以通过如下命令在本地快速生成<code>fabric-baseos</code>、<code>fabric-peer</code>、<code>fabric-orderer</code>、<code>fabric-ccenv</code>、<code>fabric-tools</code>等多个Docker镜像：
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make docker</span><br></pre></td></tr></table></figure></p>
+<h1 id="用本地方式启动fabric网络">用本地方式启动Fabric网络</h1>
+<p>启动一个Fabric网络主要包括如下步骤： -
+<strong>规划初始网络拓扑</strong>。根据联盟的需求规划拓扑信息，包括联盟成员、排序服务集群、应用通道初始成员等；
+-
+<strong>准备启动配置文件</strong>。包括网络中组织结构和对应的身份证书（可使用<code>cryptogen</code>工具或<code>fabric-ca</code>完成）、系统通道的初始配置区块文件（可使用<code>configtxgen</code>工具完成）。
+-
+<strong>启动排序节点</strong>。使用系统通道的初始区块文件启动排序服务，排序服务启动后自动按照指定配置创建系统通道。
+-
+<strong>启动Peer节点</strong>。不同的组织按照预置角色分别启动Peer节点。
+-
+<strong>创建通道</strong>。客户端使用新建应用通道的配置更新交易文件，向系统通道发送交易，创建新的应用通道。
+-
+<strong>加入通道</strong>。<code>Peer</code>节点利用初始区块加入所创建的应用通道。
+主要步骤如下图： <img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/bootstrap.jpeg" alt="启动步骤"></p>
+<h1 id="规划初始网络拓扑">规划初始网络拓扑</h1>
+<p>示例网络拓扑如下图所示，包括3个<code>Orderer</code>节点和4个<code>Peer</code>节点，以及1个客户端操作节点（负责生成相关启动文件，在网络启动后作为客户端执行命令）。</p>
+<p>其中，<code>Orderer</code>服务采用<code>Raft</code>模式，所有节点都加入新建的<code>businesschannel</code>中。4个<code>Peer</code>节点分属两个组织:<code>Org1</code>和<code>Org2</code>，也都是应用通道成员。每个组织中的peer0节点作为锚节点负责与其它组织节点分享信息。
+<img src="/2023/01/12/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0001/topology.jpeg" alt="示例拓扑"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/10/Fabric%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1330,197 +1459,6 @@ of Encapsulation of Variation，常常略写做EVP)."</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/16/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00001/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/16/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00001/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00001</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-16 21:57:50" itemprop="dateCreated datePublished" datetime="2022-12-16T21:57:50+08:00">2022-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-18 14:45:06" itemprop="dateModified" datetime="2024-05-18T14:45:06+08:00">2024-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" rel="index"><span itemprop="name">基本概念</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="类图中的关系">类图中的关系</h1>
-<p>在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。</p>
-<h2 id="一般化关系">一般化关系</h2>
-<p>一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，如下图所示：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-class Interface1 {
-	<<interface>>
-}
-Interface1 <|.. class1 interface1 <|.. class2 parentclass <|-- childclass1 childclass2 < pre>
-<h2 id="关联关系">关联关系</h2>
-<p>关联(Association)关系是类与类之间的联接，它使一个类知道另一个类的属性和方法。关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头。单向的关联有一个箭头，表示关联的方向，如下图所示。单向的关联更为普遍，通常不鼓励使用双向的关联。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-Driver --> Car : Drives
-class Dirver {
-    -car : Car 
-}
-
-          </pre>
-<p>关联关系是使用实例变量实现的，比如上面的<code>Driver</code>类中，就出现了下个类型为<code>Car</code>的实例变量，这个变量实现了这两个类之间的关联关系。每一个关联都有一个名字，在上面的例子里，关联的名字是<code>Drives</code>。</p>
-<p>在每一个关联的端点，还可以有一个基数(Multiplicity)，表明这一端的类可以有几个实例。比如，唐僧和他的徒弟形成一个关联关系，在这个关系里面，唐僧只能有一个，而徒弟可以有好几个，如下图所示。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-唐僧 "1" --> "*" 徒弟
-
-徒弟 <|-- 悟空 徒弟 <|-- 悟能 悟净 < pre>
-<blockquote>
-<p>唐僧和徒弟之间的箭头应该是 1 --&gt; * （一对多的关系）</p>
-</blockquote>
-<blockquote>
-<p>唐僧类中应包含徒弟的集合，形成关联关系</p>
-</blockquote>
-<table>
-<thead>
-<tr class="header">
-<th>基数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0..1</td>
-<td>0个或者1个实例</td>
-</tr>
-<tr class="even">
-<td>0..*</td>
-<td>对实例的数目没有限制（可以是0）</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>只有一个实例</td>
-</tr>
-<tr class="even">
-<td>1..*</td>
-<td>至少有一个实例</td>
-</tr>
-</tbody>
-</table>
-<p>一个关联关系往往可以进一步确定为聚合关系或者合成关系。比如，唐僧与他的徒弟的关系就可以
-进一步确定为聚合关系。</p>
-<h1 id="聚合关系">聚合关系</h1>
-<p>聚合（Aggregation)关系是关联关系的一种，是强的关联关系。聚合是整体和个体之间的关系。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-Car "1" o--> "1" Engine
-Car "0" o--> "0..*" Tire
-class Car {
-    -engine : Engine 
-}
-
-          </pre>
-<h1 id="合成关系">合成关系</h1>
-<p>合成(Composition)关系是关联关系的一种，是比聚合关系强的关系。它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期，合成关系是不能共享的。</p>
-<p>代表整体的对象需要负责保持部分对象的存活，在一些情况下负责将代表部分的对象湮灭掉。代表整体的对象可以将代表部分的对象传递给另一个对象，由后者负责此对象的生命周期。换言之，代表部分的对象在每一个时刻只能与一个对象发生合成关系，由后者排他地负责其生命周期。聚合关系和合成关系的类图如下图所示。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-
-class MonkeyKing{
-    -limb : Limb[] 
-    -staff : GoldRingedStaff 
-}
-MonkeyKing "1" *--> "4" Limb
-MonkeyKing "1" o--> "1" GoldRingedStaff
-
-          </pre>
-<p>在上面的类图中，显示了美猴王（MonkeyKing）以及他的四肢（Limb）和他的金箍棒（GoldRingedStaff)之间的关系。可以看出，MonkeyKing与GoldRingedStaff之间是聚合关系；而MonkeyKing与Limb之间的关系要比前者更强，是合成关系，因为美猴王的四肢完全由美猴王自己负责，并且不能共享。</p>
-<p>如果不能确定一个关系是不是合成关系，可以将之设置为聚合关系，甚至关联关系。</p>
-<h1 id="依赖关系">依赖关系</h1>
-<p>依赖（Dependency)也是类与类之间的连接，<strong>依赖总是单向的</strong>。依赖关系表示一个类依赖于另一个类的定义。一个人（Person）可以买车（Car）和房子（House），Person类依赖于Car类和House类，如下图所示。</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-Person ..> Car : Buys
-Person ..> House : Buys
-Person : +buy(...) void
-Person : +buy(...) void
-
-          </pre>
-<p>用golang代码表达一下上面的类图就是：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> House <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyCar()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person)</span></span> BuyHouse()  &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一般而言，依赖关系体现为局部变量、方法的参数，以及对静态方法的调用。换言之，一个类A的某一个局部变量的类型是另一个类B，那么类A就依赖于类B。如果一个方法的参数是另一个类B的实例，那么这个方法所在的类A依赖于类B。</p>
-<p>如果类B出现在类A的实例变量中，那么类A与类B的关系就超越了依赖关系，而变成了某一种关联关系。</p>
-</|--></pre></|..></interface></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1590,7 +1528,7 @@ Person : +buy(...) void
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1601,7 +1539,7 @@ Person : +buy(...) void
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">171</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

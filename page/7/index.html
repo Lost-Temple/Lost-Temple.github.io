@@ -188,6 +188,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">CGO内存踩坑记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-24 10:56:03" itemprop="dateCreated datePublished" datetime="2022-11-24T10:56:03+08:00">2022-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-15 13:35:12" itemprop="dateModified" datetime="2022-12-15T13:35:12+08:00">2022-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/CGO/" itemprop="url" rel="index"><span itemprop="name">CGO</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="应用场景">应用场景</h1>
+<p>将 Go 内存中的字符串或字节切片传入 C 语言函数的应用场景。</p>
+<h1 id="里面的坑">里面的坑</h1>
+<p>假设一个极端场景：我们将一块位于某 <code>goroutine</code>
+的栈上的<code>Go</code>语言内存传入了
+<code>C</code>语言函数后，在此<code>C</code>语言函数执行时，如果
+<code>goroutinue</code>的栈因为空间不足的原因发生了<strong>扩展</strong>，也就是导致了原来的
+<code>Go</code>语言内存被移动到了新的位置。但是这时<code>C</code>语言函数并不知道该
+<code>Go</code>语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是<strong>“野指针”</strong>。不是必现，要看内存中的数据是否发生移动。</p>
+<p>以上操作本质上看是一种<strong>“传引用”</strong>，可以借助 C
+语言内存稳定的特性（谁<code>malloc</code>就由谁来<code>free</code>，代码编写者自己对内存进行管理），在
+C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
+的内存空间（<strong>复制了一个副本过去</strong>）。下面的例子是这种思路的具体实现：</p>
+<h1 id="例1">例1</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s) &#123;</span></span><br><span class="line"><span class="comment">    printf(&quot;%s&quot;, s);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;unsafe&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    cs := C.CString(s) <span class="comment">// 这里会在C的内存空间里面开辟一块空间，把GO中的字符串s的值拷贝过去</span></span><br><span class="line">    <span class="keyword">defer</span> C.free(unsafe.Pointer(cs)) <span class="comment">// 这里用defer 进行延迟操作，释放这块在C里面开辟的空间，不然就是内存泄漏</span></span><br><span class="line"></span><br><span class="line">    C.printString(cs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式虽然解决了问题，但是，写法有点啰嗦，还要自己手动<code>C.free</code>。最主要的是：性能效率有损失，因为要从<code>GO</code>环境把内存复制到<code>C</code>语言环境内存中。</p>
+<h1 id="例2">例2</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s, int n) &#123;</span></span><br><span class="line"><span class="comment">    int i;</span></span><br><span class="line"><span class="comment">    for(i = 0; i &lt; n; i++) &#123;</span></span><br><span class="line"><span class="comment">        putchar(s[i]);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    putchar(&#x27;\n&#x27;);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">    C.printString((*C.char)(unsafe.Pointer(p.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在的处理方式更加直接，且避免了分配额外的内存，而且CGO会保证在C函数调用期间（从C语言函数被调用到C语言函数调用结束），传入的指针指向的这块GO语言开辟的内存不会被移动。注意：<del><strong><code>CGO只会保证在C函数调用期间</code></strong>。</del>
+在网上有看到这个说法，但是我实践中似乎有出入。我实践中就是用这个用法，结果GG了，我实践中它好像也不能保证这一点，这个后续再研究研究。</p>
+<p>就算CGO会保证在C函数调用期间保证内存不会被移动，这里还有有一个容易踩的坑：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误的代码</span></span><br><span class="line">p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">tmp := <span class="type">uintptr</span>(p)</span><br><span class="line">ptr := (*reflect.StringHeader)(unsafe.Pointer(tmp))</span><br><span class="line">C.printString((*C.char)(unsafe.Pointer(ptr.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br></pre></td></tr></table></figure>
+<p>因为 tmp
+并不是指针类型(它只是表示内存地址，但并没有指针的<strong>语义</strong>，指针和内存地址还是有点差别的，差别在于指针是有数据类型的，是和指向的内存中的数据进行了“绑定的”，而内存地址仅仅是地址而已)。在它获取到<code>Go</code>对象地址之后<code>s</code>对象可能会被移动，但是因为不是<code>tmp</code>没有指针语义，所以不会被<code>Go</code>
+语言运行时更新成新内存的地址(<code>s</code>对象新的移动后的位置）。在<code>tmp</code>中保持
+<code>Go</code> 对象的地址，和在<code>C</code>
+语言环境保持<code>Go</code>
+对象的地址的效果是一样的：如果原始的<code>Go</code>对象内存发生了移动，Go
+语言运行时并不会同步更新它们。这样就还是会触发一开始的那个问题。</p>
+<p>所以，还是慎用例2的方法吧</p>
+<p><strong>续：</strong>我去看了<code>StringHeader</code>的数据结构和<code>SliceHeader</code>数据结构</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StringHeader is the runtime representation of a string.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SliceHeader is the runtime representation of a slice.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">	Cap  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到<code>Data</code>的类型是<code>uintptr</code>就感觉不妙了...这里自己实现一个可能能解决问题，我能想到的，go标准库的开发者会想不吗？肯定是有什么原因的。所以，还是最好不用<code>StringHeader</code>了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data unsafe.Pointer</span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/20/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1257,195 +1368,6 @@ M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">Fabric-wasmcc介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-03 10:52:12" itemprop="dateCreated datePublished" datetime="2022-11-03T10:52:12+08:00">2022-11-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:36:55" itemprop="dateModified" datetime="2022-12-03T19:36:55+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="wasmcc">wasmcc</h1>
-<p>全称：<code>Hyperledger Fabric WASM Chaincode</code>，是由<code>hypterledger-labs</code>提供的一个链码。作用是可以把使用rust/C编写代码生成<code>wasm</code>字节码，把wasm字节码部署到<code>fabric</code>中，然后使用wasmcc作为代理调用wasm中的函数。fabric以此方式来支持<code>wasm chaincode</code></p>
-<h2 id="步骤">步骤</h2>
-<ul>
-<li><ol type="1">
-<li><code>wasmcc</code>部署到<code>fabric</code>中，扮演<code>wasm</code>代码调用的统一入口，相当于wasm代码的调用代理。
-<code>wasmcc</code>的部署和其它的普通链码的部署方式一样，<code>wasmcc</code>没有实例化参数，通过peer
-cli部署的命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n wasmcc -v 1.0 -p github.com/chaincode/wasmer-chaincode-test/wasmcc</span><br></pre></td></tr></table></figure> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode instantiate -n wasmcc -v 1.0 -C &lt;channel-name&gt; -c &#x27;&#123;&quot;Args&quot;:[]&#125;&#x27; -o &lt;orderer-address&gt; --tls --cafile &lt;orderer-ca&gt;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>通过调用<code>wasmcc</code>的 <code>create</code>
-方法创建<code>wasm chaincode</code></li>
-</ol></li>
-<li><ol start="3" type="1">
-<li><strong>通过调用<code>wasmcc</code>的<code>execute</code>方法调用<code>wasm chaincode</code></strong></li>
-</ol></li>
-<li><ol start="4" type="1">
-<li>通过调用<code>wasmcc</code>的<code>installedChaincodes</code>方法获取目前fabric上部署的所有<code>wasm chiancode</code></li>
-</ol></li>
-</ul>
-<h1 id="wasmcc-代码解读">wasmcc 代码解读</h1>
-<h2 id="基础结构fabric-链码的基本结构">基础结构(fabric
-链码的基本结构)</h2>
-<pre class="mermaid" style="text-align: center;">
-            
-            classDiagram
-class WASMChaincode {
-	+Init(stub shim.ChaincodeStubInterface) Response
-	+Invoke(stub shim.ChaincodeStubInterface) Response
-	-create(stub shim.ChaincodeStubInterface, args []string) Response
-	-execute(stub shim.ChaincodeStubInterface, args []string) Response
-	-installedChaincodes(stub shim.ChaincodeStubInterface, args []string) Response
-}
-class VirtualMachine {
-...
-	+ImportResolver ImportResolver
-
-}
-class ImportResolver {
-	<<interface>>
-	+ResolveFunc(module, field string) FunctionImport
-	+ResolveGlobal(module, field string) int64
-}
-class Resolver {
-	-string chaincodeName
-	-shim.ChaincodeStubInterface stub          
-	-[]string args          
-	-[]byte result        
-	-[]byte errMsg        
-	+ResolveFunc(module, field string) FunctionImport
-	+ResolveGlobal(module, field string) int64
-}
-class ChaincodeStubInterface {
-	<<interface>>
-	...
-}
-class ChaincodeStub {
-	...
-}
-
-ChaincodeStubInterface <|.. chaincodestub importresolver <|.. resolver wasmchaincode <-- virtualmachine ..> ChaincodeStubInterface
-VirtualMachine ..> ImportResolver
-Resolver --> WASMChaincode
-
-          </|..></interface></interface></pre>
-<p><strong>wasm链码的创建流程（create/execute/installedChaincodes三个流程类似）</strong></p>
-<pre class="mermaid" style="text-align: center;">
-            
-            sequenceDiagram
-	participant gRpc Client
-	participant WASMChaincode
-	participant ChaincodeStub
-  gRpc Client ->> WASMChaincode: 调用链码的create函数（触发链码Invoke）
-  WASMChaincode ->> ChaincodeStub: 获取函数及函数参数数组
-  ChaincodeStub -->> WASMChaincode: 返回被调用函数及函数参数数组
-  WASMChaincode ->> WASMChaincode: 调用自身create函数
-  WASMChaincode ->> ChaincodeStub: 检查链码是否存在
-  ChaincodeStub -->> WASMChaincode: 链码已存在
-  WASMChaincode -->> gRpc Client: 失败，链码已存在
-  ChaincodeStub -->> WASMChaincode: 链码不存在，继续执行
-  WASMChaincode ->> WASMChaincode: 对wasm字节码进行解码，得能解压后的字节流
-  WASMChaincode ->> WASMChaincode: 给Resolver对象赋值（里面保存了链码名，stub, 函数参数数组）
-  WASMChaincode ->> WASMChaincode: 调用runWASM，传入wasm字节流,函数名"init",参数个数，以及Resolver对象
-  WASMChaincode -->> gRpc Client: 调用runWASM失败立即返回
-  WASMChaincode ->> WASMChaincode: 创建"chaincodeData"和链码名的组合键
-  WASMChaincode ->> ChaincodeStub: "chaincodeData"和链码名的组合为键，wasm字节流为值，存入状态库
-  ChaincodeStub -->> WASMChaincode: 返回
-  WASMChaincode -->> gRpc Client: 返回
-
-          </pre>
-<h3 id="定义一个结构体">定义一个结构体</h3>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WASMChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="init方法">Init方法</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Init(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Init invoked&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>链码创建或升级时被调用，<code>wasmcc</code>的<code>Init</code>内部只记录了一下日志，没有其它多余的操作</p>
-<h2 id="invoke方法">Invoke方法</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Invoke(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke function&quot;</span>)</span><br><span class="line">	function, args := stub.GetFunctionAndParameters()</span><br><span class="line">	logger.Debugf(<span class="string">&quot;Invoke function %s with args %v&quot;</span>, function, args)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> function == <span class="string">&quot;create&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// Create a new wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.create(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;execute&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// execute wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.execute(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;installedChaincodes&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// get the list of installed wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.installedChaincodes(stub, args)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> shim.Error(<span class="string">&quot;Invalid invoke function name. Expecting \&quot;execute\&quot; \&quot;create\&quot; \&quot;query\&quot;&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个方法的功能：</p>
-<ul>
-<li><ol type="1">
-<li><p>创建wasm chaincode: 调用函数<code>create</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store a new wasm chaincode in state. Receives chaincode name and wasm file encoded in hex</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> create(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Create function&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting atleast 2 arguments&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	logger.Infof(<span class="string">&quot;Installing wasm chaincode: &quot;</span> + chaincodeName)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//check if same chaincode name is already present</span></span><br><span class="line">	chaincodeFromState, err := stub.GetState(chaincodeName)</span><br><span class="line">	<span class="keyword">if</span> chaincodeFromState != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(ChaincodeExists)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Decode the chaincode</span></span><br><span class="line">	chaincodeHexEncoded := args[<span class="number">1</span>]</span><br><span class="line">	chaincodeDecoded, err := decodeReceivedWASMChaincode(chaincodeHexEncoded)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(chaincodeDecoded, <span class="string">&quot;init&quot;</span>, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Init Response:%d\n&quot;</span>, result)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Chaincode init invocation failed&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Store the chaincode in</span></span><br><span class="line">	ledgerChaincodeKey, err := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	err = stub.PutState(ledgerChaincodeKey, chaincodeDecoded)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		s := fmt.Sprintf(UnknownError, err.Error())</span><br><span class="line">		<span class="keyword">return</span> shim.Error(s)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(<span class="string">&quot;Success! Installed wasm chaincode&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><ol start="2" type="1">
-<li><p>执行wasm chaincode 中的函数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> execute(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting chaincode name to invoke&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	funcToInvoke := args[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the state from the ledger</span></span><br><span class="line">	ledgerChaincodeKey, _ := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	Chaincodebytes, _ := stub.GetState(ledgerChaincodeKey)</span><br><span class="line">	<span class="keyword">if</span> Chaincodebytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;:\&quot;No Chaincode for &quot;</span> + chaincodeName + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(Chaincodebytes, funcToInvoke, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%d\n&quot;</span>, result)</span><br><span class="line">	<span class="keyword">return</span> txnResult(result, r.result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><ol start="3" type="1">
-<li><p>获取已安装的<code>wasm chaincode</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> installedChaincodes(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get all chaincodes from the ledger</span></span><br><span class="line">	installedChaincodeResultsIterator, err := stub.GetStateByPartialCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through result set and get chaincode names</span></span><br><span class="line">	<span class="keyword">var</span> i <span class="type">int</span></span><br><span class="line">	<span class="keyword">var</span> installedChaincodeNamesList = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">0</span>; installedChaincodeResultsIterator.HasNext(); i++ &#123;</span><br><span class="line">		<span class="comment">// Note that we don&#x27;t get the value (2nd return variable), we&#x27;ll just get the marble name from the composite key</span></span><br><span class="line">		responseRange, err := installedChaincodeResultsIterator.Next()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// get the color and name from color~name composite key</span></span><br><span class="line">		objectType, compositeKeyParts, err := stub.SplitCompositeKey(responseRange.Key)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line">		returnedChaincodeName := compositeKeyParts[<span class="number">0</span>]</span><br><span class="line">		logger.Infof(<span class="string">&quot;- found a chaincode from index:%s name:%s\n&quot;</span>, objectType, returnedChaincodeName)</span><br><span class="line">		installedChaincodeNamesList += returnedChaincodeName</span><br><span class="line">		installedChaincodeNamesList += <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%s\n&quot;</span>, installedChaincodeNamesList)</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(installedChaincodeNamesList))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1515,7 +1437,7 @@ Resolver --> WASMChaincode
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1526,7 +1448,7 @@ Resolver --> WASMChaincode
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">171</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
