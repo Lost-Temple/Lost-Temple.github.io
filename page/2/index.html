@@ -188,6 +188,153 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">Flink原理与实现:Window机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-14 10:58:46 / 修改时间：17:54:52" itemprop="dateCreated datePublished" datetime="2023-12-14T10:58:46+08:00">2023-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Flink/" itemprop="url" rel="index"><span itemprop="name">Flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>简介</h1>
+<p>Flink 认为 Batch 是 Streaming 的一个特例，所以 Flink 底层引擎是一个流式引擎，在上面实现了流处理和批处理。而窗口（window）就是从 Streaming 到 Batch 的一个桥梁。Flink 提供了非常完善的窗口机制，这是我认为的 Flink 最大的亮点之一（其他的亮点包括消息乱序处理，和 checkpoint 机制）。本文我们将介绍流式处理中的窗口概念，介绍 Flink 内建的一些窗口和 Window API，最后讨论下窗口在底层是如何实现的。</p>
+<h1>什么是 Window</h1>
+<p>在流处理应用中，数据是连续不断的，因此我们不可能等到所有数据都到了才开始处理。当然我们可以每来一个消息就处理一次，但是有时我们需要做一些聚合类的处理，例如：在过去的1分钟内有多少用户点击了我们的网页。在这种情况下，我们必须定义一个窗口，用来收集最近一分钟内的数据，并对这个窗口内的数据进行计算。</p>
+<p>窗口可以是时间驱动的（Time Window，例如：每30秒钟），也可以是数据驱动的（Count Window，例如：每一百个元素）。一种经典的窗口分类可以分成：翻滚窗口（Tumbling Window，无重叠），滚动窗口（Sliding Window，有重叠），和会话窗口（Session Window，活动间隙）。</p>
+<p>我们举个具体的场景来形象地理解不同窗口的概念。假设，淘宝网会记录每个用户每次购买的商品个数，我们要做的是统计不同窗口中用户购买商品的总数。下图给出了几种经典的窗口切分概述图：</p>
+<p><img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/Snipaste_2023-12-14_11-17-27.png" alt="窗口切分概述图"></p>
+<p>上图中，raw data stream 代表用户的购买行为流，圈中的数字代表该用户本次购买的商品个数，事件是按时间分布的，所以可以看出事件之间是有time gap的。Flink 提供了上图中所有的窗口类型，下面我们会逐一进行介绍。</p>
+<h1>Time Window</h1>
+<p>就如名字所说的，Time Window 是根据时间对数据流进行分组的。这里我们涉及到了流处理中的时间问题，时间问题和消息乱序问题是紧密关联的，这是流处理中现存的难题之一，我们将在后续的 EventTime 和消息乱序处理 中对这部分问题进行深入探讨。这里我们只需要知道 Flink 提出了三种时间的概念，分别是event time（事件时间：事件发生时的时间），ingestion time（摄取时间：事件进入流处理系统的时间），processing time（处理时间：消息被计算处理的时间）。Flink 中窗口机制和时间类型是完全解耦的，也就是说当需要改变时间类型时不需要更改窗口逻辑相关的代码。</p>
+<h2 id="Tumbling-Time-Window">Tumbling Time Window</h2>
+<p>如上图，我们需要统计每一分钟中用户购买的商品的总数，需要将用户的行为事件按每一分钟进行切分，这种切分被成为翻滚时间窗口（Tumbling Time Window）。翻滚窗口能将数据流切分成不重叠的窗口，每一个事件只能属于一个窗口。通过使用 DataStream API，我们可以这样实现：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Stream of (userId, buyCnt)</span></span><br><span class="line"><span class="keyword">val</span> buyCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> tumblingCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = buyCnts</span><br><span class="line">  <span class="comment">// key stream by userId</span></span><br><span class="line">  .keyBy(<span class="number">0</span>) </span><br><span class="line">  <span class="comment">// tumbling time window of 1 minute length</span></span><br><span class="line">  .timeWindow(<span class="type">Time</span>.minutes(<span class="number">1</span>))</span><br><span class="line">  <span class="comment">// compute sum over buyCnt</span></span><br><span class="line">  .sum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Sliding-Time-Window">Sliding Time Window</h2>
+<p>但是对于某些应用，它们需要的窗口是不间断的，需要平滑地进行窗口聚合。比如，我们可以每30秒计算一次最近一分钟用户购买的商品总数。这种窗口我们称为滑动时间窗口（Sliding Time Window）。在滑窗中，一个元素可以对应多个窗口。通过使用 DataStream API，我们可以这样实现：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> slidingCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = buyCnts</span><br><span class="line">  .keyBy(<span class="number">0</span>) </span><br><span class="line">  <span class="comment">// sliding time window of 1 minute length and 30 secs trigger interval</span></span><br><span class="line">  .timeWindow(<span class="type">Time</span>.minutes(<span class="number">1</span>), <span class="type">Time</span>.seconds(<span class="number">30</span>))</span><br><span class="line">  .sum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h1>Count Window</h1>
+<p>Count Window 是根据元素个数对数据流进行分组的。</p>
+<h2 id="Tumbling-Count-Window">Tumbling Count Window</h2>
+<p>当我们想要每100个用户购买行为事件统计购买总数，那么每当窗口中填满100个元素了，就会对窗口进行计算，这种窗口我们称之为翻滚计数窗口（Tumbling Count Window），上图所示窗口大小为3个。通过使用 DataStream API，我们可以这样实现：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Stream of (userId, buyCnts)</span></span><br><span class="line"><span class="keyword">val</span> buyCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> tumblingCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = buyCnts</span><br><span class="line">  <span class="comment">// key stream by sensorId</span></span><br><span class="line">  .keyBy(<span class="number">0</span>)</span><br><span class="line">  <span class="comment">// tumbling count window of 100 elements size</span></span><br><span class="line">  .countWindow(<span class="number">100</span>)</span><br><span class="line">  <span class="comment">// compute the buyCnt sum </span></span><br><span class="line">  .sum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Sliding-Count-Window">Sliding Count Window</h2>
+<p>当然Count Window 也支持 Sliding Window，虽在上图中未描述出来，但和Sliding Time Window含义是类似的，例如每10个元素计算一次最近100个元素的总和，代码示例如下。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> slidingCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = vehicleCnts</span><br><span class="line">  .keyBy(<span class="number">0</span>)</span><br><span class="line">  <span class="comment">// sliding count window of 100 elements size and 10 elements trigger interval</span></span><br><span class="line">  .countWindow(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">  .sum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h1>Session Window</h1>
+<p>在这种用户交互事件流中，我们首先想到的是将事件聚合到会话窗口中（一段用户持续活跃的周期），由非活跃的间隙分隔开。如上图所示，就是需要计算每个用户在活跃期间总共购买的商品数量，如果用户30秒没有活动则视为会话断开（假设raw data stream是单个用户的购买行为流）。Session Window 的示例代码如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Stream of (userId, buyCnts)</span></span><br><span class="line"><span class="keyword">val</span> buyCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = ...</span><br><span class="line">    </span><br><span class="line"><span class="keyword">val</span> sessionCnts: <span class="type">DataStream</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = vehicleCnts</span><br><span class="line">    .keyBy(<span class="number">0</span>)</span><br><span class="line">    <span class="comment">// session window based on a 30 seconds session gap interval </span></span><br><span class="line">    .window(<span class="type">ProcessingTimeSessionWindows</span>.withGap(<span class="type">Time</span>.seconds(<span class="number">30</span>)))</span><br><span class="line">    .sum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>一般而言，window 是在无限的流上定义了一个有限的元素集合。这个集合可以是基于时间的，元素个数的，时间和个数结合的，会话间隙的，或者是自定义的。Flink 的 DataStream API 提供了简洁的算子来满足常用的窗口操作，同时提供了通用的窗口机制来允许用户自己定义窗口分配逻辑。下面我们会对 Flink 窗口相关的 API 进行剖析。</p>
+<h1>剖析 Window API</h1>
+<p>得益于 Flink Window API 松耦合设计，我们可以非常灵活地定义符合特定业务的窗口。Flink 中定义一个窗口主要需要以下三个组件。</p>
+<ul>
+<li>
+<p>Window Assigner：用来决定某个元素被分配到哪个/哪些窗口中去。</p>
+<p>如下类图展示了目前内置实现的 Window Assigners：</p>
+<p><img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/WindowAssigners.png" alt="WindowAssigners"></p>
+</li>
+<li>
+<p>Trigger：触发器。决定了一个窗口何时能够被计算或清除，每个窗口都会拥有一个自己的Trigger。</p>
+<p>如下类图展示了目前内置实现的 Triggers：<br>
+<img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/Triggers.png" alt="Triggers"></p>
+</li>
+<li>
+<p>Evictor：可以译为“驱逐者”。在Trigger触发之后，在窗口被处理之前，Evictor（如果有Evictor的话）会用来剔除窗口中不需要的元素，相当于一个filter。</p>
+<p>如下类图展示了目前内置实现的 Evictors：<br>
+<img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/Evictors.png" alt="Evictors"></p>
+</li>
+</ul>
+<p>上述三个组件的不同实现的不同组合，可以定义出非常复杂的窗口。Flink 中内置的窗口也都是基于这三个组件构成的，当然内置窗口有时候无法解决用户特殊的需求，所以 Flink 也暴露了这些窗口机制的内部接口供用户实现自定义的窗口。下面我们将基于这三者探讨窗口的实现机制。</p>
+<h1>Window 的实现</h1>
+<p>下图描述了 Flink 的窗口机制以及各组件之间是如何相互工作的。</p>
+<p><img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92.png" alt="组件交互"></p>
+<p>首先上图中的组件都位于一个算子（window operator）中，数据流源源不断地进入算子，每一个到达的元素都会被交给 WindowAssigner。WindowAssigner 会决定元素被放到哪个或哪些窗口（window），可能会创建新窗口。因为一个元素可以被放入多个窗口中，所以同时存在多个窗口是可能的。注意，Window本身只是一个ID标识符，其内部可能存储了一些元数据，如TimeWindow中有开始和结束时间，但是并不会存储窗口中的元素。窗口中的元素实际存储在 Key/Value State 中，key为Window，value为元素集合（或聚合值）。为了保证窗口的容错性，该实现依赖了 Flink 的 State 机制（参见 <a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-master/apis/streaming/state.html?spm=a2c6h.12873639.article-detail.8.571d3dd5xKjhTf">state 文档</a>）。</p>
+<p>每一个窗口都拥有一个属于自己的 Trigger，Trigger上会有定时器，用来决定一个窗口何时能够被计算或清除。每当有元素加入到该窗口，或者之前注册的定时器超时了，那么Trigger都会被调用。Trigger的返回结果可以是 continue（不做任何操作），fire（处理窗口数据），purge（移除窗口和窗口中的数据），或者 fire + purge。一个Trigger的调用结果只是fire的话，那么会计算窗口并保留窗口原样，也就是说窗口中的数据仍然保留不变，等待下次Trigger fire的时候再次执行计算。一个窗口可以被重复计算多次直到它被 purge 了。在purge之前，窗口会一直占用着内存。</p>
+<p>当Trigger fire了，窗口中的元素集合就会交给Evictor（如果指定了的话）。Evictor 主要用来遍历窗口中的元素列表，并决定最先进入窗口的多少个元素需要被移除。剩余的元素会交给用户指定的函数进行窗口的计算。如果没有 Evictor 的话，窗口中的所有元素会一起交给函数进行计算。</p>
+<p>计算函数收到了窗口的元素（可能经过了 Evictor 的过滤），并计算出窗口的结果值，并发送给下游。窗口的结果值可以是一个也可以是多个。DataStream API 上可以接收不同类型的计算函数，包括预定义的sum(),min(),max()，还有 ReduceFunction，FoldFunction，还有WindowFunction。WindowFunction 是最通用的计算函数，其他的预定义的函数基本都是基于该函数实现的。</p>
+<p>Flink 对于一些聚合类的窗口计算（如sum,min）做了优化，因为聚合类的计算不需要将窗口中的所有数据都保存下来，只需要保存一个result值就可以了。每个进入窗口的元素都会执行一次聚合函数并修改result值。这样可以大大降低内存的消耗并提升性能。但是如果用户定义了 Evictor，则不会启用对聚合窗口的优化，因为 Evictor 需要遍历窗口中的所有元素，必须要将窗口中所有元素都存下来。</p>
+<h1>源码分析</h1>
+<p>上述的三个组件构成了 Flink 的窗口机制。为了更清楚地描述窗口机制，以及解开一些疑惑（比如 purge 和 Evictor 的区别和用途），我们将一步步地解释 Flink 内置的一些窗口（Time Window，Count Window，Session Window）是如何实现的。</p>
+<h2 id="Count-Window-实现">Count Window 实现</h2>
+<p>Count Window 是使用三组件的典范，我们可以在 KeyedStream 上创建 Count Window，其源码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tumbling count window</span></span><br><span class="line"><span class="keyword">public</span> WindowedStream&lt;T, KEY, GlobalWindow&gt; <span class="title function_">countWindow</span><span class="params">(<span class="type">long</span> size)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> window(GlobalWindows.create())  <span class="comment">// create window stream using GlobalWindows</span></span><br><span class="line">        .trigger(PurgingTrigger.of(CountTrigger.of(size))); <span class="comment">// trigger is window size</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// sliding count window</span></span><br><span class="line"><span class="keyword">public</span> WindowedStream&lt;T, KEY, GlobalWindow&gt; <span class="title function_">countWindow</span><span class="params">(<span class="type">long</span> size, <span class="type">long</span> slide)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> window(GlobalWindows.create())</span><br><span class="line">        .evictor(CountEvictor.of(size))  <span class="comment">// evictor is window size</span></span><br><span class="line">        .trigger(CountTrigger.of(slide)); <span class="comment">// trigger is slide size</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个函数是申请翻滚计数窗口，参数为窗口大小。第二个函数是申请滑动计数窗口，参数分别为窗口大小和滑动大小。它们都是基于 GlobalWindows 这个 WindowAssigner 来创建的窗口，该assigner会将所有元素都分配到同一个global window中，所有GlobalWindows的返回值一直是 GlobalWindow 单例。基本上自定义的窗口都会基于该assigner实现。</p>
+<p>翻滚计数窗口并不带evictor，只注册了一个trigger。该trigger是带purge功能的 CountTrigger。也就是说每当窗口中的元素数量达到了 window-size，trigger就会返回fire+purge，窗口就会执行计算并清空窗口中的所有元素，再接着储备新的元素。从而实现了tumbling的窗口之间无重叠。</p>
+<p>滑动计数窗口的各窗口之间是有重叠的，但我们用的 GlobalWindows assinger 从始至终只有一个窗口，不像 sliding time assigner 可以同时存在多个窗口。所以trigger结果不能带purge，也就是说计算完窗口后窗口中的数据要保留下来（供下个滑窗使用）。另外，trigger的间隔是slide-size，evictor的保留的元素个数是window-size。也就是说，每个滑动间隔就触发一次窗口计算，并保留下最新进入窗口的window-size个元素，剔除旧元素。</p>
+<p>假设有一个滑动计数窗口，每2个元素计算一次最近4个元素的总和，那么窗口工作示意图如下所示：</p>
+<p><img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/%E7%AA%97%E5%8F%A3%E5%B7%A5%E4%BD%9C%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="窗口工作示意图"></p>
+<p>图中所示的各个窗口逻辑上是不同的窗口，但在物理上是同一个窗口。该滑动计数窗口，trigger的触发条件是元素个数达到2个（每进入2个元素就会触发一次），evictor保留的元素个数是4个，每次计算完窗口总和后会保留剩余的元素。所以第一次触发trigger是当元素5进入，第三次触发trigger是当元素2进入，并驱逐5和2，计算剩余的4个元素的总和（22）并发送出去，保留下2,4,9,7元素供下个逻辑窗口使用。</p>
+<h2 id="Time-Window-实现">Time Window 实现</h2>
+<p>同样的，我们也可以在 KeyedStream 上申请 Time Window，其源码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tumbling time window</span></span><br><span class="line"><span class="keyword">public</span> WindowedStream&lt;T, KEY, TimeWindow&gt; <span class="title function_">timeWindow</span><span class="params">(Time size)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (environment.getStreamTimeCharacteristic() == TimeCharacteristic.ProcessingTime) &#123;</span><br><span class="line">        <span class="keyword">return</span> window(TumblingProcessingTimeWindows.of(size));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> window(TumblingEventTimeWindows.of(size));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// sliding time window</span></span><br><span class="line"><span class="keyword">public</span> WindowedStream&lt;T, KEY, TimeWindow&gt; <span class="title function_">timeWindow</span><span class="params">(Time size, Time slide)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (environment.getStreamTimeCharacteristic() == TimeCharacteristic.ProcessingTime) &#123;</span><br><span class="line">        <span class="keyword">return</span> window(SlidingProcessingTimeWindows.of(size, slide));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> window(SlidingEventTimeWindows.of(size, slide));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在方法体内部会根据当前环境注册的时间类型，使用不同的WindowAssigner创建window。可以看到，EventTime和IngestTime都使用了XXXEventTimeWindows这个assigner，因为EventTime和IngestTime在底层的实现上只是在Source处为Record打时间戳的实现不同，在window operator中的处理逻辑是一样的。</p>
+<p>这里我们主要分析sliding process time window，如下是相关源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SlidingProcessingTimeWindows</span> <span class="keyword">extends</span> <span class="title class_">WindowAssigner</span>&lt;Object, TimeWindow&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> slide;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SlidingProcessingTimeWindows</span><span class="params">(<span class="type">long</span> size, <span class="type">long</span> slide)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.size = size;</span><br><span class="line">        <span class="built_in">this</span>.slide = slide;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Collection&lt;TimeWindow&gt; <span class="title function_">assignWindows</span><span class="params">(Object element, <span class="type">long</span> timestamp)</span> &#123;</span><br><span class="line">        timestamp = System.currentTimeMillis();</span><br><span class="line">        List&lt;TimeWindow&gt; windows = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;((<span class="type">int</span>) (size / slide));</span><br><span class="line">        <span class="comment">// 对齐时间戳</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">lastStart</span> <span class="operator">=</span> timestamp - timestamp % slide;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> lastStart;</span><br><span class="line">            start &gt; timestamp - size;</span><br><span class="line">            start -= slide) &#123;</span><br><span class="line">            <span class="comment">// 当前时间戳对应了多个window</span></span><br><span class="line">            windows.add(<span class="keyword">new</span> <span class="title class_">TimeWindow</span>(start, start + size));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> windows;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProcessingTimeTrigger</span> <span class="keyword">extends</span> <span class="title class_">Trigger</span>&lt;Object, TimeWindow&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">// 每个元素进入窗口都会调用该方法</span></span><br><span class="line">    <span class="keyword">public</span> TriggerResult <span class="title function_">onElement</span><span class="params">(Object element, <span class="type">long</span> timestamp, TimeWindow window, TriggerContext ctx)</span> &#123;</span><br><span class="line">        <span class="comment">// 注册定时器，当系统时间到达window end timestamp时会回调该trigger的onProcessingTime方法</span></span><br><span class="line">        ctx.registerProcessingTimeTimer(window.getEnd());</span><br><span class="line">        <span class="keyword">return</span> TriggerResult.CONTINUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">// 返回结果表示执行窗口计算并清空窗口</span></span><br><span class="line">    <span class="keyword">public</span> TriggerResult <span class="title function_">onProcessingTime</span><span class="params">(<span class="type">long</span> time, TimeWindow window, TriggerContext ctx)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> TriggerResult.FIRE_AND_PURGE;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，SlidingProcessingTimeWindows会对每个进入窗口的元素根据系统时间分配到(size / slide)个不同的窗口，并会在每个窗口上根据窗口结束时间注册一个定时器（相同窗口只会注册一份），当定时器超时时意味着该窗口完成了，这时会回调对应窗口的Trigger的onProcessingTime方法，返回FIRE_AND_PURGE，也就是会执行窗口计算并清空窗口。整个过程示意图如下：</p>
+<p><img src="/2023/12/14/Flink-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-Window-%E6%9C%BA%E5%88%B6/202312141604.png" alt="示意图"></p>
+<p>如上图所示横轴代表时间戳（为简化问题，时间戳从0开始），第一条record会被分配到[-5,5)和[0,10)两个窗口中，当系统时间到5时，就会计算[-5,5)窗口中的数据，并将结果发送出去，最后清空窗口中的数据，释放该窗口资源。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/12/06/Storm%E3%80%81Spark%E4%B8%8EFlink%E5%AF%B9%E6%AF%94/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1606,134 +1753,6 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" class="post-title-link" itemprop="url">k8s中configMap编辑示例</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-14 14:27:16 / 修改时间：14:50:24" itemprop="dateCreated datePublished" datetime="2023-06-14T14:27:16+08:00">2023-06-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>背景</h1>
-<p>部署在k3s中的一个应用，在前端页面中上传文件，出现报错，提示是文件太大。需要修改nginx配置来解决这个问题。这个应用部署在fate-10000命名空间下</p>
-<h1>解决</h1>
-<ul>
-<li>
-<p>查看一下fate-10000这个命名空间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get all  -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/fate-10000.jpg" alt="查看命名空间"></p>
-</li>
-<li>
-<p>先查看一下<code>site-portal</code>前端<code>pod</code>的描述信息：例子中为<code>fate-10000</code>命名空间下的<code>frontend-85b6fdffc4-4lkpc</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod frontend-85b6fdffc4-4lkpc -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/frontend.jpg" alt="frontend描述信息"></p>
-</li>
-</ul>
-<blockquote>
-<p>注意图中nginx的配置文件会从nginx-conf-https中获取一些运维自定义的配置，nginx-conf-http是一个configMap, configMap的作用我理解的就是给运维人员后期动态去修改配置，pod从configMap中获取这些自定义的值后就达到了动态修改配置的目的，当然configMap修改后，相关的pod需要重启</p>
-</blockquote>
-<ul>
-<li>
-<p>查看命名空间下的configMap</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get cm -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/get-cm.jpg" alt="configMap"></p>
-</li>
-<li>
-<p>编辑configMap中的内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/edit-cm.jpg" alt="编辑configMap"></p>
-</li>
-<li>
-<p>获取deployment</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy -n fate-10000</span><br></pre></td></tr></table></figure>
-<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/deployment.jpg" alt="deployment"></p>
-</li>
-<li>
-<p>用另外一种方式确认某个pod是否和某个configMap有关联</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy frontend -n fate-10000 -o yaml</span><br></pre></td></tr></table></figure>
-<p>返回如下：</p>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">   <span class="attr">deployment.kubernetes.io/revision:</span> <span class="string">&quot;2&quot;</span></span><br><span class="line">   <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10000</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-14T01:09:35Z&quot;</span></span><br><span class="line"><span class="attr">generation:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">   <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">   <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">   <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">   <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">   <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">   <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line">   <span class="attr">release:</span> <span class="string">party10000</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10000</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;319024&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">e62cf903-86b2-4799-96e1-f366ed4e3395</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">progressDeadlineSeconds:</span> <span class="number">600</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">revisionHistoryLimit:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">   <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">      <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line"><span class="attr">strategy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line"><span class="attr">template:</span></span><br><span class="line">   <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">kubectl.kubernetes.io/restartedAt:</span> <span class="string">&quot;2023-06-14T10:41:20+08:00&quot;</span></span><br><span class="line">      <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">      <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">      <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">      <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line">      <span class="attr">release:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SITEPORTAL_SERVER_HOST</span></span><br><span class="line">         <span class="attr">value:</span> <span class="string">site-portal-server</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">federatedai/site-portal-frontend:v0.3.0</span></span><br><span class="line">      <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8443</span></span><br><span class="line">         <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">resources:</span> &#123;&#125;</span><br><span class="line">      <span class="attr">terminationMessagePath:</span> <span class="string">/dev/termination-log</span></span><br><span class="line">      <span class="attr">terminationMessagePolicy:</span> <span class="string">File</span></span><br><span class="line">      <span class="attr">volumeMounts:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/var/lib/site-portal/cert</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/etc/nginx/conf.d/nginx.conf.template</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line">         <span class="attr">subPath:</span> <span class="string">nginx.conf.template</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">schedulerName:</span> <span class="string">default-scheduler</span></span><br><span class="line">      <span class="attr">securityContext:</span> &#123;&#125;</span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">terminationGracePeriodSeconds:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="attr">secret:</span></span><br><span class="line">         <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">         <span class="attr">secretName:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">         <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">availableReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">conditions:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">lastTransitionTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">lastUpdateTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">message:</span> <span class="string">Deployment</span> <span class="string">has</span> <span class="string">minimum</span> <span class="string">availability.</span></span><br><span class="line">   <span class="attr">reason:</span> <span class="string">MinimumReplicasAvailable</span></span><br><span class="line">   <span class="attr">status:</span> <span class="string">&quot;True&quot;</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Available</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">lastTransitionTime:</span> <span class="string">&quot;2023-06-14T01:09:35Z&quot;</span></span><br><span class="line">   <span class="attr">lastUpdateTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">message:</span> <span class="string">ReplicaSet</span> <span class="string">&quot;frontend-85b6fdffc4&quot;</span> <span class="string">has</span> <span class="string">successfully</span> <span class="string">progressed.</span></span><br><span class="line">   <span class="attr">reason:</span> <span class="string">NewReplicaSetAvailable</span></span><br><span class="line">   <span class="attr">status:</span> <span class="string">&quot;True&quot;</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Progressing</span></span><br><span class="line"><span class="attr">observedGeneration:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">readyReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">updatedReplicas:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意看其中的 configMap, 就是: nginx-conf-https，所以说明我们可以去改nginx-config-https这个configMap中的值，修改会作用于frontend</p>
-</blockquote>
-</li>
-<li>
-<p>编辑configMap</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
-<p>上述命令会使用nano打开configMap,可以对configMap进行编辑<br>
-<img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/edit-cm.jpg" alt="编辑configMap"></p>
-<ul>
-<li>重启frontend</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl rollout restart deployment/frontend -n fate-10000</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意这个命令中的 <code>deployment/frontend</code>, 命令中需要有<code>deployment/</code>加在前面</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1803,7 +1822,7 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1814,7 +1833,7 @@ Spark 应用程序的请求后，会获取其所管理的剩余资源能够启�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">172</span>
+        <span class="site-state-item-count">173</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

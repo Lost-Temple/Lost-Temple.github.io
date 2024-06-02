@@ -188,6 +188,134 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/" class="post-title-link" itemprop="url">k8s中configMap编辑示例</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-14 14:27:16 / 修改时间：14:50:24" itemprop="dateCreated datePublished" datetime="2023-06-14T14:27:16+08:00">2023-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>背景</h1>
+<p>部署在k3s中的一个应用，在前端页面中上传文件，出现报错，提示是文件太大。需要修改nginx配置来解决这个问题。这个应用部署在fate-10000命名空间下</p>
+<h1>解决</h1>
+<ul>
+<li>
+<p>查看一下fate-10000这个命名空间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get all  -n fate-10000</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/fate-10000.jpg" alt="查看命名空间"></p>
+</li>
+<li>
+<p>先查看一下<code>site-portal</code>前端<code>pod</code>的描述信息：例子中为<code>fate-10000</code>命名空间下的<code>frontend-85b6fdffc4-4lkpc</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod frontend-85b6fdffc4-4lkpc -n fate-10000</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/frontend.jpg" alt="frontend描述信息"></p>
+</li>
+</ul>
+<blockquote>
+<p>注意图中nginx的配置文件会从nginx-conf-https中获取一些运维自定义的配置，nginx-conf-http是一个configMap, configMap的作用我理解的就是给运维人员后期动态去修改配置，pod从configMap中获取这些自定义的值后就达到了动态修改配置的目的，当然configMap修改后，相关的pod需要重启</p>
+</blockquote>
+<ul>
+<li>
+<p>查看命名空间下的configMap</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get cm -n fate-10000</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/get-cm.jpg" alt="configMap"></p>
+</li>
+<li>
+<p>编辑configMap中的内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/edit-cm.jpg" alt="编辑configMap"></p>
+</li>
+<li>
+<p>获取deployment</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy -n fate-10000</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/deployment.jpg" alt="deployment"></p>
+</li>
+<li>
+<p>用另外一种方式确认某个pod是否和某个configMap有关联</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy frontend -n fate-10000 -o yaml</span><br></pre></td></tr></table></figure>
+<p>返回如下：</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">   <span class="attr">deployment.kubernetes.io/revision:</span> <span class="string">&quot;2&quot;</span></span><br><span class="line">   <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10000</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-14T01:09:35Z&quot;</span></span><br><span class="line"><span class="attr">generation:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">   <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">   <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">   <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">   <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">   <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">   <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line">   <span class="attr">release:</span> <span class="string">party10000</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10000</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;319024&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">e62cf903-86b2-4799-96e1-f366ed4e3395</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">progressDeadlineSeconds:</span> <span class="number">600</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">revisionHistoryLimit:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">   <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">      <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line"><span class="attr">strategy:</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line"><span class="attr">template:</span></span><br><span class="line">   <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">kubectl.kubernetes.io/restartedAt:</span> <span class="string">&quot;2023-06-14T10:41:20+08:00&quot;</span></span><br><span class="line">      <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">      <span class="attr">fateMoudle:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">party10000</span></span><br><span class="line">      <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">      <span class="attr">partyId:</span> <span class="string">&quot;10000&quot;</span></span><br><span class="line">      <span class="attr">release:</span> <span class="string">party10000</span></span><br><span class="line">   <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SITEPORTAL_SERVER_HOST</span></span><br><span class="line">         <span class="attr">value:</span> <span class="string">site-portal-server</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">federatedai/site-portal-frontend:v0.3.0</span></span><br><span class="line">      <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8443</span></span><br><span class="line">         <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">resources:</span> &#123;&#125;</span><br><span class="line">      <span class="attr">terminationMessagePath:</span> <span class="string">/dev/termination-log</span></span><br><span class="line">      <span class="attr">terminationMessagePolicy:</span> <span class="string">File</span></span><br><span class="line">      <span class="attr">volumeMounts:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/var/lib/site-portal/cert</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/etc/nginx/conf.d/nginx.conf.template</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line">         <span class="attr">subPath:</span> <span class="string">nginx.conf.template</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">schedulerName:</span> <span class="string">default-scheduler</span></span><br><span class="line">      <span class="attr">securityContext:</span> &#123;&#125;</span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">terminationGracePeriodSeconds:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="attr">secret:</span></span><br><span class="line">         <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">         <span class="attr">secretName:</span> <span class="string">site-portal-cert</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">         <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">         <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">nginx-conf-https</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">availableReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">conditions:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">lastTransitionTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">lastUpdateTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">message:</span> <span class="string">Deployment</span> <span class="string">has</span> <span class="string">minimum</span> <span class="string">availability.</span></span><br><span class="line">   <span class="attr">reason:</span> <span class="string">MinimumReplicasAvailable</span></span><br><span class="line">   <span class="attr">status:</span> <span class="string">&quot;True&quot;</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Available</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">lastTransitionTime:</span> <span class="string">&quot;2023-06-14T01:09:35Z&quot;</span></span><br><span class="line">   <span class="attr">lastUpdateTime:</span> <span class="string">&quot;2023-06-14T02:41:23Z&quot;</span></span><br><span class="line">   <span class="attr">message:</span> <span class="string">ReplicaSet</span> <span class="string">&quot;frontend-85b6fdffc4&quot;</span> <span class="string">has</span> <span class="string">successfully</span> <span class="string">progressed.</span></span><br><span class="line">   <span class="attr">reason:</span> <span class="string">NewReplicaSetAvailable</span></span><br><span class="line">   <span class="attr">status:</span> <span class="string">&quot;True&quot;</span></span><br><span class="line">   <span class="attr">type:</span> <span class="string">Progressing</span></span><br><span class="line"><span class="attr">observedGeneration:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">readyReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">updatedReplicas:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意看其中的 configMap, 就是: nginx-conf-https，所以说明我们可以去改nginx-config-https这个configMap中的值，修改会作用于frontend</p>
+</blockquote>
+</li>
+<li>
+<p>编辑configMap</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm nginx-conf-https -n fate-10000</span><br></pre></td></tr></table></figure>
+<p>上述命令会使用nano打开configMap,可以对configMap进行编辑<br>
+<img src="/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/edit-cm.jpg" alt="编辑configMap"></p>
+<ul>
+<li>重启frontend</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl rollout restart deployment/frontend -n fate-10000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意这个命令中的 <code>deployment/frontend</code>, 命令中需要有<code>deployment/</code>加在前面</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/11/ABY%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E7%BC%96%E8%AF%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1364,183 +1492,6 @@ lambda表达式的类型在C++11中被称为“闭包类型（Closure Type）“
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00008</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-18 10:19:39" itemprop="dateCreated datePublished" datetime="2023-02-18T10:19:39+08:00">2023-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-18 17:13:28" itemprop="dateModified" datetime="2024-05-18T17:13:28+08:00">2024-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>迪米特法则（LoD）</h1>
-<p>迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。</p>
-<p>迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Demeter）的项目设计提出的，因此叫做迪米特法则。这条法则实际上是很多著名系统，比如火星登录软件系统、木星的欧罗巴卫星轨道飞船的软件系统的指导设计原则。</p>
-<h2 id="迪米特法则的各种表述">迪米特法则的各种表述</h2>
-<p>没有任何一个其它的OO设计原则像迪米特法则这样有如此之多的表述方式，下面给出的也只是众多的表述中较有代表性的几种：</p>
-<ul>
-<li>只与你直接的朋友们通信（Only talk to your immediate friends)。</li>
-<li>不要跟“陌生人”说话（Don’t talk to strangers)。</li>
-<li>每一个软件单位对其它的单位都只有最少的知识，而且局限于那些与本单位密切相关的软件单位</li>
-</ul>
-<p>在上面的表述里面，什么是“直接”、“陌生”和“密切”则被有意地模糊化了，以便在不同的环境下可以有不同的解释。</p>
-<h2 id="狭义的迪米特法则">狭义的迪米特法则</h2>
-<p>如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用。如果其中的一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。</p>
-<h3 id="朋友圈与陌生人">朋友圈与陌生人</h3>
-<p>如下图所示，“某人”与一个“朋友”组成自己的朋友圈，两个人都需要与一个圈外的“陌生人”发生相互作用。<br>
-<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/1.jpg" alt="某人的朋友圈"><br>
-“朋友”与“陌生人”若是朋友，组成“朋友”的朋友圈如下图所示。<br>
-<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/2.jpg" alt="朋友的朋友圈"><br>
-相比较之下，“某人”其实并不需要与“陌生人”直接发生相互作用，但是“朋友”则更需要与“陌生人”发生相互作用。这时候，迪米特法则建议“某人”不要直接与“陌生人”发生相互作用，而是通过“朋友”与之发生直接的相互作用，如下图所示。<br>
-<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/3.jpg" alt="某人和陌生人间接通讯"><br>
-这时候，“朋友”实际上起到了将“某人”对“陌生人”的调用转发给“陌生人”的作用。这种传递叫做调用转发（Call Forwarding）。所谓调用转发，需要隐藏“陌生人”的存在，使得“某人”仅知道“朋友”，而不知道“陌生人”；换言之，“某人”会认为他所调用的这个方法是“朋友”的方法。</p>
-<h3 id="朋友圈的确定">朋友圈的确定</h3>
-<p>以下条件称为“朋友”条件：</p>
-<ul>
-<li>当前对象本身（this）</li>
-<li>以参量形式传入到当前对象方法中的对象</li>
-<li>当前对象的实例变量直接引用的对象</li>
-<li>当前对象的实例变量如果是一个聚集，那么聚集中的元素也都是朋友</li>
-<li>当前对象所创建的对象</li>
-</ul>
-<p>任何一个对象，如果满足上面的条件之一，就是当前对象的“朋友”；否则就是“陌生人”</p>
-<h3 id="不满足迪米特法则的系统">不满足迪米特法则的系统</h3>
-<p>这里要讨论的系统由三个类组成，分别是Someone，Friend和Stranger。其中Someone与Friend是朋友，而Friend与Stranger是朋友。系统的结构图如下：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            
-classDiagram
-
-class Someone {
-    +operation1():void
-}
-
-class Friend {
-    -stranger:Stranger
-    +operation2():void
-    +provide():Stranger
-}
-
-class Stranger {
-    +operation3():void
-}
-
-Someone ..> Friend
-
-Friend o--> Stranger
-
-Someone ..> Stranger
-          </pre>
-<p>从上面的类图可以看出，Friend持有一个Stranger对象的引用，这就解释了为什么Friend与Stranger是朋友。为了解释为什么Someone与Friend是朋友，请参见这里给出的Someone的源码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> friend.provide();</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看出，Someone具有一个方法operation1()，这个方法接受Friend为参量。显然，根据“朋友”的定义，Friend是Someone的朋友。其中Friend的provide()方法会提供自己创建的Stranger的实例，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Stranger <span class="title function_">provide</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stranger;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>显然，Someone的方法operation1()不满足迪米特法则。为什么呢？因为这个方法引用了Stranger对象，而Stranger对象不是Someone的朋友。</p>
-<h3 id="使用迪米特法则进行改造">使用迪米特法则进行改造</h3>
-<p>可以使用迪米特法则对上面的例子进行改造，改造的做法就是调用转发。改造后的情况如下：</p>
-<pre class="mermaid" style="text-align: center;">
-            
-            classDiagram
-
-class Someone {
-    +operation1():void
-}
-
-class Friend {
-    -stranger:Stranger
-    +operation2():void
-    +forward():void
-}
-
-class Stranger {
-    +operation3():void
-}
-
-Someone ..> Friend
-
-Friend o--> Stranger
-          </pre>
-<p>从上面的类图可以看出，与改造前相比，在Someone与Stranger之间的联系已经没有了。Someone不需要知道Stranger的存在就可以做同样的事情。Someone的源代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        friend.forward();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从源代码可以看出，Someone通过调用自己的朋友Friend对象的forward()方法做到了原来需要调用Stranger对象才能够做到的事情。那么这个forward()方法是做什么的呢？代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;In Friend.operation2()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">()</span> &#123;</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原来Friend类的forward()方法所做的就是以前Someone要做的事情，使用了Stranger的operation3()方法，而这种forward()方法叫做转发方法。由于使用了调用转发，使得调用的具体细节被隐藏在Friend内部，从而使Someone与Stranger之间的直接联系被省略掉了。这样一来，使得系统内部的耦合度降低。在系统的某一个类需要修改时，仅仅会直接影响到这个类的“朋友”们，而不会直接影响到其余部分。</p>
-<h3 id="狭义的迪米特法则的缺点">狭义的迪米特法则的缺点</h3>
-<p>遵循狭义的迪米特法则会产生一个明显的缺点：会在系统里造出大量的小方法，散落在系统的各个角落。这些方法仅仅是传递间接的调用，因此与系统的商务逻辑无关。当设计师试图从一张类图看出总体的架构时，这些小的方法会造成迷惑和困扰。</p>
-<p>遵循类之间的迪米特法则会使一个系统的局部设计简化，因为每一个局部都不会和远距离的对象有直接的关联。但是，这也会造成系统的不同模块之间的通信效率降低，也会使系统的不同模块之间不容易协调。</p>
-<h3 id="与依赖倒转原则互补使用">与依赖倒转原则互补使用</h3>
-<p>为了克服狭义的迪米特法则的缺点，可以使用依赖倒转原则，引入一个抽象的类型引用“抽象陌生人”对象，使“某人”依赖于“抽象陌生人”。换言之，就是将“抽象陌生人”变成朋友，如下图：<br>
-<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/4.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
-<p>&quot;某人“现在与一个抽象角色建立了朋友关系，这样做的好处是”朋友“可以随时将具体”陌生人“换掉。只要新的具体”陌生人“具有相同的抽象类型，那么”某人“就无法区分它们。这就允许”陌生人“的具体实现可以独立于”某人“而变化，如下图所示。<br>
-<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/5.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1610,7 +1561,7 @@ Friend o--> Stranger
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1621,7 +1572,7 @@ Friend o--> Stranger
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">172</span>
+        <span class="site-state-item-count">173</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

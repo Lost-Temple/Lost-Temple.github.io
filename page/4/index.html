@@ -188,6 +188,183 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00008</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-18 10:19:39" itemprop="dateCreated datePublished" datetime="2023-02-18T10:19:39+08:00">2023-02-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-18 17:13:28" itemprop="dateModified" datetime="2024-05-18T17:13:28+08:00">2024-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>迪米特法则（LoD）</h1>
+<p>迪米特法则(Law of Demeter或简写为LoD)又叫做最少知识原则（Least Knowledge Principle或简写为LKP)，就是说，一个对象应当对其他对象有尽可能少的了解。</p>
+<p>迪米特法则最初是用来作为面向对象的系统设计风格的一种法则，于1987年秋天由Ian Holland在美国东北大学（Northeastern University）为一个叫做迪米特（Demeter）的项目设计提出的，因此叫做迪米特法则。这条法则实际上是很多著名系统，比如火星登录软件系统、木星的欧罗巴卫星轨道飞船的软件系统的指导设计原则。</p>
+<h2 id="迪米特法则的各种表述">迪米特法则的各种表述</h2>
+<p>没有任何一个其它的OO设计原则像迪米特法则这样有如此之多的表述方式，下面给出的也只是众多的表述中较有代表性的几种：</p>
+<ul>
+<li>只与你直接的朋友们通信（Only talk to your immediate friends)。</li>
+<li>不要跟“陌生人”说话（Don’t talk to strangers)。</li>
+<li>每一个软件单位对其它的单位都只有最少的知识，而且局限于那些与本单位密切相关的软件单位</li>
+</ul>
+<p>在上面的表述里面，什么是“直接”、“陌生”和“密切”则被有意地模糊化了，以便在不同的环境下可以有不同的解释。</p>
+<h2 id="狭义的迪米特法则">狭义的迪米特法则</h2>
+<p>如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用。如果其中的一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。</p>
+<h3 id="朋友圈与陌生人">朋友圈与陌生人</h3>
+<p>如下图所示，“某人”与一个“朋友”组成自己的朋友圈，两个人都需要与一个圈外的“陌生人”发生相互作用。<br>
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/1.jpg" alt="某人的朋友圈"><br>
+“朋友”与“陌生人”若是朋友，组成“朋友”的朋友圈如下图所示。<br>
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/2.jpg" alt="朋友的朋友圈"><br>
+相比较之下，“某人”其实并不需要与“陌生人”直接发生相互作用，但是“朋友”则更需要与“陌生人”发生相互作用。这时候，迪米特法则建议“某人”不要直接与“陌生人”发生相互作用，而是通过“朋友”与之发生直接的相互作用，如下图所示。<br>
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/3.jpg" alt="某人和陌生人间接通讯"><br>
+这时候，“朋友”实际上起到了将“某人”对“陌生人”的调用转发给“陌生人”的作用。这种传递叫做调用转发（Call Forwarding）。所谓调用转发，需要隐藏“陌生人”的存在，使得“某人”仅知道“朋友”，而不知道“陌生人”；换言之，“某人”会认为他所调用的这个方法是“朋友”的方法。</p>
+<h3 id="朋友圈的确定">朋友圈的确定</h3>
+<p>以下条件称为“朋友”条件：</p>
+<ul>
+<li>当前对象本身（this）</li>
+<li>以参量形式传入到当前对象方法中的对象</li>
+<li>当前对象的实例变量直接引用的对象</li>
+<li>当前对象的实例变量如果是一个聚集，那么聚集中的元素也都是朋友</li>
+<li>当前对象所创建的对象</li>
+</ul>
+<p>任何一个对象，如果满足上面的条件之一，就是当前对象的“朋友”；否则就是“陌生人”</p>
+<h3 id="不满足迪米特法则的系统">不满足迪米特法则的系统</h3>
+<p>这里要讨论的系统由三个类组成，分别是Someone，Friend和Stranger。其中Someone与Friend是朋友，而Friend与Stranger是朋友。系统的结构图如下：</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+
+class Someone {
+    +operation1():void
+}
+
+class Friend {
+    -stranger:Stranger
+    +operation2():void
+    +provide():Stranger
+}
+
+class Stranger {
+    +operation3():void
+}
+
+Someone ..> Friend
+
+Friend o--> Stranger
+
+Someone ..> Stranger
+          </pre>
+<p>从上面的类图可以看出，Friend持有一个Stranger对象的引用，这就解释了为什么Friend与Stranger是朋友。为了解释为什么Someone与Friend是朋友，请参见这里给出的Someone的源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> friend.provide();</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，Someone具有一个方法operation1()，这个方法接受Friend为参量。显然，根据“朋友”的定义，Friend是Someone的朋友。其中Friend的provide()方法会提供自己创建的Stranger的实例，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Stranger <span class="title function_">provide</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stranger;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，Someone的方法operation1()不满足迪米特法则。为什么呢？因为这个方法引用了Stranger对象，而Stranger对象不是Someone的朋友。</p>
+<h3 id="使用迪米特法则进行改造">使用迪米特法则进行改造</h3>
+<p>可以使用迪米特法则对上面的例子进行改造，改造的做法就是调用转发。改造后的情况如下：</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            classDiagram
+
+class Someone {
+    +operation1():void
+}
+
+class Friend {
+    -stranger:Stranger
+    +operation2():void
+    +forward():void
+}
+
+class Stranger {
+    +operation3():void
+}
+
+Someone ..> Friend
+
+Friend o--> Stranger
+          </pre>
+<p>从上面的类图可以看出，与改造前相比，在Someone与Stranger之间的联系已经没有了。Someone不需要知道Stranger的存在就可以做同样的事情。Someone的源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Someone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation1</span><span class="params">(Friend friend)</span> &#123;</span><br><span class="line">        friend.forward();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从源代码可以看出，Someone通过调用自己的朋友Friend对象的forward()方法做到了原来需要调用Stranger对象才能够做到的事情。那么这个forward()方法是做什么的呢？代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Friend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Stranger</span> <span class="variable">stranger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stranger</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation2</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;In Friend.operation2()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">()</span> &#123;</span><br><span class="line">        stranger.operation3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原来Friend类的forward()方法所做的就是以前Someone要做的事情，使用了Stranger的operation3()方法，而这种forward()方法叫做转发方法。由于使用了调用转发，使得调用的具体细节被隐藏在Friend内部，从而使Someone与Stranger之间的直接联系被省略掉了。这样一来，使得系统内部的耦合度降低。在系统的某一个类需要修改时，仅仅会直接影响到这个类的“朋友”们，而不会直接影响到其余部分。</p>
+<h3 id="狭义的迪米特法则的缺点">狭义的迪米特法则的缺点</h3>
+<p>遵循狭义的迪米特法则会产生一个明显的缺点：会在系统里造出大量的小方法，散落在系统的各个角落。这些方法仅仅是传递间接的调用，因此与系统的商务逻辑无关。当设计师试图从一张类图看出总体的架构时，这些小的方法会造成迷惑和困扰。</p>
+<p>遵循类之间的迪米特法则会使一个系统的局部设计简化，因为每一个局部都不会和远距离的对象有直接的关联。但是，这也会造成系统的不同模块之间的通信效率降低，也会使系统的不同模块之间不容易协调。</p>
+<h3 id="与依赖倒转原则互补使用">与依赖倒转原则互补使用</h3>
+<p>为了克服狭义的迪米特法则的缺点，可以使用依赖倒转原则，引入一个抽象的类型引用“抽象陌生人”对象，使“某人”依赖于“抽象陌生人”。换言之，就是将“抽象陌生人”变成朋友，如下图：<br>
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/4.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
+<p>&quot;某人“现在与一个抽象角色建立了朋友关系，这样做的好处是”朋友“可以随时将具体”陌生人“换掉。只要新的具体”陌生人“具有相同的抽象类型，那么”某人“就无法区分它们。这就允许”陌生人“的具体实现可以独立于”某人“而变化，如下图所示。<br>
+<img src="/2023/02/18/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00008/5.jpg" alt="迪米特法则和依赖倒转原则互补"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1500,178 +1677,6 @@ Idemix仍然有一些局限性：</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/" class="post-title-link" itemprop="url">去中心化身份(DID)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-01-13 16:48:57" itemprop="dateCreated datePublished" datetime="2023-01-13T16:48:57+08:00">2023-01-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-16 14:05:02" itemprop="dateModified" datetime="2023-01-16T14:05:02+08:00">2023-01-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">应用</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>导读</h1>
-<p>今天，我们的生活与使用的应用和服务的联系越来越紧密。使用电子商务进行网上购物，使用社交网络交流，使用电子邮件进行工作沟通，这样的例子不胜枚举。</p>
-<p>使用这些服务需要证明我们的身份和授权。虽然我们习惯于提供低级别的身份信息，如姓名和电子邮件地址，但其它服务可能需要一个高级别的身份，如驾驶执照。</p>
-<p>然而，目前的身份管理系统有几个缺陷：</p>
-<ul>
-<li>数据中心化，数据由服务提供者存储用户数据，存储在服务提供者的服务器中。</li>
-<li>安全风险，因为恶意行为者可能破坏服务器并窃取你的信息。</li>
-</ul>
-<p>去中心化身份改进了现有的身份管理标准，让用户对个人数据有更大的控制力。在一个去中心化的身份框架中，个人存储他们的身份信息，并选择与第三方分享哪些信息。因为在去中心化的标识符被存储在区块链网络中，它们是防篡改的，安全的，并且可以被任何人即时验证的。这减少了在服务器中存储身份信息的需要，使用户更容易无缝访问服务。</p>
-<p>本文详细解释了去中心化身份意味着什么，它是如何工作的，以及为什么它很重要。本文将涵盖一些关键的概念，如去中心化的标识符和去中心化的认证，并探索现有的去中心化身份项目。</p>
-<h1>去中心化身份意味着什么？</h1>
-<p>去中心化身份是一种新的身份和访问管理（IAM: Identity and Access Management）形式，不再是用户信息的集中存储。去中心化身份支持个人对其数据的控制，因此它也被称为自我主权身份（SSI: Self-Sovereign Identity)。</p>
-<p>通俗地说，去中心化身份允许你拥有自己的身份。那么，它在实践中是如何运作的呢？你的身份是独一无二用来描述你的属性和凭证的集合。一些身份标识可能是自我拥有的，如你的名字、生日、电子邮件地址、用户名。而有些可能是机构颁发的，如大学学位、驾驶执照或护照编号。</p>
-<p>在去中心化身份管理中，用户在<code>数字钱包</code>中存储凭证和个人信息。就像现实生活中的钱包一样，数字钱包保存着你的身份证明，如你的执照或身份证。</p>
-<p>去中心化身份标识将身份信息的存储在分布式的计算机系统中，如分布式账本或区块链（<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=gWfAIYXcyH4">这里有一个视频介绍</a>)，使用分布式帐本来保存身份要素，使其免于被篡改和盗窃。因此，即使你的身份信息是以电子格式记录的，它也不能被更改、窃取或删除。</p>
-<p>分布式账本固有的透明度使身份信息可以立即得到验证，而不一定要依赖发行者。</p>
-<p>下面是一个关于去中心化身份如何运作的简要说明：</p>
-<ul>
-<li>一个组织（交通警察大队）想给你（用户）发一个证书（驾驶执照）。你发送你的钱包地址，这是分布式账本或区块链上用于存储数据的特定位置。然后DMV(交通警察大队，下文使用简写DMV)用其私钥签署交易，将凭证发送到你的数字钱包。</li>
-<li>现在，你可以在任何时候分享这个凭证，以确定你的身份。例如在完成贷款申请时。使用一个受信任的工具，对方可以检查你的凭证的有效性。在这种情况下，该工具检查公钥和交易细节，以确认发行机构和发行日期。</li>
-<li>请注意，信息本身并不存储在区块链上。相反，区块链会生成一个不可改变的交易记录，看到信息从发行机构传递给你。这种<code>数字指纹</code>（也称为啥希值）对每个凭证来说都是独一无二的，可以可靠地证明你的所有权。</li>
-</ul>
-<p>去中心化身份生态系统中的各种参与者包括：</p>
-<ul>
-<li>用户：拥有和使用身份信息片段的个人。像我们这样的用户可以将各种身份信息保存在数字钱包中，并在需要时分享它们。</li>
-<li>凭证机构（Issuer）：向用户发放凭证的组织和机构。这可以是地方税务局，雇主，学术机构，以及任何可以发布身份信息的实体。</li>
-<li>验证人：需要身份信息来建立信任和授予服务访问权的第三方。例如，一家电商网店在允许你购买某些物品之前，可能需要你的年龄或公民身份证明。你提供的任何信息都需要得到适当的验证。<br>
-<img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/1.png" alt="去中心化身份生态系统概述"></li>
-</ul>
-<h1>去中心化身份是如何工作的？</h1>
-<p>万维网联盟（W3C）将去中心化身份（DID）定义为一种可验证的、去中心化的数字身份形式。DID可以为任何实体创建，包括一个组织、个人，甚至一个设备。</p>
-<p>DID旨在由用户控制，存储在一个去中心化的架构中，如点对点网络或分布式账本，而不是一个中心化的登记薄。因此，DID在密码学上是安全的，可以抵御变化，并且可以在不依赖原始发行者的情况下进行验证。</p>
-<h1>去中心化身份和可验证凭证</h1>
-<p>可验证凭证是对DID的补充，为去中心化身份管理提供支持。W3C将可验证凭证定义为“可验证凭证代表发行人以防篡改和尊重隐私的方式做出的声明”。</p>
-<p>当一所大学颁发学术证书时，它是在“申领”接受者已经接受了一定时期的教育。同样，疫苗接种证书是申领人已经接受了疫苗。虽然这些申领已经作为实体文件存在，但在网上使用它们会带来一些问题。让我们想象一下，在KYC(了解你的客户)过程中，需要上传驾驶执照来验证你在KYC注册时的年龄。</p>
-<ul>
-<li>首先，服务提供者不能确认凭证的真实性。</li>
-<li>第二，你的私人信息现在被储存在多个服务器上，增加了身份被盗的风险。</li>
-<li>第三，你需要存存好执照的实体副本，因为如果实体执照丢失了，那么你就无法证明你的身份。</li>
-</ul>
-<p>可验证凭证可从三个方面解决这些问题：</p>
-<ul>
-<li>使用<code>零知识证明</code>来证明申领数据的有效性而不透露私人信息</li>
-<li>使用公钥密码学来验证凭证发布机构</li>
-<li>将信息存储在可验证的数据注册处（区块链、分布式帐本）</li>
-</ul>
-<p>使用我们最初的例子，你就不需要在KYC期间上传整个驾驶热照。相反，你可以只分享一个可验证凭证的链接。可验证凭证使用零知识证明来保护身份持有人的隐私。零知识证明有助于证明信息的真实性，而不会将整个信息透露给第三方。让我们用驾驶执照的例子来解释<code>ZK-proof</code>如何保护你的隐私。服务提供者实际上不会看到驾照上列出的你的出生日期。然而，该证书将通过公钥识别发行者（DMV)。由于DMV只向一定年龄范围内的个人发放执照，那么我们可以假设你的年龄是正确的。下图展示了可验证凭证（VC）如何工作。<br>
-<img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/2.jpeg" alt="可验证凭证（VC）如何工作"></p>
-<p>可验证凭证存储在不可改变的区块链上，这意味着只要你有钱包和私钥，你就可以访问它们。它们不能被破坏、修改、偷窃或删除。更重要的是，它们不在发行机构的控制之下。</p>
-<p>可验证凭证是去中心化身份管理的一个重要组成部分。有了可验证凭证，我们可以创建物理凭证的数字版本，并在网上使用它们，而不必披露超过必要的信息。第三方可以很容易地确认这些凭证的真实性，而不需要依赖发证机构。</p>
-<h1>什么是去中心化认证？</h1>
-<p>COVID-19的大流行迅速加速了向数字生活方式的转变。现在，你可以选择在家里做银行业务、视频会议、通信和购物等事情。</p>
-<p>访问这些平台需要验证你的身份获得使用这些服务的许可以。例如，一个银行网站可能要求你提供一个电子邮件地址和密码。然而，传统的认证可能会有相当多的问题。你不仅要为不同的服务创建多个登录名，而且必须记住每一个登录名，否则有可能失去访问权。用户可能在多个网站上重复使用密码，以使在线认证更容易，但这只会增加身份被盗的风险。如果黑客窃取一个密码，他们可以轻易地在十几个不同的平台上冒充你。<br>
-<img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/3.jpeg" alt="基于密码认证的问题"><br>
-统一登录认证是目前的解决方案之一，旨在使在线认证更容易和更安全。在这里，一组实体同意依靠一个来源来获得身份信息。统一登录认证的一个很好的你例子是用你的Facebook或谷歌帐户（国内通常是微信）登录一个网站。</p>
-<p>但统一登录认证并不是银弹。你的身份信息仍然托管在一个中央服务器上（Facebook和Google），所以数据泄漏或身份盗窃的风险仍然存在。<br>
-<img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/4.jpeg" alt="统一登录认证系统依靠第三方服务来验证身份"></p>
-<p>分布式认证是一个较新的概念，用户可以使用可验证凭证来访问在线服务。假设你想访问一个网上银行服务。你可以提交一个来自政府机构的可验证凭证来证明你的身份，而不是提交身份证件。这就不需要银行在授予访问权之前要求并存储你的信息。而且，你将来不需要一个账户来登录，因为服务提供者可以签发一个可验证凭证来进行持续验证。登录网站将佝连接你的数字钱包一样简单！<br>
-<img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/5.jpeg" alt="去中心化认证与传统认证"></p>
-<h1>为什么去中心化身份很重要？</h1>
-<p>去中心化身份有望彻底改变我们的数据共享方式。以下是去中心化身份管理的一些好处：</p>
-<ul>
-<li>更容易认证</li>
-</ul>
-<hr>
-<p>去中心化身份可以消除密码和恼人的多因素认证协议。有了无密码认证，使用在线服务变得更容易和更快，因为你不需要输入长密码。组织机构可以快速验证用户身份，而不强迫他们接受繁琐的KYC流程。贷款申请、政府注册、网站注册，所有这些都会更快发生，因为服务提供者可以通过第三方工具来验证你的身份。</p>
-<ul>
-<li>更好的数据安全</li>
-</ul>
-<hr>
-<p>如前所述，许多组织要求新用户提交身份信息。这个也不是大问题，但是很多公司在保护用户数据方面被证明是草率的。现代数据中心是黑客的蜜罐，数据泄露已导致企业和消费者的巨大损失。</p>
-<p>一个去中心化身份框架消除了集中存储用户信息的需要。在处理个个身份信息（PII:Personally Identifiable Information）时，这一点尤为重要，例如你的医疗记录或信用卡信息。敏感的身份信息将被安全地存储在你的数字钱包中，允许你仅在必要时分享它。</p>
-<p>去中心化身份系统也将减少身份盗窃的案例，你的个人信息和凭证不会待在数据仓库里供黑客窃取。你也不需要密码来访问网站，所以网络钓鱼攻击将不可避免地失败。</p>
-<p><img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/6.jpeg" alt="去中心化身份可以减少数据泄漏和ID盗窃"></p>
-<h1>降低数据管理成本</h1>
-<p>根据统计，全球企业在管理用户数据上的花费占其收入的4-7%，企业每年在数据库管理上花查岗数十亿美元，但这些资金肯定有更好的用途。</p>
-<p>去中心化身份让用户存储个人数据，为企业减轻负担。由于没有数据中心需要管理，服务提供者可以减少运营成本，并将资金重新投入到改善服务产品中。</p>
-<h1>监管合规</h1>
-<p>从欧盟到美国（国内也一样），监管机构正在收紧数据隐私法。不遵守用户隐私保护的企业，或将面临严厉制裁。</p>
-<p>去中心化身份框架免除了组织建立数据库来存储用户信息的责任。因此，公司可以更好地遵数据隐私法，避免引起监管机构的愤怒。</p>
-<h1>更丰富的用户体验</h1>
-<p>想一想为你使用的几十个服务管理不同的身份资料的困难。如果你可以在不同的平台上使用相同的身份，而不用担心重复创建新的登录信息，会怎么样？</p>
-<p>有了去中心化身份，一个可互操作的互联网，你可以在不同的网站上使用一个ID，这将成为现实。你将能够通过连接你的钱包在不同的服务之间无缝切换。</p>
-<p><img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/7.jpeg" alt="去中心化身份可以改善用户的在线体验"></p>
-<h1>个人对数据的所有权和控制权</h1>
-<p>去中心化身份被描述为自我主权身份，因为它把个人数据的控制权放在个人手中。你的私人信息不会成为第三方的财产，被存在中心数据库中。</p>
-<p>在一个去中心化身份系统中，你决定哪些信息会被第三方知晓。零知识证明通过消除披露敏感信息的需要来进一步保护你的隐私。例如，你可以证明你的年龄，而无需向服务提供者展示你的地址或国籍。</p>
-<p>由于可验证凭证是数字化的，你的身份变得可携带。你不需要随身携带驾驶执照或免疫证书来证明你的疫苗接种情况。</p>
-<p>可验证凭证可以独立验证，所以你永远不必依赖发行人来验证你的信息。在任何时候，你的个人信息和凭证都在你的控制之下。<br>
-<img src="/2023/01/13/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%BA%AB%E4%BB%BD-DID/8.jpeg" alt="去中心化身份允许用户保留对凭证的控制"></p>
-<h1>加强组织和用户之间的信任</h1>
-<p>信任是维系公司和客户之间关系的胶水。当双方相互信任时，可以建立互利的关系。</p>
-<p>然而，在我们今天的世界上，信任是一种稀缺的商品。消费者不相信公司不会收集他们的数据–而且可能是错误的管理。而组织则对可能进行身份欺诈的用户很警惕，因此他们在提供服务之前需要漫长的验证过程。</p>
-<p>去中心化身份可以解决这两个问题，并在用户和服务提供者之间创造前所未有的信任水平。</p>
-<p>加密安全和可验证凭证可以帮助公司验证用户身份，加速客户进入。而用户在与服务提供者交互时也不会担心数据泄露和身份被盗，这对每个人来说都是双赢。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1741,7 +1746,7 @@ Idemix仍然有一些局限性：</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1752,7 +1757,7 @@ Idemix仍然有一些局限性：</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">172</span>
+        <span class="site-state-item-count">173</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
