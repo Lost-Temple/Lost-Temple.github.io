@@ -188,6 +188,146 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00003</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-31 10:49:22" itemprop="dateCreated datePublished" datetime="2022-12-31T10:49:22+08:00">2022-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-18 14:46:17" itemprop="dateModified" datetime="2024-05-18T14:46:17+08:00">2024-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="设计原则在常用设计模式中的体现">设计原则在常用设计模式中的体现</h1>
+<h2 id="策略模式对开-闭原则的支持">策略模式对“开-闭”原则的支持</h2>
+<p>策略模式讲的是，如果有一组算法，那么就将每一个算法封装起来，使得它们可以互换。策略模式就是从对可变性的封装原则出发，达到“开-闭”原则的范例</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+class DiscountStrategy {
+    <<abstract>>
+-price:single
+-copies:int
++calculateDiscount():single
+}
+
+class NoDiscountStrategy {
+    -price:single
+    -copies:int
+    +calculateDiscount():single
+}
+
+class FlatRateStrategy {
+    -price:single
+    -copies:int
+    -amount:single
+    +calculateDiscount():single
+}
+
+class PercentageStrategy {
+    -price:single
+    -copies:int
+    -percent:single
+    +calculateDiscount():single
+}
+
+NoDiscountStrategy --|> DiscountStrategy
+FlatRateStrategy --|> DiscountStrategy
+PercentageStrategy --|> DiscountStrategy
+
+          </abstract></pre>
+<h2 id="简单工厂模式">简单工厂模式</h2>
+<p>“开-闭”原则要求系统允许新的产品加入系统中而无需对现有代码进行修改。在简单工厂模式中，这对于产品消费角色是成立的，而对于工厂模式是不成立的。简单工厂模式结构如下图：
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/SimpleFactory.jpg" alt="简单工厂模式"></p>
+<h2 id="工厂方法模式">工厂方法模式</h2>
+<p>在工厂方法模式中，具体的工厂类都有共同的接口，它们“生产”出很多处于同一等级结构中的产品对象。使得这个系统可以加入新的产品类型（增加产品的具体工厂）。工厂方法模式的简略类图如下：
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/FactoryMethod.jpg" alt="工厂方法模式"></p>
+<h2 id="抽象工厂模式">抽象工厂模式</h2>
+<p>抽象工厂模式封装了产品对象家族的可变性，从而一方面可以使系统动态地决定将哪一个产品族的产品对象实例化，另一方面可以将新的产品引进到已有系统中而不必修改已有的系统。抽象工厂模式的简略图如下：
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/AbstractFactory.jpg" alt="抽象工厂模式"></p>
+<h2 id="建造模式">建造模式</h2>
+<p>建造模式封装了建造一个有内部结构的产品对象的过程，因此这样的系统是向产品内部表象的改变开放的。
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Build.jpg" alt="抽象工厂模式"></p>
+<h2 id="桥梁模式">桥梁模式</h2>
+<p>桥梁模式是“对可变性的封装原则”的极好例子。在桥梁模式中，具体实现化类代表不同的实现逻辑，但是所有的具体实现化类又有共同的接口。新的实现逻辑可以通过创建新的具体实现化类加入到系统里面。桥梁模式的简略类图如下：
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Bridge.jpg" alt="桥梁模式"></p>
+<h2 id="门面模式">门面模式</h2>
+<p>假设一个系统开始的时候与某一个子系统耦合在一起，后来又不得不换成另外一个子系统，那么门面模式便可以发挥门面模式和适配器模式两种作用，将新的子系统仍然与本系统耦合在一起。这样一来，使用门面模式便可以改变子系统内部功能而不会影响到客户端。门面模式的简略类图如下：
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Facade.jpg" alt="门面模式"></p>
+<h2 id="迭代子模式">迭代子模式</h2>
+<p>迭代子模式将访问聚集元素的逻辑封装起来，并且使它独立于聚集对象的封装。这就提供了聚集存储逻辑与迭代逻辑独立演变的空间，使系统可以在无需修改消费迭代子的客户端的情况下，对聚集对象的内部结构进行功能扩展。迭代子模式的简略类图如下：
+<img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Iterator.jpg" alt="迭代子模式"></p>
+<blockquote>
+<p>当学习设计模式的时候，要学会问一个问题：这个设计模式可以对什么样的变换开放，以及它做到这一点所付出的代价是什么。通过这样的思考，可以更加透彻地了解这种模式对“开-闭”原则的支持程度，以及这种设计模式本身。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/21/Golang%E9%A1%B9%E7%9B%AESwagger%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1343,84 +1483,6 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/03/NOP%E6%8C%87%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/03/NOP%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">NOP指令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-03 20:52:22 / 修改时间：22:39:07" itemprop="dateCreated datePublished" datetime="2022-12-03T20:52:22+08:00">2022-12-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B1%87%E7%BC%96/" itemprop="url" rel="index"><span itemprop="name">汇编</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B1%87%E7%BC%96/%E6%8C%87%E4%BB%A4/" itemprop="url" rel="index"><span itemprop="name">指令</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Jdk9 源码有一段关于NOP汇编指令的注释，摘抄记录一下</p>
-</blockquote>
-<h1 id="intel源码链接">Intel<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2792">源码链接</a></h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for Intel</span><br><span class="line">//  1: 0x90</span><br><span class="line">//  2: 0x66 0x90</span><br><span class="line">//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)</span><br><span class="line">//  4: 0x0F 0x1F 0x40 0x00</span><br><span class="line">//  5: 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 10: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 11: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line"></span><br><span class="line">// The rest coding is Intel specific - don&#x27;t use consecutive address nops</span><br><span class="line"></span><br><span class="line">// 12: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 13: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 14: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 15: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br></pre></td></tr></table></figure>
-<h1 id="amd源码链接">AMD<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2876">源码链接</a></h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for AMD.</span><br><span class="line">//  1: 0x90</span><br><span class="line">//  2: 0x66 0x90</span><br><span class="line">//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)</span><br><span class="line">//  4: 0x0F 0x1F 0x40 0x00</span><br><span class="line">//  5: 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 10: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 11: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line"></span><br><span class="line">// The rest coding is AMD specific - use consecutive address nops</span><br><span class="line"></span><br><span class="line">// 12: 0x66 0x0F 0x1F 0x44 0x00 0x00 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">// 13: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">// 14: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">// 15: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">// 16: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//     Size prefixes (0x66) are added for larger sizes</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1490,7 +1552,7 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1501,7 +1563,7 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">173</span>
+        <span class="site-state-item-count">176</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

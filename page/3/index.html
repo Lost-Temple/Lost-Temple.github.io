@@ -188,6 +188,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" class="post-title-link" itemprop="url">vim常用插件的使用备忘录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-16 20:50:11 / 修改时间：20:55:27" itemprop="dateCreated datePublished" datetime="2023-06-16T20:50:11+08:00">2023-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="vim-surround-的用法"><code>vim-surround</code> 的用法</h1>
+<ul>
+<li><code>cs'"</code>用双引号替换单引号</li>
+<li><code>cs"'</code>用单引号替换双引号</li>
+<li><code>ysiw&lt;q&gt;</code>给当前单词加上标签<code>&lt;q&gt;</code></li>
+<li><code>cst"</code>用双引号替换当前的标签</li>
+<li><code>ds'</code>删除单引号</li>
+<li><code>ysiw]</code>在当前单词外加上方括号</li>
+<li><code>yss]</code>在当前句子处加上方括号</li>
+</ul>
+<h1 id="vim编辑markdown在浏览器中预览效果">vim编辑<code>markdown</code>在浏览器中预览效果</h1>
+<ul>
+<li>安装<code>coc-nvim</code>插件</li>
+<li>使用<code>coc-nvim</code>插件安装<code>coc-markdown</code>插件</li>
+<li>使用<code>:CocCommand markdown-preview-enhanced.openPreview</code>命令在浏览器中打开预览</li>
+</ul>
+<h1 id="coc-vim的使用"><code>coc-vim</code>的使用</h1>
+<ul>
+<li>可以先安装一个<code>coc-marketplace</code>插件:<code>:CocInstall coc-marketplace</code></li>
+<li><code>CocList marketplace</code>列出所有可用的插件</li>
+<li>在选中的插件上可以使用<code>tab</code>来进行<code>install</code>,<code>uninstall</code>,<code>homepage</code>等动作</li>
+</ul>
+<h1 id="vim-easy-align的使用"><code>vim-easy-align</code>的使用</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  Lorem   = ipsum</span><br><span class="line">  dolor   = sit</span><br><span class="line">   amet  += consectetur == adipiscing</span><br><span class="line">   elit  -= sed           != do</span><br><span class="line">eiusmod   = tempor        = incididunt</span><br><span class="line">     ut &amp;&amp;= labore</span><br></pre></td></tr></table></figure>
+<ul>
+<li>normal模式下：<code>gaip</code>
+<ul>
+<li><code>=</code>Around the 1st occurrentces</li>
+<li><code>2=</code>Around the 2nd occurrences</li>
+<li><code>*=</code>Around all occurrences</li>
+<li><code>**=</code>Left/Right alternating alignment around all
+occurrences</li>
+<li><code>&lt;Enter&gt;</code>Switching between left/right/center
+alignment modes</li>
+</ul></li>
+<li><code>visual line</code> 模式: <code>vip</code>
+<ul>
+<li><code>ga</code>进入<code>easyalign</code>模式</li>
+<li><code>&lt;Enter&gt;</code> 切换对齐模式</li>
+<li>输入<code>对齐目标字符</code>, 再<code>&lt;Space&gt;</code>
+完成对齐操作</li>
+</ul></li>
+</ul>
+<h1 id="nerdtree的使用"><code>nerdtree</code>的使用</h1>
+<ul>
+<li><code>j</code>, <code>k</code> 在目录下上移动</li>
+<li><code>o</code>展开目录或打开文件，焦点会跑到右侧文件视图中</li>
+<li><code>ctrl + w + h</code>可以让焦点从文件中回到左侧目录视图中</li>
+<li><code>:NERDTreeToggle</code>命令是<code>NERDTree</code>打开或关闭的开关,在<code>.vimrc</code>中设置快捷键把它用<code>F3</code>来控制
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 设置NerdTree</span><br><span class="line">map &lt;F3&gt; :NERDTreeMirror&lt;CR&gt;</span><br><span class="line">map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;</span><br></pre></td></tr></table></figure> # <code>TagBar</code>的使用</li>
+<li><code>:TagbarToggle</code></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/14/k8s%E4%B8%ADconfigMap%E7%BC%96%E8%BE%91%E7%A4%BA%E4%BE%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1271,129 +1390,6 @@ party）：运行时角色根据传入的安全协议指定与安全协议相关
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/08/Primihub%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Primihub环境搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-08 11:33:56" itemprop="dateCreated datePublished" datetime="2023-03-08T11:33:56+08:00">2023-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-13 09:18:40" itemprop="dateModified" datetime="2023-03-13T09:18:40+08:00">2023-03-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="快速开始">快速开始</h1>
-<h2 id="准备工作">准备工作</h2>
-<p>安装<code>docker</code>和<code>docker-compose</code>，或者下载<code>PrimiHub</code>整理好的<a target="_blank" rel="noopener" href="https://primihub.oss-cn-beijing.aliyuncs.com/dev/docker20.10.tar.gz">安装包</a>,
-下载后解压执行 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash install_docker.sh</span><br></pre></td></tr></table></figure>
-完成<code>docker</code>和<code>docker-compose</code>的安装。</p>
-<p>然后下载仓库并进入到代码目录： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/primihub/primihub.git</span><br><span class="line">cd primihub</span><br></pre></td></tr></table></figure></p>
-<h2 id="启动节点">启动节点</h2>
-<h3 id="启动测试用的节点">启动测试用的节点</h3>
-<p>使用<code>docker-compose</code>启动容器。容器包括：启动点、redis(数据集查找默认使用redis)、三个节点
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure> 查看运行起来的docker容器： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps -a</span><br></pre></td></tr></table></figure>
-如果一切顺利会看到类似如下的信息： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME                    COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">primihub-node0          &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:8050-&gt;50050/tcp</span><br><span class="line">primihub-node1          &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:8051-&gt;50051/tcp</span><br><span class="line">primihub-node2          &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:8052-&gt;50052/tcp</span><br><span class="line">redis                   &quot;docker-entrypoint.s…&quot;   redis                   running             0.0.0.0:6379-&gt;6379/tcp</span><br><span class="line">simple_bootstrap_node   &quot;/app/simple-bootstr…&quot;   simple_bootstrap_node   running             0.0.0.0:4001-&gt;4001/tcp</span><br></pre></td></tr></table></figure></p>
-<p>但是，我这里遇到坑了，node0, node1, node2
-这3个容器的状态为restarting。并且是不断restarting。使用命令：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs 容器ID</span><br></pre></td></tr></table></figure>
-查看日志是加载mysql客户端的一个动态库文件失败。这个容器没打包好？issue总共也没有几条，更不用说搜索有没有遇到类似的问题了，可见这个项目用的人少得可怜，文档也不健全。</p>
-<p>解决方法: 检出另外的分支，再使用 docker-compose up -d &gt; 测试了
-feature/node_as_share_lib 是可以的，develope和master都不行</p>
-<h2 id="创建一个mpc任务">创建一个MPC任务</h2>
-<p>让三个节点共同执行一个多方安全计算（MPC)的逻辑回归任务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run &quot;--network=host&quot; -it primihub/primihub-node:1.1.0 ./primihub-cli &quot;--server=127.0.0.1:8050&quot;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注：注意primihub-node的版本，要和前一章节中docker-compose启动的primihub-node版本一致</p>
-</blockquote>
-<h1 id="使用docker-compose部署">使用docker-compose部署</h1>
-<h2 id="下载安装包执行脚本完成部署">下载安装包，执行脚本，完成部署</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://get.primihub.com/release/latest/docker-deploy.tar.gz | tar zxf -</span><br><span class="line">cd docker-deploy</span><br><span class="line">bash deploy.sh</span><br></pre></td></tr></table></figure>
-<h2 id="查看部署结果">查看部署结果</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker-compose ps -a</span></span><br><span class="line">NAME                COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">application1        &quot;/bin/sh -c &#x27;java -j…&quot;   application1            running             </span><br><span class="line">application2        &quot;/bin/sh -c &#x27;java -j…&quot;   application2            running             </span><br><span class="line">application3        &quot;/bin/sh -c &#x27;java -j…&quot;   application3            running             </span><br><span class="line">bootstrap-node      &quot;/app/simple-bootstr…&quot;   simple-bootstrap-node   running             4001/tcp</span><br><span class="line">fusion              &quot;/bin/sh -c &#x27;java -j…&quot;   fusion                  running             </span><br><span class="line">gateway1            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway1                running             </span><br><span class="line">gateway2            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway2                running             </span><br><span class="line">gateway3            &quot;/bin/sh -c &#x27;java -j…&quot;   gateway3                running             </span><br><span class="line">loki                &quot;/usr/bin/loki -conf…&quot;   loki                    running             0.0.0.0:3100-&gt;3100/tcp, :::3100-&gt;3100/tcp</span><br><span class="line">manage-web1         &quot;/docker-entrypoint.…&quot;   nginx1                  running             0.0.0.0:30811-&gt;80/tcp, :::30811-&gt;80/tcp</span><br><span class="line">manage-web2         &quot;/docker-entrypoint.…&quot;   nginx2                  running             0.0.0.0:30812-&gt;80/tcp, :::30812-&gt;80/tcp</span><br><span class="line">manage-web3         &quot;/docker-entrypoint.…&quot;   nginx3                  running             0.0.0.0:30813-&gt;80/tcp, :::30813-&gt;80/tcp</span><br><span class="line">mysql               &quot;docker-entrypoint.s…&quot;   mysql                   running             0.0.0.0:3306-&gt;3306/tcp, :::3306-&gt;3306/tcp</span><br><span class="line">nacos-server        &quot;bin/docker-startup.…&quot;   nacos                   running             0.0.0.0:8848-&gt;8848/tcp, 0.0.0.0:9555-&gt;9555/tcp, 0.0.0.0:9848-&gt;9848/tcp, :::8848-&gt;8848/tcp, :::9555-&gt;9555/tcp, :::9848-&gt;9848/tcp</span><br><span class="line">primihub-node0      &quot;/bin/bash -c &#x27;./pri…&quot;   node0                   running             0.0.0.0:6666-&gt;6666/tcp, 0.0.0.0:50050-&gt;50050/tcp, :::6666-&gt;6666/tcp, :::50050-&gt;50050/tcp</span><br><span class="line">primihub-node1      &quot;/bin/bash -c &#x27;./pri…&quot;   node1                   running             0.0.0.0:6667-&gt;6667/tcp, 0.0.0.0:50051-&gt;50051/tcp, :::6667-&gt;6667/tcp, :::50051-&gt;50051/tcp</span><br><span class="line">primihub-node2      &quot;/bin/bash -c &#x27;./pri…&quot;   node2                   running             0.0.0.0:6668-&gt;6668/tcp, 0.0.0.0:50052-&gt;50052/tcp, :::6668-&gt;6668/tcp, :::50052-&gt;50052/tcp</span><br><span class="line">rabbitmq1           &quot;docker-entrypoint.s…&quot;   rabbitmq1               running             25672/tcp</span><br><span class="line">rabbitmq2           &quot;docker-entrypoint.s…&quot;   rabbitmq2               running             25672/tcp</span><br><span class="line">rabbitmq3           &quot;docker-entrypoint.s…&quot;   rabbitmq3               running             25672/tcp</span><br><span class="line">redis               &quot;docker-entrypoint.s…&quot;   redis                   running             6379/tcp</span><br></pre></td></tr></table></figure>
-<h2 id="使用说明">使用说明</h2>
-<p>docker-compose.yaml 文件中的nginx1、nginx2、nginx3 模拟 3
-个机构的管理后台，启动完成后在浏览器分别访问</p>
-<p>http://机器IP:30811</p>
-<p>http://机器IP:30812</p>
-<p>http://机器IP:30813</p>
-<p>默认用户密码都是 admin / 123456</p>
-<p>具体的联邦建模、隐私求交、匿踪查询等功能的操作步骤请参考 <a target="_blank" rel="noopener" href="https://docs.primihub.com/docs/quick-start-platform">快速试用管理平台</a></p>
-<h1 id="primihub代码编译">primihub代码编译</h1>
-<h2 id="mac-silicon-m1">Mac Silicon M1</h2>
-<ul>
-<li>安装Xcode</li>
-<li>安装Bazel 5.0.0，最好是直接brew install bazelisk</li>
-<li>安装CMake，这个最坑，缺了这个，在这里卡了好久</li>
-<li>编写一个shell脚本，用来执行编译命令: <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./pre_build.sh</span><br><span class="line">bazel build --config=darwin_arm64 --config=macos  :node :cli :opt_paillier_c2py :linkcontext</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="节点运行">节点运行</h1>
-<p>在编译成功后，在源码目录下生成了可执行文件，路径为： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel_bin/node</span><br></pre></td></tr></table></figure>
-可使用下面命令运行node</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node0 --service_port=50050 --config=./config/node0.yaml</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node1 --service_port=50051 --config=./config/node1.yaml</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/node --node_id=node2 --service_port=50052 --config=./config/node2.yaml</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1463,7 +1459,7 @@ feature/node_as_share_lib 是可以的，develope和master都不行</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1474,7 +1470,7 @@ feature/node_as_share_lib 是可以的，develope和master都不行</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">173</span>
+        <span class="site-state-item-count">176</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

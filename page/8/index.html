@@ -188,6 +188,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/07/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%89%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/07/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%89%EF%BC%89/" class="post-title-link" itemprop="url">Fabric-通过samples了解fabric（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-07 14:44:44" itemprop="dateCreated datePublished" datetime="2022-11-07T14:44:44+08:00">2022-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-03 19:37:18" itemprop="dateModified" datetime="2022-12-03T19:37:18+08:00">2022-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure></p>
+<h1 id="部署wasmcc">部署<code>wasmcc</code></h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn wasmcc -ccp /Users/mao/work/wasm/opensource/hyperledger/fabric-chaincode-wasm/wasmcc -ccv 1.0 -ccl go</span><br></pre></td></tr></table></figure>
+<h1 id="调用wasmcc部署wasm-chaincode">调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
+<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），
+然后通过以下命令部置这个<code>wasm chaincode</code>,**注：命令中的<code>wasm二进制数据的十六进制表示字符串</code>需要按实际的数据进行替换。这个把wasm字节码转为十六进制表示（字符串）的工具是<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/file-encoder">file-encoder</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;create&quot;,&quot;balancewasm&quot;,&quot;wasm二进制数据的十六进制表示字符串&quot;,&quot;account1&quot;,&quot;100&quot;,&quot;account2&quot;,&quot;1000&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="调用命令查看目前已部署的wasm-chaincode">调用命令查看目前已部署的<code>wasm chaincode</code></h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;installedChaincodes&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="通过wasmcc查询wasm-chaincode中的account1的余额">通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;query&quot;,&quot;account1&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="通过wasmcc调用wasm-chaincode中的函数invoke">通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;invoke&quot;,&quot;account2&quot;,&quot;account1&quot;,&quot;10&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="通过工具wasm-pusher安装wasm-chaincode">通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
+<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。
+使用命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure> <code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1232,96 +1326,6 @@ Orderer 达成共识之后，将数据状态保存在区块中，然后保存在
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/10/14/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/14/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-2/" class="post-title-link" itemprop="url">Rust学习-知识点-2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-14 09:15:52" itemprop="dateCreated datePublished" datetime="2022-10-14T09:15:52+08:00">2022-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-11 20:13:27" itemprop="dateModified" datetime="2022-12-11T20:13:27+08:00">2022-12-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Rust/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="在多个线程间共享mutext">在多个线程间共享<code>Mutex&lt;T&gt;</code></h1>
-<p>我们启动10个线程，并在每个线程中分别为共享的计数器的值加1。如果正常执行完成，最终会让计数器的值从0累计到10：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"><span class="keyword">use</span> std::sync::Mutex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">//用于计数的互斥体</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">counter</span> = Mutex::<span class="title function_ invoke__">new</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 用于存储线程</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">handles</span> = <span class="built_in">vec!</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">_</span> <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">handle</span> = thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;</span><br><span class="line">          											<span class="comment">// ^^^^^^^ value moved into closure here, in previous iteration of loop </span></span><br><span class="line">          	<span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">num</span> = counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">            *num += <span class="number">1</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">        handles.<span class="title function_ invoke__">push</span>(handle);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">handle</span> <span class="keyword">in</span> handles &#123;</span><br><span class="line">        <span class="comment">// 等待所有线程都执行完毕</span></span><br><span class="line">        handle.<span class="title function_ invoke__">join</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;counter: &#123;&#125;&quot;</span>, *counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>代码中尝试将<code>counter</code>移动到线程中，编译出错，因为第一次循环时，创建一个子线程，<code>counter</code>的所有权已经被移动进去，等到第二次循环创建第二个子线程，<code>counter</code>已经没有了所有权。这样就导致第二次移动时理论上肯定会失败。编译器很聪明地捕捉到了这个问题，在编译阶段就扼杀了这个<code>bug</code>。</p>
-<h1 id="尝试使用rct来共享counter">尝试使用<code>Rc&lt;T&gt;</code>来共享counter</h1>
-<p><code>Rc&lt;T&gt;</code>是用来共享数据用的，我们可以用尝试一下使用<code>Rc&lt;T&gt;</code>在多线程的场景下使用看看能不能解决之前遇到的所有权问题。<code>Rc&lt;T&gt;</code>是智能指针，它内部有一个引用计数，被它（包裹）指向的数据的引用次数被<code>Rc&lt;T&gt;</code>内部的引用计数记录。<code>Rc&lt;T&gt;</code>的<code>clone()</code>方法是对智能指针本身的复制，用来指向同一份被智能指针包裹的数据。这样就能巧妙规避数据的数据的所有权问题了：因为循环时可以每次<code>clone</code>一个新的智能指针<code>Rc&lt;T&gt;</code>出来（这个智能指针指向我们真正要使用的数据）。但是，事实上呢？编译器又来教做人了。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::rc::Rc;</span><br><span class="line"><span class="keyword">use</span> std::sync::Mutex;</span><br><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 将Mutex再包裹一层Rc</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">counter</span> = Rc::<span class="title function_ invoke__">new</span>(Mutex::<span class="title function_ invoke__">new</span>(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">handles</span> = <span class="built_in">vec!</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">_</span> <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">counter</span> = Rc::<span class="title function_ invoke__">clone</span>(&amp;counter);</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">handle</span> = thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;        <span class="comment">// 报错，Rc&lt;Mutex&lt;i32&gt;&gt;类型无法安全地在线程中传递</span></span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">num</span> = counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">            *num += <span class="number">1</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">        handles.<span class="title function_ invoke__">push</span>(handle);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">handle</span> <span class="keyword">in</span> handles &#123;</span><br><span class="line">        handle.<span class="title function_ invoke__">join</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;counter: &#123;&#125;&quot;</span>, *counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当<code>Rc&lt;T&gt;</code>管理引用计数时，它会在每次调用<code>clone</code>的过程中增加引用计数，并在克隆出的实例被丢弃时减少引用计数，但它并没有使用任何并发原语来保证修改计数的过程不会被另一个线程所打断。</p>
-<h1 id="使用原子引用计数arct">使用原子引用计数<code>Arc&lt;T&gt;</code></h1>
-<p>rust还提供了<code>Arc&lt;T&gt;</code>类型，来代替<code>Rc&lt;T&gt;</code>类型来解决上面问题，它既拥有类似于<code>Rc&lt;T&gt;</code>的行为，又保证了自己可以被安全地用于并发场景：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::sync::Arc;</span><br><span class="line"><span class="keyword">use</span> std::sync::Mutex;</span><br><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 将Rc替换为Arc</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">counter</span> = Arc::<span class="title function_ invoke__">new</span>(Mutex::<span class="title function_ invoke__">new</span>(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">handles</span> = <span class="built_in">vec!</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">_</span> <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">counter</span> = Arc::<span class="title function_ invoke__">clone</span>(&amp;counter);</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">handle</span> = thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">num</span> = counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">            *num += <span class="number">1</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">        handles.<span class="title function_ invoke__">push</span>(handle);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">handle</span> <span class="keyword">in</span> handles &#123;</span><br><span class="line">        handle.<span class="title function_ invoke__">join</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;counter: &#123;&#125;&quot;</span>, *counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>改用<code>Arc&lt;T&gt;</code>后上面成功计算出了<code>counter</code>
-的值。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1391,7 +1395,7 @@ Orderer 达成共识之后，将数据状态保存在区块中，然后保存在
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1402,7 +1406,7 @@ Orderer 达成共识之后，将数据状态保存在区块中，然后保存在
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">173</span>
+        <span class="site-state-item-count">176</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
