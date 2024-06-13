@@ -188,6 +188,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/10/14/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/14/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-3/" class="post-title-link" itemprop="url">Rust学习-知识点-3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-14 14:22:44" itemprop="dateCreated datePublished" datetime="2022-10-14T14:22:44+08:00">2022-10-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-11 20:13:47" itemprop="dateModified" datetime="2022-12-11T20:13:47+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rust/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="拥有共享数据的链表">拥有共享数据的链表</h1>
+<p>以一道题开始吧，尝试用<code>Box&lt;T&gt;</code>实现下面的链表</p>
+<figure>
+<img src="https://s2.loli.net/2022/10/14/JAjkKl3hcapqr86.webp" alt="链表.webp">
+<figcaption aria-hidden="true">链表.webp</figcaption>
+</figure>
+<h1 id="使用boxt实现">使用<code>Box&lt;T&gt;</code>实现</h1>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> crate::List::&#123;Cons, Nil&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">List</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">Cons</span>(<span class="type">i32</span>, <span class="type">Box</span>&lt;List&gt;),</span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 创建链表a</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">5</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(List::<span class="title function_ invoke__">new</span>(Nil)))));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建链表b， 并链接到链表a</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">3</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a)); <span class="comment">// b链接到a时，就把a的所有权给转移走了</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建链表c，并连接到链表a</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">4</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a)); <span class="comment">// 报错了，因为a的所有权已经被转移了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用引用解决所有权问题">使用引用解决所有权问题</h1>
+<ul>
+<li>引用方式一：</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> crate::List::&#123;Cons, Nil&#125;;</span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">List</span>&lt;<span class="symbol">&#x27;a</span>&gt; &#123;</span><br><span class="line">    <span class="title function_ invoke__">Cons</span>(<span class="type">i32</span>, <span class="type">Box</span>&lt;&amp;<span class="symbol">&#x27;a</span> List&lt;<span class="symbol">&#x27;a</span>&gt;&gt;),</span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">5</span>,</span><br><span class="line">        <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(&amp;<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>,</span><br><span class="line">            <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(List::<span class="title function_ invoke__">new</span>(&amp;Nil))) <span class="comment">// 报错，创建临时引用&amp;Nil，但是在a赋值时已经被销毁</span></span><br><span class="line">        ) </span><br><span class="line">    ); <span class="comment">// &amp;Nil在这里的结束语句被销毁</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里涉及到生命周期的问题
+<code>&amp;Nil</code>是一个临时引用，在这里它的生命周期比a的生命周期要短。编译时就会报错了。</p>
+<ul>
+<li>引用方式二：</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> crate::List::&#123;Cons, Nil&#125;;</span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">List</span>&lt;<span class="symbol">&#x27;a</span>&gt; &#123;</span><br><span class="line">    <span class="title function_ invoke__">Cons</span>(<span class="type">i32</span>, <span class="type">Box</span>&lt;&amp;<span class="symbol">&#x27;a</span> List&lt;<span class="symbol">&#x27;a</span>&gt;&gt;),</span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a2</span> = &amp;Nil;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a1</span> = &amp;<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a2));</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = &amp;<span class="title function_ invoke__">Cons</span>(<span class="number">5</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a1));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">3</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a));</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">4</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a));</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, b); <span class="comment">// Cons(3, Cons(5, Cons(10, Nil)))</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, c); <span class="comment">// Cons(4, Cons(5, Cons(10, Nil)))</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然可以实现，但代码看上去太质朴，不够优雅，不能一眼看出嵌套关系，也就是不够直观。</p>
+<h1 id="rct-登场"><code>Rc&lt;T&gt;</code> 登场</h1>
+<ul>
+<li>所有权转移引发的血案</li>
+<li>使用引用又觉得不够优雅</li>
+</ul>
+<p><code>Rc&lt;T&gt;</code>来解决，它支持多重所有权，是<code>Reference counting</code>的缩写。它内部维护了一个引用次数计数器，用于确认这个值是否仍在使用。如果对一个值的引用次数为零，那么意味着这个值可以被安全清理掉了，而不会触发引用失效的问题：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::rc::Rc;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">List</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">Cons</span>(<span class="type">i32</span>, Rc&lt;List&gt;),</span><br><span class="line">    <span class="comment">// 替换Box为Rc</span></span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 创建Rc实例</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = Rc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">5</span>,</span><br><span class="line">                         Rc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>,</span><br><span class="line">                                      Rc::<span class="title function_ invoke__">new</span>(Nil)))));</span><br><span class="line">    <span class="comment">// 这里的Rc::clone只是增加引用计数，虽然使用a.clone也可以实现，但是数据会被深拷贝</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">3</span>, Rc::<span class="title function_ invoke__">clone</span>(&amp;a));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 再次增加引用次数</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">4</span>, Rc::<span class="title function_ invoke__">clone</span>(&amp;a));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, b);    <span class="comment">// Cons(3, Cons(5, Cons(10, Nil)))</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, c);    <span class="comment">// Cons(4, Cons(5, Cons(10, Nil)))</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="观察引用计数">观察引用计数</h1>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::rc::Rc;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">List</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">Cons</span>(<span class="type">i32</span>, Rc&lt;List&gt;),</span><br><span class="line">    <span class="comment">// 替换Box为Rc</span></span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 创建Rc实例</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = Rc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">5</span>,</span><br><span class="line">                         Rc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>,</span><br><span class="line">                                      Rc::<span class="title function_ invoke__">new</span>(Nil)))));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;创建a之后的引用计数：&#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a)); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">3</span>, Rc::<span class="title function_ invoke__">clone</span>(&amp;a));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;创建b之后胡引用计数：&#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a)); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进入一个代码块作用域</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">c</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">4</span>, Rc::<span class="title function_ invoke__">clone</span>(&amp;a));</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;创建c之后的引用计数：&#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a)); <span class="comment">// 3</span></span><br><span class="line">    &#125; <span class="comment">// 离开代码块，c的作用域结束，c析构，a的引用计数会减1，变回到2</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;销毁c之后胡引用计数：&#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a)); <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总结">总结</h1>
+<p><code>Rc&lt;T&gt;</code>通过不可变引用使得程序的不同部分之间可以共享只读数据。如果<code>Rc&lt;T&gt;</code>允许持有多个可变引用的话，那么它就会违反借用规则：只允许多个不可变借用或一个可变借用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/10/14/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -606,7 +714,7 @@ s，发现匹配到了Some(t)，也就是s里面还是有货的，这个货呢�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

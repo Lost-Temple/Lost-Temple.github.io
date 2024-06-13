@@ -188,6 +188,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E6%80%8E%E4%B9%88%E6%8A%8AK8S%E4%B8%AD%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%87%BA%E6%9D%A5/" class="post-title-link" itemprop="url">怎么把K8S中部署的服务端口映射出来</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-30 17:56:12 / 修改时间：17:59:22" itemprop="dateCreated datePublished" datetime="2023-06-30T17:56:12+08:00">2023-06-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol type="1">
+<li>修改fate-10001命名空间下的mysql的端口映射模式
+<ul>
+<li><p>先查看fate-10001下有哪些服务 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n fate-10001</span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                               AGE</span><br><span class="line">spark-master         ClusterIP      None            &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16d</span><br><span class="line">fateflow             ClusterIP      None            &lt;none&gt;          9360/TCP,9380/TCP                     16d</span><br><span class="line">spark-worker-1       ClusterIP      None            &lt;none&gt;          8081/TCP                              16d</span><br><span class="line">fateflow-client      ClusterIP      10.43.80.240    &lt;none&gt;          9360/TCP,9380/TCP                     16d</span><br><span class="line">datanode             ClusterIP      10.43.247.69    &lt;none&gt;          9000/TCP,9864/TCP                     16d</span><br><span class="line">frontend             NodePort       10.43.24.110    &lt;none&gt;          8080:31925/TCP,8443:31194/TCP         16d</span><br><span class="line">notebook             ClusterIP      10.43.41.5      &lt;none&gt;          20000/TCP                             16d</span><br><span class="line">fateboard            ClusterIP      10.43.3.44      &lt;none&gt;          8080/TCP                              16d</span><br><span class="line">namenode             ClusterIP      10.43.146.160   &lt;none&gt;          9000/TCP,9870/TCP                     16d</span><br><span class="line">pulsar               ClusterIP      10.43.42.170    &lt;none&gt;          6650/TCP,6651/TCP,8080/TCP,8081/TCP   16d</span><br><span class="line">postgres             ClusterIP      10.43.182.72    &lt;none&gt;          5432/TCP                              16d</span><br><span class="line">mysql                ClusterIP      10.43.42.233    &lt;none&gt;          3306/TCP                              16d</span><br><span class="line">nginx                NodePort       10.43.101.234   &lt;none&gt;          9300:31960/TCP,9310:32603/TCP         16d</span><br><span class="line">spark-client         ClusterIP      10.43.69.60     &lt;none&gt;          8080/TCP,7077/TCP,6066/TCP            16d</span><br><span class="line">site-portal-server   ClusterIP      10.43.237.196   &lt;none&gt;          8080/TCP,8443/TCP                     16d</span><br><span class="line">pulsar-public-tls    LoadBalancer   10.43.144.61    192.168.11.71   6651:32593/TCP                        16d</span><br></pre></td></tr></table></figure> &gt;
+注意msyql 的type 是
+ClusterIP，这样就只能被k8s集群内部访问而不能被外部访问到，所以这里要把它改为NodePort模式</p></li>
+<li><p>修改mysql的type <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit svc mysql -n fate-10001</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-13T05:46:12Z&quot;</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line">    <span class="attr">release:</span> <span class="string">party10001</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;33441&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">08d5e8fe-7853-4f85-b17c-9315afdd6055</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">clusterIPs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">internalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">ipFamilies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">IPv4</span></span><br><span class="line"><span class="attr">ipFamilyPolicy:</span> <span class="string">SingleStack</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp-mysql</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">ClusterIP</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">loadBalancer:</span> &#123;&#125;</span><br></pre></td></tr></table></figure> 修改后的内容为： <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">meta.helm.sh/release-namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">creationTimestamp:</span> <span class="string">&quot;2023-06-13T05:46:12Z&quot;</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">chart:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">cluster:</span> <span class="string">fate</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">heritage:</span> <span class="string">Helm</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">kubefate</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line">    <span class="attr">release:</span> <span class="string">party10001</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">fate-10001</span></span><br><span class="line"><span class="attr">resourceVersion:</span> <span class="string">&quot;33441&quot;</span></span><br><span class="line"><span class="attr">uid:</span> <span class="string">08d5e8fe-7853-4f85-b17c-9315afdd6055</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">clusterIPs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">10.43</span><span class="number">.42</span><span class="number">.233</span></span><br><span class="line"><span class="attr">internalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">externalTrafficPolicy:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">ipFamilies:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">IPv4</span></span><br><span class="line"><span class="attr">ipFamilyPolicy:</span> <span class="string">SingleStack</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp-mysql</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">nodePort:</span> <span class="number">31306</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line">    <span class="attr">fateMoudle:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">party10001</span></span><br><span class="line">    <span class="attr">partyId:</span> <span class="string">&quot;10001&quot;</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">loadBalancer:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/16/vim%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1303,93 +1384,6 @@ lambda表达式的价值在于，就地封装短小的功能闭包，可以极�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">Primihub核心模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-03-13 09:29:02 / 修改时间：10:43:22" itemprop="dateCreated datePublished" datetime="2023-03-13T09:29:02+08:00">2023-03-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="核心模型">核心模型</h1>
-<p>初步了解PrimiHub是如何工作的： -
-节点（Node）：一个加载安全协议和接收计算请求的可执行程序，节点为上层协议执行提供基础服务，目前提供的基础服务有数据集元数据服务、数据缓存服务；
-- 协议（Protocol）：指多方安全计算MPC协议 -
-虚拟节点（VMNode）：虚拟节点是节点上所有任务的执行器 -
-虚拟节点的角色（VMNode
-role）：指在一次行务执行中扮演的角色，分为两种：a.控制节点（Scheduler）
-b.工作节点（Worker） - 数据集（Dataset）：指任务需要计算的数据 -
-算法（Algorithm）：指任务执行的具体逻辑，将根据协议分配到指定节点上执行
--
-任务（Task）：特定协议正在执行的MPC计算任务，一个计算任务需要指定算法、数据集、协议（协议可自动由节点根据算法自动协商或人工指定）
--
-运行时（Worker）：任务（Task）的加载和运行器，一个运行时在启动时由VMNode分配使用的协议（Protocol）；
-- 运行时参与角色（Worker
-party）：运行时角色根据传入的安全协议指定与安全协议相关的角色</p>
-<h2 id="核心模型如何工作">核心模型如何工作</h2>
-<figure>
-<img src="/2023/03/13/Primihub%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9E%8B/核心模型如何工作.jpg" alt="核心模型如何工作">
-<figcaption aria-hidden="true">核心模型如何工作</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1459,7 +1453,7 @@ party）：运行时角色根据传入的安全协议指定与安全协议相关
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
