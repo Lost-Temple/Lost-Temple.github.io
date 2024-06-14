@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-13 08:24:41 / 修改时间：11:05:18" itemprop="dateCreated datePublished" datetime="2024-06-13T08:24:41+08:00">2024-06-13</time>
+              <time title="创建时间：2024-06-13 08:24:41" itemprop="dateCreated datePublished" datetime="2024-06-13T08:24:41+08:00">2024-06-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-14 10:49:18" itemprop="dateModified" datetime="2024-06-14T10:49:18+08:00">2024-06-14</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -247,6 +253,36 @@
 </blockquote>
 <h1 id="运行jenkins容器">运行jenkins容器</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -p 8082:8080 -p 50000:50000 --name jenkins --privileged=true -v /home/centos/jenkins:/var/jenkins_home jenkins/jenkins:latest</span><br></pre></td></tr></table></figure>
+<h1 id="安装常用插件">安装常用插件</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/command-launcher">Command Agent
+Launcher Plugin版本107.v773860566e2e</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/extended-choice-parameter">Extended
+Choice Parameter Plugin版本382.v5697b_32134e8</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/git-parameter">Git Parameter
+Plug-In版本0.9.19</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/javax-mail-api">JavaMail
+API版本1.6.2-10</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/localization-zh-cn">Localization:
+Chinese (Simplified)版本371.v23851f835d6b_</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/multiple-scms">Multiple SCMs
+plugin版本0.8</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/jdk-tool">Oracle Java SE
+Development Kit Installer Plugin版本73.vddf737284550</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/publish-over-ssh">Publish Over
+SSH版本1.25</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh-agent">SSH Agent
+Plugin版本367.vf9076cd4ee21</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh-slaves">SSH Build Agents
+plugin版本2.968.v6f8823c91de4</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh">SSH
+plugin版本2.6.1</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/sshd">SSH
+server版本3.330.vc866a_8389b_58</a></li>
+</ul>
+<blockquote>
+<p>需要科学上网安装插件</p>
+</blockquote>
 
       
     </div>
