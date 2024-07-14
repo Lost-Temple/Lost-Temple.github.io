@@ -188,6 +188,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/24/vcpkg%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">vcpkg的使用记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-24 08:24:30 / 修改时间：13:59:30" itemprop="dateCreated datePublished" datetime="2024-04-24T08:24:30+08:00">2024-04-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" itemprop="url" rel="index"><span itemprop="name">开发环境</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装vcpkg">安装vcpkg</h1>
+<h2 id="clone-vcpkg">clone vcpkg</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/microsoft/vcpkg</span><br></pre></td></tr></table></figure>
+<h2 id="install-vcpkg">install vcpkg</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd vcpkg</span><br><span class="line">./bootstrap-vcpkg.sh</span><br></pre></td></tr></table></figure>
+<h2 id="设置环境变量">设置环境变量</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vcpkg</span></span><br><span class="line">export VCPKG_ROOT=~/vcpkg</span><br><span class="line">export PATH=$PATH:$VCPKG_ROOT</span><br><span class="line">export VCPKG_DEFAULT_TRIPLET=arm64-osx</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>VCPKG_DEFAULT_TRIPLET 设置了默认的TRIPLET，vcpkg install
+时就无需指定triplet</p>
+</blockquote>
+<h1 id="vcpkg-install">vcpkg install</h1>
+<h2 id="安装boost">安装boost</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcpkg install boost</span><br></pre></td></tr></table></figure>
+<p>在最后会出错，有警告信息如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">CMake Warning at ports/python3/portfile.cmake:7 (message):</span><br><span class="line">  python3 currently requires the following programs from the system package</span><br><span class="line">  manager:</span><br><span class="line"></span><br><span class="line">      autoconf automake autoconf-archive</span><br><span class="line"></span><br><span class="line">  On Debian and Ubuntu derivatives:</span><br><span class="line"></span><br><span class="line">      sudo apt-get install autoconf automake autoconf-archive</span><br><span class="line"></span><br><span class="line">  On recent Red Hat and Fedora derivatives:</span><br><span class="line"></span><br><span class="line">      sudo dnf install autoconf automake autoconf-archive</span><br><span class="line"></span><br><span class="line">  On Arch Linux and derivatives:</span><br><span class="line"></span><br><span class="line">      sudo pacman -S autoconf automake autoconf-archive</span><br><span class="line"></span><br><span class="line">  On Alpine:</span><br><span class="line"></span><br><span class="line">      apk add autoconf automake autoconf-archive</span><br><span class="line"></span><br><span class="line">  On macOS:</span><br><span class="line"></span><br><span class="line">      brew install autoconf automake autoconf-archive</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>按照上述警告信息操作后再重新执行vcpkg install boost，成功</p>
+</blockquote>
+<h2 id="安装nlohmann-json">安装nlohmann-json</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcpkg install nlohmann-json</span><br></pre></td></tr></table></figure>
+<h1 id="创建c项目">创建c++项目</h1>
+<h3 id="vcpkg-创建项目">vcpkg 创建项目</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir helloworld &amp;&amp; cd helloworld</span><br><span class="line">vcpkg new --application</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>会生成vcpkg.json文件，项目中的依赖库信息会保存在里面</p>
+</blockquote>
+<h3 id="添加依赖">添加依赖</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcpkg add port nlohmann-json</span><br></pre></td></tr></table></figure>
+<p>执行后在<code>vcpkg.json</code>文件中会添加这个依赖：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;nlohmann-json&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建cmakelists.txt文件">创建<code>CMakeLists.txt</code>文件</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.10)</span><br><span class="line">project(HelloWorld)</span><br><span class="line">add_executable(HelloWorld helloworld.cpp)</span><br><span class="line">find_package(nlohmann_json CONFIG REQUIRED)</span><br><span class="line">target_link_libraries(HelloWorld PRIVATE nlohmann_json::nlohmann_json)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>CMakeLists.txt</code>中并没有指定nlohmann_json包的路径，那CMake怎么找到这些依赖包呢？那就要用到<code>CMakePresets.json</code>文件</p>
+</blockquote>
+<h2 id="创建cmakepresets.json文件">创建<code>CMakePresets.json</code>文件</h2>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;configurePresets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;default&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;generator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Ninja&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;binaryDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;sourceDir&#125;/build&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;cacheVariables&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;CMAKE_TOOLCHAIN_FILE&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$env&#123;VCPKG_ROOT&#125;/scripts/buildsystems/vcpkg.cmake&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里就需要在环境变量中设置<code>VCPKG_ROOT</code></p>
+</blockquote>
+<p>有了<code>CMakePresets.json</code>后，使用以下命令，会对cmake build
+做一下一些前置的设置操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --preset=default</span><br></pre></td></tr></table></figure>
+<h2 id="编译">编译</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --build build</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2024/03/05/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nasm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1883,103 +2000,6 @@ Driver运行在Client上的SparkSubmit进程中 -
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/07/14/Python%E4%B8%AD%E7%9A%84args%E5%92%8Ckwargs%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/14/Python%E4%B8%AD%E7%9A%84args%E5%92%8Ckwargs%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">Python中的args和kwargs参数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-07-14 17:38:31 / 修改时间：17:54:20" itemprop="dateCreated datePublished" datetime="2023-07-14T17:38:31+08:00">2023-07-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="args-kwargs">*args &amp;&amp; **kwargs</h1>
-<p>在Python项目的代码中经常会见到这两个词 args 和
-kwargs，前面通常还会加上一个或者两个星号。其实这只是编程人员约定的变量名字，args
-是 arguments 的缩写，表示位置参数；kwargs 是 keyword arguments
-的缩写，表示关键字参数。这其实就是 Python 中可变参数的两种形式，并且
-*args 必须放在 **kwargs 的前面，因为位置参数在关键字参数的前面。</p>
-<h1 id="在函数定义中的用法">在函数定义中的用法</h1>
-<h2 id="args的用法">*args的用法</h2>
-<p>*args就是就是传递一个可变参数列表给函数实参，这个参数列表的数目未知，甚至长度可以为0。下面这段代码演示了如何使用args
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_args</span>(<span class="params">first, *args</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Required argument: &#x27;</span>, first)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(args))</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> args:</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&#x27;Optional argument: &#x27;</span>, v)</span><br><span class="line"></span><br><span class="line">test_args(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-第一个参数是必须要传入的参数，所以使用了第一个形参，而后面三个参数则作为可变参数列表传入了实参，并且是作为元组tuple来使用的。代码的运行结果如下:
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Required argument:  1</span><br><span class="line">&lt;class &#x27;tuple&#x27;&gt;</span><br><span class="line">Optional argument:  2</span><br><span class="line">Optional argument:  3</span><br><span class="line">Optional argument:  4</span><br></pre></td></tr></table></figure></p>
-<h2 id="kwargs用法">**kwargs用法</h2>
-<p>**kwargs则是将一个可变的关键字参数的字典传给函数实参，同样参数列表长度可以为0或为其他值。下面这段代码演示了如何使用kwargs：
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_kwargs</span>(<span class="params">first, *args, **kwargs</span>):</span><br><span class="line">   <span class="built_in">print</span>(<span class="string">&#x27;Required argument: &#x27;</span>, first)</span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>(kwargs))</span><br><span class="line">   <span class="keyword">for</span> v <span class="keyword">in</span> args:</span><br><span class="line">      <span class="built_in">print</span> (<span class="string">&#x27;Optional argument (args): &#x27;</span>, v)</span><br><span class="line">   <span class="keyword">for</span> k, v <span class="keyword">in</span> kwargs.items():</span><br><span class="line">      <span class="built_in">print</span> (<span class="string">&#x27;Optional argument %s (kwargs): %s&#x27;</span> % (k, v))</span><br><span class="line"></span><br><span class="line">test_kwargs(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, k1=<span class="number">5</span>, k2=<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-正如前面所说的，args类型是一个tuple，而kwargs则是一个字典dict，并且args只能位于kwargs的前面。代码的运行结果如下:
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Required argument:  1</span><br><span class="line">&lt;class &#x27;dict&#x27;&gt;</span><br><span class="line">Optional argument (args):  2</span><br><span class="line">Optional argument (args):  3</span><br><span class="line">Optional argument (args):  4</span><br><span class="line">Optional argument k2 (kwargs): 6</span><br><span class="line">Optional argument k1 (kwargs): 5</span><br></pre></td></tr></table></figure></p>
-<h1 id="调用函数中的用法">调用函数中的用法</h1>
-<p>args和kwargs不仅可以在函数定义中使用，还可以在函数调用中使用。在调用时使用就相当于pack（打包）和unpack（解包），类似于元组的打包和解包。</p>
-<p>首先来看一下使用args来解包调用函数的代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_args_kwargs</span>(<span class="params">arg1, arg2, arg3</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;arg1:&quot;</span>, arg1)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;arg2:&quot;</span>, arg2)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;arg3:&quot;</span>, arg3)</span><br><span class="line"></span><br><span class="line">args = (<span class="string">&quot;two&quot;</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br><span class="line">test_args_kwargs(*args)</span><br><span class="line"></span><br></pre></td></tr></table></figure> 输出：
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arg1: two</span><br><span class="line">arg2: 3</span><br><span class="line">arg3: 5</span><br></pre></td></tr></table></figure> &gt;
-将元组解包后传给对应的实参，kwargs的用法与其类似。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kwargs = &#123;<span class="string">&quot;arg3&quot;</span>: <span class="number">3</span>, <span class="string">&quot;arg2&quot;</span>: <span class="string">&quot;two&quot;</span>, <span class="string">&quot;arg1&quot;</span>: <span class="number">5</span>&#125;</span><br><span class="line">test_args_kwargs(**kwargs)</span><br></pre></td></tr></table></figure>
-<p>输出： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arg1: 5</span><br><span class="line">arg2: two</span><br><span class="line">arg3: 3</span><br></pre></td></tr></table></figure></p>
-<h1 id="总结">总结</h1>
-<p>args和kwargs组合起来可以传入任意的参数，这在参数未知的情况下是很有效的，同时加强了函数的可拓展性。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2049,7 +2069,7 @@ kwargs，前面通常还会加上一个或者两个星号。其实这只是编�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2060,7 +2080,7 @@ kwargs，前面通常还会加上一个或者两个星号。其实这只是编�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">179</span>
+        <span class="site-state-item-count">182</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
