@@ -246,30 +246,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="imgui">imgui</h1>
+          <h1>imgui</h1>
 <p>先上链接：<a target="_blank" rel="noopener" href="https://github.com/ocornut/imgui">github地址</a></p>
 <p><code>imgui</code>是一个轻量级，但是小而全的一个<code>cpp</code>界面库。作者应该是游戏开发行业的，这个库用来实现开发游戏还是比较适合的。虽然它是跨平台的，但是例子代码全是用<code>visual studio</code>的工程。在mac或linux下还不能做到完全的开箱即用。所以在网上搜索了一番，找到了一个<a target="_blank" rel="noopener" href="https://github.com/tashaxing/imgui_cmake_starter">CMakeFile.txt</a>可以跨平台的，我在<code>Mac</code>下尝试编译了一下，完全可以，非常感谢！</p>
 <p>但是它的工程中使用的imgui不是最新的，我就拉取了一下imgui代码，替换掉它这个工程中的imgui，然后目录结构也稍作了一下调整。CMakeFile也稍相应地作了一下调整。</p>
-<h1 id="cmakefile.txt">CMakeFile.txt</h1>
+<h1>CMakeFile.txt</h1>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.0)</span><br><span class="line"></span><br><span class="line">project(imgui_cmake_starter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add header path</span></span><br><span class="line">include_directories(</span><br><span class="line">	$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/3rd/imgui</span><br><span class="line">	$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/3rd/imgui/backends</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">if (APPLE)</span><br><span class="line">    <span class="comment"># for &lt;GLFW/glfw3.h&gt;</span></span><br><span class="line">    include_directories(</span><br><span class="line">        /usr/local/<span class="keyword">include</span></span><br><span class="line">        /opt/local/<span class="keyword">include</span></span><br><span class="line">        /opt/homebrew/<span class="keyword">include</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set common source</span></span><br><span class="line">file(GLOB SRC</span><br><span class="line">    ./3rd/imgui/*.h</span><br><span class="line">    ./3rd/imgui/*.cpp</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># set specific source and other option for platform</span></span><br><span class="line">if (WIN32)</span><br><span class="line">    file (GLOB PLATFORM_SRC</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_win32.*</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_dx12.*</span><br><span class="line">        ./src/win/main.cpp</span><br><span class="line">    )</span><br><span class="line">elseif (UNIX)</span><br><span class="line">    <span class="comment"># support both mac and linux</span></span><br><span class="line">    add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GL3W)</span><br><span class="line"></span><br><span class="line">    include_directories(</span><br><span class="line">        $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/3rd/imgui/examples/libs/gl3w <span class="comment"># for GL/gl3w.h</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    file (GLOB PLATFORM_SRC</span><br><span class="line">        ./3rd/imgui/examples/libs/gl3w/GL/gl3w.*</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_glfw.*</span><br><span class="line">        ./3rd/imgui/backends/imgui_impl_opengl3.*</span><br><span class="line">        ./src/unix/main.cpp</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># add link path</span></span><br><span class="line">if (APPLE)</span><br><span class="line">    link_directories(</span><br><span class="line">        /usr/local/lib</span><br><span class="line">        /opt/homebrew/lib</span><br><span class="line"><span class="comment">#       这下面根据需要添加lib路径</span></span><br><span class="line"><span class="comment">#       /opt/local/lib</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># specify the C++ standard</span></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line">set(CMAKE_CXX_STANDARD_REQUIRED True)</span><br><span class="line"></span><br><span class="line"><span class="comment"># generate binary</span></span><br><span class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;SRC&#125; $&#123;PLATFORM_SRC&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># link lib, should install glfw first or prebuild lib and embed in project</span></span><br><span class="line">if (WIN32)</span><br><span class="line">    target_link_libraries($&#123;PROJECT_NAME&#125;</span><br><span class="line">        d3d12.lib</span><br><span class="line">        d3dcompiler.lib</span><br><span class="line">        dxgi.lib</span><br><span class="line">    )</span><br><span class="line">elseif (APPLE)</span><br><span class="line">    <span class="comment"># mac: brew install glfw3</span></span><br><span class="line">    find_library(OPENGL_LIBRARY OpenGL REQUIRED)</span><br><span class="line">    find_library(COCOA_LIBRARY Cocoa REQUIRED)</span><br><span class="line">    find_library(IOKIT_LIBRARY IOKit REQUIRED)</span><br><span class="line">    find_library(COREVID_LIBRARY CoreVideo REQUIRED)</span><br><span class="line">    message($&#123;COCOA_LIBRARY&#125;)</span><br><span class="line">    message($&#123;IOKIT_LIBRARY&#125;)</span><br><span class="line">    message($&#123;COREVID_LIBRARY&#125;)</span><br><span class="line"></span><br><span class="line">    target_link_libraries($&#123;PROJECT_NAME&#125;</span><br><span class="line">        $&#123;OPENGL_LIBRARY&#125;</span><br><span class="line">        $&#123;COCOA_LIBRARY&#125;</span><br><span class="line">        $&#123;IOKIT_LIBRARY&#125;</span><br><span class="line">        $&#123;COREVID_LIBRARY&#125;</span><br><span class="line">        glfw <span class="comment"># use this lib name</span></span><br><span class="line">    )</span><br><span class="line">elseif (UNIX AND NOT APPLE)</span><br><span class="line">    <span class="comment"># linux: sudo apt install libglfw3-dev</span></span><br><span class="line">    target_link_libraries($&#123;PROJECT_NAME&#125;</span><br><span class="line">        GL</span><br><span class="line">        glfw <span class="comment"># use this lib name</span></span><br><span class="line">        dl</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>以上的CMakeFile.txt文件内容我稍作调整：imgui我git
-pull了最新的代码下来，放在了工程目录下的3rd目录下面；我使用mac编译这个工程最到两个小问题，稍作记录</p>
+<p>以上的CMakeFile.txt文件内容我稍作调整：imgui我git pull了最新的代码下来，放在了工程目录下的3rd目录下面；我使用mac编译这个工程最到两个小问题，稍作记录</p>
 </blockquote>
 <h2 id="问题1">问题1</h2>
 <ul>
 <li>问题描述：我拉取的imgui版本使用的语法需要C++11标准的支撑，如果版本编译器的C++标准较低则会出现编译问题</li>
-<li>解决办法：在CMakeFile.txt中指定C++标准 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># specify the C++ standard</span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line">set(CMAKE_CXX_STANDARD_REQUIRED True)</span><br></pre></td></tr></table></figure></li>
+<li>解决办法：在CMakeFile.txt中指定C++标准  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># specify the C++ standard</span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line">set(CMAKE_CXX_STANDARD_REQUIRED True)</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h2 id="问题2">问题2</h2>
 <ul>
-<li><p>问题描述：我拉取的imgui代码目录<code>imgui/examples/libs/gl3w</code>
-是不存在的，编译时<code>main.cpp</code>中以下语句会报错</p>
-<p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/gl3w.h&gt;</span>    </span></span><br><span class="line"></span><br></pre></td></tr></table></figure></p></li>
-<li><p>问题解决：缺什么补什么，就缺一个目录及几个文件，给它配齐就好</p></li>
+<li>
+<p>问题描述：我拉取的imgui代码目录<code>imgui/examples/libs/gl3w</code> 是不存在的，编译时<code>main.cpp</code>中以下语句会报错</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/gl3w.h&gt;</span>    </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>问题解决：缺什么补什么，就缺一个目录及几个文件，给它配齐就好</p>
+</li>
 </ul>
-<h1 id="跨平台玩耍起来">跨平台玩耍起来</h1>
-<p>以上部分已经完成了，<a target="_blank" rel="noopener" href="https://github.com/Lost-Temple/imgui-starter">代码</a>
+<h1>跨平台玩耍起来</h1>
+<p>以上部分已经完成了，<a target="_blank" rel="noopener" href="https://github.com/Lost-Temple/imgui-starter">代码</a><br>
 要用imgui进行跨平台开发桌面应用啥的，直接拉取代码后当作个脚手架就可以开干了。</p>
 
       
@@ -342,42 +345,58 @@ pull了最新的代码下来，放在了工程目录下的3rd目录下面；我�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="fabric-sdk-介绍">Fabric SDK 介绍</h1>
-<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。
-Fabric提供了多种语言版本的SDK： - <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a>
-- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a> -
-<a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a>
-- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></p>
-<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：
-- 创建通道 - 将<code>Peer</code>节点加入通道 -
-在<code>Peer</code>节点安装链码 - 在通道实例化链码 - 通过链码调用交易 -
-查询交易或区块的账本</p>
-<h1 id="fabric-sdk-安装">Fabric SDK 安装</h1>
+          <h1>Fabric SDK 介绍</h1>
+<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。<br>
+Fabric提供了多种语言版本的SDK：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></li>
+</ul>
+<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：</p>
+<ul>
+<li>创建通道</li>
+<li>将<code>Peer</code>节点加入通道</li>
+<li>在<code>Peer</code>节点安装链码</li>
+<li>在通道实例化链码</li>
+<li>通过链码调用交易</li>
+<li>查询交易或区块的账本</li>
+</ul>
+<h1>Fabric SDK 安装</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/hyperledger/fabric-sdk-go</span><br></pre></td></tr></table></figure>
-<h1 id="fabric-go-sdk-源码结构">Fabric Go SDK 源码结构</h1>
+<h1>Fabric Go SDK 源码结构</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">total 624</span><br><span class="line">-rw-r--r--   1 mao  staff   170K Aug 15 14:45 CHANGELOG.md</span><br><span class="line">-rw-r--r--   1 mao  staff   108B Aug 15 14:45 CODEOWNERS</span><br><span class="line">-rw-r--r--   1 mao  staff   577B Aug 15 14:45 CODE_OF_CONDUCT.md</span><br><span class="line">-rw-r--r--   1 mao  staff   661B Aug 15 14:45 CONTRIBUTING.md</span><br><span class="line">-rw-r--r--   1 mao  staff    11K Aug 15 14:45 LICENSE</span><br><span class="line">-rw-r--r--   1 mao  staff   910B Nov  2 08:36 MAINTAINERS.md</span><br><span class="line">-rw-r--r--   1 mao  staff    33K Aug 15 14:45 Makefile</span><br><span class="line">-rw-r--r--   1 mao  staff   7.3K Aug 15 14:45 README.md</span><br><span class="line">-rw-r--r--   1 mao  staff   1.0K Aug 15 14:45 SECURITY.md</span><br><span class="line">drwxr-xr-x   4 mao  staff   128B Aug 15 14:45 ci</span><br><span class="line">-rw-r--r--   1 mao  staff   143B Aug 15 14:45 ci.properties</span><br><span class="line">-rw-r--r--   1 mao  staff   2.3K Aug 15 14:45 doc.go</span><br><span class="line">-rw-r--r--   1 mao  staff   1.2K Aug 15 14:45 go.mod</span><br><span class="line">-rw-r--r--   1 mao  staff    45K Aug 15 14:45 go.sum</span><br><span class="line">-rwxr-xr-x   1 mao  staff   1.6K Aug 15 14:45 golangci.yml</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 internal</span><br><span class="line">drwxr-xr-x  11 mao  staff   352B Aug 15 14:45 pkg</span><br><span class="line">drwxr-xr-x   5 mao  staff   160B Aug 15 14:45 scripts</span><br><span class="line">drwxr-xr-x   7 mao  staff   224B Aug 15 14:45 test</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 third_party</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>pkg/fabsdk</code>: Fabric
-SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
+<li><code>pkg/fabsdk</code>: Fabric SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
 <li><code>pkg/client/channel</code>: 提供通道交易相关功能</li>
 <li><code>pkg/client/event</code>: 提供通道事件相关功能</li>
-<li><code>pkg/client/ledger</code>:
-启用对通道底层账本的查询相关功能</li>
+<li><code>pkg/client/ledger</code>: 启用对通道底层账本的查询相关功能</li>
 <li><code>pkg/client/resmgmt</code>: 提供资源管理功能，例如安装链码</li>
 <li><code>pkg/client/msp</code>: 启用身份管理相关功能</li>
 </ul>
-<h1 id="fabric-sdk功能模块">Fabric SDK功能模块</h1>
-<h2 id="api">API</h2>
+<h1>Fabric SDK功能模块</h1>
+<h2 id="API">API</h2>
 <p>对于应用开发者来说，插件化的API可以支持SDK提供的关键接口的可选实现。对于每个接口，都有内置的默认实现，也可以灵活自定义。</p>
 <h2 id="fabric-client">fabric-client</h2>
-<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：
-- 创建<code>channel</code> - 请求<code>Peer</code>节点加入通道 -
-在<code>Peer</code>节点中安装链码 - 在通道中实例化链码 -
-通过调用链码来调用事务 - 多种查询 - 监听事件</p>
+<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：</p>
+<ul>
+<li>创建<code>channel</code></li>
+<li>请求<code>Peer</code>节点加入通道</li>
+<li>在<code>Peer</code>节点中安装链码</li>
+<li>在通道中实例化链码</li>
+<li>通过调用链码来调用事务</li>
+<li>多种查询</li>
+<li>监听事件</li>
+</ul>
 <h2 id="fabric-ca-client">fabric-ca-client</h2>
-<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：
-- 注册新用户 - 注册用户以获得由<code>Fabric CA</code>签名的注册证书 -
-通过注册ID撤销现有用户或撤消证书 - 可定制的持久化存储</p>
+<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：</p>
+<ul>
+<li>注册新用户</li>
+<li>注册用户以获得由<code>Fabric CA</code>签名的注册证书</li>
+<li>通过注册ID撤销现有用户或撤消证书</li>
+<li>可定制的持久化存储</li>
+</ul>
 
       
     </div>
@@ -451,7 +470,7 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
       
           <table>
 <thead>
-<tr class="header">
+<tr>
 <th>64位寄存器</th>
 <th>低32位</th>
 <th>低16位</th>
@@ -459,97 +478,97 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>rax　</td>
-<td>　　　eax　</td>
-<td>　　　ax　　</td>
-<td>　　 al</td>
+<tr>
+<td>rax</td>
+<td>eax</td>
+<td>ax</td>
+<td>al</td>
 </tr>
-<tr class="even">
-<td>rcx　</td>
-<td>　　　ecx　</td>
-<td>　　　cx　　</td>
-<td>　　 cl</td>
+<tr>
+<td>rcx</td>
+<td>ecx</td>
+<td>cx</td>
+<td>cl</td>
 </tr>
-<tr class="odd">
-<td>rdx　</td>
-<td>　　　edx　</td>
-<td>　　　dx　　</td>
-<td>　　 dl</td>
+<tr>
+<td>rdx</td>
+<td>edx</td>
+<td>dx</td>
+<td>dl</td>
 </tr>
-<tr class="even">
-<td>rbx　　</td>
-<td>　　ebx　　</td>
-<td>　　bx　　　</td>
-<td>　 bl</td>
+<tr>
+<td>rbx</td>
+<td>ebx</td>
+<td>bx</td>
+<td>bl</td>
 </tr>
-<tr class="odd">
-<td>rsp　　</td>
-<td>　　esp　　　</td>
-<td>　sp　　　</td>
+<tr>
+<td>rsp</td>
+<td>esp</td>
+<td>sp</td>
 <td>spl</td>
 </tr>
-<tr class="even">
-<td>rbp　　</td>
-<td>　　ebp　　</td>
-<td>　　bp　　　</td>
+<tr>
+<td>rbp</td>
+<td>ebp</td>
+<td>bp</td>
 <td>bpl</td>
 </tr>
-<tr class="odd">
-<td>rsi　　</td>
-<td>　　esi　　</td>
-<td>　　si　　　</td>
-<td>　 sil</td>
+<tr>
+<td>rsi</td>
+<td>esi</td>
+<td>si</td>
+<td>sil</td>
 </tr>
-<tr class="even">
-<td>rdi　　</td>
-<td>　　edi　　</td>
-<td>　　di　　　　</td>
+<tr>
+<td>rdi</td>
+<td>edi</td>
+<td>di</td>
 <td>dil</td>
 </tr>
-<tr class="odd">
-<td>r8　　　</td>
-<td>　 r8d</td>
+<tr>
+<td>r8</td>
+<td>r8d</td>
 <td>r8w</td>
 <td>r8b</td>
 </tr>
-<tr class="even">
-<td>r9　　　</td>
-<td>　 r9d 　　</td>
-<td>　r9w　　　</td>
-<td>　 r9b</td>
+<tr>
+<td>r9</td>
+<td>r9d</td>
+<td>r9w</td>
+<td>r9b</td>
 </tr>
-<tr class="odd">
-<td>r10 　</td>
-<td>　 r10d 　　</td>
-<td>r10w 　　</td>
+<tr>
+<td>r10</td>
+<td>r10d</td>
+<td>r10w</td>
 <td>r10b</td>
 </tr>
-<tr class="even">
+<tr>
 <td>r11</td>
-<td>　　r11d 　　</td>
+<td>r11d</td>
 <td>r11w</td>
 <td>r11b</td>
 </tr>
-<tr class="odd">
-<td>r12　　</td>
-<td>　 r12d　　　</td>
-<td>r12w 　</td>
-<td>　r12b</td>
+<tr>
+<td>r12</td>
+<td>r12d</td>
+<td>r12w</td>
+<td>r12b</td>
 </tr>
-<tr class="even">
-<td>r13 　</td>
-<td>　 r13d 　　　</td>
+<tr>
+<td>r13</td>
+<td>r13d</td>
 <td>r13w</td>
 <td>r13b</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>r14</td>
 <td>r14d</td>
 <td>r14w</td>
 <td>r14b</td>
 </tr>
-<tr class="even">
+<tr>
 <td>r15</td>
 <td>r15d</td>
 <td>r15w</td>
@@ -634,11 +653,10 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
           <blockquote>
 <p>Jdk9 源码有一段关于NOP汇编指令的注释，摘抄记录一下</p>
 </blockquote>
-<h1 id="intel源码链接">Intel<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2792">源码链接</a></h1>
+<h1>Intel<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2792">源码链接</a></h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for Intel</span><br><span class="line">//  1: 0x90</span><br><span class="line">//  2: 0x66 0x90</span><br><span class="line">//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)</span><br><span class="line">//  4: 0x0F 0x1F 0x40 0x00</span><br><span class="line">//  5: 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 10: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 11: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line"></span><br><span class="line">// The rest coding is Intel specific - don&#x27;t use consecutive address nops</span><br><span class="line"></span><br><span class="line">// 12: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 13: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 14: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br><span class="line">// 15: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x66 0x66 0x66 0x90</span><br></pre></td></tr></table></figure>
-<h1 id="amd源码链接">AMD<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2876">源码链接</a></h1>
+<h1>AMD<a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk9/jdk9/hotspot/file/31e4d11eab11/src/cpu/x86/vm/assembler_x86.cpp#l2876">源码链接</a></h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// Using multi-bytes nops &quot;0x0F 0x1F [address]&quot; for AMD.</span><br><span class="line">//  1: 0x90</span><br><span class="line">//  2: 0x66 0x90</span><br><span class="line">//  3: 0x66 0x66 0x90 (don&#x27;t use &quot;0x0F 0x1F 0x00&quot; - need patching safe padding)</span><br><span class="line">//  4: 0x0F 0x1F 0x40 0x00</span><br><span class="line">//  5: 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  6: 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">//  7: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">//  8: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//  9: 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 10: 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">// 11: 0x66 0x66 0x66 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line"></span><br><span class="line">// The rest coding is AMD specific - use consecutive address nops</span><br><span class="line"></span><br><span class="line">// 12: 0x66 0x0F 0x1F 0x44 0x00 0x00 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">// 13: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00 0x66 0x0F 0x1F 0x44 0x00 0x00</span><br><span class="line">// 14: 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">// 15: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x0F 0x1F 0x80 0x00 0x00 0x00 0x00</span><br><span class="line">// 16: 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00 0x0F 0x1F 0x84 0x00 0x00 0x00 0x00 0x00</span><br><span class="line">//     Size prefixes (0x66) are added for larger sizes</span><br></pre></td></tr></table></figure>
-
       
     </div>
 
@@ -715,42 +733,69 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="单元测试">单元测试</h1>
+          <h1>单元测试</h1>
 <ul>
-<li><p>测试需要用到的断言，依赖
-<code>github.com/stretchr/testify</code></p></li>
-<li><p>编写单元测试，文件命名带<code>_test.go</code>
-<code>helloworld_test.go</code> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>测试所有用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v helloworld_test.go</span><br></pre></td></tr></table></figure></p></li>
-<li><p>指定用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v -run TestHelloWorld helloworld_test.go</span><br></pre></td></tr></table></figure></p></li>
-<li><p>测试文件夹下所有的测试用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v ./directory</span><br></pre></td></tr></table></figure></p></li>
+<li>
+<p>测试需要用到的断言，依赖<br>
+<code>github.com/stretchr/testify</code></p>
+</li>
+<li>
+<p>编写单元测试，文件命名带<code>_test.go</code><br>
+<code>helloworld_test.go</code></p>
+</li>
 </ul>
-<h1 id="基准测试">基准测试</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>非并发方式 <code>benchmark_test.go</code> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Add</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        n++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-&gt;<strong>注：b.N
-由基准测试框架提供。测试代码需要保证函数可重入性及无状态，也就是说，测试代码不使用全局变量等带有记忆性质的数据结构。避免多次运行同一段代码时的环境不一致，不能假设
-N 值范围。</strong></p></li>
-<li><p>并发方式 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Dosomething</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	b.SetParallelism(<span class="number">8</span>)</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Dosomething()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-&gt;<strong>注：SetParallelism用来设置协程数量</strong></p></li>
+<li>测试所有用例</li>
 </ul>
-<h1 id="基准测试脚本编写">基准测试脚本编写</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v helloworld_test.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v -run TestHelloWorld helloworld_test.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试文件夹下所有的测试用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v ./directory</span><br></pre></td></tr></table></figure>
+<h1>基准测试</h1>
+<ul>
+<li>非并发方式<br>
+<code>benchmark_test.go</code></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Add</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        n++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：b.N 由基准测试框架提供。测试代码需要保证函数可重入性及无状态，也就是说，测试代码不使用全局变量等带有记忆性质的数据结构。避免多次运行同一段代码时的环境不一致，不能假设 N 值范围。</strong></p>
+</blockquote>
+<ul>
+<li>并发方式</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Dosomething</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	b.SetParallelism(<span class="number">8</span>)</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Dosomething()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：SetParallelism用来设置协程数量</strong></p>
+</blockquote>
+<h1>基准测试脚本编写</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line">go test -bench=. -run=none \</span><br><span class="line">  -benchtime=300s \</span><br><span class="line">  -benchmem -memprofile=mem.pprof \</span><br><span class="line">  -cpuprofile=cpu.pprof \</span><br><span class="line">  -cpu=8 \</span><br><span class="line">  -timeout=0 \</span><br><span class="line">  -blockprofile=block.pprof ./directory/</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>基准测试默认10分钟，如果测试总时长超过10分钟，测试的进程会被kill掉，所以指定timeout=0表示不限时长</strong></p>
 </blockquote>
-<h1 id="go基准测试源码中benchmark.go">go基准测试源码中<code>benchmark.go</code></h1>
-<p>有这么一个核心方法 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// launch launches the benchmark function. It gradually increases the number</span></span><br><span class="line"><span class="comment">// of benchmark iterations until the benchmark runs for the requested benchtime.</span></span><br><span class="line"><span class="comment">// launch is run by the doBench function as a separate goroutine.</span></span><br><span class="line"><span class="comment">// run1 must have been called on b.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *B)</span></span> launch() &#123;</span><br><span class="line">	<span class="comment">// Signal that we&#x27;re done whether we return normally</span></span><br><span class="line">	<span class="comment">// or by FailNow&#x27;s runtime.Goexit.</span></span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		b.signal &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run the benchmark for at least the specified amount of time.</span></span><br><span class="line">	<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">0</span> &#123; <span class="comment">// 这里表示测试时是使用了次数限制，例如指定了参数-benchtime=1000x表示执行1000次</span></span><br><span class="line">		<span class="comment">// We already ran a single iteration in run1.</span></span><br><span class="line">		<span class="comment">// If -benchtime=1x was requested, use that result.</span></span><br><span class="line">		<span class="comment">// See https://golang.org/issue/32051.</span></span><br><span class="line">		<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			b.runN(b.benchTime.n)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// 这个分支表示指定的是时间限制（区别于次数限制），例如指定了参数-benchtime=5s给示每个用例执行5s（这里会根据实际情况运行，而非精确的5s）</span></span><br><span class="line">		d := b.benchTime.d</span><br><span class="line">        <span class="comment">// 注意下面循环条件中的n的值的上限</span></span><br><span class="line">		<span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">			last := n</span><br><span class="line">			<span class="comment">// Predict required iterations.</span></span><br><span class="line">			goalns := d.Nanoseconds()</span><br><span class="line">			prevIters := <span class="type">int64</span>(b.N)</span><br><span class="line">			prevns := b.duration.Nanoseconds()</span><br><span class="line">			<span class="keyword">if</span> prevns &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// Round up, to avoid div by zero.</span></span><br><span class="line">				prevns = <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Order of operations matters.</span></span><br><span class="line">			<span class="comment">// For very fast benchmarks, prevIters ~= prevns.</span></span><br><span class="line">			<span class="comment">// If you divide first, you get 0 or 1,</span></span><br><span class="line">			<span class="comment">// which can hide an order of magnitude in execution time.</span></span><br><span class="line">			<span class="comment">// So multiply first, then divide.</span></span><br><span class="line">			n = goalns * prevIters / prevns</span><br><span class="line">			<span class="comment">// Run more iterations than we think we&#x27;ll need (1.2x).</span></span><br><span class="line">			n += n / <span class="number">5</span></span><br><span class="line">			<span class="comment">// Don&#x27;t grow too fast in case we had timing errors previously.</span></span><br><span class="line">			n = min(n, <span class="number">100</span>*last)</span><br><span class="line">			<span class="comment">// Be sure to run at least one more than last time.</span></span><br><span class="line">			n = max(n, last+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// Don&#x27;t run more than 1e9 times. (This also keeps n in int range on 32 bit platforms.)</span></span><br><span class="line">			n = min(n, <span class="number">1e9</span>)</span><br><span class="line">			b.runN(<span class="type">int</span>(n))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	b.result = BenchmarkResult&#123;b.N, b.duration, b.bytes, b.netAllocs, b.netBytes, b.extra&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1>go基准测试源码中<code>benchmark.go</code></h1>
+<p>有这么一个核心方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// launch launches the benchmark function. It gradually increases the number</span></span><br><span class="line"><span class="comment">// of benchmark iterations until the benchmark runs for the requested benchtime.</span></span><br><span class="line"><span class="comment">// launch is run by the doBench function as a separate goroutine.</span></span><br><span class="line"><span class="comment">// run1 must have been called on b.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *B)</span></span> launch() &#123;</span><br><span class="line">	<span class="comment">// Signal that we&#x27;re done whether we return normally</span></span><br><span class="line">	<span class="comment">// or by FailNow&#x27;s runtime.Goexit.</span></span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		b.signal &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run the benchmark for at least the specified amount of time.</span></span><br><span class="line">	<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">0</span> &#123; <span class="comment">// 这里表示测试时是使用了次数限制，例如指定了参数-benchtime=1000x表示执行1000次</span></span><br><span class="line">		<span class="comment">// We already ran a single iteration in run1.</span></span><br><span class="line">		<span class="comment">// If -benchtime=1x was requested, use that result.</span></span><br><span class="line">		<span class="comment">// See https://golang.org/issue/32051.</span></span><br><span class="line">		<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			b.runN(b.benchTime.n)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// 这个分支表示指定的是时间限制（区别于次数限制），例如指定了参数-benchtime=5s给示每个用例执行5s（这里会根据实际情况运行，而非精确的5s）</span></span><br><span class="line">		d := b.benchTime.d</span><br><span class="line">        <span class="comment">// 注意下面循环条件中的n的值的上限</span></span><br><span class="line">		<span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">			last := n</span><br><span class="line">			<span class="comment">// Predict required iterations.</span></span><br><span class="line">			goalns := d.Nanoseconds()</span><br><span class="line">			prevIters := <span class="type">int64</span>(b.N)</span><br><span class="line">			prevns := b.duration.Nanoseconds()</span><br><span class="line">			<span class="keyword">if</span> prevns &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// Round up, to avoid div by zero.</span></span><br><span class="line">				prevns = <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Order of operations matters.</span></span><br><span class="line">			<span class="comment">// For very fast benchmarks, prevIters ~= prevns.</span></span><br><span class="line">			<span class="comment">// If you divide first, you get 0 or 1,</span></span><br><span class="line">			<span class="comment">// which can hide an order of magnitude in execution time.</span></span><br><span class="line">			<span class="comment">// So multiply first, then divide.</span></span><br><span class="line">			n = goalns * prevIters / prevns</span><br><span class="line">			<span class="comment">// Run more iterations than we think we&#x27;ll need (1.2x).</span></span><br><span class="line">			n += n / <span class="number">5</span></span><br><span class="line">			<span class="comment">// Don&#x27;t grow too fast in case we had timing errors previously.</span></span><br><span class="line">			n = min(n, <span class="number">100</span>*last)</span><br><span class="line">			<span class="comment">// Be sure to run at least one more than last time.</span></span><br><span class="line">			n = max(n, last+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// Don&#x27;t run more than 1e9 times. (This also keeps n in int range on 32 bit platforms.)</span></span><br><span class="line">			n = min(n, <span class="number">1e9</span>)</span><br><span class="line">			b.runN(<span class="type">int</span>(n))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	b.result = BenchmarkResult&#123;b.N, b.duration, b.bytes, b.netAllocs, b.netBytes, b.extra&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>在基准测试时，如果设定的是时间限制，即每个测试用例执行多少时间。因为每次执行的时间都不可能完全一致，所以用例的执行次数到底应该为多少次，这个值是会被估算出来的，估算的过程就是在以下的循环中。
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在基准测试时，如果设定的是时间限制，即每个测试用例执行多少时间。因为每次执行的时间都不可能完全一致，所以用例的执行次数到底应该为多少次，这个值是会被估算出来的，估算的过程就是在以下的循环中。</p>
 </blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>明确了大体的流程后，我们来分析一下细节：
 <ul>
-<li><p>n的上限问题
-&gt;设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p></li>
-<li><p>n的估算中有一个公式的问题</p>
+<li>
+<p>n的上限问题</p>
+<blockquote>
+<p>设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p>
+</blockquote>
+</li>
+<li>
+<p>n的估算中有一个公式的问题</p>
 <p><code>n = goalns * prevIters / prevns</code></p>
 <ul>
 <li><code>goalns</code>是用例执行的目标时间，单位ns</li>
@@ -758,38 +803,40 @@ N 值范围。</strong></p></li>
 <li><code>prevens</code>是<code>上一轮</code>用例的执行时间，单位ns</li>
 </ul>
 <blockquote>
-<p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。
-变成负值之后,n的增长逻辑就不一样了，分析一下： n += n / 5 -&gt;
-n还是负值 n = min(n, 100*last) -&gt; n的值还是n n = max(n, last+1) -&gt;
-变为上一轮估算的值+1 == (last + 1) n = min(n, 1e9) -&gt; n == (last + 1)
-同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为
-1e8，那n的值变化规率为100000001, 100000002, 100000003,
-...,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮,
-而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢...这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go
-benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
-</blockquote></li>
-</ul></li>
+<p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。<br>
+变成负值之后,n的增长逻辑就不一样了，分析一下：<br>
+n += n / 5  -&gt; n还是负值<br>
+n = min(n, 100*last) -&gt; n的值还是n<br>
+n = max(n, last+1) -&gt; 变为上一轮估算的值+1 == (last + 1)<br>
+n = min(n, 1e9) -&gt; n == (last + 1)<br>
+同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为 1e8，那n的值变化规率为100000001, 100000002, 100000003, …,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮, 而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢…这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
+</blockquote>
+</li>
 </ul>
-<h1 id="基准测试问题重现方法">基准测试问题重现方法</h1>
+</li>
+</ul>
+<h1>基准测试问题重现方法</h1>
 <ul>
 <li>写一个耗时很短的用例</li>
 <li>设置一个较长的用例测试时间（不用太长，比如200s就行，只要想办法让n值溢出即可）</li>
-<li>执行一下...就等着10min钟以后吧</li>
+<li>执行一下…就等着10min钟以后吧</li>
 </ul>
-<h1 id="解决办法">解决办法</h1>
+<h1>解决办法</h1>
 <ul>
-<li><ol type="1">
+<li>
+<ol>
 <li>上面提到的n溢出问题，虽然觉得benchmark.go里面的代码确实有点问题，可以把n的数据类型再改大一些如float64，在方法中增加判断溢出后进行特殊处理。</li>
-</ol></li>
-<li><ol start="2" type="1">
+</ol>
+</li>
+<li>
+<ol start="2">
 <li>出现这种情况，说明被测试的用例做长时间测试的必要性值得商榷</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h1 id="另外">另外</h1>
+<h1>另外</h1>
 <blockquote>
-<p>func (b <em>B) launch()
-是非并行模式下会被调用的方法；同样在并行模式下，调用的是func (b </em>B)
-RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
+<p>func (b *B) launch() 是非并行模式下会被调用的方法；同样在并行模式下，调用的是func (b *B) RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
 </blockquote>
 
       
@@ -864,32 +911,33 @@ RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="背景">背景</h1>
+          <h1>背景</h1>
 <ul>
-<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发,
-打开服务器上的代码进行开发</li>
-<li>CentOS
-系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
-<li>CLion
-项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
+<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发, 打开服务器上的代码进行开发</li>
+<li>CentOS 系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
+<li>CLion 项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
 </ul>
-<h1 id="编译工具安装">编译工具安装</h1>
+<h1>编译工具安装</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install centos-release-scl-rh</span><br><span class="line">sudo yum install devtoolset-11-gcc-c++</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>安装完成后，执行以下命令可以切换到新的编译环境 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
-可以查看devtoolset-11相关工具的版本及它们的路径 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，执行以下命令可以切换到新的编译环境</p>
 </blockquote>
-<h1 id="开发工具中的配置修改">开发工具中的配置修改</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>可以查看devtoolset-11相关工具的版本及它们的路径</p>
 </blockquote>
-<h1 id="调用动态库需要注意的点">调用动态库需要注意的点</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure>
+<h1>开发工具中的配置修改</h1>
 <blockquote>
-<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include
-&lt;dlfcn.h&gt; 在CMakefile.txt里面添加编译选项，如：
-TARGET_LINK_LIBRARIES(projName dl)
+<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure>
+<h1>调用动态库需要注意的点</h1>
+<blockquote>
+<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include &lt;dlfcn.h&gt;<br>
+在CMakefile.txt里面添加编译选项，如：<br>
+TARGET_LINK_LIBRARIES(projName dl)<br>
 其中<code>projName</code>为项目的名称</p>
 </blockquote>
 
@@ -969,39 +1017,24 @@ TARGET_LINK_LIBRARIES(projName dl)
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="应用场景">应用场景</h1>
+          <h1>应用场景</h1>
 <p>将 Go 内存中的字符串或字节切片传入 C 语言函数的应用场景。</p>
-<h1 id="里面的坑">里面的坑</h1>
-<p>假设一个极端场景：我们将一块位于某 <code>goroutine</code>
-的栈上的<code>Go</code>语言内存传入了
-<code>C</code>语言函数后，在此<code>C</code>语言函数执行时，如果
-<code>goroutinue</code>的栈因为空间不足的原因发生了<strong>扩展</strong>，也就是导致了原来的
-<code>Go</code>语言内存被移动到了新的位置。但是这时<code>C</code>语言函数并不知道该
-<code>Go</code>语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是<strong>“野指针”</strong>。不是必现，要看内存中的数据是否发生移动。</p>
-<p>以上操作本质上看是一种<strong>“传引用”</strong>，可以借助 C
-语言内存稳定的特性（谁<code>malloc</code>就由谁来<code>free</code>，代码编写者自己对内存进行管理），在
-C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
-的内存空间（<strong>复制了一个副本过去</strong>）。下面的例子是这种思路的具体实现：</p>
-<h1 id="例1">例1</h1>
+<h1>里面的坑</h1>
+<p>假设一个极端场景：我们将一块位于某 <code>goroutine</code> 的栈上的<code>Go</code>语言内存传入了 <code>C </code>语言函数后，在此<code>C</code>语言函数执行时，如果 <code>goroutinue </code>的栈因为空间不足的原因发生了<strong>扩展</strong>，也就是导致了原来的 <code>Go </code>语言内存被移动到了新的位置。但是这时<code>C</code>语言函数并不知道该 <code>Go </code>语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是**“野指针”**。不是必现，要看内存中的数据是否发生移动。</p>
+<p>以上操作本质上看是一种**“传引用”**，可以借助 C 语言内存稳定的特性（谁<code>malloc</code>就由谁来<code>free</code>，代码编写者自己对内存进行管理），在 C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C 的内存空间（<strong>复制了一个副本过去</strong>）。下面的例子是这种思路的具体实现：</p>
+<h1>例1</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s) &#123;</span></span><br><span class="line"><span class="comment">    printf(&quot;%s&quot;, s);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;unsafe&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    cs := C.CString(s) <span class="comment">// 这里会在C的内存空间里面开辟一块空间，把GO中的字符串s的值拷贝过去</span></span><br><span class="line">    <span class="keyword">defer</span> C.free(unsafe.Pointer(cs)) <span class="comment">// 这里用defer 进行延迟操作，释放这块在C里面开辟的空间，不然就是内存泄漏</span></span><br><span class="line"></span><br><span class="line">    C.printString(cs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这种方式虽然解决了问题，但是，写法有点啰嗦，还要自己手动<code>C.free</code>。最主要的是：性能效率有损失，因为要从<code>GO</code>环境把内存复制到<code>C</code>语言环境内存中。</p>
-<h1 id="例2">例2</h1>
+<h1>例2</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s, int n) &#123;</span></span><br><span class="line"><span class="comment">    int i;</span></span><br><span class="line"><span class="comment">    for(i = 0; i &lt; n; i++) &#123;</span></span><br><span class="line"><span class="comment">        putchar(s[i]);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    putchar(&#x27;\n&#x27;);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">    C.printString((*C.char)(unsafe.Pointer(p.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在的处理方式更加直接，且避免了分配额外的内存，而且CGO会保证在C函数调用期间（从C语言函数被调用到C语言函数调用结束），传入的指针指向的这块GO语言开辟的内存不会被移动。注意：<del><strong><code>CGO只会保证在C函数调用期间</code></strong>。</del>
-在网上有看到这个说法，但是我实践中似乎有出入。我实践中就是用这个用法，结果GG了，我实践中它好像也不能保证这一点，这个后续再研究研究。</p>
+<p>现在的处理方式更加直接，且避免了分配额外的内存，而且CGO会保证在C函数调用期间（从C语言函数被调用到C语言函数调用结束），传入的指针指向的这块GO语言开辟的内存不会被移动。注意：<s><strong><code>CGO只会保证在C函数调用期间</code></strong>。</s> 在网上有看到这个说法，但是我实践中似乎有出入。我实践中就是用这个用法，结果GG了，我实践中它好像也不能保证这一点，这个后续再研究研究。</p>
 <p>就算CGO会保证在C函数调用期间保证内存不会被移动，这里还有有一个容易踩的坑：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误的代码</span></span><br><span class="line">p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">tmp := <span class="type">uintptr</span>(p)</span><br><span class="line">ptr := (*reflect.StringHeader)(unsafe.Pointer(tmp))</span><br><span class="line">C.printString((*C.char)(unsafe.Pointer(ptr.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br></pre></td></tr></table></figure>
-<p>因为 tmp
-并不是指针类型(它只是表示内存地址，但并没有指针的<strong>语义</strong>，指针和内存地址还是有点差别的，差别在于指针是有数据类型的，是和指向的内存中的数据进行了“绑定的”，而内存地址仅仅是地址而已)。在它获取到<code>Go</code>对象地址之后<code>s</code>对象可能会被移动，但是因为不是<code>tmp</code>没有指针语义，所以不会被<code>Go</code>
-语言运行时更新成新内存的地址(<code>s</code>对象新的移动后的位置）。在<code>tmp</code>中保持
-<code>Go</code> 对象的地址，和在<code>C</code>
-语言环境保持<code>Go</code>
-对象的地址的效果是一样的：如果原始的<code>Go</code>对象内存发生了移动，Go
-语言运行时并不会同步更新它们。这样就还是会触发一开始的那个问题。</p>
+<p>因为 tmp 并不是指针类型(它只是表示内存地址，但并没有指针的<strong>语义</strong>，指针和内存地址还是有点差别的，差别在于指针是有数据类型的，是和指向的内存中的数据进行了“绑定的”，而内存地址仅仅是地址而已)。在它获取到<code>Go</code>对象地址之后<code>s</code>对象可能会被移动，但是因为不是<code>tmp</code>没有指针语义，所以不会被<code> Go</code> 语言运行时更新成新内存的地址(<code>s</code>对象新的移动后的位置）。在<code>tmp</code>中保持 <code>Go</code> 对象的地址，和在<code> C</code> 语言环境保持<code> Go</code> 对象的地址的效果是一样的：如果原始的<code>Go</code>对象内存发生了移动，Go 语言运行时并不会同步更新它们。这样就还是会触发一开始的那个问题。</p>
 <p>所以，还是慎用例2的方法吧</p>
-<p><strong>续：</strong>我去看了<code>StringHeader</code>的数据结构和<code>SliceHeader</code>数据结构</p>
+<p>**续：**我去看了<code>StringHeader</code>的数据结构和<code>SliceHeader</code>数据结构</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StringHeader is the runtime representation of a string.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SliceHeader is the runtime representation of a slice.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">	Cap  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看到<code>Data</code>的类型是<code>uintptr</code>就感觉不妙了...这里自己实现一个可能能解决问题，我能想到的，go标准库的开发者会想不吗？肯定是有什么原因的。所以，还是最好不用<code>StringHeader</code>了。</p>
+<p>看到<code>Data</code>的类型是<code>uintptr</code>就感觉不妙了…这里自己实现一个可能能解决问题，我能想到的，go标准库的开发者会想不吗？肯定是有什么原因的。所以，还是最好不用<code>StringHeader</code>了。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data unsafe.Pointer</span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -1081,10 +1114,7 @@ C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
 
       
           <p><a target="_blank" rel="noopener" href="https://github.com/usagi/rust-memory-container-cs">前方高能，过份帅气</a></p>
-<figure>
-<img src="https://s2.loli.net/2022/11/20/iIUBf4FDuCOs7jq.png" alt="rust-memory-container-cs-3840x2160-dark-back.png">
-<figcaption aria-hidden="true">rust-memory-container-cs-3840x2160-dark-back.png</figcaption>
-</figure>
+<p><img src="https://s2.loli.net/2022/11/20/iIUBf4FDuCOs7jq.png" alt="rust-memory-container-cs-3840x2160-dark-back.png"></p>
 
       
     </div>
@@ -1162,7 +1192,7 @@ C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="语句和表达式">语句和表达式</h1>
+          <h1>语句和表达式</h1>
 <ul>
 <li>函数体由一系列语句组成</li>
 <li>函数可以由一个表达式结束（这种情况下，表达式的值为函数的返回值）</li>
@@ -1171,18 +1201,14 @@ C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
 <li>表达式会计算产生一个值</li>
 </ul>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">1</span>; <span class="comment">// 我就是第5行</span></span><br><span class="line">    x + <span class="number">1</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注：第5行， x + 1
-后面的无<code>;</code>。这里<code>x + 1</code>就是一个表达式，它的计算结果就返回赋值给了<code>y</code>。</strong></p>
+<p><strong>注：第5行， x + 1 后面的无<code>;</code>。这里<code>x + 1</code>就是一个表达式，它的计算结果就返回赋值给了<code>y</code>。</strong></p>
 <p>那如果<code>x + 1</code>后面加上<code>;</code>呢？即：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">1</span>; <span class="comment">// 我就是第5行</span></span><br><span class="line">    x + <span class="number">1</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个编译出是可以通过的，这个时候<code>y</code>的数据类型是<code>空的元组</code>类型，也就是<code>()</code>；
-类似的：<code>rust</code>中没有显示指定函数返回值的，那这个函数返回值类型为<code>()</code>。就相当于<code>c++</code>里面的返回类型为<code>void</code>的函数</p>
+<p>这个编译出是可以通过的，这个时候<code>y</code>的数据类型是<code>空的元组</code>类型，也就是<code>()</code>； 类似的：<code>rust</code>中没有显示指定函数返回值的，那这个函数返回值类型为<code>()</code>。就相当于<code>c++</code>里面的返回类型为<code>void</code>的函数</p>
 <p>看下面一个例子：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">counter</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">result</span> = <span class="keyword">loop</span> &#123;</span><br><span class="line">    counter += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> counter == <span class="number">10</span> &#123;</span><br><span class="line">      <span class="keyword">break</span> counter * <span class="number">2</span>; <span class="comment">// 第6行</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>loop</code>为死循环，一个死循环赋值给了<code>result</code>,
-是不是有点费解，这里就要理解第6行的代码的意思了。这里面使用了<code>break</code>语句。</p>
-<p><code>break count * 2;</code>的意思就是跳出循环，并返回<code>break</code>后面的表达式的值。这里有人会疑惑，刚才不是说表达式是不带<code>;</code>的吗？那现在<code>counter * 2;</code>这里不是有<code>;</code>吗？<code>break counter * 2;</code>
-是个语句，它是需要<code>;</code>的。所以这里的<code>;</code>是整个语句的分号，这个语句是用<code>break</code>跳出循环并返回表达式<code>counter * 2</code>，没毛病。</p>
+<p><code>loop</code>为死循环，一个死循环赋值给了<code>result</code>, 是不是有点费解，这里就要理解第6行的代码的意思了。这里面使用了<code>break</code>语句。</p>
+<p><code>break count * 2;</code>的意思就是跳出循环，并返回<code>break</code>后面的表达式的值。这里有人会疑惑，刚才不是说表达式是不带<code>;</code>的吗？那现在<code>counter * 2;</code>这里不是有<code>;</code>吗？<code>break counter * 2;</code> 是个语句，它是需要<code>;</code>的。所以这里的<code>;</code>是整个语句的分号，这个语句是用<code>break</code>跳出循环并返回表达式<code>counter * 2</code>，没毛病。</p>
 <p><strong>每天进步一点点，学海无涯！</strong></p>
 
       
@@ -1261,17 +1287,17 @@ C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="用c语言编写一个动态库">用C语言编写一个动态库</h1>
-<h2 id="编写c语言头文件sample_so.h">编写C语言头文件<code>sample_so.h</code></h2>
+          <h1>用C语言编写一个动态库</h1>
+<h2 id="编写C语言头文件sample-so-h">编写C语言头文件<code>sample_so.h</code></h2>
 <p>在头文件中声明函数</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="编写函数的实现代码sample_so.c">编写函数的实现代码<code>sample_so.c</code></h2>
+<h2 id="编写函数的实现代码sample-so-c">编写函数的实现代码<code>sample_so.c</code></h2>
 <p>在源文件中实现函数</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sample_so.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="编译生成动态链接库">编译生成动态链接库</h1>
+<h1>编译生成动态链接库</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c -fPIC -o sample_so.o sample_so.c # 先生成.o文件</span><br><span class="line">gcc -shared -o libsample_so.so sample_o.o # 再生成.so文件</span><br></pre></td></tr></table></figure>
-<h1 id="golang-调用动态库">golang 调用动态库</h1>
-<h2 id="先用c语言编写一个动态库的调用代理名字瞎取的">先用c语言编写一个动态库的<code>调用代理</code>（名字瞎取的）</h2>
+<h1>golang 调用动态库</h1>
+<h2 id="先用c语言编写一个动态库的-调用代理（名字瞎取的）">先用c语言编写一个动态库的<code> 调用代理</code>（名字瞎取的）</h2>
 <p><code>loadso.h</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">call_export_func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
 <p><code>loadso.c</code></p>
@@ -1279,8 +1305,7 @@ C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
 <p><strong>注：实际上就是明确了动态库中的函数的签名后（就是函数参数类型，函数返回类型），然后定义对应的函数指针，根据函数名获取到这个函数，用函数指针指向它，接着就可以使用这个函数指针调用这个函数了</strong></p>
 <h2 id="编写golang代码">编写golang代码</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &quot;loadso.h&quot;</span></span><br><span class="line"><span class="comment">#cgo LDFLAGS: -ldl</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">var</span> a <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        <span class="keyword">var</span> b <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        fmt.Printf(<span class="string">&quot;%d + %d = %d\n&quot;</span>, a, b, C.export_func_add(C.<span class="type">int</span>(a), C.<span class="type">int</span>(b)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注：看到最顶上的代码注释了吗？这个注释会被编译器进行解析，不是一般意义上的代码注释，个人感觉挺奇葩的。还有紧接着的一行<code>import "C"</code>,
-注意要紧接着，这也挺反人类的</strong></p>
+<p><strong>注：看到最顶上的代码注释了吗？这个注释会被编译器进行解析，不是一般意义上的代码注释，个人感觉挺奇葩的。还有紧接着的一行<code>import &quot;C&quot;</code>, 注意要紧接着，这也挺反人类的</strong></p>
 
       
     </div>
