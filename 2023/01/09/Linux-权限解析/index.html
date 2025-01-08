@@ -243,85 +243,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="权限简介">权限简介</h1>
-<p>Linux系统上对文件的权限有着严格的控制，如果想对某个文件执行某种操作，必须具有对应的权限方可执行成功。Linux下文件的<code>权限类型</code>一般包括：读，写，执行。对应字母为：r、w、x。
-Linux下<code>权限粒度</code>有：拥有者、群组、其它组三种。每个文件都可以针对三个粒度，设置不同的rwx(读写执行)权限。通常情况下，一个文件只能归属于一个用户和组，
-如果其它的用户想有这个文件的权限，则可以将该用户加入具备权限的群组，一个用户可以同时归属于多个组。
+        <h1>权限简介</h1>
+<p>Linux系统上对文件的权限有着严格的控制，如果想对某个文件执行某种操作，必须具有对应的权限方可执行成功。Linux下文件的<code>权限类型</code>一般包括：读，写，执行。对应字母为：r、w、x。<br>
+Linux下<code>权限粒度</code>有：拥有者、群组、其它组三种。每个文件都可以针对三个粒度，设置不同的rwx(读写执行)权限。通常情况下，一个文件只能归属于一个用户和组， 如果其它的用户想有这个文件的权限，则可以将该用户加入具备权限的群组，一个用户可以同时归属于多个组。<br>
 Linux上通常使用chmod命令对文件的权限进行设置和更改。</p>
-<h1 id="更改文件权限">更改文件权限</h1>
-<p><code>chmod</code>命令 ## 命令格式 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [可选项] &lt;mode&gt; &lt;file...&gt;</span><br></pre></td></tr></table></figure> ## 示例
-设置所有用户可读取<code>a.conf</code> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+r a.conf    # a表示所有（用户、群组、其它组），+r表示读取权限</span><br></pre></td></tr></table></figure> 或 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod ugo+r a.conf   # ugo3个字母分别表示用户，群组、其它组，+r表示读取权限</span><br></pre></td></tr></table></figure></p>
-<p>设置<code>b.sh</code>只有拥有者（即<code>u</code>)有读写、执行权限
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+rwx b.sh </span><br></pre></td></tr></table></figure></p>
-<p>设置文件<code>a.conf</code>与<code>c.xml</code>权限为拥有者与其所属同一个群组可读写，其它组可读不可写
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+r,ug+w,o-w a.conf c.xml</span><br></pre></td></tr></table></figure></p>
-<p>设置当前目录下的所有档案与子目录皆设为任何人可读写 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R a+rw *</span><br></pre></td></tr></table></figure> ---
-## 数字权限使用格式 在这种使用方式中，首先我们需要了解数字如何表示权限。
-首先，我们规定数字<code>4</code>、<code>2</code>和<code>1</code>表示读、写、执行权限，即<code>r=4</code>，<code>w=2</code>，<code>x=1</code>
-。此时其他的权限组合也可以用其他的八进制数字表示出来，</p>
+<h1>更改文件权限</h1>
+<p><code>chmod</code>命令</p>
+<h2 id="命令格式">命令格式</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [可选项] &lt;mode&gt; &lt;file...&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="示例">示例</h2>
+<p>设置所有用户可读取<code>a.conf</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+r a.conf    # a表示所有（用户、群组、其它组），+r表示读取权限</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod ugo+r a.conf   # ugo3个字母分别表示用户，群组、其它组，+r表示读取权限</span><br></pre></td></tr></table></figure>
+<p>设置<code>b.sh</code>只有拥有者（即<code>u</code>)有读写、执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+rwx b.sh </span><br></pre></td></tr></table></figure>
+<p>设置文件<code>a.conf</code>与<code>c.xml</code>权限为拥有者与其所属同一个群组可读写，其它组可读不可写</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+r,ug+w,o-w a.conf c.xml</span><br></pre></td></tr></table></figure>
+<p>设置当前目录下的所有档案与子目录皆设为任何人可读写</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R a+rw *</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="数字权限使用格式">数字权限使用格式</h2>
+<p>在这种使用方式中，首先我们需要了解数字如何表示权限。 首先，我们规定数字<code>4</code>、<code>2</code>和<code>1</code>表示读、写、执行权限，即<code>r=4</code>，<code>w=2</code>，<code>x=1</code> 。此时其他的权限组合也可以用其他的八进制数字表示出来，</p>
 <p>如：</p>
 <p>rwx = 4 + 2 + 1 = 7</p>
 <p>rw = 4 + 2 = 6</p>
 <p>rx = 4 +1 = 5</p>
 <p>即</p>
-<p>若要同时设置 rwx (可读写运行） 权限则将该权限位 设置 为 4 + 2 + 1 =
-7</p>
-<p>若要同时设置 rw- （可读写不可运行）权限则将该权限位 设置 为 4 + 2 =
-6</p>
-<p>若要同时设置 r-x （可读可运行不可写）权限则将该权限位 设置 为 4 +1 =
-5</p>
-<p>上面我们提到，每个文件都可以针对三个粒度，设置不同的rwx(读写执行)权限。即我们可以用用三个<code>8进制数字</code>分别表示<code>拥有者</code>、<code>群组</code>、<code>其它组</code>(
-u、 g
-、o)的权限详情，并用chmod直接加三个<code>8进制</code>数字的方式直接改变文件权限。语法格式为：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod &lt;abc&gt; file...</span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">其中a,b,c各为一个数字，分别代表User、Group、及Other的权限。相当于简化版的</span><br><span class="line">chmod u=权限,g=权限,o=权限 file...</span><br><span class="line">而此处的权限将用8进制的数字来表示User、Group、及Other的读、写、执行权限</span><br></pre></td></tr></table></figure></p>
-<h2 id="示例">示例</h2>
-<p>设置所有人可以读写及执行 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 a.sh # (等价于  chmod u=rwx,g=rwx,o=rwx a.sh 或  chmod a=rwx a.sh)</span><br></pre></td></tr></table></figure></p>
-<p>设置拥有者可读写，其他人不可读写执行 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 a.sh (等价于chmod u=rw,g=---,o=--- a.sh 或 chmod u=rw,go-rwx a.sh)</span><br></pre></td></tr></table></figure></p>
+<p>若要同时设置 rwx (可读写运行） 权限则将该权限位 设置 为 4 + 2 + 1 = 7</p>
+<p>若要同时设置 rw- （可读写不可运行）权限则将该权限位 设置 为 4 + 2 = 6</p>
+<p>若要同时设置 r-x （可读可运行不可写）权限则将该权限位 设置 为 4 +1 = 5</p>
+<p>上面我们提到，每个文件都可以针对三个粒度，设置不同的rwx(读写执行)权限。即我们可以用用三个<code>8进制数字</code>分别表示<code>拥有者</code>、<code>群组</code>、<code>其它组</code>( u、 g 、o)的权限详情，并用chmod直接加三个<code>8进制</code>数字的方式直接改变文件权限。语法格式为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod &lt;abc&gt; file...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">其中a,b,c各为一个数字，分别代表User、Group、及Other的权限。相当于简化版的</span><br><span class="line">chmod u=权限,g=权限,o=权限 file...</span><br><span class="line">而此处的权限将用8进制的数字来表示User、Group、及Other的读、写、执行权限</span><br></pre></td></tr></table></figure>
+<h2 id="示例-2">示例</h2>
+<p>设置所有人可以读写及执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 a.sh # (等价于  chmod u=rwx,g=rwx,o=rwx a.sh 或  chmod a=rwx a.sh)</span><br></pre></td></tr></table></figure>
+<p>设置拥有者可读写，其他人不可读写执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 a.sh (等价于chmod u=rw,g=---,o=--- a.sh 或 chmod u=rw,go-rwx a.sh)</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>权限</th>
 <th>8进制值</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>---</td>
+<tr>
+<td>—</td>
 <td>0</td>
 <td>没有任何权限</td>
 </tr>
-<tr class="even">
-<td>--x</td>
+<tr>
+<td>–x</td>
 <td>1</td>
 <td>只有执行权限</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>-w-</td>
 <td>2</td>
 <td>只有写入权限</td>
 </tr>
-<tr class="even">
+<tr>
 <td>-wx</td>
 <td>3</td>
 <td>有写入和执行权限</td>
 </tr>
-<tr class="odd">
-<td>r--</td>
+<tr>
+<td>r–</td>
 <td>4</td>
 <td>有读取权限</td>
 </tr>
-<tr class="even">
+<tr>
 <td>r-x</td>
 <td>5</td>
 <td>有读取和执行权限</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>rw-</td>
 <td>6</td>
 <td>有读取和写入权限</td>
 </tr>
-<tr class="even">
+<tr>
 <td>rwx</td>
 <td>7</td>
 <td>有全部权限</td>
@@ -329,8 +333,7 @@ u、 g
 </tbody>
 </table>
 <blockquote>
-<p>注：权限rwx3个“位”，值分别是4，2，1 对应的二进制值为
-100，010，001。设计成这样的值方便进行“位或”操作（其实就相当于+）。用这样的设计，在进行位或操作时，就能形成不会重复的结果分别用来表示不同的组合。</p>
+<p>注：权限rwx3个“位”，值分别是4，2，1 对应的二进制值为 100，010，001。设计成这样的值方便进行“位或”操作（其实就相当于+）。用这样的设计，在进行位或操作时，就能形成不会重复的结果分别用来表示不同的组合。</p>
 </blockquote>
 
     </div>
@@ -417,7 +420,7 @@ u、 g
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">权限简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">2.</span> <span class="nav-text">更改文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">权限简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">更改文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">数字权限使用格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">2.4.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -431,7 +434,7 @@ u、 g
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -442,7 +445,7 @@ u、 g
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">182</span>
+        <span class="site-state-item-count">183</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

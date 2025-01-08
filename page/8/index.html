@@ -188,6 +188,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/18/Golang%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/18/Golang%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93/" class="post-title-link" itemprop="url">Golang调用C语言编写的动态库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-18 13:33:33" itemprop="dateCreated datePublished" datetime="2022-11-18T13:33:33+08:00">2022-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-15 13:35:56" itemprop="dateModified" datetime="2022-12-15T13:35:56+08:00">2022-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/CGO/" itemprop="url" rel="index"><span itemprop="name">CGO</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>用C语言编写一个动态库</h1>
+<h2 id="编写C语言头文件sample-so-h">编写C语言头文件<code>sample_so.h</code></h2>
+<p>在头文件中声明函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="编写函数的实现代码sample-so-c">编写函数的实现代码<code>sample_so.c</code></h2>
+<p>在源文件中实现函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sample_so.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>编译生成动态链接库</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c -fPIC -o sample_so.o sample_so.c # 先生成.o文件</span><br><span class="line">gcc -shared -o libsample_so.so sample_o.o # 再生成.so文件</span><br></pre></td></tr></table></figure>
+<h1>golang 调用动态库</h1>
+<h2 id="先用c语言编写一个动态库的-调用代理（名字瞎取的）">先用c语言编写一个动态库的<code> 调用代理</code>（名字瞎取的）</h2>
+<p><code>loadso.h</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">call_export_func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
+<p><code>loadso.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;loadso.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> dllname[] = <span class="string">&quot;/path/of/the/so/sample_so.so&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">call_export_func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    <span class="type">void</span>* handle;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="title function_">int</span><span class="params">(*FPTR)</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(dllname, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(handle == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    FPTR fptr = (FPTR)dlsym(handle, <span class="string">&quot;export_func_add&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> result = (*fptr)(a, b);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注：实际上就是明确了动态库中的函数的签名后（就是函数参数类型，函数返回类型），然后定义对应的函数指针，根据函数名获取到这个函数，用函数指针指向它，接着就可以使用这个函数指针调用这个函数了</strong></p>
+<h2 id="编写golang代码">编写golang代码</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &quot;loadso.h&quot;</span></span><br><span class="line"><span class="comment">#cgo LDFLAGS: -ldl</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">var</span> a <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        <span class="keyword">var</span> b <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        fmt.Printf(<span class="string">&quot;%d + %d = %d\n&quot;</span>, a, b, C.export_func_add(C.<span class="type">int</span>(a), C.<span class="type">int</span>(b)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注：看到最顶上的代码注释了吗？这个注释会被编译器进行解析，不是一般意义上的代码注释，个人感觉挺奇葩的。还有紧接着的一行<code>import &quot;C&quot;</code>, 注意要紧接着，这也挺反人类的</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-003/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -246,7 +342,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="bccsp接口"><code>BCCSP</code>接口</h1>
+          <h1><code>BCCSP</code>接口</h1>
 <p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
 <ul>
 <li><code>KeyGen</code>：密钥生成，包含对称和非对称加密</li>
@@ -260,33 +356,33 @@
 <li><code>Encrypt</code>：数据加密，包含对称和非对称加密</li>
 <li><code>Decrypt</code>：数据解密，包含对称和非对称加密</li>
 </ul>
-<h1 id="sw">SW</h1>
-<h2 id="csp">CSP</h2>
+<h1>SW</h1>
+<h2 id="CSP">CSP</h2>
 <p><code>fabric/bccsp/sw/impl.go</code></p>
-<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>,
-<code>CSP</code>利用反射调用真正的实现</p>
+<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>, <code>CSP</code>利用反射调用真正的实现</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> CSP <span class="keyword">struct</span> &#123;</span><br><span class="line">	ks bccsp.KeyStore</span><br><span class="line"></span><br><span class="line">	KeyGenerators <span class="keyword">map</span>[reflect.Type]KeyGenerator</span><br><span class="line">	KeyDerivers   <span class="keyword">map</span>[reflect.Type]KeyDeriver</span><br><span class="line">	KeyImporters  <span class="keyword">map</span>[reflect.Type]KeyImporter</span><br><span class="line">	Encryptors    <span class="keyword">map</span>[reflect.Type]Encryptor</span><br><span class="line">	Decryptors    <span class="keyword">map</span>[reflect.Type]Decryptor</span><br><span class="line">	Signers       <span class="keyword">map</span>[reflect.Type]Signer</span><br><span class="line">	Verifiers     <span class="keyword">map</span>[reflect.Type]Verifier</span><br><span class="line">	Hashers       <span class="keyword">map</span>[reflect.Type]Hasher</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code>
-生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
-<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>,
-对应于BCCSP接口中定义的方法，有以下实现：</p>
+<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code> 生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
+<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>, 对应于BCCSP接口中定义的方法，有以下实现：</p>
 <ul>
-<li><p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
+<li>
+<p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
 <p>包含了<code>ECDSA</code>、<code>AES</code>2种密钥的生成</p>
 <ul>
 <li><code>ecdsaKeyGenerator</code></li>
 <li><code>aesKeyGenerator</code></li>
-</ul></li>
-<li><p><code>KeyDeriv:</code>
-<code>fabric/bccsp/sw/keyderiv.go</code></p>
-<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生
-3种</p>
+</ul>
+</li>
+<li>
+<p><code>KeyDeriv:</code> <code>fabric/bccsp/sw/keyderiv.go</code></p>
+<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生 3种</p>
 <ul>
 <li><code>ecdsaPublicKeyKeyDeriver</code></li>
 <li><code>ecdsaPrivateKeyKeyDeriver</code></li>
 <li><code>aesPrivateKeyKeyDeriver</code></li>
-</ul></li>
-<li><p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code>
+</ul>
+</li>
+<li>
+<p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code><br>
 包含了:</p>
 <ul>
 <li><code>aes256ImportKeyOptsKeyImporter</code></li>
@@ -295,34 +391,48 @@
 <li><code>ecdsaPrivateKeyImportOptsKeyImporter</code></li>
 <li><code>ecdsaGoPublicKeyImportOptsKeyImporter</code></li>
 <li><code>x509PublicKeyImportOptsKeyImporter</code></li>
-</ul></li>
-<li><p><code>GetKey:</code>
-<code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p></li>
-<li><p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>GetKey:</code> <code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p>
+</li>
+<li>
+<p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
 <ul>
-<li><code>hasher</code>结构体实现了<code>Hash</code>方法</li>
-</ul></li>
-<li><p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
+<li><code>hasher </code>结构体实现了<code>Hash</code>方法</li>
+</ul>
+</li>
+<li>
+<p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
 <ul>
-<li><code>hasher</code>结构体实现了<code>GetHash</code>方法</li>
-</ul></li>
-<li><p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
+<li><code>hasher </code>结构体实现了<code>GetHash</code>方法</li>
+</ul>
+</li>
+<li>
+<p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
 <ul>
 <li><code>ecdsaSigner</code>结构体实现了此方法，在<code>fabric 1.4</code>版中好像<code>rsaSigner</code>结构体也实现了此方法</li>
-</ul></li>
-<li><p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
 <ul>
 <li><code>ecdsaPrivateKeyVerifier</code> 结构体中实现了此方法</li>
 <li><code>ecdsaPublicKeyKeyVerifier</code>结构体中实现了此方法</li>
-</ul></li>
-<li><p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
 <ul>
 <li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul></li>
-<li><p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
 <ul>
 <li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
       
@@ -401,24 +511,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="bccsp-接口">BCCSP 接口</h1>
+          <h1>BCCSP 接口</h1>
 <p><strong>以下内容从<a target="_blank" rel="noopener" href="https://lessisbetter.site/">太彬年久失修的博客</a>盗版而来</strong></p>
 <p><code>BCCSP</code>是<code>Block Chain Crypto Service Provider</code>的缩写。在Fabric中，BCCSP被抽象成为一个接口。</p>
 <p><code>bccsp</code>模块提供密码学服务，它包含的具体功能有：对称加密和非对称加密的密钥生成、导入、导出，数字签名和验证，对称加密和解密、摘要计算。</p>
-<p><code>bccsp</code>使用了依赖倒置原则（Dependence Inversion
-Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。</p>
+<p><code>bccsp</code>使用了依赖倒置原则（Dependence Inversion Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。</p>
 <p>bccsp模块中当前有2种密码实现，它们都是bccsp中的密码学插件：<code>SW</code>和<code>PKCS11</code>，<code>SW</code>代表的是国际标准加密的软实现，<code>SW</code>是<code>software</code>的缩写，<code>PKCS11</code>代指硬实现。</p>
-<figure>
-<img src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" alt="BCCSP.png">
-<figcaption aria-hidden="true">BCCSP.png</figcaption>
-</figure>
+<p><img src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" alt="BCCSP.png"></p>
 <blockquote>
 <p>扩展阅读：</p>
-<p>PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，
+<p>PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，<br>
 插入USBKey用网银转账时，就需要走USBKey中的硬件进行数字签名，这个过程就需要使用PCKS11。</p>
 </blockquote>
 <p>密码学通常有软实现和硬实现，软实现就是常用的各种加密库，比如Go中<code>crypto</code>包，硬实现是使用加密机提供的一套加密服务。软实现和硬实现的重要区别是，密码算法的安全性强依赖随机数，软实现利用的是OS的伪随机数，而硬实现利用的是加密机生成的随机数，所以硬实现的安全强度要高于软实现。</p>
-<h2 id="sw介绍">SW介绍</h2>
+<h2 id="SW介绍">SW介绍</h2>
 <p>SW是国际标准加密的软实现插件，它包含了ECDSA算法、RSA算法、AES算法，以及SHA系列的摘要算法。</p>
 <p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
 <ul>
@@ -515,125 +621,116 @@ Principle）：依赖抽象而不依赖具体实现，这样的好处就是可�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="源码总目录结构">源码总目录结构</h1>
+          <h1>源码总目录结构</h1>
 <table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>目录名</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>bccsp</td>
 <td>全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现</td>
 </tr>
-<tr class="even">
+<tr>
 <td>ccaas_builder</td>
 <td>编译相关</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>ci</td>
 <td>持续集成(CI)相关配置和脚本</td>
 </tr>
-<tr class="even">
+<tr>
 <td>cmd</td>
 <td>命令行操作相关入口代码</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>common</td>
 <td>一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>core</td>
 <td>核心库，组件的核心逻辑，针对每一个组件都有一个子目录（chaincode:与智能合约相关);(endorser:与背书节点相关）</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>discovery</td>
 <td>服务发现模块相关代码</td>
 </tr>
-<tr class="even">
+<tr>
 <td>docs</td>
 <td>文档相关</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>gossip</td>
 <td>组织内部节点数据同步的通信协议，最终一致性算法，用于组织内部数据同步</td>
 </tr>
-<tr class="even">
+<tr>
 <td>images</td>
 <td>Docker镜像打包，Docker镜像都是通过这个目录下的配置文件生成的</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>integration</td>
 <td>待迁移代码</td>
 </tr>
-<tr class="even">
+<tr>
 <td>internal</td>
 <td>内部代码，被cmd包等调用</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>msp</td>
-<td>成员服务管理（member service
-provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
+<td>成员服务管理（member service provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
 </tr>
-<tr class="even">
+<tr>
 <td>orderer</td>
 <td>排序节点的入口，用于消息的订阅与分发处理</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>pkg</td>
 <td>重写或实现了一些golang原生接口</td>
 </tr>
-<tr class="even">
+<tr>
 <td>protoutil</td>
 <td>Proposal提案相关的工具包</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>release_notes</td>
 <td>发布笔记</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sampleconfig</td>
 <td>配置示例</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>scripts</td>
 <td>脚本，包含启动脚本、检查脚本等</td>
 </tr>
-<tr class="even">
+<tr>
 <td>swagger</td>
 <td>swagger文档生成配置</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>tools</td>
 <td>工具包，目前还是空的（release-2.4分支）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>vagrant</td>
 <td>包含了用 Vagrant 建立一个简单的开发环境所必需的脚本</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>vendor</td>
 <td>存放Go中使用的第三方包</td>
 </tr>
 </tbody>
 </table>
-<h1 id="模块分类">模块分类</h1>
+<h1>模块分类</h1>
 <h2 id="核心模块">核心模块</h2>
 <p>提供核心功能服务的代码，包括<code>core</code>、<code>orderer</code>两个代码包，这两个代码包涵盖了Orderder排序节点与Peer节点（包含Endorser背书节点与Committer记帐节点）的核心代码</p>
 <h2 id="公共模块">公共模块</h2>
-<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code>
-<code>common</code> <code>gossip</code> <code>msp</code>
-<code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
+<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code> <code>common</code> <code>gossip</code> <code>msp</code> <code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
 <h2 id="辅助模块">辅助模块</h2>
-<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code>
-<code>ci</code> <code>docs</code> <code>release_notes</code>
-<code>swagger</code>等</p>
+<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code> <code>ci</code> <code>docs</code> <code>release_notes</code> <code>swagger</code>等</p>
 
       
     </div>
@@ -711,23 +808,25 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure></p>
-<h1 id="部署wasmcc">部署<code>wasmcc</code></h1>
+          <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure>
+<h1>部署<code>wasmcc</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn wasmcc -ccp /Users/mao/work/wasm/opensource/hyperledger/fabric-chaincode-wasm/wasmcc -ccv 1.0 -ccl go</span><br></pre></td></tr></table></figure>
-<h1 id="调用wasmcc部署wasm-chaincode">调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
-<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），
+<h1>调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
+<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），<br>
 然后通过以下命令部置这个<code>wasm chaincode</code>,**注：命令中的<code>wasm二进制数据的十六进制表示字符串</code>需要按实际的数据进行替换。这个把wasm字节码转为十六进制表示（字符串）的工具是<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/file-encoder">file-encoder</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;create&quot;,&quot;balancewasm&quot;,&quot;wasm二进制数据的十六进制表示字符串&quot;,&quot;account1&quot;,&quot;100&quot;,&quot;account2&quot;,&quot;1000&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="调用命令查看目前已部署的wasm-chaincode">调用命令查看目前已部署的<code>wasm chaincode</code></h1>
+<h1>调用命令查看目前已部署的<code>wasm chaincode</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;installedChaincodes&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="通过wasmcc查询wasm-chaincode中的account1的余额">通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
+<h1>通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;query&quot;,&quot;account1&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="通过wasmcc调用wasm-chaincode中的函数invoke">通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
+<h1>通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;invoke&quot;,&quot;account2&quot;,&quot;account1&quot;,&quot;10&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="通过工具wasm-pusher安装wasm-chaincode">通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
-<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。
-使用命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure> <code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
+<h1>通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
+<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。<br>
+使用命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure>
+<p><code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
 
       
     </div>
@@ -805,7 +904,7 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="network.sh-脚本命令">network.sh 脚本命令</h1>
+          <h1><a target="_blank" rel="noopener" href="http://network.sh">network.sh</a> 脚本命令</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">./network.sh help</span><br><span class="line">Using docker and docker-compose</span><br><span class="line">Usage:</span><br><span class="line">  network.sh &lt;Mode&gt; [Flags]</span><br><span class="line">    Modes:</span><br><span class="line">      up - Bring up Fabric orderer and peer nodes. No channel is created</span><br><span class="line">      up createChannel - Bring up fabric network with one channel</span><br><span class="line">      createChannel - Create and join a channel after the network is created</span><br><span class="line">      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)</span><br><span class="line">      down - Bring down the network</span><br><span class="line"></span><br><span class="line">    Flags:</span><br><span class="line">    Used with network.sh up, network.sh createChannel:</span><br><span class="line">    -ca &lt;use CAs&gt; -  Use Certificate Authorities to generate network crypto material</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to create (defaults to &quot;mychannel&quot;)</span><br><span class="line">    -s &lt;dbtype&gt; - Peer state database to deploy: goleveldb (default) or couchdb</span><br><span class="line">    -r &lt;max retry&gt; - CLI times out after certain number of attempts (defaults to 5)</span><br><span class="line">    -d &lt;delay&gt; - CLI delays for a certain number of seconds (defaults to 3)</span><br><span class="line">    -verbose - Verbose mode</span><br><span class="line"></span><br><span class="line">    Used with network.sh deployCC</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to deploy chaincode to</span><br><span class="line">    -ccn &lt;name&gt; - Chaincode name.</span><br><span class="line">    -ccl &lt;language&gt; - Programming language of the chaincode to deploy: go, java, javascript, typescript</span><br><span class="line">    -ccv &lt;version&gt;  - Chaincode version. 1.0 (default), v2, version3.x, etc</span><br><span class="line">    -ccs &lt;sequence&gt;  - Chaincode definition sequence. Must be an integer, 1 (default), 2, 3, etc</span><br><span class="line">    -ccp &lt;path&gt;  - File path to the chaincode.</span><br><span class="line">    -ccep &lt;policy&gt;  - (Optional) Chaincode endorsement policy using signature policy syntax. The default policy requires an endorsement from Org1 and Org2</span><br><span class="line">    -cccg &lt;collection-config&gt;  - (Optional) File path to private data collections configuration file</span><br><span class="line">    -cci &lt;fcn name&gt;  - (Optional) Name of chaincode initialization function. When a function is provided, the execution of init will be requested and the function will be invoked.</span><br><span class="line"></span><br><span class="line">    -h - Print this message</span><br><span class="line"></span><br><span class="line"> Possible Mode and flag combinations</span><br><span class="line">   up -ca -r -d -s -verbose</span><br><span class="line">   up createChannel -ca -c -r -d -s -verbose</span><br><span class="line">   createChannel -c -r -d -verbose</span><br><span class="line">   deployCC -ccn -ccl -ccv -ccs -ccp -cci -r -d -verbose</span><br><span class="line"></span><br><span class="line"> Examples:</span><br><span class="line">   network.sh up createChannel -ca -c mychannel -s couchdb</span><br><span class="line">   network.sh createChannel -c channelName</span><br><span class="line">   network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript</span><br><span class="line">   network.sh deployCC -ccn mychaincode -ccp ./user/mychaincode -ccv 1 -ccl javascript</span><br></pre></td></tr></table></figure>
 <h2 id="清除测试网中的所有容器">清除测试网中的所有容器</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
@@ -817,15 +916,11 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>-ccn</code>指定链码名称 <code>chain code name</code></li>
-<li><code>-ccl</code> 指定编写链码的语言
-<code>chain code language</code></li>
-<li><code>-ccp</code> 指定链码所在的目录
-<code>chain code path</code></li>
+<li><code>-ccl</code> 指定编写链码的语言 <code>chain code language</code></li>
+<li><code>-ccp</code> 指定链码所在的目录 <code>chain code path</code></li>
 <li>其余的查看 <code>./network.sh help</code></li>
 </ul>
-<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code>
-和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code>
-和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
+<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
 <p>还有加<code>sudo</code>后找不到<code>go</code>的坑,需要在<code>~/.zshrc</code>中添加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias sudo=&#x27;sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH&#x27;</span><br></pre></td></tr></table></figure>
 <h2 id="与fabric网络交互">与fabric网络交互</h2>
@@ -837,19 +932,10 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FABRIC_CFG_PATH=$PWD/../config/</span><br></pre></td></tr></table></figure>
 <p>现在，可以设置环境变量，以允许作为Org1操作<code>peer</code> CLI：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Environment variables <span class="keyword">for</span> Org1</span></span><br><span class="line"></span><br><span class="line">export CORE_PEER_TLS_ENABLED=true</span><br><span class="line">export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;</span><br><span class="line">export CORE_PEER_TLS_ROOTCERT_FILE=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line">export CORE_PEER_MSPCONFIGPATH=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line">export CORE_PEER_ADDRESS=localhost:7051</span><br></pre></td></tr></table></figure>
-<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。
-如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动
-asset-transfer (basic) 链码，您可以调用链码（Go）的
-<code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用
-typescript 或者 javascript，例如
-<code>./network.sh deployCC -l javascript</code>，你会调用相关链码的
-<code>initLedger</code> 功能）。
-运行以下命令用一些资产来初始化账本：</p>
-<h3 id="调用链码函数initledger">调用链码函数<code>InitLedger</code></h3>
+<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。 如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动 asset-transfer (basic) 链码，您可以调用链码（Go）的 <code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用 typescript 或者 javascript，例如 <code>./network.sh deployCC -l javascript</code>，你会调用相关链码的 <code>initLedger</code> 功能）。 运行以下命令用一些资产来初始化账本：</p>
+<h3 id="调用链码函数InitLedger">调用链码函数<code>InitLedger</code></h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<p><strong>Mac
-M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker
-Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
+<p><strong>Mac M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
 <h3 id="查询">查询</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c &#x27;&#123;&quot;Args&quot;:[&quot;GetAllAssets&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -929,13 +1015,12 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="编译rust源码为wasm">编译rust源码为wasm</h1>
+          <h1>编译rust源码为wasm</h1>
 <h2 id="安装工具链">安装工具链</h2>
 <p>可以使用以下两条命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br><span class="line">curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh</span><br></pre></td></tr></table></figure>
 <p>也可以参考<a target="_blank" rel="noopener" href="https://rustwasm.github.io/book/game-of-life/setup.html">官方安装向导</a></p>
-<h2 id="创建rust-lib工程">创建<code>rust</code>
-<code>lib</code>工程</h2>
+<h2 id="创建rust-lib工程">创建<code>rust</code> <code>lib</code>工程</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new hello_world --lib</span><br></pre></td></tr></table></figure>
 <p>生成的<code>Cargo.toml</code>内容为：</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello_world&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -945,25 +1030,26 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Cargo.toml</span><br><span class="line">└── src</span><br><span class="line">   └── lib.rs</span><br></pre></td></tr></table></figure>
 <p>在<code>lib.rs</code>中编写<code>rust</code>代码实现函数，因为在wasmcc的特殊性，这里的编写的代码也具有一些特殊性：</p>
 <ul>
-<li><p>可以导入调用在wasmcc中实现的函数</p>
+<li>
+<p>可以导入调用在wasmcc中实现的函数</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__print</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter</span>(paramNumber: <span class="type">usize</span>, result: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter_size</span>(paramNumber: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state_size</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__put_state</span>(key: *<span class="keyword">const</span> <span class="type">u8</span>, key_len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>, value_len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__delete_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__return_result</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>这些函数可以在编写<code>rust</code>代码时直接调用，不需要自己实现，这些是相当在Host程序中实现，可以被
-<code>wasm</code>代码调用的函数</strong></p>
+<p><strong>这些函数可以在编写<code>rust</code>代码时直接调用，不需要自己实现，这些是相当在Host程序中实现，可以被 <code>wasm</code>代码调用的函数</strong></p>
 <p>在rust的导出函数中,即wasm代码的对外接口中，可以调用上述的函数，如：</p>
 <ul>
 <li>通过__get_parameter_size(0)可以取得第1个参数的长度__</li>
 <li>通过__get_parameter可以取得参数的值，具体用法就是传入一个序号，一个vec!的指针</li>
-</ul></li>
-<li><p>实现<code>init</code>函数（必须实现，<code>wasmcc</code>的<code>create</code>函数用来创建
-wasm chaincode时就会调用wasm代码中的<code>init</code>函数</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">init</span>(args: <span class="type">i64</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>
+<p>实现<code>init</code>函数（必须实现，<code>wasmcc</code>的<code>create</code>函数用来创建 wasm chaincode时就会调用wasm代码中的<code>init</code>函数</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">init</span>(args: <span class="type">i64</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h2 id="编译">编译</h2>
 <p>在<code>rust</code>工程的根目录下，运行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm-pack build</span><br></pre></td></tr></table></figure>
 <p>如果成功的话，会在当前目录下生成<code>pkg/hello_world_bg.wasm</code></p>
-<p>关于C语言编写代码，再编译成wasm，文档中说是需要安装clang8 和 llvm。<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/sample-wasm-chaincode">文档</a>中是<a target="_blank" rel="noopener" href="https://apt.llvm.org/">Linux的几个发行版的环境</a>，由于我的是Mac
-M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找不到<code>__print</code>、<code>__get_parameter</code>等几个函数的找不到实现部分，所以链接的时候出错，这个理论上说得通，能编译成功才是不能理解的。不知道文档中说的方法是怎么编译成功的，到时候有空用Linux环境试一下吧。</p>
+<p>关于C语言编写代码，再编译成wasm，文档中说是需要安装clang8 和 llvm。<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/sample-wasm-chaincode">文档</a>中是<a target="_blank" rel="noopener" href="https://apt.llvm.org/">Linux的几个发行版的环境</a>，由于我的是Mac M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找不到<code>__print</code>、<code>__get_parameter</code>等几个函数的找不到实现部分，所以链接的时候出错，这个理论上说得通，能编译成功才是不能理解的。不知道文档中说的方法是怎么编译成功的，到时候有空用Linux环境试一下吧。</p>
 
       
     </div>
@@ -1041,29 +1127,38 @@ M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="wasmcc">wasmcc</h1>
+          <h1>wasmcc</h1>
 <p>全称：<code>Hyperledger Fabric WASM Chaincode</code>，是由<code>hypterledger-labs</code>提供的一个链码。作用是可以把使用rust/C编写代码生成<code>wasm</code>字节码，把wasm字节码部署到<code>fabric</code>中，然后使用wasmcc作为代理调用wasm中的函数。fabric以此方式来支持<code>wasm chaincode</code></p>
 <h2 id="步骤">步骤</h2>
 <ul>
-<li><ol type="1">
-<li><code>wasmcc</code>部署到<code>fabric</code>中，扮演<code>wasm</code>代码调用的统一入口，相当于wasm代码的调用代理。
-<code>wasmcc</code>的部署和其它的普通链码的部署方式一样，<code>wasmcc</code>没有实例化参数，通过peer
-cli部署的命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n wasmcc -v 1.0 -p github.com/chaincode/wasmer-chaincode-test/wasmcc</span><br></pre></td></tr></table></figure> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode instantiate -n wasmcc -v 1.0 -C &lt;channel-name&gt; -c &#x27;&#123;&quot;Args&quot;:[]&#125;&#x27; -o &lt;orderer-address&gt; --tls --cafile &lt;orderer-ca&gt;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>通过调用<code>wasmcc</code>的 <code>create</code>
-方法创建<code>wasm chaincode</code></li>
-</ol></li>
-<li><ol start="3" type="1">
-<li><strong>通过调用<code>wasmcc</code>的<code>execute</code>方法调用<code>wasm chaincode</code></strong></li>
-</ol></li>
-<li><ol start="4" type="1">
-<li>通过调用<code>wasmcc</code>的<code>installedChaincodes</code>方法获取目前fabric上部署的所有<code>wasm chiancode</code></li>
-</ol></li>
+<li>
+<ol>
+<li><code>wasmcc</code>部署到<code>fabric</code>中，扮演<code>wasm</code>代码调用的统一入口，相当于wasm代码的调用代理。<br>
+<code>wasmcc</code>的部署和其它的普通链码的部署方式一样，<code>wasmcc</code>没有实例化参数，通过peer cli部署的命令如下：</li>
+</ol>
+</li>
 </ul>
-<h1 id="wasmcc-代码解读">wasmcc 代码解读</h1>
-<h2 id="基础结构fabric-链码的基本结构">基础结构(fabric
-链码的基本结构)</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n wasmcc -v 1.0 -p github.com/chaincode/wasmer-chaincode-test/wasmcc</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode instantiate -n wasmcc -v 1.0 -C &lt;channel-name&gt; -c &#x27;&#123;&quot;Args&quot;:[]&#125;&#x27; -o &lt;orderer-address&gt; --tls --cafile &lt;orderer-ca&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<ol start="2">
+<li>通过调用<code>wasmcc</code>的 <code>create</code> 方法创建<code>wasm chaincode</code></li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><strong>通过调用<code>wasmcc</code>的<code>execute</code>方法调用<code>wasm chaincode</code></strong></li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>通过调用<code>wasmcc</code>的<code>installedChaincodes</code>方法获取目前fabric上部署的所有<code>wasm chiancode</code></li>
+</ol>
+</li>
+</ul>
+<h1>wasmcc 代码解读</h1>
+<h2 id="基础结构-fabric-链码的基本结构">基础结构(fabric 链码的基本结构)</h2>
 <pre class="mermaid" style="text-align: center;">
             
             classDiagram
@@ -1133,25 +1228,37 @@ Resolver --> WASMChaincode
           </pre>
 <h3 id="定义一个结构体">定义一个结构体</h3>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WASMChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="init方法">Init方法</h2>
+<h2 id="Init方法">Init方法</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Init(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Init invoked&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>链码创建或升级时被调用，<code>wasmcc</code>的<code>Init</code>内部只记录了一下日志，没有其它多余的操作</p>
-<h2 id="invoke方法">Invoke方法</h2>
+<p>链码创建或升级时被调用，<code>wasmcc </code>的<code>Init</code>内部只记录了一下日志，没有其它多余的操作</p>
+<h2 id="Invoke方法">Invoke方法</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Invoke(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke function&quot;</span>)</span><br><span class="line">	function, args := stub.GetFunctionAndParameters()</span><br><span class="line">	logger.Debugf(<span class="string">&quot;Invoke function %s with args %v&quot;</span>, function, args)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> function == <span class="string">&quot;create&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// Create a new wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.create(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;execute&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// execute wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.execute(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;installedChaincodes&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// get the list of installed wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.installedChaincodes(stub, args)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> shim.Error(<span class="string">&quot;Invalid invoke function name. Expecting \&quot;execute\&quot; \&quot;create\&quot; \&quot;query\&quot;&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个方法的功能：</p>
 <ul>
-<li><ol type="1">
-<li><p>创建wasm chaincode: 调用函数<code>create</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store a new wasm chaincode in state. Receives chaincode name and wasm file encoded in hex</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> create(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Create function&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting atleast 2 arguments&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	logger.Infof(<span class="string">&quot;Installing wasm chaincode: &quot;</span> + chaincodeName)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//check if same chaincode name is already present</span></span><br><span class="line">	chaincodeFromState, err := stub.GetState(chaincodeName)</span><br><span class="line">	<span class="keyword">if</span> chaincodeFromState != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(ChaincodeExists)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Decode the chaincode</span></span><br><span class="line">	chaincodeHexEncoded := args[<span class="number">1</span>]</span><br><span class="line">	chaincodeDecoded, err := decodeReceivedWASMChaincode(chaincodeHexEncoded)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(chaincodeDecoded, <span class="string">&quot;init&quot;</span>, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Init Response:%d\n&quot;</span>, result)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Chaincode init invocation failed&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Store the chaincode in</span></span><br><span class="line">	ledgerChaincodeKey, err := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	err = stub.PutState(ledgerChaincodeKey, chaincodeDecoded)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		s := fmt.Sprintf(UnknownError, err.Error())</span><br><span class="line">		<span class="keyword">return</span> shim.Error(s)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(<span class="string">&quot;Success! Installed wasm chaincode&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><ol start="2" type="1">
-<li><p>执行wasm chaincode 中的函数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> execute(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting chaincode name to invoke&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	funcToInvoke := args[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the state from the ledger</span></span><br><span class="line">	ledgerChaincodeKey, _ := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	Chaincodebytes, _ := stub.GetState(ledgerChaincodeKey)</span><br><span class="line">	<span class="keyword">if</span> Chaincodebytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;:\&quot;No Chaincode for &quot;</span> + chaincodeName + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(Chaincodebytes, funcToInvoke, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%d\n&quot;</span>, result)</span><br><span class="line">	<span class="keyword">return</span> txnResult(result, r.result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><ol start="3" type="1">
-<li><p>获取已安装的<code>wasm chaincode</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> installedChaincodes(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get all chaincodes from the ledger</span></span><br><span class="line">	installedChaincodeResultsIterator, err := stub.GetStateByPartialCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through result set and get chaincode names</span></span><br><span class="line">	<span class="keyword">var</span> i <span class="type">int</span></span><br><span class="line">	<span class="keyword">var</span> installedChaincodeNamesList = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">0</span>; installedChaincodeResultsIterator.HasNext(); i++ &#123;</span><br><span class="line">		<span class="comment">// Note that we don&#x27;t get the value (2nd return variable), we&#x27;ll just get the marble name from the composite key</span></span><br><span class="line">		responseRange, err := installedChaincodeResultsIterator.Next()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// get the color and name from color~name composite key</span></span><br><span class="line">		objectType, compositeKeyParts, err := stub.SplitCompositeKey(responseRange.Key)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line">		returnedChaincodeName := compositeKeyParts[<span class="number">0</span>]</span><br><span class="line">		logger.Infof(<span class="string">&quot;- found a chaincode from index:%s name:%s\n&quot;</span>, objectType, returnedChaincodeName)</span><br><span class="line">		installedChaincodeNamesList += returnedChaincodeName</span><br><span class="line">		installedChaincodeNamesList += <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%s\n&quot;</span>, installedChaincodeNamesList)</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(installedChaincodeNamesList))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol></li>
+<li>
+<ol>
+<li>
+<p>创建wasm chaincode: 调用函数<code>create</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store a new wasm chaincode in state. Receives chaincode name and wasm file encoded in hex</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> create(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Create function&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting atleast 2 arguments&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	logger.Infof(<span class="string">&quot;Installing wasm chaincode: &quot;</span> + chaincodeName)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//check if same chaincode name is already present</span></span><br><span class="line">	chaincodeFromState, err := stub.GetState(chaincodeName)</span><br><span class="line">	<span class="keyword">if</span> chaincodeFromState != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(ChaincodeExists)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Decode the chaincode</span></span><br><span class="line">	chaincodeHexEncoded := args[<span class="number">1</span>]</span><br><span class="line">	chaincodeDecoded, err := decodeReceivedWASMChaincode(chaincodeHexEncoded)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(chaincodeDecoded, <span class="string">&quot;init&quot;</span>, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Init Response:%d\n&quot;</span>, result)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Chaincode init invocation failed&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Store the chaincode in</span></span><br><span class="line">	ledgerChaincodeKey, err := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	err = stub.PutState(ledgerChaincodeKey, chaincodeDecoded)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		s := fmt.Sprintf(UnknownError, err.Error())</span><br><span class="line">		<span class="keyword">return</span> shim.Error(s)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(<span class="string">&quot;Success! Installed wasm chaincode&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>
+<p>执行wasm chaincode 中的函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> execute(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting chaincode name to invoke&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	funcToInvoke := args[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the state from the ledger</span></span><br><span class="line">	ledgerChaincodeKey, _ := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	Chaincodebytes, _ := stub.GetState(ledgerChaincodeKey)</span><br><span class="line">	<span class="keyword">if</span> Chaincodebytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;:\&quot;No Chaincode for &quot;</span> + chaincodeName + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(Chaincodebytes, funcToInvoke, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%d\n&quot;</span>, result)</span><br><span class="line">	<span class="keyword">return</span> txnResult(result, r.result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>
+<p>获取已安装的<code>wasm chaincode</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> installedChaincodes(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get all chaincodes from the ledger</span></span><br><span class="line">	installedChaincodeResultsIterator, err := stub.GetStateByPartialCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through result set and get chaincode names</span></span><br><span class="line">	<span class="keyword">var</span> i <span class="type">int</span></span><br><span class="line">	<span class="keyword">var</span> installedChaincodeNamesList = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">0</span>; installedChaincodeResultsIterator.HasNext(); i++ &#123;</span><br><span class="line">		<span class="comment">// Note that we don&#x27;t get the value (2nd return variable), we&#x27;ll just get the marble name from the composite key</span></span><br><span class="line">		responseRange, err := installedChaincodeResultsIterator.Next()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// get the color and name from color~name composite key</span></span><br><span class="line">		objectType, compositeKeyParts, err := stub.SplitCompositeKey(responseRange.Key)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line">		returnedChaincodeName := compositeKeyParts[<span class="number">0</span>]</span><br><span class="line">		logger.Infof(<span class="string">&quot;- found a chaincode from index:%s name:%s\n&quot;</span>, objectType, returnedChaincodeName)</span><br><span class="line">		installedChaincodeNamesList += returnedChaincodeName</span><br><span class="line">		installedChaincodeNamesList += <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%s\n&quot;</span>, installedChaincodeNamesList)</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(installedChaincodeNamesList))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
 </ul>
 
       
@@ -1230,44 +1337,50 @@ Resolver --> WASMChaincode
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="通过fabric-samples了解fabric">通过fabric-samples了解fabric</h1>
+          <h1>通过fabric-samples了解fabric</h1>
 <p>需要有以下几个步骤：</p>
 <ul>
-<li><ol type="1">
-<li>如果需要，请克隆 <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-samples">hyperledger/fabric-samples</a>
-仓库</li>
-</ol></li>
-<li><ol start="2" type="1">
+<li>
+<ol>
+<li>如果需要，请克隆 <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-samples">hyperledger/fabric-samples</a> 仓库</li>
+</ol>
+</li>
+<li>
+<ol start="2">
 <li>检出适当的版本标签</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li>将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到
-fabric-samples 下的 /bin 和 /config 目录中</li>
-</ol></li>
-<li><ol start="4" type="1">
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 /bin 和 /config 目录中</li>
+</ol>
+</li>
+<li>
+<ol start="4">
 <li>下载指定版本的 Hyperledger Fabric docker 镜像</li>
-</ol></li>
+</ol>
+</li>
 </ul>
 <p><strong>无梯子会比较麻烦，下面这种方法行不通</strong></p>
-<h1 id="方法1.-使用脚本完成">方法1. 使用脚本完成</h1>
+<h1>方法1. 使用脚本完成</h1>
 <p>因为<code>curl -sSL https://bit.ly/2ysbOFE</code>会下载一个脚本，这个脚本如果在无梯子的情况下，是执行不成功的，可以先下载这个脚本，自行修改。</p>
 <p>如果想要最新的生产发布版，忽略所有的版本标识符</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s</span><br></pre></td></tr></table></figure>
-<p>如果你想要一个指定的发布版本，传入一个 Fabric、Fabric-ca 和第三方
-Docker 镜像的版本标识符。下边的命令显示了如何下载最新的生产发布版 -
-<strong>Fabric v2.2.0</strong> 和 <strong>Fabric CA v1.4.7</strong>
-。</p>
+<p>如果你想要一个指定的发布版本，传入一个 Fabric、Fabric-ca 和第三方 Docker 镜像的版本标识符。下边的命令显示了如何下载最新的生产发布版 - <strong>Fabric v2.2.0</strong> 和 <strong>Fabric CA v1.4.7</strong> 。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s -- &lt;fabric_version&gt; &lt;fabric-ca_version&gt;</span><br><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.2.0 1.4.7</span><br></pre></td></tr></table></figure>
-<h1 id="方法2.-通过fabric项目中的一个脚本">方法2.
-通过fabric项目中的一个脚本</h1>
+<h1>方法2. 通过fabric项目中的一个脚本</h1>
 <ul>
-<li><p>先<code>clone fabric</code>代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br></pre></td></tr></table></figure></li>
-<li><p>进入到<code>fabric</code>目录下</p>
+<li>
+<p>先<code>clone fabric</code>代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>进入到<code>fabric</code>目录下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd fabric/scripts/</span><br><span class="line">./bootstrap.sh</span><br></pre></td></tr></table></figure>
-<p>接下来无梯子还是会遇到问题,可以对bootstrap.sh中的内容进行修改，或按脚本的流程自己手动下载</p></li>
+<p>接下来无梯子还是会遇到问题,可以对bootstrap.sh中的内容进行修改，或按脚本的流程自己手动下载</p>
+</li>
 </ul>
-<h1 id="启动测试网络">启动测试网络</h1>
+<h1>启动测试网络</h1>
 <h2 id="进入到相关目录">进入到相关目录</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd fabric-samples/test-network</span><br></pre></td></tr></table></figure>
 <h2 id="删除掉先前运行的所有容器或工程">删除掉先前运行的所有容器或工程</h2>
@@ -1347,140 +1460,13 @@ Docker 镜像的版本标识符。下边的命令显示了如何下载最新的�
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>阿里云服务器的<code>authorized_keys</code>中已经添加过我个人电脑的公钥，一开始是可以免密码登录的，后来估计不知道我个人电脑更新了啥，ssh
-登录远程服务器时，提示：</p>
+          <p>阿里云服务器的<code>authorized_keys</code>中已经添加过我个人电脑的公钥，一开始是可以免密码登录的，后来估计不知道我个人电脑更新了啥，ssh 登录远程服务器时，提示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to negotiate with `服务器IP地址` port 22: no matching host key type found. Their offer: ssh-rsa,ssh-dss</span><br></pre></td></tr></table></figure>
 <p>解决方法记录一下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/config # 没有就创建</span><br></pre></td></tr></table></figure>
 <p>添加以下内容，保存退出</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Host xxx.xxx.xxx.xxx                          # 服务器地址</span><br><span class="line">HostKeyAlgorithms +ssh-dss</span><br><span class="line">PubkeyAcceptedKeyTypes ssh-rsa,ssh-dss</span><br></pre></td></tr></table></figure>
 <p>网上一般都说是添加上面的前两行就解决了，但我试了不行，只有添加了上面3行内容才解决</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/02/Fabric-%E9%93%BE%E7%A0%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E7%A4%BA%E4%BE%8B%E8%AF%B4%E6%98%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/02/Fabric-%E9%93%BE%E7%A0%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E7%A4%BA%E4%BE%8B%E8%AF%B4%E6%98%8E/" class="post-title-link" itemprop="url">Fabric-链码的基本结构和示例说明</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-02 10:32:33" itemprop="dateCreated datePublished" datetime="2022-11-02T10:32:33+08:00">2022-11-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:38" itemprop="dateModified" datetime="2022-12-03T19:37:38+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="链码结构">链码结构</h1>
-<h2 id="链码接口">链码接口</h2>
-<p>链码启动必须通过调用 shim 包中的 Start 函数，传递一个类型为 Chaincode
-的参数，该参数是一个接口类型，有两个重要的函数 Init 与 Invoke 。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Chaincode <span class="keyword">interface</span> &#123;</span><br><span class="line">    Init(stub ChaincodeStubInterface) peer.Response</span><br><span class="line">    Invoke(stub ChaincodeStubInterface) peer.Response</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Init: 在链码实例化或升级时被调用，完成初始化数据的工作</li>
-<li>Invoke:
-更新或查询帐本数据状态时被调用，需要在此方法中<strong>实现响应调用或查询的业务逻辑</strong></li>
-</ul>
-<p>实际开发中，开发人员可以自行定义一个结构体，重写Chaincode接口的两个方法，并将两个方法指定为自定义的结构体的成员方法。相当于java语言里面写一个类实现链码的接口，实现接口中的<code>Init</code>和<code>Invoke</code>方法。</p>
-<h2 id="链码结构-1">链码结构</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入必要的包</span></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/hyperledger/fabric/core/chaincode/shim&quot;</span></span><br><span class="line">    pb <span class="string">&quot;github.com/hyperledger/fabric/protos/peer&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个结构体</span></span><br><span class="line"><span class="keyword">type</span> SimpleChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为结构体添加Init方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> Init(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">    <span class="comment">// 在该方法中实现链码初始化或升级时的处理逻辑</span></span><br><span class="line">    <span class="comment">// 编写时可灵活使用stub中的API</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为结构体添加Invoke方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> Invoke(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">    <span class="comment">// 在该方法中实现链码运行中被调用或查询时的处理逻辑</span></span><br><span class="line">    <span class="comment">// 编写时可灵活使用stub中的API</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主函数，需要调用shim.Start（）方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    err := shim.Start(<span class="built_in">new</span>(SimpleChaincode))</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;Error starting Simple chaincode: %s&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><strong>shim</strong><code>: 用来访问/操作数据状态、事务上下文和调用</code>其它链<code>代码的API，链码通过</code>shim.ChaincodeStub`提供的方法来读取和修改帐本的状态。</p></li>
-<li><p><strong>peer</strong>: 提供了链码执行后的响；应信息的API，
-<code>peer.Response</code>封装了响应信息</p></li>
-</ul>
-<h1 id="链码相关api">链码相关API</h1>
-<p><code>shim</code>包提供了如下几种类型的接口：</p>
-<ul>
-<li><strong>参数解析AP</strong><code>：调用链码时需要给被调用的目标函数/方法传递参数，该 API 提供解析这些参数的方法，链码被调用时触发链码中的</code>Invoke<code>方法被调用，在</code>Invoke<code>内部，可以通过参数</code>stub`来获取目标函数/方法参数。</li>
-<li><strong>帐本状态数据操作API</strong>: 该 API
-提供了对账本数据状态进行操作的方法，包括对状态数据的查询及事务处理等</li>
-<li><strong>交易信息获取 API：</strong>获取提交的交易信息的相关 API</li>
-<li><strong>对 PrivateData 操作的 API：</strong> Hyperledger Fabric 在
-1.2.0 版本中新增的对私有数据操作的相关 API</li>
-<li><strong>其他 API：</strong>其他的
-API，包括事件设置、调用其他链码操作</li>
-</ul>
-<h2 id="参数解析api">参数解析API</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回调用链码时指定提供的参数列表（以字符串数组形式返回）</span></span><br><span class="line">GetStringArgs() []<span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回调用链码时在交易提案中指定提供的被调用的函数名称及函数的参数列表（以字符串数组形式返回）</span></span><br><span class="line">GetFunctionAndParameters() (function <span class="type">string</span>, params []<span class="type">string</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回提交交易提案时提供的参数列表（以字节串数组形式返回）</span></span><br><span class="line">GetArgsSlice() ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回调用链码时在交易提案中指定提供的被调用的函数名称及函数的参数列表（以字节串数组形式返回）</span></span><br><span class="line">GetArgs() [][]<span class="type">byte</span></span><br></pre></td></tr></table></figure>
-<p>一般使用 GetFunctionAndParameters() 及 GetStringArgs() 。</p>
-<h2 id="帐本数据状态操作api">帐本数据状态操作API</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询账本，返回指定键对应的值</span></span><br><span class="line">GetState(key <span class="type">string</span>) ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试添加/更新账本中的一对键值</span></span><br><span class="line"><span class="comment">// 这一对键值会被添加到写集合中，等待 Committer 进一步确认，验证通过后才会真正写入到账本</span></span><br><span class="line">PutState(key <span class="type">string</span>, value []<span class="type">byte</span>) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试删除账本中的一对键值</span></span><br><span class="line"><span class="comment">// 同样，对该对键值删除会添加到写集合中，等待 Committer 进一步确认，验证通过后才会真正写入到账本</span></span><br><span class="line">DelState(key <span class="type">string</span>) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询指定范围的键值，startKey 和 endkey 分别指定开始（包括）和终止（不包括），当为空时默认是最大范围</span></span><br><span class="line"><span class="comment">// 返回结果是一个迭代器结构，可以按照字典序迭代每个键值对，最后需要调用 Close() 方法关闭</span></span><br><span class="line">GetStateByRange(startKey, endKey <span class="type">string</span>) (StateQueryIteratorInterface, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回指定键的所有历史值。该方法的使用需要节点配置中打开历史数据库特性（ledger.history.enableHistoryDatabase=true）</span></span><br><span class="line">GetHistoryForKey(key <span class="type">string</span>) (HistoryQueryIteratorInterface, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给定一组属性（attributes），将这些属性组合起来构造返回一个复合键</span></span><br><span class="line"><span class="comment">// 例如：CreateComositeKey(&quot;name-age&quot;,[]string&#123;&quot;Alice&quot;, &quot;12&quot;&#125;);</span></span><br><span class="line">CreateCompositeKey(objectType <span class="type">string</span>, attributes []<span class="type">string</span>) (<span class="type">string</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将指定的复合键进行分割，拆分成构造复合键时所用的属性</span></span><br><span class="line">SplitCompositeKey(compositeKey <span class="type">string</span>) (<span class="type">string</span>, []<span class="type">string</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据局部的复合键（前缀）返回所有匹配的键值，即与账本中的键进行前缀匹配</span></span><br><span class="line"><span class="comment">// 返回结果是一个迭代器结构，可以按照字典序迭代每个键值对，最后需要调用 Close() 方法关闭</span></span><br><span class="line">GetStateByPartialCompositeKey(objectType <span class="type">string</span>, keys []<span class="type">string</span>) (StateQueryIteratorInterface, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对(支持富查询功能的)状态数据库进行富查询，返回结果是一个迭代器结构，目前只支持 CouchDB</span></span><br><span class="line"><span class="comment">// 注意该方法不会被 Committer 重新执行进行验证，所以不能用于更新账本状态的交易中</span></span><br><span class="line">GetQueryResult(query <span class="type">string</span>) (StateQueryIteratorInterface, <span class="type">error</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong> 通过 put 写入的数据状态不能立刻 get 到，因为
-put
-只是链码执行的模拟交易（防止重复提交攻击），并不会真正将状态保存到账本中，必须经过
-Orderer 达成共识之后，将数据状态保存在区块中，然后保存在各 peer
-节点的账本中。</p>
-<h2 id="交易信息相关api">交易信息相关API</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回交易提案中指定的交易 ID。</span></span><br><span class="line"><span class="comment">// 一般情况下，交易 ID 是客户端提交提案时由 Nonce 随机串和签名者身份信息哈希产生的数字摘要</span></span><br><span class="line">GetTxID() <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回交易提案中指定的 Channel ID</span></span><br><span class="line">GetChannelID() <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回交易被创建时的客户端打上的的时间戳</span></span><br><span class="line"><span class="comment">// 这个时间戳是直接从交易 ChannnelHeader 中提取的，所以在所以背书节点处看到的值都相同</span></span><br><span class="line">GetTxTimestamp() (*timestamp.Timestamp, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回交易的 binding 信息</span></span><br><span class="line"><span class="comment">// 交易的 binding 信息是将交提案的 nonse、Creator、epoch 等信息组合起来哈希得到数字摘要</span></span><br><span class="line">GetBinding() ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回该 stub 的 SignedProposal 结构，包括了跟交易提案相关的所有数据</span></span><br><span class="line">GetSignedProposal() (*pb.SignedProposal, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回该交易提交者的身份信息（用户证书）</span></span><br><span class="line"><span class="comment">// 从 SignedProposal 中的 SignatureHeader.Creator 提取</span></span><br><span class="line">GetCreator() ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回交易中带有的一些临时信息</span></span><br><span class="line"><span class="comment">// 从 ChaincodeProposalPayload.transient 提取，可以存放与应用相关的保密信息，该信息不会被写入到账本</span></span><br><span class="line">GetTransient() (<span class="keyword">map</span>[<span class="type">string</span>][]<span class="type">byte</span>, <span class="type">error</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="对-privatedata-操作的-api">对 PrivateData 操作的 API</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据指定的 key，从指定的私有数据集中查询对应的私有数据</span></span><br><span class="line">GetPrivateData(collection, key <span class="type">string</span>) ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将指定的 key 与 value 保存到私有数据集中</span></span><br><span class="line">PutPrivateData(collection <span class="type">string</span>, key <span class="type">string</span>, value []<span class="type">byte</span>) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据指定的 key 从私有数据集中删除相应的数据</span></span><br><span class="line">DelPrivateData(collection, key <span class="type">string</span>) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据指定的开始与结束 key 查询范围（不包含结束key）内的私有数据</span></span><br><span class="line">GetPrivateDataByRange(collection, startKey, endKey <span class="type">string</span>) (StateQueryIteratorInterface, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据给定的部分组合键的集合，查询给定的私有状态</span></span><br><span class="line">GetPrivateDataByPartialCompositeKey(collection, objectType <span class="type">string</span>, keys []<span class="type">string</span>) (StateQueryIteratorInterface, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据指定的查询字符串执行富查询 （只支持支持富查询的 CouchDB）</span></span><br><span class="line">GetPrivateDataQueryResult(collection, query <span class="type">string</span>) (StateQueryIteratorInterface, <span class="type">error</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="其他-api">其他 API</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设定当这个交易在 Committer 处被认证通过，写入到区块时发送的事件（event），一般由 Client 监听</span></span><br><span class="line">SetEvent(name <span class="type">string</span>, payload []<span class="type">byte</span>) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用另外一个链码的 Invoke 方法</span></span><br><span class="line"><span class="comment">// 如果被调用链码在同一个通道内，则添加其读写集合信息到调用交易；否则执行调用但不影响读写集合信息</span></span><br><span class="line"><span class="comment">// 如果 channel 为空，则默认为当前通道。目前仅限读操作，同时不会生成新的交易</span></span><br><span class="line">InvokeChaincode(chaincodeName <span class="type">string</span>, args [][]<span class="type">byte</span>, channel <span class="type">string</span>) pb.Response</span><br></pre></td></tr></table></figure>
-<h1 id="链码开发">链码开发</h1>
-<h2 id="帐户转帐">帐户转帐</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;strconv&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/hyperledger/fabric-chaincode-go/shim&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/hyperledger/fabric-protos-go/peer&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个结构体</span></span><br><span class="line"><span class="keyword">type</span> SimpleChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化数据状态， 实例化/升级链码时被自动调用</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> Init(stub shim.ChaincodeStubInterface) peer.Response &#123;</span><br><span class="line">	<span class="comment">// println 函数的输出信息会出现在链码容器的日志中</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;ex02 Init&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取用户传递给调用链码的所需参数</span></span><br><span class="line">	_, args := stub.GetFunctionAndParameters()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> A, B <span class="type">string</span>    <span class="comment">// 两个帐户</span></span><br><span class="line">	<span class="keyword">var</span> Aval, Bval <span class="type">int</span> <span class="comment">// 两个帐户的余额</span></span><br><span class="line">	<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 检查合法性，检查参数数量是否为4个，如果不是，则返回错误信息</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">4</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting 4&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	A = args[<span class="number">0</span>]                       <span class="comment">// 帐户A用户名</span></span><br><span class="line">	Aval, err = strconv.Atoi(args[<span class="number">1</span>]) <span class="comment">// 帐户A余额</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Expecting integer value for asset holding&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	B = args[<span class="number">2</span>]                       <span class="comment">// 账户B用户名</span></span><br><span class="line">	Bval, err = strconv.Atoi(args[<span class="number">3</span>]) <span class="comment">// 帐户B余额</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Expecting integer value for asset holding&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Aval = %d, Bval = %d\n&quot;</span>, Aval, Bval)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将账户A的状态写入账本中</span></span><br><span class="line">	err = stub.PutState(A, []<span class="type">byte</span>(strconv.Itoa(Aval)))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将帐户B的状态写入账本</span></span><br><span class="line">	err = stub.PutState(B, []<span class="type">byte</span>(strconv.Itoa(Bval)))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 一切成功，返回</span></span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对帐户数据进行操作时（query、invoke）被自动调用</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> Invoke(stub shim.ChaincodeStubInterface) peer.Response &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;ex02 Invoke&quot;</span>)</span><br><span class="line">	<span class="comment">// 获取用户传递给调用链码的函数名称及参数</span></span><br><span class="line">	function, args := stub.GetFunctionAndParameters()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 对获取到的函数名称进行判断</span></span><br><span class="line">	<span class="keyword">if</span> function == <span class="string">&quot;invoke&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// 调用invoke函数实现转帐操作</span></span><br><span class="line">		<span class="keyword">return</span> t.invoke(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;delete&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// 调用delete函数实现帐户注销</span></span><br><span class="line">		<span class="keyword">return</span> t.<span class="built_in">delete</span>(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;query&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// 调用query实现帐户查询操作</span></span><br><span class="line">		<span class="keyword">return</span> t.query(stub, args)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 调用的链码函数名出错，返回shim.Error()</span></span><br><span class="line">	<span class="keyword">return</span> shim.Error(<span class="string">&quot;Invalid invoke function name. Expecting \&quot;invoke\&quot; \&quot;delete\&quot; \&quot;query\&quot;&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 帐户间转钱</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> invoke(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) peer.Response &#123;</span><br><span class="line">	<span class="keyword">var</span> A, B <span class="type">string</span>    <span class="comment">// 帐户A和B</span></span><br><span class="line">	<span class="keyword">var</span> Aval, Bval <span class="type">int</span> <span class="comment">// 帐户余额</span></span><br><span class="line">	<span class="keyword">var</span> X <span class="type">int</span>          <span class="comment">// 转账金额</span></span><br><span class="line">	<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">3</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting 3&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	A = args[<span class="number">0</span>] <span class="comment">// 帐户A用户名</span></span><br><span class="line">	B = args[<span class="number">1</span>] <span class="comment">// 帐户B用户名</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 从账本中获取A的余额</span></span><br><span class="line">	Avalbytes, err := stub.GetState(A)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Failed to get state&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> Avalbytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Entity not found&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	Aval, _ = strconv.Atoi(<span class="type">string</span>(Avalbytes))</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 从帐本中获取B的余额</span></span><br><span class="line">	Bvalbytes, err := stub.GetState(B)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Failed to get state&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> Bvalbytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Entity not found&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	Bval, _ = strconv.Atoi(<span class="type">string</span>(Bvalbytes))</span><br><span class="line"></span><br><span class="line">	<span class="comment">// X 为转账金额</span></span><br><span class="line">	X, err = strconv.Atoi(args[<span class="number">2</span>])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Invalid transaction amount, expecting a integer value&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 转帐</span></span><br><span class="line">	Aval = Aval - X</span><br><span class="line">	Bval = Bval + X</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Aval = %d, Bval = %d\n&quot;</span>, Aval, Bval)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 更新转帐后账本中A余额</span></span><br><span class="line">	err = stub.PutState(A, []<span class="type">byte</span>(strconv.Itoa(Aval)))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 更新转帐后账本中B余额</span></span><br><span class="line">	err = stub.PutState(B, []<span class="type">byte</span>(strconv.Itoa(Bval)))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 帐户注销</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> <span class="built_in">delete</span>(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) peer.Response &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting 1&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	A := args[<span class="number">0</span>] <span class="comment">// 帐户用户名</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 从账本中删除该帐户状态</span></span><br><span class="line">	err := stub.DelState(A)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 帐户查询</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *SimpleChaincode)</span></span> query(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) peer.Response &#123;</span><br><span class="line">	<span class="keyword">var</span> A <span class="type">string</span></span><br><span class="line">	<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting name of the person to query&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	A = args[<span class="number">0</span>] <span class="comment">// 帐户用户名</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 从帐户中获取该帐户余额</span></span><br><span class="line">	Avalbytes, err := stub.GetState(A)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;: \&quot;Failed to get state for &quot;</span> + A + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> Avalbytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;:\&quot;Nil amount for &quot;</span> + A + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	jsonResp := <span class="string">&quot;&#123;\&quot;Name\&quot;:\&quot;&quot;</span> + A + <span class="string">&quot;\&quot;,\&quot;Amount\&quot;:\&quot;&quot;</span> + <span class="type">string</span>(Avalbytes) + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Query Response:%s\n&quot;</span>, jsonResp)</span><br><span class="line">	<span class="comment">// 返回转帐金额</span></span><br><span class="line">	<span class="keyword">return</span> shim.Success(Avalbytes)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	err := shim.Start(<span class="built_in">new</span>(SimpleChaincode))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Error starting Simple chaincode: %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1565,7 +1551,7 @@ Orderer 达成共识之后，将数据状态保存在区块中，然后保存在
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1576,7 +1562,7 @@ Orderer 达成共识之后，将数据状态保存在区块中，然后保存在
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">182</span>
+        <span class="site-state-item-count">183</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
