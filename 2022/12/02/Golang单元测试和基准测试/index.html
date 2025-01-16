@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="单元测试  测试需要用到的断言，依赖 github.com&#x2F;stretchr&#x2F;testify 编写单元测试，文件命名带_test.go helloworld_test.go 1234import &quot;testing&quot;func TestHelloWorld(t *testing.T) &#123;    t.Log(&quot;hello world&quot;)&#125; 测试">
+  <meta name="description" content="单元测试   测试需要用到的断言，依赖 github.com&#x2F;stretchr&#x2F;testify   编写单元测试，文件命名带_test.go helloworld_test.go   1234import &quot;testing&quot;func TestHelloWorld(t *testing.T) &#123;    t.Log(&quot;hello world&quot;)&amp;#12">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Golang单元测试和基准测试">
 <meta property="og:url" content="http://www.blockchainof.com/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="自留地">
-<meta property="og:description" content="单元测试  测试需要用到的断言，依赖 github.com&#x2F;stretchr&#x2F;testify 编写单元测试，文件命名带_test.go helloworld_test.go 1234import &quot;testing&quot;func TestHelloWorld(t *testing.T) &#123;    t.Log(&quot;hello world&quot;)&#125; 测试">
+<meta property="og:description" content="单元测试   测试需要用到的断言，依赖 github.com&#x2F;stretchr&#x2F;testify   编写单元测试，文件命名带_test.go helloworld_test.go   1234import &quot;testing&quot;func TestHelloWorld(t *testing.T) &#123;    t.Log(&quot;hello world&quot;)&amp;#12">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-02T12:02:09.000Z">
 <meta property="article:modified_time" content="2022-12-15T05:34:51.681Z">
@@ -252,42 +252,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="单元测试">单元测试</h1>
+        <h1>单元测试</h1>
 <ul>
-<li><p>测试需要用到的断言，依赖
-<code>github.com/stretchr/testify</code></p></li>
-<li><p>编写单元测试，文件命名带<code>_test.go</code>
-<code>helloworld_test.go</code> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>测试所有用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v helloworld_test.go</span><br></pre></td></tr></table></figure></p></li>
-<li><p>指定用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v -run TestHelloWorld helloworld_test.go</span><br></pre></td></tr></table></figure></p></li>
-<li><p>测试文件夹下所有的测试用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v ./directory</span><br></pre></td></tr></table></figure></p></li>
+<li>
+<p>测试需要用到的断言，依赖<br>
+<code>github.com/stretchr/testify</code></p>
+</li>
+<li>
+<p>编写单元测试，文件命名带<code>_test.go</code><br>
+<code>helloworld_test.go</code></p>
+</li>
 </ul>
-<h1 id="基准测试">基准测试</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>非并发方式 <code>benchmark_test.go</code> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Add</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        n++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-&gt;<strong>注：b.N
-由基准测试框架提供。测试代码需要保证函数可重入性及无状态，也就是说，测试代码不使用全局变量等带有记忆性质的数据结构。避免多次运行同一段代码时的环境不一致，不能假设
-N 值范围。</strong></p></li>
-<li><p>并发方式 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Dosomething</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	b.SetParallelism(<span class="number">8</span>)</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Dosomething()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-&gt;<strong>注：SetParallelism用来设置协程数量</strong></p></li>
+<li>测试所有用例</li>
 </ul>
-<h1 id="基准测试脚本编写">基准测试脚本编写</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v helloworld_test.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v -run TestHelloWorld helloworld_test.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试文件夹下所有的测试用例</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v ./directory</span><br></pre></td></tr></table></figure>
+<h1>基准测试</h1>
+<ul>
+<li>非并发方式<br>
+<code>benchmark_test.go</code></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Add</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        n++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：b.N 由基准测试框架提供。测试代码需要保证函数可重入性及无状态，也就是说，测试代码不使用全局变量等带有记忆性质的数据结构。避免多次运行同一段代码时的环境不一致，不能假设 N 值范围。</strong></p>
+</blockquote>
+<ul>
+<li>并发方式</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Dosomething</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	b.SetParallelism(<span class="number">8</span>)</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Dosomething()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：SetParallelism用来设置协程数量</strong></p>
+</blockquote>
+<h1>基准测试脚本编写</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line">go test -bench=. -run=none \</span><br><span class="line">  -benchtime=300s \</span><br><span class="line">  -benchmem -memprofile=mem.pprof \</span><br><span class="line">  -cpuprofile=cpu.pprof \</span><br><span class="line">  -cpu=8 \</span><br><span class="line">  -timeout=0 \</span><br><span class="line">  -blockprofile=block.pprof ./directory/</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>基准测试默认10分钟，如果测试总时长超过10分钟，测试的进程会被kill掉，所以指定timeout=0表示不限时长</strong></p>
 </blockquote>
-<h1 id="go基准测试源码中benchmark.go">go基准测试源码中<code>benchmark.go</code></h1>
-<p>有这么一个核心方法 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// launch launches the benchmark function. It gradually increases the number</span></span><br><span class="line"><span class="comment">// of benchmark iterations until the benchmark runs for the requested benchtime.</span></span><br><span class="line"><span class="comment">// launch is run by the doBench function as a separate goroutine.</span></span><br><span class="line"><span class="comment">// run1 must have been called on b.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *B)</span></span> launch() &#123;</span><br><span class="line">	<span class="comment">// Signal that we&#x27;re done whether we return normally</span></span><br><span class="line">	<span class="comment">// or by FailNow&#x27;s runtime.Goexit.</span></span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		b.signal &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run the benchmark for at least the specified amount of time.</span></span><br><span class="line">	<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">0</span> &#123; <span class="comment">// 这里表示测试时是使用了次数限制，例如指定了参数-benchtime=1000x表示执行1000次</span></span><br><span class="line">		<span class="comment">// We already ran a single iteration in run1.</span></span><br><span class="line">		<span class="comment">// If -benchtime=1x was requested, use that result.</span></span><br><span class="line">		<span class="comment">// See https://golang.org/issue/32051.</span></span><br><span class="line">		<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			b.runN(b.benchTime.n)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// 这个分支表示指定的是时间限制（区别于次数限制），例如指定了参数-benchtime=5s给示每个用例执行5s（这里会根据实际情况运行，而非精确的5s）</span></span><br><span class="line">		d := b.benchTime.d</span><br><span class="line">        <span class="comment">// 注意下面循环条件中的n的值的上限</span></span><br><span class="line">		<span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">			last := n</span><br><span class="line">			<span class="comment">// Predict required iterations.</span></span><br><span class="line">			goalns := d.Nanoseconds()</span><br><span class="line">			prevIters := <span class="type">int64</span>(b.N)</span><br><span class="line">			prevns := b.duration.Nanoseconds()</span><br><span class="line">			<span class="keyword">if</span> prevns &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// Round up, to avoid div by zero.</span></span><br><span class="line">				prevns = <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Order of operations matters.</span></span><br><span class="line">			<span class="comment">// For very fast benchmarks, prevIters ~= prevns.</span></span><br><span class="line">			<span class="comment">// If you divide first, you get 0 or 1,</span></span><br><span class="line">			<span class="comment">// which can hide an order of magnitude in execution time.</span></span><br><span class="line">			<span class="comment">// So multiply first, then divide.</span></span><br><span class="line">			n = goalns * prevIters / prevns</span><br><span class="line">			<span class="comment">// Run more iterations than we think we&#x27;ll need (1.2x).</span></span><br><span class="line">			n += n / <span class="number">5</span></span><br><span class="line">			<span class="comment">// Don&#x27;t grow too fast in case we had timing errors previously.</span></span><br><span class="line">			n = min(n, <span class="number">100</span>*last)</span><br><span class="line">			<span class="comment">// Be sure to run at least one more than last time.</span></span><br><span class="line">			n = max(n, last+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// Don&#x27;t run more than 1e9 times. (This also keeps n in int range on 32 bit platforms.)</span></span><br><span class="line">			n = min(n, <span class="number">1e9</span>)</span><br><span class="line">			b.runN(<span class="type">int</span>(n))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	b.result = BenchmarkResult&#123;b.N, b.duration, b.bytes, b.netAllocs, b.netBytes, b.extra&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1>go基准测试源码中<code>benchmark.go</code></h1>
+<p>有这么一个核心方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// launch launches the benchmark function. It gradually increases the number</span></span><br><span class="line"><span class="comment">// of benchmark iterations until the benchmark runs for the requested benchtime.</span></span><br><span class="line"><span class="comment">// launch is run by the doBench function as a separate goroutine.</span></span><br><span class="line"><span class="comment">// run1 must have been called on b.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *B)</span></span> launch() &#123;</span><br><span class="line">	<span class="comment">// Signal that we&#x27;re done whether we return normally</span></span><br><span class="line">	<span class="comment">// or by FailNow&#x27;s runtime.Goexit.</span></span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		b.signal &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run the benchmark for at least the specified amount of time.</span></span><br><span class="line">	<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">0</span> &#123; <span class="comment">// 这里表示测试时是使用了次数限制，例如指定了参数-benchtime=1000x表示执行1000次</span></span><br><span class="line">		<span class="comment">// We already ran a single iteration in run1.</span></span><br><span class="line">		<span class="comment">// If -benchtime=1x was requested, use that result.</span></span><br><span class="line">		<span class="comment">// See https://golang.org/issue/32051.</span></span><br><span class="line">		<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			b.runN(b.benchTime.n)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// 这个分支表示指定的是时间限制（区别于次数限制），例如指定了参数-benchtime=5s给示每个用例执行5s（这里会根据实际情况运行，而非精确的5s）</span></span><br><span class="line">		d := b.benchTime.d</span><br><span class="line">        <span class="comment">// 注意下面循环条件中的n的值的上限</span></span><br><span class="line">		<span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">			last := n</span><br><span class="line">			<span class="comment">// Predict required iterations.</span></span><br><span class="line">			goalns := d.Nanoseconds()</span><br><span class="line">			prevIters := <span class="type">int64</span>(b.N)</span><br><span class="line">			prevns := b.duration.Nanoseconds()</span><br><span class="line">			<span class="keyword">if</span> prevns &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// Round up, to avoid div by zero.</span></span><br><span class="line">				prevns = <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Order of operations matters.</span></span><br><span class="line">			<span class="comment">// For very fast benchmarks, prevIters ~= prevns.</span></span><br><span class="line">			<span class="comment">// If you divide first, you get 0 or 1,</span></span><br><span class="line">			<span class="comment">// which can hide an order of magnitude in execution time.</span></span><br><span class="line">			<span class="comment">// So multiply first, then divide.</span></span><br><span class="line">			n = goalns * prevIters / prevns</span><br><span class="line">			<span class="comment">// Run more iterations than we think we&#x27;ll need (1.2x).</span></span><br><span class="line">			n += n / <span class="number">5</span></span><br><span class="line">			<span class="comment">// Don&#x27;t grow too fast in case we had timing errors previously.</span></span><br><span class="line">			n = min(n, <span class="number">100</span>*last)</span><br><span class="line">			<span class="comment">// Be sure to run at least one more than last time.</span></span><br><span class="line">			n = max(n, last+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// Don&#x27;t run more than 1e9 times. (This also keeps n in int range on 32 bit platforms.)</span></span><br><span class="line">			n = min(n, <span class="number">1e9</span>)</span><br><span class="line">			b.runN(<span class="type">int</span>(n))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	b.result = BenchmarkResult&#123;b.N, b.duration, b.bytes, b.netAllocs, b.netBytes, b.extra&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>在基准测试时，如果设定的是时间限制，即每个测试用例执行多少时间。因为每次执行的时间都不可能完全一致，所以用例的执行次数到底应该为多少次，这个值是会被估算出来的，估算的过程就是在以下的循环中。
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在基准测试时，如果设定的是时间限制，即每个测试用例执行多少时间。因为每次执行的时间都不可能完全一致，所以用例的执行次数到底应该为多少次，这个值是会被估算出来的，估算的过程就是在以下的循环中。</p>
 </blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>明确了大体的流程后，我们来分析一下细节：
 <ul>
-<li><p>n的上限问题
-&gt;设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p></li>
-<li><p>n的估算中有一个公式的问题</p>
+<li>
+<p>n的上限问题</p>
+<blockquote>
+<p>设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p>
+</blockquote>
+</li>
+<li>
+<p>n的估算中有一个公式的问题</p>
 <p><code>n = goalns * prevIters / prevns</code></p>
 <ul>
 <li><code>goalns</code>是用例执行的目标时间，单位ns</li>
@@ -295,38 +322,40 @@ N 值范围。</strong></p></li>
 <li><code>prevens</code>是<code>上一轮</code>用例的执行时间，单位ns</li>
 </ul>
 <blockquote>
-<p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。
-变成负值之后,n的增长逻辑就不一样了，分析一下： n += n / 5 -&gt;
-n还是负值 n = min(n, 100*last) -&gt; n的值还是n n = max(n, last+1) -&gt;
-变为上一轮估算的值+1 == (last + 1) n = min(n, 1e9) -&gt; n == (last + 1)
-同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为
-1e8，那n的值变化规率为100000001, 100000002, 100000003,
-...,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮,
-而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢...这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go
-benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
-</blockquote></li>
-</ul></li>
+<p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。<br>
+变成负值之后,n的增长逻辑就不一样了，分析一下：<br>
+n += n / 5  -&gt; n还是负值<br>
+n = min(n, 100*last) -&gt; n的值还是n<br>
+n = max(n, last+1) -&gt; 变为上一轮估算的值+1 == (last + 1)<br>
+n = min(n, 1e9) -&gt; n == (last + 1)<br>
+同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为 1e8，那n的值变化规率为100000001, 100000002, 100000003, …,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮, 而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢…这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
+</blockquote>
+</li>
 </ul>
-<h1 id="基准测试问题重现方法">基准测试问题重现方法</h1>
+</li>
+</ul>
+<h1>基准测试问题重现方法</h1>
 <ul>
 <li>写一个耗时很短的用例</li>
 <li>设置一个较长的用例测试时间（不用太长，比如200s就行，只要想办法让n值溢出即可）</li>
-<li>执行一下...就等着10min钟以后吧</li>
+<li>执行一下…就等着10min钟以后吧</li>
 </ul>
-<h1 id="解决办法">解决办法</h1>
+<h1>解决办法</h1>
 <ul>
-<li><ol type="1">
+<li>
+<ol>
 <li>上面提到的n溢出问题，虽然觉得benchmark.go里面的代码确实有点问题，可以把n的数据类型再改大一些如float64，在方法中增加判断溢出后进行特殊处理。</li>
-</ol></li>
-<li><ol start="2" type="1">
+</ol>
+</li>
+<li>
+<ol start="2">
 <li>出现这种情况，说明被测试的用例做长时间测试的必要性值得商榷</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h1 id="另外">另外</h1>
+<h1>另外</h1>
 <blockquote>
-<p>func (b <em>B) launch()
-是非并行模式下会被调用的方法；同样在并行模式下，调用的是func (b </em>B)
-RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
+<p>func (b *B) launch() 是非并行模式下会被调用的方法；同样在并行模式下，调用的是func (b *B) RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
 </blockquote>
 
     </div>
@@ -412,7 +441,7 @@ RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">基准测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text">基准测试脚本编写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#go%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%BA%90%E7%A0%81%E4%B8%ADbenchmark.go"><span class="nav-number">4.</span> <span class="nav-text">go基准测试源码中benchmark.go</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E9%97%AE%E9%A2%98%E9%87%8D%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">基准测试问题重现方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96"><span class="nav-number">7.</span> <span class="nav-text">另外</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">基准测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">基准测试脚本编写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">go基准测试源码中benchmark.go</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">基准测试问题重现方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">另外</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -426,7 +455,7 @@ RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
