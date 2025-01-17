@@ -188,6 +188,141 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/03/vim%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/03/vim%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">vim常用配置及操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-03 22:22:43 / 修改时间：22:45:14" itemprop="dateCreated datePublished" datetime="2023-06-03T22:22:43+08:00">2023-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="vim-插件的安装">vim 插件的安装</h1>
+<h2 id="markdown-composer-插件的安装">markdown-composer 插件的安装</h2>
+<ul>
+<li>在<code>~/.vimrc</code>内添加vim-markdown插件 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.vimrc</span><br></pre></td></tr></table></figure>
+内容如下： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Plug &#x27;euclio/vim-markdown-composer&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>由于这个插件是由rust编写的,vim-plug
+进行安装时是克隆代码下来，但不会编译，可以到插件目录下手动编译这个插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.vim/plugged/vim-markdown-composer</span><br><span class="line">cargo build --release --no-default-features --features json-rpc</span><br></pre></td></tr></table></figure>
+<h1 id="常用命令助记">常用命令助记</h1>
+<ul>
+<li>增加文本
+<ul>
+<li>a/A(append): a 表示在当前光标的后面插入，A表示在当前行尾插入</li>
+<li>i/I(insert): i 表示在当前光标的前面插入，I表示在当前行首插入</li>
+<li>o/O(open a line): o
+表示在当前行的下面插入一行，O表示在当前行的前面插入一行</li>
+</ul></li>
+<li>删除
+<ul>
+<li>dd: 表示删除当前行</li>
+<li>x/X: 向后/向前删除一个字符</li>
+<li>dw(delete word):
+删除光标位置后面的一个单词,可以配合数字来表示删除几个单词</li>
+<li>diw(delete inner word):
+当光标在某个单词内部，现在想删除当前这个单词，就使用diw</li>
+<li>daw(delete around word):
+和diw的区别是daw会把单词左右的空格也会删除</li>
+</ul></li>
+<li>修改
+<ul>
+<li><code>c</code>:(change)</li>
+<li><code>ciw</code>:(change inner
+word):这个的应用场景是把光标移到双引号中的某个字符上，然后<code>ciw"</code>,就可以把双引号中的
+的字符全删除并进入插入模式</li>
+<li><code>ct)</code>:(change to
+<code>)</code>):这个的应用场景是把光标移动到左括号后面，然后<code>ct)</code>就可以把括号中的字符全删除并进入
+到插入模式</li>
+</ul></li>
+<li>查找
+<ul>
+<li><code>f</code>:(find):
+这个是在当前行查找字符或移动光标到相应的字符上，比如查找s这个字符，命令为<code>fs</code>,光标就会移动&gt;到当前行的<code>s</code>字符上,使用<code>;</code>定位到下一个。使用数字<code>0</code>返回到行的绝对行首或<code>$</code>回到行首再进行其它字符的查找。当
+然<code>F</code>为反方向的操作。</li>
+<li><code>/</code>:
+在光标位置往下查找单词可以在<code>/</code>后面跟单词就会查找这个单词并高亮显示；使用<code>?</code>加单词可以往反方向查找
+单词</li>
+</ul></li>
+<li>光标移动
+<ul>
+<li>w(word): 移动到下一个单词</li>
+<li>b(back word): 移动到前一个单词</li>
+<li>数字+G：定位行</li>
+<li>0: 移动到绝对行头</li>
+<li>^: 移动到行首</li>
+<li>$: 移动到行尾</li>
+<li>gg: 移动到第1行</li>
+<li>G：移动到最后一行</li>
+<li>ctl + o: 返回到上一个位置</li>
+<li>ctl + f（forward): 往下翻页</li>
+<li>ctl + u (upward): 往前翻页</li>
+</ul></li>
+</ul>
+<h1 id="宏定义">宏定义</h1>
+<p><code>normal</code>模式下按<code>q</code>键，再按<code>x</code>，表示使用寄存器<code>x</code>
+然后就开始录制了,等录制结束，按<code>ESC</code>，再按<code>q</code>就结束录制，然后就是调用这个宏重复做刚才的事。调用方法为:
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@x</span><br></pre></td></tr></table></figure>
+表示调用x寄存器中的宏,当然可以在前面加上一个数字来表示调用次数</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/05/11/k3s%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1491,71 +1626,6 @@ Pattern)的用意是在不破坏封装的条件下，捕捉一个对象的状态
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/02/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0004/" class="post-title-link" itemprop="url">《区块链原理、设计与应用》阅读摘录-0004</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-02 13:33:15" itemprop="dateCreated datePublished" datetime="2023-02-02T13:33:15+08:00">2023-02-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-09 14:18:24" itemprop="dateModified" datetime="2023-02-09T14:18:24+08:00">2023-02-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1625,7 +1695,7 @@ Pattern)的用意是在不破坏封装的条件下，捕捉一个对象的状态
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
