@@ -256,7 +256,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>类图中的关系</h1>
+        <h1 id="类图中的关系">类图中的关系</h1>
 <p>在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。</p>
 <h2 id="一般化关系">一般化关系</h2>
 <p>一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，如下图所示：</p>
@@ -297,32 +297,33 @@ classDiagram
 </blockquote>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>基数</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>0…1</td>
+<tr class="odd">
+<td>0..1</td>
 <td>0个或者1个实例</td>
 </tr>
-<tr>
-<td>0…*</td>
+<tr class="even">
+<td>0..*</td>
 <td>对实例的数目没有限制（可以是0）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>1</td>
 <td>只有一个实例</td>
 </tr>
-<tr>
-<td>1…*</td>
+<tr class="even">
+<td>1..*</td>
 <td>至少有一个实例</td>
 </tr>
 </tbody>
 </table>
-<p>一个关联关系往往可以进一步确定为聚合关系或者合成关系。比如，唐僧与他的徒弟的关系就可以 进一步确定为聚合关系。</p>
-<h1>聚合关系</h1>
+<p>一个关联关系往往可以进一步确定为聚合关系或者合成关系。比如，唐僧与他的徒弟的关系就可以
+进一步确定为聚合关系。</p>
+<h1 id="聚合关系">聚合关系</h1>
 <p>聚合（Aggregation)关系是关联关系的一种，是强的关联关系。聚合是整体和个体之间的关系。</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -335,7 +336,7 @@ class Car {
 }
 
           </pre>
-<h1>合成关系</h1>
+<h1 id="合成关系">合成关系</h1>
 <p>合成(Composition)关系是关联关系的一种，是比聚合关系强的关系。它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期，合成关系是不能共享的。</p>
 <p>代表整体的对象需要负责保持部分对象的存活，在一些情况下负责将代表部分的对象湮灭掉。代表整体的对象可以将代表部分的对象传递给另一个对象，由后者负责此对象的生命周期。换言之，代表部分的对象在每一个时刻只能与一个对象发生合成关系，由后者排他地负责其生命周期。聚合关系和合成关系的类图如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
@@ -353,7 +354,7 @@ MonkeyKing "1" o--> "1" GoldRingedStaff
           </pre>
 <p>在上面的类图中，显示了美猴王（MonkeyKing）以及他的四肢（Limb）和他的金箍棒（GoldRingedStaff)之间的关系。可以看出，MonkeyKing与GoldRingedStaff之间是聚合关系；而MonkeyKing与Limb之间的关系要比前者更强，是合成关系，因为美猴王的四肢完全由美猴王自己负责，并且不能共享。</p>
 <p>如果不能确定一个关系是不是合成关系，可以将之设置为聚合关系，甚至关联关系。</p>
-<h1>依赖关系</h1>
+<h1 id="依赖关系">依赖关系</h1>
 <p>依赖（Dependency)也是类与类之间的连接，<strong>依赖总是单向的</strong>。依赖关系表示一个类依赖于另一个类的定义。一个人（Person）可以买车（Car）和房子（House），Person类依赖于Car类和House类，如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -457,7 +458,7 @@ Person : +buy(...) void
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">类图中的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8C%96%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.</span> <span class="nav-text">一般化关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">关联关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">聚合关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">合成关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">依赖关系</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE%E4%B8%AD%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">类图中的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8C%96%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.</span> <span class="nav-text">一般化关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">关联关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">聚合关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%88%E6%88%90%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">合成关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">依赖关系</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -482,7 +483,7 @@ Person : +buy(...) void
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">191</span>
+        <span class="site-state-item-count">193</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

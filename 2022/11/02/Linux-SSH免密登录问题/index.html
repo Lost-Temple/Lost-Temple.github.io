@@ -252,7 +252,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>阿里云服务器的<code>authorized_keys</code>中已经添加过我个人电脑的公钥，一开始是可以免密码登录的，后来估计不知道我个人电脑更新了啥，ssh 登录远程服务器时，提示：</p>
+        <p>阿里云服务器的<code>authorized_keys</code>中已经添加过我个人电脑的公钥，一开始是可以免密码登录的，后来估计不知道我个人电脑更新了啥，ssh
+登录远程服务器时，提示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to negotiate with `服务器IP地址` port 22: no matching host key type found. Their offer: ssh-rsa,ssh-dss</span><br></pre></td></tr></table></figure>
 <p>解决方法记录一下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/config # 没有就创建</span><br></pre></td></tr></table></figure>
@@ -371,7 +372,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">191</span>
+        <span class="site-state-item-count">193</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
