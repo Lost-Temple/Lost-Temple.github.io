@@ -252,7 +252,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="bccsp接口"><code>BCCSP</code>接口</h1>
+        <h1><code>BCCSP</code>接口</h1>
 <p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
 <ul>
 <li><code>KeyGen</code>：密钥生成，包含对称和非对称加密</li>
@@ -266,33 +266,33 @@
 <li><code>Encrypt</code>：数据加密，包含对称和非对称加密</li>
 <li><code>Decrypt</code>：数据解密，包含对称和非对称加密</li>
 </ul>
-<h1 id="sw">SW</h1>
-<h2 id="csp">CSP</h2>
+<h1>SW</h1>
+<h2 id="CSP">CSP</h2>
 <p><code>fabric/bccsp/sw/impl.go</code></p>
-<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>,
-<code>CSP</code>利用反射调用真正的实现</p>
+<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>, <code>CSP</code>利用反射调用真正的实现</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> CSP <span class="keyword">struct</span> &#123;</span><br><span class="line">	ks bccsp.KeyStore</span><br><span class="line"></span><br><span class="line">	KeyGenerators <span class="keyword">map</span>[reflect.Type]KeyGenerator</span><br><span class="line">	KeyDerivers   <span class="keyword">map</span>[reflect.Type]KeyDeriver</span><br><span class="line">	KeyImporters  <span class="keyword">map</span>[reflect.Type]KeyImporter</span><br><span class="line">	Encryptors    <span class="keyword">map</span>[reflect.Type]Encryptor</span><br><span class="line">	Decryptors    <span class="keyword">map</span>[reflect.Type]Decryptor</span><br><span class="line">	Signers       <span class="keyword">map</span>[reflect.Type]Signer</span><br><span class="line">	Verifiers     <span class="keyword">map</span>[reflect.Type]Verifier</span><br><span class="line">	Hashers       <span class="keyword">map</span>[reflect.Type]Hasher</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code>
-生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
-<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>,
-对应于BCCSP接口中定义的方法，有以下实现：</p>
+<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code> 生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
+<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>, 对应于BCCSP接口中定义的方法，有以下实现：</p>
 <ul>
-<li><p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
+<li>
+<p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
 <p>包含了<code>ECDSA</code>、<code>AES</code>2种密钥的生成</p>
 <ul>
 <li><code>ecdsaKeyGenerator</code></li>
 <li><code>aesKeyGenerator</code></li>
-</ul></li>
-<li><p><code>KeyDeriv:</code>
-<code>fabric/bccsp/sw/keyderiv.go</code></p>
-<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生
-3种</p>
+</ul>
+</li>
+<li>
+<p><code>KeyDeriv:</code> <code>fabric/bccsp/sw/keyderiv.go</code></p>
+<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生 3种</p>
 <ul>
 <li><code>ecdsaPublicKeyKeyDeriver</code></li>
 <li><code>ecdsaPrivateKeyKeyDeriver</code></li>
 <li><code>aesPrivateKeyKeyDeriver</code></li>
-</ul></li>
-<li><p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code>
+</ul>
+</li>
+<li>
+<p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code><br>
 包含了:</p>
 <ul>
 <li><code>aes256ImportKeyOptsKeyImporter</code></li>
@@ -301,34 +301,48 @@
 <li><code>ecdsaPrivateKeyImportOptsKeyImporter</code></li>
 <li><code>ecdsaGoPublicKeyImportOptsKeyImporter</code></li>
 <li><code>x509PublicKeyImportOptsKeyImporter</code></li>
-</ul></li>
-<li><p><code>GetKey:</code>
-<code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p></li>
-<li><p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>GetKey:</code> <code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p>
+</li>
+<li>
+<p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
 <ul>
-<li><code>hasher</code>结构体实现了<code>Hash</code>方法</li>
-</ul></li>
-<li><p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
+<li><code>hasher </code>结构体实现了<code>Hash</code>方法</li>
+</ul>
+</li>
+<li>
+<p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
 <ul>
-<li><code>hasher</code>结构体实现了<code>GetHash</code>方法</li>
-</ul></li>
-<li><p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
+<li><code>hasher </code>结构体实现了<code>GetHash</code>方法</li>
+</ul>
+</li>
+<li>
+<p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
 <ul>
 <li><code>ecdsaSigner</code>结构体实现了此方法，在<code>fabric 1.4</code>版中好像<code>rsaSigner</code>结构体也实现了此方法</li>
-</ul></li>
-<li><p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
 <ul>
 <li><code>ecdsaPrivateKeyVerifier</code> 结构体中实现了此方法</li>
 <li><code>ecdsaPublicKeyKeyVerifier</code>结构体中实现了此方法</li>
-</ul></li>
-<li><p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
 <ul>
 <li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul></li>
-<li><p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
+</ul>
+</li>
+<li>
+<p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
 <ul>
 <li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -414,7 +428,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bccsp%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">BCCSP接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sw"><span class="nav-number">2.</span> <span class="nav-text">SW</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#csp"><span class="nav-number">2.1.</span> <span class="nav-text">CSP</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">BCCSP接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">SW</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSP"><span class="nav-number">2.1.</span> <span class="nav-text">CSP</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -439,7 +453,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">192</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

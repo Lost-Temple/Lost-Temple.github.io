@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="源码总目录结构        目录名 说明     bccsp 全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现   ccaas_builder 编译相关   ci 持续集成(CI)相关配置和脚本   cmd 命令行操作相关入口代码   common 一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）   core 核心库，组件的核心逻辑，针对每一个组件都有一个子">
+  <meta name="description" content="源码总目录结构    目录名 说明     bccsp 全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现   ccaas_builder 编译相关   ci 持续集成(CI)相关配置和脚本   cmd 命令行操作相关入口代码   common 一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）   core 核心库，组件的核心逻辑，针对每一个组件都有一个子目录（c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fabric源码系列-001">
 <meta property="og:url" content="http://www.blockchainof.com/2022/11/11/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-001/index.html">
 <meta property="og:site_name" content="自留地">
-<meta property="og:description" content="源码总目录结构        目录名 说明     bccsp 全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现   ccaas_builder 编译相关   ci 持续集成(CI)相关配置和脚本   cmd 命令行操作相关入口代码   common 一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）   core 核心库，组件的核心逻辑，针对每一个组件都有一个子">
+<meta property="og:description" content="源码总目录结构    目录名 说明     bccsp 全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现   ccaas_builder 编译相关   ci 持续集成(CI)相关配置和脚本   cmd 命令行操作相关入口代码   common 一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）   core 核心库，组件的核心逻辑，针对每一个组件都有一个子目录（c">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-11T08:49:03.000Z">
 <meta property="article:modified_time" content="2022-12-03T11:35:54.834Z">
@@ -252,125 +252,116 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="源码总目录结构">源码总目录结构</h1>
+        <h1>源码总目录结构</h1>
 <table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>目录名</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>bccsp</td>
 <td>全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现</td>
 </tr>
-<tr class="even">
+<tr>
 <td>ccaas_builder</td>
 <td>编译相关</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>ci</td>
 <td>持续集成(CI)相关配置和脚本</td>
 </tr>
-<tr class="even">
+<tr>
 <td>cmd</td>
 <td>命令行操作相关入口代码</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>common</td>
 <td>一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>core</td>
 <td>核心库，组件的核心逻辑，针对每一个组件都有一个子目录（chaincode:与智能合约相关);(endorser:与背书节点相关）</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>discovery</td>
 <td>服务发现模块相关代码</td>
 </tr>
-<tr class="even">
+<tr>
 <td>docs</td>
 <td>文档相关</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>gossip</td>
 <td>组织内部节点数据同步的通信协议，最终一致性算法，用于组织内部数据同步</td>
 </tr>
-<tr class="even">
+<tr>
 <td>images</td>
 <td>Docker镜像打包，Docker镜像都是通过这个目录下的配置文件生成的</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>integration</td>
 <td>待迁移代码</td>
 </tr>
-<tr class="even">
+<tr>
 <td>internal</td>
 <td>内部代码，被cmd包等调用</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>msp</td>
-<td>成员服务管理（member service
-provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
+<td>成员服务管理（member service provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
 </tr>
-<tr class="even">
+<tr>
 <td>orderer</td>
 <td>排序节点的入口，用于消息的订阅与分发处理</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>pkg</td>
 <td>重写或实现了一些golang原生接口</td>
 </tr>
-<tr class="even">
+<tr>
 <td>protoutil</td>
 <td>Proposal提案相关的工具包</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>release_notes</td>
 <td>发布笔记</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sampleconfig</td>
 <td>配置示例</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>scripts</td>
 <td>脚本，包含启动脚本、检查脚本等</td>
 </tr>
-<tr class="even">
+<tr>
 <td>swagger</td>
 <td>swagger文档生成配置</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>tools</td>
 <td>工具包，目前还是空的（release-2.4分支）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>vagrant</td>
 <td>包含了用 Vagrant 建立一个简单的开发环境所必需的脚本</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>vendor</td>
 <td>存放Go中使用的第三方包</td>
 </tr>
 </tbody>
 </table>
-<h1 id="模块分类">模块分类</h1>
+<h1>模块分类</h1>
 <h2 id="核心模块">核心模块</h2>
 <p>提供核心功能服务的代码，包括<code>core</code>、<code>orderer</code>两个代码包，这两个代码包涵盖了Orderder排序节点与Peer节点（包含Endorser背书节点与Committer记帐节点）的核心代码</p>
 <h2 id="公共模块">公共模块</h2>
-<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code>
-<code>common</code> <code>gossip</code> <code>msp</code>
-<code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
+<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code> <code>common</code> <code>gossip</code> <code>msp</code> <code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
 <h2 id="辅助模块">辅助模块</h2>
-<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code>
-<code>ci</code> <code>docs</code> <code>release_notes</code>
-<code>swagger</code>等</p>
+<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code> <code>ci</code> <code>docs</code> <code>release_notes</code> <code>swagger</code>等</p>
 
     </div>
 
@@ -455,7 +446,7 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%80%BB%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">源码总目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">模块分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-number">2.1.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">公共模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E6%A8%A1%E5%9D%97"><span class="nav-number">2.3.</span> <span class="nav-text">辅助模块</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">源码总目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">模块分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-number">2.1.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">公共模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E6%A8%A1%E5%9D%97"><span class="nav-number">2.3.</span> <span class="nav-text">辅助模块</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,7 +471,7 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">192</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

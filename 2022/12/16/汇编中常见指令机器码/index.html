@@ -247,10 +247,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="pop和push">pop和push</h1>
+        <h1>pop和push</h1>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>pop机器码</th>
 <th>含义</th>
 <th>push机器码</th>
@@ -258,49 +258,49 @@
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>5f</td>
 <td>pop edi</td>
 <td>57</td>
 <td>push edi</td>
 </tr>
-<tr class="even">
+<tr>
 <td>5e</td>
 <td>pop esi</td>
 <td>56</td>
 <td>push esi</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>5d</td>
 <td>pop ebp</td>
 <td>55</td>
 <td>push ebp</td>
 </tr>
-<tr class="even">
+<tr>
 <td>5c</td>
 <td>pop esp</td>
 <td>54</td>
 <td>push esp</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>5b</td>
 <td>pop ebx</td>
 <td>53</td>
 <td>push ebx</td>
 </tr>
-<tr class="even">
+<tr>
 <td>5a</td>
 <td>pop edx</td>
 <td>52</td>
 <td>push edx</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>59</td>
 <td>pop ecx</td>
 <td>51</td>
 <td>push ecx</td>
 </tr>
-<tr class="even">
+<tr>
 <td>58</td>
 <td>pop eax</td>
 <td>50</td>
@@ -308,31 +308,30 @@
 </tr>
 </tbody>
 </table>
-<h1 id="call">call</h1>
+<h1>call</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> (short) <span class="built_in">eax</span></span><br><span class="line"><span class="comment">; 1.将当前指令的下一条指令的地址压栈</span></span><br><span class="line"><span class="comment">; 2.JMP到eax这个地址</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> (long) <span class="built_in">eax</span></span><br><span class="line"><span class="comment">; 1.将CS压栈</span></span><br><span class="line"><span class="comment">; 2.将当前指令的下一条指令的地址压栈</span></span><br><span class="line"><span class="comment">; 3.JMP到eax这个地址</span></span><br></pre></td></tr></table></figure>
-<h1 id="retn-和-retf">retn 和 retf</h1>
+<h1>retn 和 retf</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retn</span></span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈</span></span><br><span class="line"><span class="comment">; 2.JMP到这个地址</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retn</span> k</span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈</span></span><br><span class="line"><span class="comment">; 2.JMP到这个地址</span></span><br><span class="line"><span class="comment">; 3.弹出栈顶的k个字节的数据</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retf</span></span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈给EIP</span></span><br><span class="line"><span class="comment">; 2.将当前的ESP中指向的地址出栈给CS</span></span><br><span class="line"><span class="comment">; 3.JMP到这个地址</span></span><br></pre></td></tr></table></figure>
-<h1 id="jmp">jmp</h1>
+<h1>jmp</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; jmp 短跳</span></span><br><span class="line">\xeb\xf6: <span class="keyword">jmp</span> short $-<span class="number">8</span> <span class="comment">;(其中$指代当前EIP)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 在Asm2MachineCode(x86)中如果要尝试jmp short $-8,是不可能实现的，但是我们可以：</span></span><br><span class="line"><span class="comment">; 1. ImageBase (hex) 设置为0012ff60 (此处为当前的EIP地址)</span></span><br><span class="line"><span class="comment">; 2. jmp short 0012FF58</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; jmp长跳</span></span><br><span class="line">\xE9\x2B\xFF\xFF\xFF\xFF: <span class="keyword">jmp</span> <span class="number">0x0012FF30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 在Asm2MachineCode(x86)中如果要尝试jmp short $-8，是不可能实现的，但是我们可以：</span></span><br><span class="line"><span class="comment">; 1. ImageBase（hex）设置为0012ff58 (此处为当前的EIP地址)</span></span><br><span class="line"><span class="comment">; 2. jmp 0012FE88</span></span><br></pre></td></tr></table></figure>
-<h1 id="cmp">cmp</h1>
+<h1>cmp</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmp</span> op1, op2</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ZF=1 这个简单，说明两个操作数相等</span><br><span class="line"></span><br><span class="line">当无符号时：</span><br><span class="line">CF=1 则说明了有进位或借位，cmp是进行的减操作，故可以看出为借位，所以，此时oprd1&lt;oprd2</span><br><span class="line">CF=0 则说明了无借位，但此时要注意ZF是否为0，若为0，则说明结果不为0，故此时oprd1&gt;oprd2</span><br><span class="line"></span><br><span class="line">当有符号时：</span><br><span class="line">若SF=0，OF=0 则说明了此时的值为正数，没有溢出，可以直观的看出，oprd1&gt;oprd2</span><br><span class="line">若SF=1，OF=0 则说明了此时的值为负数，没有溢出，则为oprd1&lt;oprd2</span><br><span class="line">若SF=0，OF=1 则说明了此时的值为正数，有溢出，可以看出oprd1&lt;oprd2</span><br><span class="line">若SF=1，OF=1则说明了此时的值为负数，有溢出，可以看出oprd1&gt;oprd2</span><br><span class="line"></span><br><span class="line">最后两个可以作出这种判断的原因是，溢出的本质问题：</span><br><span class="line">两数同为正，相加，值为负，则说明溢出</span><br><span class="line">两数同为负，相加，值为正，则说明溢出</span><br><span class="line">故有，正正得负则溢出，负负得正则溢出</span><br></pre></td></tr></table></figure>
-<h1 id="leave">leave</h1>
-<p>leave在32位汇编下相当于 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move <span class="built_in">esp</span>, <span class="built_in">ebp</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ebp</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="les">les</h1>
-<p>LES( load
-ES)指令的功能是：把内存中指定位置的双字操作数的低位字装入指令中指定的寄存器、高位字装入ES寄存器。
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LES</span> DSET，SRC</span><br><span class="line"><span class="keyword">LES</span> REG，MEM</span><br><span class="line"><span class="comment">; DEST为destination(目的地址)，SRC为source(源地址)；</span></span><br><span class="line"><span class="comment">; REG为register(CPU寄存器)，MEM为memory(内存地址)。</span></span><br></pre></td></tr></table></figure></p>
+<h1>leave</h1>
+<p>leave在32位汇编下相当于</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move <span class="built_in">esp</span>, <span class="built_in">ebp</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ebp</span></span><br></pre></td></tr></table></figure>
+<h1>les</h1>
+<p>LES( load ES)指令的功能是：把内存中指定位置的双字操作数的低位字装入指令中指定的寄存器、高位字装入ES寄存器。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LES</span> DSET，SRC</span><br><span class="line"><span class="keyword">LES</span> REG，MEM</span><br><span class="line"><span class="comment">; DEST为destination(目的地址)，SRC为source(源地址)；</span></span><br><span class="line"><span class="comment">; REG为register(CPU寄存器)，MEM为memory(内存地址)。</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DEST=WORD PTR[SRC]</span><br><span class="line"></span><br><span class="line">ES=WORD PTR[SRC+2]</span><br><span class="line"></span><br><span class="line">DEST赋值为SRC处双字的低位；</span><br><span class="line"></span><br><span class="line">ES赋值为SRC处双字的高位；</span><br></pre></td></tr></table></figure>
-<h1 id="比较">比较</h1>
+<h1>比较</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A（above）大于、B（below）小于、E（equal）等于，用于比较无符号数</span><br><span class="line"></span><br><span class="line">G（great）大于、L（less than）小于、E（equal）等于，用于比较带符号数</span><br><span class="line"></span><br><span class="line">其实这些地方也是漏洞点，有时候比较没有对是否有符号进行确定，所以可能会出问题。</span><br></pre></td></tr></table></figure>
-<h1 id="lodsstos">lods/stos</h1>
+<h1>lods/stos</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lodsb指令，将esi指向的地址处的数据取出来赋给AL寄存器, esi=esi+1；</span><br><span class="line"></span><br><span class="line">lodsw指令则取得是一个字。</span><br><span class="line"></span><br><span class="line">lodsd指令，取得是双字节，即mov eax，[esi]，esi=esi+4；</span><br><span class="line"></span><br><span class="line">stosb指令，将AL寄存器的值取出来赋给edi所指向的地址处。mov [edi]，AL；edi=edi+1；</span><br><span class="line"></span><br><span class="line">stosw指令去的是一个字。</span><br><span class="line"></span><br><span class="line">stosd指令，取得是双字节，mov [edi]，eax；edi=edi+4；</span><br></pre></td></tr></table></figure>
-
     </div>
 
     
@@ -417,7 +416,7 @@ ES)指令的功能是：把内存中指定位置的双字操作数的低位字�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pop%E5%92%8Cpush"><span class="nav-number">1.</span> <span class="nav-text">pop和push</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#call"><span class="nav-number">2.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#retn-%E5%92%8C-retf"><span class="nav-number">3.</span> <span class="nav-text">retn 和 retf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jmp"><span class="nav-number">4.</span> <span class="nav-text">jmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cmp"><span class="nav-number">5.</span> <span class="nav-text">cmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#leave"><span class="nav-number">6.</span> <span class="nav-text">leave</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#les"><span class="nav-number">7.</span> <span class="nav-text">les</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%94%E8%BE%83"><span class="nav-number">8.</span> <span class="nav-text">比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lodsstos"><span class="nav-number">9.</span> <span class="nav-text">lods&#x2F;stos</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">pop和push</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">retn 和 retf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">jmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">cmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">leave</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">les</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">lods&#x2F;stos</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -442,7 +441,7 @@ ES)指令的功能是：把内存中指定位置的双字操作数的低位字�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">192</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

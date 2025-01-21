@@ -251,39 +251,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="拉取jenkins新版">拉取jenkins新版</h1>
+        <h1>拉取jenkins新版</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull jenkins/jenkins:latest</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>最近国内docker仓库镜像似乎都已下架，如果使用国内镜像仓库，拉到的可能都是旧版本</p>
 </blockquote>
-<h1 id="运行jenkins容器">运行jenkins容器</h1>
+<h1>运行jenkins容器</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -p 8082:8080 -p 50000:50000 --name jenkins --privileged=true -v /home/centos/jenkins:/var/jenkins_home jenkins/jenkins:latest</span><br></pre></td></tr></table></figure>
-<h1 id="安装常用插件">安装常用插件</h1>
+<h1>安装常用插件</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/command-launcher">Command Agent
-Launcher Plugin版本107.v773860566e2e</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/extended-choice-parameter">Extended
-Choice Parameter Plugin版本382.v5697b_32134e8</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/git-parameter">Git Parameter
-Plug-In版本0.9.19</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/javax-mail-api">JavaMail
-API版本1.6.2-10</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/localization-zh-cn">Localization:
-Chinese (Simplified)版本371.v23851f835d6b_</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/multiple-scms">Multiple SCMs
-plugin版本0.8</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/jdk-tool">Oracle Java SE
-Development Kit Installer Plugin版本73.vddf737284550</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/publish-over-ssh">Publish Over
-SSH版本1.25</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh-agent">SSH Agent
-Plugin版本367.vf9076cd4ee21</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh-slaves">SSH Build Agents
-plugin版本2.968.v6f8823c91de4</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh">SSH
-plugin版本2.6.1</a></li>
-<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/sshd">SSH
-server版本3.330.vc866a_8389b_58</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/command-launcher">Command Agent Launcher Plugin版本107.v773860566e2e</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/extended-choice-parameter">Extended Choice Parameter Plugin版本382.v5697b_32134e8</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/git-parameter">Git Parameter Plug-In版本0.9.19</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/javax-mail-api">JavaMail API版本1.6.2-10</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/localization-zh-cn">Localization: Chinese (Simplified)版本371.v23851f835d6b_</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/multiple-scms">Multiple SCMs plugin版本0.8</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/jdk-tool">Oracle Java SE Development Kit Installer Plugin版本73.vddf737284550</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/publish-over-ssh">Publish Over SSH版本1.25</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh-agent">SSH Agent Plugin版本367.vf9076cd4ee21</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh-slaves">SSH Build Agents plugin版本2.968.v6f8823c91de4</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ssh">SSH plugin版本2.6.1</a></li>
+<li><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/sshd">SSH server版本3.330.vc866a_8389b_58</a></li>
 </ul>
 <blockquote>
 <p>需要科学上网安装插件</p>
@@ -371,7 +359,7 @@ server版本3.330.vc866a_8389b_58</a></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%89%E5%8F%96jenkins%E6%96%B0%E7%89%88"><span class="nav-number">1.</span> <span class="nav-text">拉取jenkins新版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cjenkins%E5%AE%B9%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">运行jenkins容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">安装常用插件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">拉取jenkins新版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">运行jenkins容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">安装常用插件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -396,7 +384,7 @@ server版本3.330.vc866a_8389b_58</a></li>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">192</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
