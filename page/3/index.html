@@ -188,6 +188,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/" class="post-title-link" itemprop="url">机器学习基础-概率和发生比以及Logit</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-31 18:57:17" itemprop="dateCreated datePublished" datetime="2023-10-31T18:57:17+08:00">2023-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-01 10:26:56" itemprop="dateModified" datetime="2023-11-01T10:26:56+08:00">2023-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">联邦学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">机器学习基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>概率是机器学习中最常见的概念，在分类算法(Classification)中经常出现，而Logit也是逻辑回归（Logistic
+Regression）中的重要概念，本文将总结概率（Probability），发生比（Odds）和Logit（log(odds)）之间的关系。</p>
+<h2 id="概率发生比与logit的定义">概率，发生比与Logit的定义</h2>
+<h3 id="概率">概率</h3>
+<p>概率是指一个事件发生的可能性，假设一个袋子里有若干红球和蓝球，用P来表示概率。</p>
+<p><span class="math inline">\(P_{抽到红球}=\frac{红球数}{总个数}\)</span></p>
+<h3 id="发生比">发生比</h3>
+<p>发生比指一件事发生与其不发生的概率之比，同样以红球和篮球为例，用Odds来表示概率，则：</p>
+<p><span class="math inline">\(Odds_{抽到红球}=\frac
+{P_{抽到红球}}{1-P_{抽到红球}}\)</span></p>
+<h3 id="logit">Logit</h3>
+<p>Logit是给发生比取对数，即log(Odds)，其中log是自然对数，以红球篮球为例，其公式为:</p>
+<p><span class="math inline">\(Logit=log(\frac
+{P_{抽到红球}}{1-P_{抽到红球}})\)</span></p>
+<h2 id="概率发生比与logit的关系">概率发生比与Logit的关系</h2>
+<p>概率与发生比的关系较为简单，
+概率是指事件发生的可能性，而发生比是指该事件发生与不发生的概率之比。但发生比与Logit的关系就并没有那么直观了，从公式上我们确实可以知道Logit就是log(发生比),<strong>但我们该如何理解这一定义呢？</strong></p>
+<p>通过下面的图表不难发现，概率与发生比有以下关系：</p>
+<ol type="1">
+<li>概率取值为(0,1)，发生比取值为(0,Inf)</li>
+<li>当概率为0.5时，发生比为1，即事件发生与不发生的概率相同。</li>
+<li>当概率小于0.5时，发生比取值范围为(0,1)，当概率大于0.5时，发生比取值范围为(1,Inf)</li>
+<li>当概率大于或小于0.5时，发生比的取值范围并不对称。</li>
+</ol>
+<p>发生比的不对称性，时常会带来一些困扰，比如：</p>
+<ul>
+<li>概率为0.3和0.7时，这两个概率的均值是0.5，他们是“对称”的；但这两个概率的发生比却分别是0.429和2.333,这使我们很难直观地感受到他们的对称关系。</li>
+<li>当概率从0.1增加到0.2，时，发生比增加了0.139；当概率从0.8增加到0.9时，发生比却增加了5，虽然概率的增量相同，但发生比的增量却大大的不同。</li>
+</ul>
+<p>而Logit就能有效地解决发生比带来的困惑：</p>
+<ul>
+<li>概率为0.3和0.7时，Logit分别为-0.847和0.847，这两个值关于0对称,因此我们知道这两Logit值对应的发生比是对称的。</li>
+<li>当概率从0.2减少至0.1时，Logit的增量是-0.811；当概率从0.8增加到0.9时，Logit的增量也是0.811，我们可以直观地感受到发生比增量也是对称的。</li>
+<li>当发生比为1时，Logit为0；当发生比小于或大于1时，Logit取值范围为(-Inf,0)和(0,Inf).取值范围对称。</li>
+</ul>
+<p>下表列出了当概率取不同值时，发生比和Logit之间的关系：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Probability</th>
+<th>Odds</th>
+<th>Logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.0001</td>
+<td>0.00010001</td>
+<td>-9.21024</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.001</td>
+<td>0.001001</td>
+<td>-6.90675</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.01</td>
+<td>0.010101</td>
+<td>-4.59512</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>0.1</td>
+<td>0.111111</td>
+<td>-2.19722</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>0.2</td>
+<td>0.25</td>
+<td>-1.38629</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>0.3</td>
+<td>0.428571</td>
+<td>-0.847298</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>0.4</td>
+<td>0.666667</td>
+<td>-0.405465</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>0.5</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>0.6</td>
+<td>1.5</td>
+<td>0.405465</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>0.7</td>
+<td>2.33333</td>
+<td>0.847298</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>0.8</td>
+<td>4</td>
+<td>1.38629</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>0.9</td>
+<td>9</td>
+<td>2.19722</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>0.99</td>
+<td>9</td>
+<td>4.59512</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>0.999</td>
+<td>999</td>
+<td>6.90675</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>0.9999</td>
+<td>9999</td>
+<td>9.21024</td>
+</tr>
+</tbody>
+</table>
+<p>用图形表示，三者关系如下，其中x轴为概率，两条曲线分别为发生比和Logit，为了让图形更加好看，概率只取了[0.1,
+0.9]这一部分：</p>
+<figure>
+<img src="/2023/10/31/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-%E6%A6%82%E7%8E%87%E5%92%8C%E5%8F%91%E7%94%9F%E6%AF%94%E4%BB%A5%E5%8F%8ALogit/概率-发生比-Logit.jpg" alt="概率和发生比以及Logit">
+<figcaption aria-hidden="true">概率和发生比以及Logit</figcaption>
+</figure>
+<h2 id="小结">小结</h2>
+<p>由于逻辑回归模型的需求，我们引入了发生比这一概念，但发生比本身的不对称性让我们难以直观地比较发生比，因此我们引入了Logit这一概念。<strong>Logit赋予了发生比更强的”对称“性</strong>，让我们更容易比较不同发生比之间的关系。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/10/26/PySpark%E5%9F%BA%E7%A1%80001/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1429,158 +1653,6 @@ nginx-conf-https，所以说明我们可以去改nginx-config-https这个configM
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/09/%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2KubeFate/" class="post-title-link" itemprop="url">手动部署KubeFate</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-09 09:39:10" itemprop="dateCreated datePublished" datetime="2023-06-09T09:39:10+08:00">2023-06-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-11 19:24:08" itemprop="dateModified" datetime="2023-06-11T19:24:08+08:00">2023-06-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="依赖的软件环境">依赖的软件环境</h1>
-<ul>
-<li>k8s：我使用的是k3s</li>
-<li>ingress-nginx</li>
-<li>拉取KubeFate的代码并编译生成kubefate可执行文件： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/FederatedAI/KubeFATE.git</span><br><span class="line">cd kubefate</span><br><span class="line">make</span><br></pre></td></tr></table></figure> &gt;
-官方文档有推荐版本，我没去管它</li>
-</ul>
-<h1 id="创建k8s服务的帐号以及namespace等">创建k8s服务的帐号以及namespace等</h1>
-<p>在<code>KubeFATE/k8s-deploy</code>目录下，有个<code>rbac-config.yaml</code>文件，里面有定义了帐号，命名空间等内容：
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kube-fate</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-admin</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-role</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">kubefate-admin</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-secret</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">Opaque</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="attr">kubefateUsername:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">kubefatePassword:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">mariadbUsername:</span> <span class="string">kubefate</span></span><br><span class="line">  <span class="attr">mariadbPassword:</span> <span class="string">kubefate</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubefate-role</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-fate</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">namespaces</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">configmaps</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">services</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">secrets</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">persistentvolumeclaims</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">serviceaccounts</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">pods</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">pods/log</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">nodes</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">apps</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">deployments</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">statefulsets</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">deployments/status</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">statefulsets/status</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">networking.k8s.io</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ingresses</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">networking.istio.io</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">gateways</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">virtualservices</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">roles</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">rolebindings</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">batch</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">jobs</span></span><br><span class="line">  <span class="attr">verbs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">get</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">list</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">create</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">delete</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">update</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">patch</span></span><br></pre></td></tr></table></figure> &gt;
-如果需要修改用户名密码之类的，可以查看上述yaml中的配置自行修改</p>
-<p>在<code>KubeFATE/k8s-deploy</code>目录下执行： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl apply -f ./rbac-config.yaml</span><br></pre></td></tr></table></figure></p>
-<h1 id="准备域名及部署kubefate服务">准备域名及部署KubeFATE服务</h1>
-<p>因为KubeFATE服务向外暴露RESTful
-APIs，所以系统管理员需要为此准备域名的DNS解析。在我们的配置样例里，使用<code>example.com</code>作为域名（需要修改成真实域名，但是为了学习搭建就无所谓了）。同时，系统管理员需要为每个FATE集群创建一个<code>namespace</code>，譬如<code>party_id</code>为<code>9999</code>的FATE集群，创建一个<code>fate-9999</code>的<code>namespace</code>，然后进行配额控制。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ./kubefate.yaml</span><br><span class="line">kubectl create namespace fate-9999</span><br></pre></td></tr></table></figure>
-<p>后续再执行： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl get ingress -A</span><br></pre></td></tr></table></figure> 可以看到返回类似于以下信息： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAMESPACE   NAME       CLASS   HOSTS         ADDRESS       PORTS   AGE</span><br><span class="line">kube-fate   kubefate   nginx   example.com   10.43.62.61   80      12m</span><br></pre></td></tr></table></figure>
-&gt; ADDRESS 10.43.62.61 添加至/etc/hosts中 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.43.62.61 example.com</span><br></pre></td></tr></table></figure></p>
-<p>查看ingress-nginx命名空间下的服务： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl get svc -n ingress-nginx</span><br></pre></td></tr></table></figure></p>
-<p>可以看到返回类似于以下信息： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NAME                                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE</span><br><span class="line">ingress-nginx-controller-admission   ClusterIP   10.43.169.125   &lt;none&gt;        443/TCP                      4d</span><br><span class="line">ingress-nginx-controller             NodePort    10.43.62.61     &lt;none&gt;        80:31683/TCP,443:31292/TCP   4d</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl get svc -n kube-fate</span><br></pre></td></tr></table></figure>
-<p>返回类似以下信息： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE</span><br><span class="line">mariadb    ClusterIP   10.43.128.75   &lt;none&gt;        3306/TCP   33m</span><br><span class="line">kubefate   ClusterIP   10.43.235.20   &lt;none&gt;        8080/TCP   33m</span><br></pre></td></tr></table></figure></p>
-<p>完成以上步骤后，docker容器的启动情况查看一下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps </span><br></pre></td></tr></table></figure>
-返回类似于以下信息： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID   IMAGE                        COMMAND                   CREATED          STATUS          PORTS     NAMES</span><br><span class="line">5ece9858fd52   93aad7121ec0                 &quot;/kubefate service&quot;       11 minutes ago   Up 11 minutes             k8s_kubefate_kubefate-74897fc6d7-zrcqf_kube-fate_d221b8f5-b6f1-4861-9281-5561f01875f3_2</span><br><span class="line">116bb9217b97   9a79847e85fb                 &quot;docker-entrypoint.s…&quot;   12 minutes ago   Up 12 minutes             k8s_mariadb_mariadb-7456b6c968-b9zlx_kube-fate_2b1ac004-4155-4b11-bb3f-afd91e0563d2_0</span><br><span class="line">5d13492b8755   rancher/mirrored-pause:3.6   &quot;/pause&quot;                  12 minutes ago   Up 12 minutes             k8s_POD_mariadb-7456b6c968-b9zlx_kube-fate_2b1ac004-4155-4b11-bb3f-afd91e0563d2_0</span><br><span class="line">05635a80430c   rancher/mirrored-pause:3.6   &quot;/pause&quot;                  12 minutes ago   Up 12 minutes             k8s_POD_kubefate-74897fc6d7-zrcqf_kube-fate_d221b8f5-b6f1-4861-9281-5561f01875f3_0</span><br></pre></td></tr></table></figure> &gt;
-至此，FATE的后台服务已经部署完成</p>
-<h1 id="准备fate的安装配置文件并部署fate">准备FATE的安装配置文件并部署FATE</h1>
-<p>当系统管理员成功部署了<code>KubeFATE</code>服务，并准备好新的FATE集群<code>namespace</code>，接下来就可以根据这些信息开始部署FATE集群。<code>config.yaml</code>是使用<code>KubeFATE</code>命令行的配置文件，包含<code>KubeFATE</code>服务的访问用户名密码，以及<code>log</code>配置，<code>域名</code>。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">log:</span></span><br><span class="line">  <span class="attr">level:</span> <span class="string">info</span></span><br><span class="line"><span class="attr">user:</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">admin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">serviceurl:</span> <span class="string">example.com</span></span><br><span class="line"><span class="attr">safeconnect:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<table>
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>名字</th>
-<th>种类</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>log</td>
-<td>scalars</td>
-<td>命令行的日志级别。设置成debug级别可以看到REST通信信息</td>
-</tr>
-<tr class="even">
-<td>user</td>
-<td>mappings</td>
-<td>KubeFATE的认证用户名，密码</td>
-</tr>
-<tr class="odd">
-<td>serviceurl</td>
-<td>scalars</td>
-<td>KubeFATE服务使用的域名</td>
-</tr>
-<tr class="even">
-<td>safeconnect</td>
-<td>scalars</td>
-<td>是否使用https访问KubeFATE服务使用的域名;<a target="_blank" rel="noopener" href="https://github.com/FederatedAI/KubeFATE/blob/master/docs/configurations/kubefate_service_tls_enable.md">参考</a></td>
-</tr>
-</tbody>
-</table>
-<p>样例里面包含了<code>cluster.yaml</code>,
-是FATE的部署计划，更多自定义内容参考：<a target="_blank" rel="noopener" href="https://github.com/FederatedAI/KubeFATE/blob/master/docs/configurations/FATE_cluster_configuration.md">FATE
-Cluster Configuration Guild</a></p>
-<p>因为我是要部署<code>Spark</code>作为计算引擎；<code>Pulsar</code>作为通讯组件的架构；所以选择的是样例里面的<code>cluster-spark-pulsar.yaml</code>
-&gt;
-为了避免由于网络原因拉取docker镜像失败，需要设置一下<code>cluster-spark-pulsar.yaml'中的</code>registry`</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry: &quot;hub.c.163.com/federatedai&quot;</span><br></pre></td></tr></table></figure>
-<p>使用<code>kubefate</code>来安装集群,
-在<code>k8s-deploy</code>目录下的<code>bin</code>目录下（之前<code>make</code>编译生成）：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubefate cluster install -f ./cluster-spark-pulsar.yaml</span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create job Success, job id=0f82371a-442c-4a50-aeb5-528e5a896d52</span><br></pre></td></tr></table></figure> &gt;
-这一步需要保证/etc/hosts中已添加了example.com，我在这一步卡了很久，一直不成功。</p>
-<p>根据出错信息尝试了一些，最终解决掉了，但具体是哪个操作解决了目前没去深究，以下是我做的处理：
--
-关闭科学上网软件（在终端内关闭科学上网，clash我忘了有没关，最好也关一下，之前遇到过在/etc/hosts添加了域名，但是clash开着导致hosts中的域名无法解析的坑，具体原因也不明）
-- 移除了docker的代理（在
-/etc/systemd/system/docker.service.d/proxy.conf中我原先设置了代理），后来把它mv
-proxy.conf proxy.conf.bak了 - 关闭了系统的防火墙 -
-重启docker,重启k3s</p>
-<h1 id="检查安装集群任务的状态">检查安装集群任务的状态</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubefate job describe 0f82371a-442c-4a50-aeb5-528e5a896d52</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">UUID     	0f82371a-442c-4a50-aeb5-528e5a896d52</span><br><span class="line">StartTime	2023-06-09 12:14:38</span><br><span class="line">EndTime  	2023-06-09 12:23:44</span><br><span class="line">Duration 	9m6s</span><br><span class="line">Status   	Success</span><br><span class="line">Creator  	admin</span><br><span class="line">ClusterId	fd3e2768-a84d-4732-9de6-87558d7bcd39</span><br><span class="line">States   	- update job status to Running</span><br><span class="line">         	- create Cluster in DB Success</span><br><span class="line">         	- helm install Success</span><br><span class="line">         	- checkout Cluster status [529]</span><br><span class="line">         	- job run Success</span><br><span class="line"></span><br><span class="line">SubJobs  	mysql                ModuleStatus: Available, SubJobStatus: Success, Duration:   5m4s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:19:43</span><br><span class="line">         	nginx                ModuleStatus: Available, SubJobStatus: Success, Duration:   9m6s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:23:44</span><br><span class="line">         	python               ModuleStatus: Available, SubJobStatus: Success, Duration:   7m5s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:21:43</span><br><span class="line">         	spark-worker         ModuleStatus: Available, SubJobStatus: Success, Duration:  2m53s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:31</span><br><span class="line">         	client               ModuleStatus: Available, SubJobStatus: Success, Duration:  2m45s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:23</span><br><span class="line">         	datanode             ModuleStatus: Available, SubJobStatus: Success, Duration:  2m36s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:14</span><br><span class="line">         	fateboard            ModuleStatus: Available, SubJobStatus: Success, Duration:  2m54s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:32</span><br><span class="line">         	namenode             ModuleStatus: Available, SubJobStatus: Success, Duration:   2m5s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:16:43</span><br><span class="line">         	pulsar               ModuleStatus: Available, SubJobStatus: Success, Duration:  4m24s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:19:02</span><br><span class="line">         	spark-master         ModuleStatus: Available, SubJobStatus: Success, Duration:  2m45s, StartTime: 2023-06-09 12:14:38, EndTime: 2023-06-09 12:17:23</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubefate cluster describe fd3e2768-a84d-4732-9de6-87558d7bcd39</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">UUID        	fd3e2768-a84d-4732-9de6-87558d7bcd39</span><br><span class="line">Name        	fate-9999</span><br><span class="line">NameSpace   	fate-9999</span><br><span class="line">ChartName   	fate</span><br><span class="line">ChartVersion	v1.11.1</span><br><span class="line">Revision    	1</span><br><span class="line">Age         	27m</span><br><span class="line">Status      	Running</span><br><span class="line">Spec        	algorithm: Basic</span><br><span class="line">            	chartName: fate</span><br><span class="line">            	chartVersion: v1.11.1</span><br><span class="line">            	computing: Spark</span><br><span class="line">            	device: CPU</span><br><span class="line">            	federation: Pulsar</span><br><span class="line">            	imagePullSecrets:</span><br><span class="line">            	- name: myregistrykey</span><br><span class="line">            	ingressClassName: nginx</span><br><span class="line">            	istio:</span><br><span class="line">            	  enabled: false</span><br><span class="line">            	modules:</span><br><span class="line">            	- mysql</span><br><span class="line">            	- python</span><br><span class="line">            	- fateboard</span><br><span class="line">            	- client</span><br><span class="line">            	- spark</span><br><span class="line">            	- hdfs</span><br><span class="line">            	- nginx</span><br><span class="line">            	- pulsar</span><br><span class="line">            	name: fate-9999</span><br><span class="line">            	namespace: fate-9999</span><br><span class="line">            	partyId: 9999</span><br><span class="line">            	persistence: false</span><br><span class="line">            	podSecurityPolicy:</span><br><span class="line">            	  enabled: false</span><br><span class="line">            	pullPolicy: null</span><br><span class="line">            	registry: &quot;&quot;</span><br><span class="line">            	skippedKeys:</span><br><span class="line">            	- route_table</span><br><span class="line">            	storage: HDFS</span><br><span class="line"></span><br><span class="line">Info        	dashboard:</span><br><span class="line">            	- spark.example.com</span><br><span class="line">            	- notebook.example.com</span><br><span class="line">            	- fateboard.example.com</span><br><span class="line">            	- pulsar.example.com</span><br><span class="line">            	ip: 192.168.100.121</span><br><span class="line">            	status:</span><br><span class="line">            	  containers:</span><br><span class="line">            	    client: Running</span><br><span class="line">            	    datanode: Running</span><br><span class="line">            	    fateboard: Running</span><br><span class="line">            	    fateflow: Running</span><br><span class="line">            	    mysql: Running</span><br><span class="line">            	    namenode: Running</span><br><span class="line">            	    nginx: Running</span><br><span class="line">            	    pulsar: Running</span><br><span class="line">            	    spark-master: Running</span><br><span class="line">            	    spark-worker: Running</span><br><span class="line">            	  deployments:</span><br><span class="line">            	    fateboard: Available</span><br><span class="line">            	    nginx: Available</span><br><span class="line">            	    spark-master: Available</span><br><span class="line">            	    spark-worker: Available</span><br><span class="line">            	  statefulSets:</span><br><span class="line">            	    client: Available</span><br><span class="line">            	    datanode: Available</span><br><span class="line">            	    mysql: Available</span><br><span class="line">            	    namenode: Available</span><br><span class="line">            	    pulsar: Available</span><br><span class="line">            	    python: Available</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1650,7 +1722,7 @@ proxy.conf proxy.conf.bak了 - 关闭了系统的防火墙 -
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1661,7 +1733,7 @@ proxy.conf proxy.conf.bak了 - 关闭了系统的防火墙 -
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">183</span>
+        <span class="site-state-item-count">191</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
