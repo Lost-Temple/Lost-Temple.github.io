@@ -248,15 +248,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="linux输出重定向">linux输出重定向</h1>
+        <h1>linux输出重定向</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">command &gt; file 2&gt;&amp;1</span><br><span class="line">command &gt;&gt; file 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<p>放在<code>&gt;</code>后面的<code>&amp;</code>，表示重定向的目标不是一个<strong>文件</strong>，而是一个<strong>文件描述符</strong>，内置的文件描述符如下:
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 =&gt; stdout</span><br><span class="line">2 =&gt; stderr</span><br><span class="line">0 =&gt; stdin</span><br></pre></td></tr></table></figure></p>
-<p>换言之 <code>2&gt;1</code>
-代表将<strong>stderr</strong>重定向到当前路径下文件名为<strong>1</strong>的<strong>regular
-file</strong>中，而<code>2&gt;&amp;1</code>代表将<strong>stderr</strong>重定向到<strong>文件描述符</strong>为<strong>1</strong>的文件(即<code>/dev/stdout</code>)中，这个文件就是<strong>stdout</strong>在<strong>file
-system</strong>中的映射
-而<strong>&amp;&gt;file</strong>是一种特殊的用法，也可以写成<strong>&gt;&amp;file</strong>，二者的意思完全相同，都等价于</p>
+<p>放在<code>&gt;</code>后面的<code>&amp;</code>，表示重定向的目标不是一个<strong>文件</strong>，而是一个<strong>文件描述符</strong>，内置的文件描述符如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 =&gt; stdout</span><br><span class="line">2 =&gt; stderr</span><br><span class="line">0 =&gt; stdin</span><br></pre></td></tr></table></figure>
+<p>换言之 <code>2&gt;1</code> 代表将<strong>stderr</strong>重定向到当前路径下文件名为<strong>1</strong>的<strong>regular file</strong>中，而<code>2&gt;&amp;1</code>代表将<strong>stderr</strong>重定向到<strong>文件描述符</strong>为<strong>1</strong>的文件(即<code>/dev/stdout</code>)中，这个文件就是<strong>stdout</strong>在<strong>file system</strong>中的映射<br>
+而**&amp;&gt;file<strong>是一种特殊的用法，也可以写成</strong>&gt;&amp;file**，二者的意思完全相同，都等价于</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;file 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>此处<code>&amp;&gt;</code>或者<code>&gt;&amp;</code>视作整体，分开没有单独的含义</p>
@@ -268,71 +265,55 @@ system</strong>中的映射
 <ul>
 <li><strong>含义：</strong></li>
 </ul>
-<p>​ <code>&gt; list</code>：将<strong>标准输出</strong>（文件描述符
-1）重定向到文件 list。</p>
-<p>​ <code>2&gt;&amp;1</code>：将<strong>标准错误</strong>（文件描述符
-2）重定向到与标准输出相同的位置。</p>
+<p>​	<code>&gt; list</code>：将<strong>标准输出</strong>（文件描述符 1）重定向到文件 list。</p>
+<p>​	<code>2&gt;&amp;1</code>：将<strong>标准错误</strong>（文件描述符 2）重定向到与标准输出相同的位置。</p>
 <ul>
 <li><strong>执行顺序：</strong></li>
 </ul>
-<p>​ 1. &gt; list 首先将标准输出指向文件 list。</p>
-<p>​ 2. 2&gt;&amp;1 将标准错误指向与标准输出相同的地方（即文件
-list）。</p>
+<p>​	1. &gt; list 首先将标准输出指向文件 list。</p>
+<p>​	2. 2&gt;&amp;1 将标准错误指向与标准输出相同的地方（即文件 list）。</p>
 <ul>
 <li><strong>效果：</strong></li>
 </ul>
-<p>​ <strong>标准输出和标准错误都被重定向到文件</strong> list
-<strong>中</strong>。</p>
-<p>​ 这是正确的用法。</p>
+<p>​	<strong>标准输出和标准错误都被重定向到文件</strong> list <strong>中</strong>。</p>
+<p>​	这是正确的用法。</p>
 <p>第二种：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx 2&gt;&amp;1 &gt; list</span><br></pre></td></tr></table></figure>
 <ul>
 <li><strong>含义：</strong></li>
 </ul>
-<p>​ <code>2&gt;&amp;1</code>：将<strong>标准错误</strong>（文件描述符
-2）重定向到当前的标准输出。</p>
-<p>​ <code>&gt; list</code>：将<strong>标准输出</strong>（文件描述符
-1）重定向到文件 list。</p>
+<p>​	<code>2&gt;&amp;1</code>：将<strong>标准错误</strong>（文件描述符 2）重定向到当前的标准输出。</p>
+<p>​	<code>&gt; list</code>：将<strong>标准输出</strong>（文件描述符 1）重定向到文件 list。</p>
 <ul>
 <li><strong>执行顺序：</strong></li>
 </ul>
-<p>​ 1. 2&gt;&amp;1 首先将标准错误指向当前标准输出的位置。</p>
-<p>​ 2. 然后，&gt; list 将标准输出重定向到文件
-list，但此时标准错误仍然指向原始的标准输出（可能是终端）。</p>
+<p>​	1. 2&gt;&amp;1 首先将标准错误指向当前标准输出的位置。</p>
+<p>​	2. 然后，&gt; list 将标准输出重定向到文件 list，但此时标准错误仍然指向原始的标准输出（可能是终端）。</p>
 <ul>
 <li><strong>效果：</strong></li>
 </ul>
-<p>​ <strong>标准输出被写入文件</strong> list。</p>
-<p>​
-<strong>标准错误仍然输出到终端</strong>（因为它指向的是原始标准输出，而不是文件
-list）。</p>
-<p>​ 导致无法实现标准输出和标准错误的统一重定向。</p>
-<h1 id="输入重定向">输入重定向</h1>
+<p>​	<strong>标准输出被写入文件</strong> list。</p>
+<p>​	<strong>标准错误仍然输出到终端</strong>（因为它指向的是原始标准输出，而不是文件 list）。</p>
+<p>​	导致无法实现标准输出和标准错误的统一重定向。</p>
+<h1>输入重定向</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc &lt; test.txt</span><br></pre></td></tr></table></figure>
 <p>把test.txt的内容作为<code>wc</code>的输入，效果和以下命令类似：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat test.txt | wc</span><br></pre></td></tr></table></figure>
 <p>把test.txt的内容通过管道传输给<code>wc</code></p>
-<h1 id="devnull">dev/null</h1>
-<p>如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到
-/dev/null：</p>
+<h1>dev/null</h1>
+<p>如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到 /dev/null：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &gt; /dev/null</span><br></pre></td></tr></table></figure>
-<p>/dev/null
-是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是
-/dev/null
-文件非常有用，将命令的输出重定向到它，会起到"禁止输出"的效果。</p>
-<p>如果希望屏蔽 <code>stdout</code>和
-<code>stderr</code>，可以这样写：</p>
+<p>/dev/null 是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是 /dev/null 文件非常有用，将命令的输出重定向到它，会起到&quot;禁止输出&quot;的效果。</p>
+<p>如果希望屏蔽 <code>stdout </code>和 <code>stderr</code>，可以这样写：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<h1 id="重定向深入">重定向深入</h1>
+<h1>重定向深入</h1>
 <p>一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件：</p>
 <ul>
 <li>标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。</li>
-<li>标准输出文件(stdout)：stdout
-的文件描述符为1，Unix程序默认向stdout输出数据。</li>
+<li>标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。</li>
 <li>标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。</li>
 </ul>
-<p>默认情况下，command &gt; file 将 stdout 重定向到 file，command &lt;
-file 将stdin 重定向到 file。</p>
+<p>默认情况下，command &gt; file 将 stdout 重定向到 file，command &lt; file 将stdin 重定向到 file。</p>
 <p>如果希望 stderr 重定向到 file，可以这样写:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command 2 &gt; file</span><br></pre></td></tr></table></figure>
 <p>如果希望 stderr 追加到 file 文件末尾，可以这样写:</p>
@@ -345,41 +326,41 @@ file 将stdin 重定向到 file。</p>
 <p>注意：为什么需要将标准错误重定向到标准输出，因为标准错误没有缓冲区，而stdout有。</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>command &gt; file</td>
 <td>将输出重定向到 file。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>command &lt; file</td>
 <td>将输入重定向到 file。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>command &gt;&gt; file</td>
 <td>将输出以追加的方式重定向到 file。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>n &gt; file</td>
 <td>将文件描述符为 n 的文件重定向到 file。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>n &gt;&gt; file</td>
 <td>将文件描述符为 n 的文件以追加的方式重定向到 file。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>n &gt;&amp; m</td>
 <td>将输出文件 m 和 n 合并。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>n &lt;&amp; m</td>
 <td>将输入文件 m 和 n 合并。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>&lt;&lt; tag</td>
 <td>将开始标记 tag 和结束标记 tag 之间的内容作为输入。</td>
 </tr>
@@ -469,7 +450,7 @@ file 将stdin 重定向到 file。</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.</span> <span class="nav-text">linux输出重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text">输入重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#devnull"><span class="nav-number">3.</span> <span class="nav-text">dev&#x2F;null</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E6%B7%B1%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">重定向深入</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">linux输出重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">输入重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">dev&#x2F;null</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">重定向深入</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -494,7 +475,7 @@ file 将stdin 重定向到 file。</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">193</span>
+        <span class="site-state-item-count">194</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

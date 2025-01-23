@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="什么是“开-闭”原则 “开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。 &gt;Software entities should be open for extension, but closed for modification. 这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。 满足“开">
+  <meta name="description" content="什么是“开-闭”原则 “开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。  Software entities should be open for extension, but closed for modification.  这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。 满足“开-闭">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重读《JAVA与模式》笔记系列-00002">
 <meta property="og:url" content="http://www.blockchainof.com/2022/12/17/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00002/index.html">
 <meta property="og:site_name" content="自留地">
-<meta property="og:description" content="什么是“开-闭”原则 “开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。 &gt;Software entities should be open for extension, but closed for modification. 这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。 满足“开">
+<meta property="og:description" content="什么是“开-闭”原则 “开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。  Software entities should be open for extension, but closed for modification.  这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。 满足“开-闭">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-17T06:58:27.000Z">
 <meta property="article:modified_time" content="2022-12-18T04:21:43.936Z">
@@ -252,31 +252,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="什么是开-闭原则">什么是“开-闭”原则</h1>
-<p>“开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。
-&gt;Software entities should be open for extension, but closed for
-modification.</p>
+        <h1>什么是“开-闭”原则</h1>
+<p>“开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。</p>
+<blockquote>
+<p>Software entities should be open for extension, but closed for modification.</p>
+</blockquote>
 <p>这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。</p>
-<p>满足“开-闭”原则的设计可以给一个软件系统两个无可比拟的优越性： -
-通过扩展已有的软件系统，可以提供新的行为，以满足对软件的新需求，使变化中的软件系统中有一定的适应性和灵活性。
--
-已有的软件模块，特别是最重要的抽象层模块不能再修改，这就使变化中的软件系统有一定的稳定性和延续性。</p>
-<h1 id="抽象化是关键">抽象化是关键</h1>
+<p>满足“开-闭”原则的设计可以给一个软件系统两个无可比拟的优越性：</p>
+<ul>
+<li>通过扩展已有的软件系统，可以提供新的行为，以满足对软件的新需求，使变化中的软件系统中有一定的适应性和灵活性。</li>
+<li>已有的软件模块，特别是最重要的抽象层模块不能再修改，这就使变化中的软件系统有一定的稳定性和延续性。</li>
+</ul>
+<h1>抽象化是关键</h1>
 <p>解决问题的关键在于抽象化。面向对象的编程语言里面，可以给系统定义出一个一劳永逸、不再更改的抽象设计，此设计允许有无穷无尽的行为在实现层被实现。这个抽象层预见了所有的可能扩展，因此，在任何扩展情况下都不会改变。这就使得系统的抽象层不需修改，从而满足了“开-闭”原则的第二条：对修改关闭。</p>
 <p>同时，由于从抽象层导出一个或多个新的具体类可以改变系统的行为，因此系统的设计对扩展是开放的，这就满足了“开-闭”原则的第一条。</p>
-<h1 id="对可变性的封装原则">对可变性的封装原则</h1>
-<p>“开-闭”原则如果从另外一个角度讲述，就是所谓的“对可变性的封装原则”（Principle
-of Encapsulation of Variation，常常略写做EVP)."</p>
+<h1>对可变性的封装原则</h1>
+<p>“开-闭”原则如果从另外一个角度讲述，就是所谓的“对可变性的封装原则”（Principle of Encapsulation of Variation，常常略写做EVP).&quot;</p>
 <p>可变性原则的思路：考虑的不是什么会导致设计改变，而是考虑你允许什么发生变化而不让这一变化导致重新设计。</p>
-<p>[SHALL01]将这一思想用一句话总结为：找到一个系统的可变因素，将它封装起来，并将它命名为“对可变性的封装原则”，对可变性的封装原则意味着两点：
--
-一种可变性不应当散落在代码的很多角落里，而应当被封装到一个对象里面。同一种可变性的不同表象意味着同一继承等级结构中的具体子类。
--
-一种可变性不应当与另一种可变性混合在一起。即类图中的继承结构一般都不会超过两层。不然就意味着将两种不同的可变性混合在了一起。</p>
+<p>[SHALL01]将这一思想用一句话总结为：找到一个系统的可变因素，将它封装起来，并将它命名为“对可变性的封装原则”，对可变性的封装原则意味着两点：</p>
+<ul>
+<li>一种可变性不应当散落在代码的很多角落里，而应当被封装到一个对象里面。同一种可变性的不同表象意味着同一继承等级结构中的具体子类。</li>
+<li>一种可变性不应当与另一种可变性混合在一起。即类图中的继承结构一般都不会超过两层。不然就意味着将两种不同的可变性混合在了一起。</li>
+</ul>
 <blockquote>
 <p>显然，”对可变性的封装原则“从工程的角度讲解了如何实现”开-闭“原则。</p>
 </blockquote>
-<h1 id="与其它设计原则的关系">与其它设计原则的关系</h1>
+<h1>与其它设计原则的关系</h1>
 <p>做到”开-闭“原则不是一件容易的事，但是也是有很多规律可循的。这些规律也同样以设计原则的身份出现，但是它们都是”开-闭“原则的手段和工具，是附属于”开-闭“原则的。</p>
 <h2 id="里氏代换原则">里氏代换原则</h2>
 <p><strong>里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。</strong></p>
@@ -286,7 +287,7 @@ of Encapsulation of Variation，常常略写做EVP)."</p>
 <p><strong>依赖倒转原则讲的是，要依赖于抽象，不要依赖于实现。</strong></p>
 <p>看上去和”开-闭”原则有很大的相似之处，实际上，它们之间的关系是目标和手段的关系。“开-闭”原则是目标，而达到这一目标的手段是依赖倒转原则。</p>
 <p>换言之，要想实现“开-闭”原则，就应当坚持依赖倒转原则，违反依赖倒转原则，就不可能达到“开-闭”原则的要求。</p>
-<h2 id="合成聚合复用原则">合成/聚合复用原则</h2>
+<h2 id="合成-聚合复用原则">合成/聚合复用原则</h2>
 <p><strong>合成/聚合复用原则讲的是，要尽量使用合成/聚合，而不是继承关系达到复用的目的。</strong></p>
 <p>合成/聚合复用原则是与里氏代换原则相辅相成的，两者又都是对实现“开-闭”原则的具体步骤的规范。</p>
 <p>遵守合成/聚合复用原则是实现“开-闭”原则的必要条件；违反了这一原则就无法使系统实现“开-闭”原则这一目标。</p>
@@ -382,7 +383,7 @@ of Encapsulation of Variation，常常略写做EVP)."</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%80-%E9%97%AD%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">什么是“开-闭”原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%8C%96%E6%98%AF%E5%85%B3%E9%94%AE"><span class="nav-number">2.</span> <span class="nav-text">抽象化是关键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E5%8F%AF%E5%8F%98%E6%80%A7%E7%9A%84%E5%B0%81%E8%A3%85%E5%8E%9F%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">对可变性的封装原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E5%AE%83%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">与其它设计原则的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2%E5%8E%9F%E5%88%99"><span class="nav-number">4.1.</span> <span class="nav-text">里氏代换原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99"><span class="nav-number">4.2.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%88%90%E8%81%9A%E5%90%88%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">4.3.</span> <span class="nav-text">合成&#x2F;聚合复用原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99"><span class="nav-number">4.4.</span> <span class="nav-text">迪米特法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99"><span class="nav-number">4.5.</span> <span class="nav-text">接口隔离原则</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">什么是“开-闭”原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">抽象化是关键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">对可变性的封装原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">与其它设计原则的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2%E5%8E%9F%E5%88%99"><span class="nav-number">4.1.</span> <span class="nav-text">里氏代换原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99"><span class="nav-number">4.2.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%88%90-%E8%81%9A%E5%90%88%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">4.3.</span> <span class="nav-text">合成&#x2F;聚合复用原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99"><span class="nav-number">4.4.</span> <span class="nav-text">迪米特法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99"><span class="nav-number">4.5.</span> <span class="nav-text">接口隔离原则</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -407,7 +408,7 @@ of Encapsulation of Variation，常常略写做EVP)."</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">193</span>
+        <span class="site-state-item-count">194</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

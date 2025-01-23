@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="通过fabric-samples了解fabric 需要有以下几个步骤：   如果需要，请克隆 hyperledger&#x2F;fabric-samples 仓库   检出适当的版本标签   将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 &#x2F;bin 和 &#x2F;config 目录中   下载指定版本的 Hyperledger Fabric">
+  <meta name="description" content="通过fabric-samples了解fabric 需要有以下几个步骤：    如果需要，请克隆 hyperledger&#x2F;fabric-samples 仓库     检出适当的版本标签     将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 &#x2F;bin 和 &#x2F;config 目录中     下载指定版本的 Hyperledger">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fabric-通过samples了解fabric（一）">
 <meta property="og:url" content="http://www.blockchainof.com/2022/11/02/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="自留地">
-<meta property="og:description" content="通过fabric-samples了解fabric 需要有以下几个步骤：   如果需要，请克隆 hyperledger&#x2F;fabric-samples 仓库   检出适当的版本标签   将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 &#x2F;bin 和 &#x2F;config 目录中   下载指定版本的 Hyperledger Fabric">
+<meta property="og:description" content="通过fabric-samples了解fabric 需要有以下几个步骤：    如果需要，请克隆 hyperledger&#x2F;fabric-samples 仓库     检出适当的版本标签     将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 &#x2F;bin 和 &#x2F;config 目录中     下载指定版本的 Hyperledger">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-02T09:24:40.000Z">
 <meta property="article:modified_time" content="2022-12-03T11:37:08.040Z">
@@ -252,44 +252,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="通过fabric-samples了解fabric">通过fabric-samples了解fabric</h1>
+        <h1>通过fabric-samples了解fabric</h1>
 <p>需要有以下几个步骤：</p>
 <ul>
-<li><ol type="1">
-<li>如果需要，请克隆 <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-samples">hyperledger/fabric-samples</a>
-仓库</li>
-</ol></li>
-<li><ol start="2" type="1">
+<li>
+<ol>
+<li>如果需要，请克隆 <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-samples">hyperledger/fabric-samples</a> 仓库</li>
+</ol>
+</li>
+<li>
+<ol start="2">
 <li>检出适当的版本标签</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li>将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到
-fabric-samples 下的 /bin 和 /config 目录中</li>
-</ol></li>
-<li><ol start="4" type="1">
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>将指定版本的 Hyperledger Fabric 平台特定二进制文件和配置文件安装到 fabric-samples 下的 /bin 和 /config 目录中</li>
+</ol>
+</li>
+<li>
+<ol start="4">
 <li>下载指定版本的 Hyperledger Fabric docker 镜像</li>
-</ol></li>
+</ol>
+</li>
 </ul>
 <p><strong>无梯子会比较麻烦，下面这种方法行不通</strong></p>
-<h1 id="方法1.-使用脚本完成">方法1. 使用脚本完成</h1>
+<h1>方法1. 使用脚本完成</h1>
 <p>因为<code>curl -sSL https://bit.ly/2ysbOFE</code>会下载一个脚本，这个脚本如果在无梯子的情况下，是执行不成功的，可以先下载这个脚本，自行修改。</p>
 <p>如果想要最新的生产发布版，忽略所有的版本标识符</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s</span><br></pre></td></tr></table></figure>
-<p>如果你想要一个指定的发布版本，传入一个 Fabric、Fabric-ca 和第三方
-Docker 镜像的版本标识符。下边的命令显示了如何下载最新的生产发布版 -
-<strong>Fabric v2.2.0</strong> 和 <strong>Fabric CA v1.4.7</strong>
-。</p>
+<p>如果你想要一个指定的发布版本，传入一个 Fabric、Fabric-ca 和第三方 Docker 镜像的版本标识符。下边的命令显示了如何下载最新的生产发布版 - <strong>Fabric v2.2.0</strong> 和 <strong>Fabric CA v1.4.7</strong> 。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s -- &lt;fabric_version&gt; &lt;fabric-ca_version&gt;</span><br><span class="line">curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.2.0 1.4.7</span><br></pre></td></tr></table></figure>
-<h1 id="方法2.-通过fabric项目中的一个脚本">方法2.
-通过fabric项目中的一个脚本</h1>
+<h1>方法2. 通过fabric项目中的一个脚本</h1>
 <ul>
-<li><p>先<code>clone fabric</code>代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br></pre></td></tr></table></figure></li>
-<li><p>进入到<code>fabric</code>目录下</p>
+<li>
+<p>先<code>clone fabric</code>代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>进入到<code>fabric</code>目录下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd fabric/scripts/</span><br><span class="line">./bootstrap.sh</span><br></pre></td></tr></table></figure>
-<p>接下来无梯子还是会遇到问题,可以对bootstrap.sh中的内容进行修改，或按脚本的流程自己手动下载</p></li>
+<p>接下来无梯子还是会遇到问题,可以对bootstrap.sh中的内容进行修改，或按脚本的流程自己手动下载</p>
+</li>
 </ul>
-<h1 id="启动测试网络">启动测试网络</h1>
+<h1>启动测试网络</h1>
 <h2 id="进入到相关目录">进入到相关目录</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd fabric-samples/test-network</span><br></pre></td></tr></table></figure>
 <h2 id="删除掉先前运行的所有容器或工程">删除掉先前运行的所有容器或工程</h2>
@@ -380,8 +386,7 @@ Docker 镜像的版本标识符。下边的命令显示了如何下载最新的�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87fabric-samples%E4%BA%86%E8%A7%A3fabric"><span class="nav-number">1.</span> <span class="nav-text">通过fabric-samples了解fabric</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%B3%951.-%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC%E5%AE%8C%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">方法1. 使用脚本完成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%B3%952.-%E9%80%9A%E8%BF%87fabric%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">方法2.
-通过fabric项目中的一个脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C"><span class="nav-number">4.</span> <span class="nav-text">启动测试网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0%E7%9B%B8%E5%85%B3%E7%9B%AE%E5%BD%95"><span class="nav-number">4.1.</span> <span class="nav-text">进入到相关目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%8E%89%E5%85%88%E5%89%8D%E8%BF%90%E8%A1%8C%E7%9A%84%E6%89%80%E6%9C%89%E5%AE%B9%E5%99%A8%E6%88%96%E5%B7%A5%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">删除掉先前运行的所有容器或工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%BD%91"><span class="nav-number">4.3.</span> <span class="nav-text">启动测试网</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">通过fabric-samples了解fabric</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">方法1. 使用脚本完成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">方法2. 通过fabric项目中的一个脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">启动测试网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0%E7%9B%B8%E5%85%B3%E7%9B%AE%E5%BD%95"><span class="nav-number">4.1.</span> <span class="nav-text">进入到相关目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%8E%89%E5%85%88%E5%89%8D%E8%BF%90%E8%A1%8C%E7%9A%84%E6%89%80%E6%9C%89%E5%AE%B9%E5%99%A8%E6%88%96%E5%B7%A5%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">删除掉先前运行的所有容器或工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%BD%91"><span class="nav-number">4.3.</span> <span class="nav-text">启动测试网</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -406,7 +411,7 @@ Docker 镜像的版本标识符。下边的命令显示了如何下载最新的�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">193</span>
+        <span class="site-state-item-count">194</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
