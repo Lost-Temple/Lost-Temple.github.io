@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"www.blockchainof.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="阿波罗尼斯圆 在平面一点P，到A，B两点的距离满足:$\frac{PA}{PB}&#x3D;k(k\ne 1)$，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。  \begin{equation} \begin{aligned} &amp;\text{设 } AB &#x3D; a, \text{即圆内点 } B \text{，圆外点 } A \text{ 间的距离为 } a \ &amp;">
+  <meta name="description" content="阿波罗尼斯圆 在平面一点P，到A，B两点的距离满足:\(\frac{PA}{PB}&#x3D;k(k\ne 1)\)，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。   阿氏圆  \[\begin{equation} \begin{aligned} &amp;设AB&#x3D;a, 即圆内点B，圆外点A间的距离为a\\ &amp;则AC&#x3D;\frac{ka}{k+1}, CB&#x3D;\frac{a}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阿氏圆">
 <meta property="og:url" content="http://www.blockchainof.com/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/index.html">
 <meta property="og:site_name" content="自留地">
-<meta property="og:description" content="阿波罗尼斯圆 在平面一点P，到A，B两点的距离满足:$\frac{PA}{PB}&#x3D;k(k\ne 1)$，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。  \begin{equation} \begin{aligned} &amp;\text{设 } AB &#x3D; a, \text{即圆内点 } B \text{，圆外点 } A \text{ 间的距离为 } a \ &amp;">
+<meta property="og:description" content="阿波罗尼斯圆 在平面一点P，到A，B两点的距离满足:\(\frac{PA}{PB}&#x3D;k(k\ne 1)\)，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。   阿氏圆  \[\begin{equation} \begin{aligned} &amp;设AB&#x3D;a, 即圆内点B，圆外点A间的距离为a\\ &amp;则AC&#x3D;\frac{ka}{k+1}, CB&#x3D;\frac{a}">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.blockchainof.com/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/%E9%98%BF%E6%B0%8F%E5%9C%861.jpg">
 <meta property="article:published_time" content="2025-01-22T04:21:36.000Z">
-<meta property="article:modified_time" content="2025-01-23T08:00:37.367Z">
+<meta property="article:modified_time" content="2025-01-23T08:05:17.268Z">
 <meta property="article:author" content="暂留白">
-<meta property="article:tag" content="阿氏圆">
 <meta property="article:tag" content="角平分线定理">
+<meta property="article:tag" content="阿氏圆">
 <meta property="article:tag" content="角平分线逆定理">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.blockchainof.com/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/%E9%98%BF%E6%B0%8F%E5%9C%861.jpg">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-23 16:00:37" itemprop="dateModified" datetime="2025-01-23T16:00:37+08:00">2025-01-23</time>
+                <time title="修改时间：2025-01-23 16:05:17" itemprop="dateModified" datetime="2025-01-23T16:05:17+08:00">2025-01-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,18 +255,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>阿波罗尼斯圆</h1>
-<p>在平面一点P，到A，B两点的距离满足:$\frac{PA}{PB}=k(k\ne 1)$，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。</p>
-<p><img src="/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/%E9%98%BF%E6%B0%8F%E5%9C%861.jpg" alt="阿氏圆"></p>
-<p>\begin{equation}<br>
-\begin{aligned}<br>
-&amp;\text{设 } AB = a, \text{即圆内点 } B \text{，圆外点 } A \text{ 间的距离为 } a \<br>
-&amp;则AC=\frac{ka}{k+1}, CB=\frac{a}{k+1} \<br>
-&amp;设BD=x,\frac{a+x}{x}=k\Rightarrow x=\frac{a}{k-1},即BD=\frac{a}{k-1}\<br>
-&amp;\therefore CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\<br>
-&amp;\therefore r=\frac{ak}{k^2-1}<br>
-\end{aligned}<br>
-\end{equation}</p>
+        <h1 id="阿波罗尼斯圆">阿波罗尼斯圆</h1>
+<p>在平面一点P，到A，B两点的距离满足:<span class="math inline">\(\frac{PA}{PB}=k(k\ne
+1)\)</span>，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。</p>
+<figure>
+<img src="/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/阿氏圆1.jpg" alt="阿氏圆">
+<figcaption aria-hidden="true">阿氏圆</figcaption>
+</figure>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+&amp;设AB=a, 即圆内点B，圆外点A间的距离为a\\
+&amp;则AC=\frac{ka}{k+1}, CB=\frac{a}{k+1}\\
+&amp;设BD=x,\frac{a+x}{x}=k\Rightarrow
+x=\frac{a}{k-1},即BD=\frac{a}{k-1}\\
+&amp;\therefore
+CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
+&amp;\therefore r=\frac{ak}{k^2-1}\\
+\end{aligned}
+\end{equation}\]</span></p>
 <blockquote>
 <p>记住这个数量关系，就能快束找内点，外点</p>
 </blockquote>
@@ -279,8 +285,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E9%98%BF%E6%B0%8F%E5%9C%86/" rel="tag"># 阿氏圆</a>
               <a href="/tags/%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86/" rel="tag"># 角平分线定理</a>
+              <a href="/tags/%E9%98%BF%E6%B0%8F%E5%9C%86/" rel="tag"># 阿氏圆</a>
               <a href="/tags/%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E9%80%86%E5%AE%9A%E7%90%86/" rel="tag"># 角平分线逆定理</a>
           </div>
 
@@ -352,7 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">阿波罗尼斯圆</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%BF%E6%B3%A2%E7%BD%97%E5%B0%BC%E6%96%AF%E5%9C%86"><span class="nav-number">1.</span> <span class="nav-text">阿波罗尼斯圆</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

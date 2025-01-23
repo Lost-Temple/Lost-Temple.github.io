@@ -242,33 +242,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>背景</h1>
+          <h1 id="背景">背景</h1>
 <ul>
-<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发, 打开服务器上的代码进行开发</li>
-<li>CentOS 系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
-<li>CLion 项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
+<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发,
+打开服务器上的代码进行开发</li>
+<li>CentOS
+系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
+<li>CLion
+项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
 </ul>
-<h1>编译工具安装</h1>
+<h1 id="编译工具安装">编译工具安装</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install centos-release-scl-rh</span><br><span class="line">sudo yum install devtoolset-11-gcc-c++</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>安装完成后，执行以下命令可以切换到新的编译环境</p>
+<p>安装完成后，执行以下命令可以切换到新的编译环境 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
+可以查看devtoolset-11相关工具的版本及它们的路径 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
+<h1 id="开发工具中的配置修改">开发工具中的配置修改</h1>
 <blockquote>
-<p>可以查看devtoolset-11相关工具的版本及它们的路径</p>
+<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure>
-<h1>开发工具中的配置修改</h1>
+<h1 id="调用动态库需要注意的点">调用动态库需要注意的点</h1>
 <blockquote>
-<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure>
-<h1>调用动态库需要注意的点</h1>
-<blockquote>
-<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include &lt;dlfcn.h&gt;<br>
-在CMakefile.txt里面添加编译选项，如：<br>
-TARGET_LINK_LIBRARIES(projName dl)<br>
+<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include
+&lt;dlfcn.h&gt; 在CMakefile.txt里面添加编译选项，如：
+TARGET_LINK_LIBRARIES(projName dl)
 其中<code>projName</code>为项目的名称</p>
 </blockquote>
 
@@ -348,24 +347,39 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>应用场景</h1>
+          <h1 id="应用场景">应用场景</h1>
 <p>将 Go 内存中的字符串或字节切片传入 C 语言函数的应用场景。</p>
-<h1>里面的坑</h1>
-<p>假设一个极端场景：我们将一块位于某 <code>goroutine</code> 的栈上的<code>Go</code>语言内存传入了 <code>C </code>语言函数后，在此<code>C</code>语言函数执行时，如果 <code>goroutinue </code>的栈因为空间不足的原因发生了<strong>扩展</strong>，也就是导致了原来的 <code>Go </code>语言内存被移动到了新的位置。但是这时<code>C</code>语言函数并不知道该 <code>Go </code>语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是**“野指针”**。不是必现，要看内存中的数据是否发生移动。</p>
-<p>以上操作本质上看是一种**“传引用”**，可以借助 C 语言内存稳定的特性（谁<code>malloc</code>就由谁来<code>free</code>，代码编写者自己对内存进行管理），在 C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C 的内存空间（<strong>复制了一个副本过去</strong>）。下面的例子是这种思路的具体实现：</p>
-<h1>例1</h1>
+<h1 id="里面的坑">里面的坑</h1>
+<p>假设一个极端场景：我们将一块位于某 <code>goroutine</code>
+的栈上的<code>Go</code>语言内存传入了
+<code>C</code>语言函数后，在此<code>C</code>语言函数执行时，如果
+<code>goroutinue</code>的栈因为空间不足的原因发生了<strong>扩展</strong>，也就是导致了原来的
+<code>Go</code>语言内存被移动到了新的位置。但是这时<code>C</code>语言函数并不知道该
+<code>Go</code>语言内存已经移动了位置，仍然用之前的地址来操作该内存——也就是<strong>“野指针”</strong>。不是必现，要看内存中的数据是否发生移动。</p>
+<p>以上操作本质上看是一种<strong>“传引用”</strong>，可以借助 C
+语言内存稳定的特性（谁<code>malloc</code>就由谁来<code>free</code>，代码编写者自己对内存进行管理），在
+C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
+的内存空间（<strong>复制了一个副本过去</strong>）。下面的例子是这种思路的具体实现：</p>
+<h1 id="例1">例1</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s) &#123;</span></span><br><span class="line"><span class="comment">    printf(&quot;%s&quot;, s);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;unsafe&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    cs := C.CString(s) <span class="comment">// 这里会在C的内存空间里面开辟一块空间，把GO中的字符串s的值拷贝过去</span></span><br><span class="line">    <span class="keyword">defer</span> C.free(unsafe.Pointer(cs)) <span class="comment">// 这里用defer 进行延迟操作，释放这块在C里面开辟的空间，不然就是内存泄漏</span></span><br><span class="line"></span><br><span class="line">    C.printString(cs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这种方式虽然解决了问题，但是，写法有点啰嗦，还要自己手动<code>C.free</code>。最主要的是：性能效率有损失，因为要从<code>GO</code>环境把内存复制到<code>C</code>语言环境内存中。</p>
-<h1>例2</h1>
+<h1 id="例2">例2</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">void printString(const char* s, int n) &#123;</span></span><br><span class="line"><span class="comment">    int i;</span></span><br><span class="line"><span class="comment">    for(i = 0; i &lt; n; i++) &#123;</span></span><br><span class="line"><span class="comment">        putchar(s[i]);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    putchar(&#x27;\n&#x27;);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">    C.printString((*C.char)(unsafe.Pointer(p.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">&quot;hello&quot;</span></span><br><span class="line">    printString(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在的处理方式更加直接，且避免了分配额外的内存，而且CGO会保证在C函数调用期间（从C语言函数被调用到C语言函数调用结束），传入的指针指向的这块GO语言开辟的内存不会被移动。注意：<s><strong><code>CGO只会保证在C函数调用期间</code></strong>。</s> 在网上有看到这个说法，但是我实践中似乎有出入。我实践中就是用这个用法，结果GG了，我实践中它好像也不能保证这一点，这个后续再研究研究。</p>
+<p>现在的处理方式更加直接，且避免了分配额外的内存，而且CGO会保证在C函数调用期间（从C语言函数被调用到C语言函数调用结束），传入的指针指向的这块GO语言开辟的内存不会被移动。注意：<del><strong><code>CGO只会保证在C函数调用期间</code></strong>。</del>
+在网上有看到这个说法，但是我实践中似乎有出入。我实践中就是用这个用法，结果GG了，我实践中它好像也不能保证这一点，这个后续再研究研究。</p>
 <p>就算CGO会保证在C函数调用期间保证内存不会被移动，这里还有有一个容易踩的坑：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误的代码</span></span><br><span class="line">p := (*reflect.StringHeader)(unsafe.Pointer(&amp;s)) <span class="comment">// 把字符串的内存地址赋值给了p</span></span><br><span class="line">tmp := <span class="type">uintptr</span>(p)</span><br><span class="line">ptr := (*reflect.StringHeader)(unsafe.Pointer(tmp))</span><br><span class="line">C.printString((*C.char)(unsafe.Pointer(ptr.Data)), C.<span class="type">int</span>(<span class="built_in">len</span>(s))) <span class="comment">// 传入参数</span></span><br></pre></td></tr></table></figure>
-<p>因为 tmp 并不是指针类型(它只是表示内存地址，但并没有指针的<strong>语义</strong>，指针和内存地址还是有点差别的，差别在于指针是有数据类型的，是和指向的内存中的数据进行了“绑定的”，而内存地址仅仅是地址而已)。在它获取到<code>Go</code>对象地址之后<code>s</code>对象可能会被移动，但是因为不是<code>tmp</code>没有指针语义，所以不会被<code> Go</code> 语言运行时更新成新内存的地址(<code>s</code>对象新的移动后的位置）。在<code>tmp</code>中保持 <code>Go</code> 对象的地址，和在<code> C</code> 语言环境保持<code> Go</code> 对象的地址的效果是一样的：如果原始的<code>Go</code>对象内存发生了移动，Go 语言运行时并不会同步更新它们。这样就还是会触发一开始的那个问题。</p>
+<p>因为 tmp
+并不是指针类型(它只是表示内存地址，但并没有指针的<strong>语义</strong>，指针和内存地址还是有点差别的，差别在于指针是有数据类型的，是和指向的内存中的数据进行了“绑定的”，而内存地址仅仅是地址而已)。在它获取到<code>Go</code>对象地址之后<code>s</code>对象可能会被移动，但是因为不是<code>tmp</code>没有指针语义，所以不会被<code>Go</code>
+语言运行时更新成新内存的地址(<code>s</code>对象新的移动后的位置）。在<code>tmp</code>中保持
+<code>Go</code> 对象的地址，和在<code>C</code>
+语言环境保持<code>Go</code>
+对象的地址的效果是一样的：如果原始的<code>Go</code>对象内存发生了移动，Go
+语言运行时并不会同步更新它们。这样就还是会触发一开始的那个问题。</p>
 <p>所以，还是慎用例2的方法吧</p>
-<p>**续：**我去看了<code>StringHeader</code>的数据结构和<code>SliceHeader</code>数据结构</p>
+<p><strong>续：</strong>我去看了<code>StringHeader</code>的数据结构和<code>SliceHeader</code>数据结构</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StringHeader is the runtime representation of a string.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SliceHeader is the runtime representation of a slice.</span></span><br><span class="line"><span class="comment">// It cannot be used safely or portably and its representation may</span></span><br><span class="line"><span class="comment">// change in a later release.</span></span><br><span class="line"><span class="comment">// Moreover, the Data field is not sufficient to guarantee the data</span></span><br><span class="line"><span class="comment">// it references will not be garbage collected, so programs must keep</span></span><br><span class="line"><span class="comment">// a separate, correctly typed pointer to the underlying data.</span></span><br><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="type">uintptr</span></span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">	Cap  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看到<code>Data</code>的类型是<code>uintptr</code>就感觉不妙了…这里自己实现一个可能能解决问题，我能想到的，go标准库的开发者会想不吗？肯定是有什么原因的。所以，还是最好不用<code>StringHeader</code>了。</p>
+<p>看到<code>Data</code>的类型是<code>uintptr</code>就感觉不妙了...这里自己实现一个可能能解决问题，我能想到的，go标准库的开发者会想不吗？肯定是有什么原因的。所以，还是最好不用<code>StringHeader</code>了。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StringHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data unsafe.Pointer</span><br><span class="line">	Len  <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -445,7 +459,10 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 
       
           <p><a target="_blank" rel="noopener" href="https://github.com/usagi/rust-memory-container-cs">前方高能，过份帅气</a></p>
-<p><img src="https://s2.loli.net/2022/11/20/iIUBf4FDuCOs7jq.png" alt="rust-memory-container-cs-3840x2160-dark-back.png"></p>
+<figure>
+<img src="https://s2.loli.net/2022/11/20/iIUBf4FDuCOs7jq.png" alt="rust-memory-container-cs-3840x2160-dark-back.png">
+<figcaption aria-hidden="true">rust-memory-container-cs-3840x2160-dark-back.png</figcaption>
+</figure>
 
       
     </div>
@@ -523,7 +540,7 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>语句和表达式</h1>
+          <h1 id="语句和表达式">语句和表达式</h1>
 <ul>
 <li>函数体由一系列语句组成</li>
 <li>函数可以由一个表达式结束（这种情况下，表达式的值为函数的返回值）</li>
@@ -532,14 +549,18 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 <li>表达式会计算产生一个值</li>
 </ul>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">1</span>; <span class="comment">// 我就是第5行</span></span><br><span class="line">    x + <span class="number">1</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注：第5行， x + 1 后面的无<code>;</code>。这里<code>x + 1</code>就是一个表达式，它的计算结果就返回赋值给了<code>y</code>。</strong></p>
+<p><strong>注：第5行， x + 1
+后面的无<code>;</code>。这里<code>x + 1</code>就是一个表达式，它的计算结果就返回赋值给了<code>y</code>。</strong></p>
 <p>那如果<code>x + 1</code>后面加上<code>;</code>呢？即：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">1</span>; <span class="comment">// 我就是第5行</span></span><br><span class="line">    x + <span class="number">1</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个编译出是可以通过的，这个时候<code>y</code>的数据类型是<code>空的元组</code>类型，也就是<code>()</code>； 类似的：<code>rust</code>中没有显示指定函数返回值的，那这个函数返回值类型为<code>()</code>。就相当于<code>c++</code>里面的返回类型为<code>void</code>的函数</p>
+<p>这个编译出是可以通过的，这个时候<code>y</code>的数据类型是<code>空的元组</code>类型，也就是<code>()</code>；
+类似的：<code>rust</code>中没有显示指定函数返回值的，那这个函数返回值类型为<code>()</code>。就相当于<code>c++</code>里面的返回类型为<code>void</code>的函数</p>
 <p>看下面一个例子：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">counter</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">result</span> = <span class="keyword">loop</span> &#123;</span><br><span class="line">    counter += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> counter == <span class="number">10</span> &#123;</span><br><span class="line">      <span class="keyword">break</span> counter * <span class="number">2</span>; <span class="comment">// 第6行</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>loop</code>为死循环，一个死循环赋值给了<code>result</code>, 是不是有点费解，这里就要理解第6行的代码的意思了。这里面使用了<code>break</code>语句。</p>
-<p><code>break count * 2;</code>的意思就是跳出循环，并返回<code>break</code>后面的表达式的值。这里有人会疑惑，刚才不是说表达式是不带<code>;</code>的吗？那现在<code>counter * 2;</code>这里不是有<code>;</code>吗？<code>break counter * 2;</code> 是个语句，它是需要<code>;</code>的。所以这里的<code>;</code>是整个语句的分号，这个语句是用<code>break</code>跳出循环并返回表达式<code>counter * 2</code>，没毛病。</p>
+<p><code>loop</code>为死循环，一个死循环赋值给了<code>result</code>,
+是不是有点费解，这里就要理解第6行的代码的意思了。这里面使用了<code>break</code>语句。</p>
+<p><code>break count * 2;</code>的意思就是跳出循环，并返回<code>break</code>后面的表达式的值。这里有人会疑惑，刚才不是说表达式是不带<code>;</code>的吗？那现在<code>counter * 2;</code>这里不是有<code>;</code>吗？<code>break counter * 2;</code>
+是个语句，它是需要<code>;</code>的。所以这里的<code>;</code>是整个语句的分号，这个语句是用<code>break</code>跳出循环并返回表达式<code>counter * 2</code>，没毛病。</p>
 <p><strong>每天进步一点点，学海无涯！</strong></p>
 
       
@@ -618,17 +639,17 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>用C语言编写一个动态库</h1>
-<h2 id="编写C语言头文件sample-so-h">编写C语言头文件<code>sample_so.h</code></h2>
+          <h1 id="用c语言编写一个动态库">用C语言编写一个动态库</h1>
+<h2 id="编写c语言头文件sample_so.h">编写C语言头文件<code>sample_so.h</code></h2>
 <p>在头文件中声明函数</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="编写函数的实现代码sample-so-c">编写函数的实现代码<code>sample_so.c</code></h2>
+<h2 id="编写函数的实现代码sample_so.c">编写函数的实现代码<code>sample_so.c</code></h2>
 <p>在源文件中实现函数</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sample_so.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">export_func_add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>编译生成动态链接库</h1>
+<h1 id="编译生成动态链接库">编译生成动态链接库</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c -fPIC -o sample_so.o sample_so.c # 先生成.o文件</span><br><span class="line">gcc -shared -o libsample_so.so sample_o.o # 再生成.so文件</span><br></pre></td></tr></table></figure>
-<h1>golang 调用动态库</h1>
-<h2 id="先用c语言编写一个动态库的-调用代理（名字瞎取的）">先用c语言编写一个动态库的<code> 调用代理</code>（名字瞎取的）</h2>
+<h1 id="golang-调用动态库">golang 调用动态库</h1>
+<h2 id="先用c语言编写一个动态库的调用代理名字瞎取的">先用c语言编写一个动态库的<code>调用代理</code>（名字瞎取的）</h2>
 <p><code>loadso.h</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">call_export_func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
 <p><code>loadso.c</code></p>
@@ -636,7 +657,8 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 <p><strong>注：实际上就是明确了动态库中的函数的签名后（就是函数参数类型，函数返回类型），然后定义对应的函数指针，根据函数名获取到这个函数，用函数指针指向它，接着就可以使用这个函数指针调用这个函数了</strong></p>
 <h2 id="编写golang代码">编写golang代码</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#include &quot;loadso.h&quot;</span></span><br><span class="line"><span class="comment">#cgo LDFLAGS: -ldl</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">var</span> a <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        <span class="keyword">var</span> b <span class="type">int</span> = <span class="number">20</span></span><br><span class="line">        fmt.Printf(<span class="string">&quot;%d + %d = %d\n&quot;</span>, a, b, C.export_func_add(C.<span class="type">int</span>(a), C.<span class="type">int</span>(b)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注：看到最顶上的代码注释了吗？这个注释会被编译器进行解析，不是一般意义上的代码注释，个人感觉挺奇葩的。还有紧接着的一行<code>import &quot;C&quot;</code>, 注意要紧接着，这也挺反人类的</strong></p>
+<p><strong>注：看到最顶上的代码注释了吗？这个注释会被编译器进行解析，不是一般意义上的代码注释，个人感觉挺奇葩的。还有紧接着的一行<code>import "C"</code>,
+注意要紧接着，这也挺反人类的</strong></p>
 
       
     </div>
@@ -714,7 +736,7 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1><code>BCCSP</code>接口</h1>
+          <h1 id="bccsp接口"><code>BCCSP</code>接口</h1>
 <p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
 <ul>
 <li><code>KeyGen</code>：密钥生成，包含对称和非对称加密</li>
@@ -728,33 +750,33 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 <li><code>Encrypt</code>：数据加密，包含对称和非对称加密</li>
 <li><code>Decrypt</code>：数据解密，包含对称和非对称加密</li>
 </ul>
-<h1>SW</h1>
-<h2 id="CSP">CSP</h2>
+<h1 id="sw">SW</h1>
+<h2 id="csp">CSP</h2>
 <p><code>fabric/bccsp/sw/impl.go</code></p>
-<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>, <code>CSP</code>利用反射调用真正的实现</p>
+<p><code>CSP</code>是一个<code>SW WRAPPER</code>，<strong>调用<code>BCCSP</code>中定义的方法的总的入口就是<code>CSP</code></strong>,
+<code>CSP</code>利用反射调用真正的实现</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> CSP <span class="keyword">struct</span> &#123;</span><br><span class="line">	ks bccsp.KeyStore</span><br><span class="line"></span><br><span class="line">	KeyGenerators <span class="keyword">map</span>[reflect.Type]KeyGenerator</span><br><span class="line">	KeyDerivers   <span class="keyword">map</span>[reflect.Type]KeyDeriver</span><br><span class="line">	KeyImporters  <span class="keyword">map</span>[reflect.Type]KeyImporter</span><br><span class="line">	Encryptors    <span class="keyword">map</span>[reflect.Type]Encryptor</span><br><span class="line">	Decryptors    <span class="keyword">map</span>[reflect.Type]Decryptor</span><br><span class="line">	Signers       <span class="keyword">map</span>[reflect.Type]Signer</span><br><span class="line">	Verifiers     <span class="keyword">map</span>[reflect.Type]Verifier</span><br><span class="line">	Hashers       <span class="keyword">map</span>[reflect.Type]Hasher</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code> 生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
-<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>, 对应于BCCSP接口中定义的方法，有以下实现：</p>
+<p>**结构体可以使用反射调用<code>BCCSP</code>接口的具体实现，<code>KeyGenerators</code>
+生成的如果<code>非临时KEY</code>，就会被保存在<code>KeyStore</code>中</p>
+<p><code>SW</code>中包含了<code>AES</code>、<code>ECDSA</code>、<code>HASH(SHA256)</code>、<code>RSA</code>,
+对应于BCCSP接口中定义的方法，有以下实现：</p>
 <ul>
-<li>
-<p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
+<li><p><code>KeyGen:</code> <code>fabric/bccsp/sw/keygen.go</code></p>
 <p>包含了<code>ECDSA</code>、<code>AES</code>2种密钥的生成</p>
 <ul>
 <li><code>ecdsaKeyGenerator</code></li>
 <li><code>aesKeyGenerator</code></li>
-</ul>
-</li>
-<li>
-<p><code>KeyDeriv:</code> <code>fabric/bccsp/sw/keyderiv.go</code></p>
-<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生 3种</p>
+</ul></li>
+<li><p><code>KeyDeriv:</code>
+<code>fabric/bccsp/sw/keyderiv.go</code></p>
+<p>包含了<code>ECDSA</code>的公钥、私钥派生，<code>AES</code>的私钥派生
+3种</p>
 <ul>
 <li><code>ecdsaPublicKeyKeyDeriver</code></li>
 <li><code>ecdsaPrivateKeyKeyDeriver</code></li>
 <li><code>aesPrivateKeyKeyDeriver</code></li>
-</ul>
-</li>
-<li>
-<p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code><br>
+</ul></li>
+<li><p><code>KeyImport:</code> <code>fabric/bccsp/sw/keyimport.go</code>
 包含了:</p>
 <ul>
 <li><code>aes256ImportKeyOptsKeyImporter</code></li>
@@ -763,48 +785,34 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 <li><code>ecdsaPrivateKeyImportOptsKeyImporter</code></li>
 <li><code>ecdsaGoPublicKeyImportOptsKeyImporter</code></li>
 <li><code>x509PublicKeyImportOptsKeyImporter</code></li>
-</ul>
-</li>
-<li>
-<p><code>GetKey:</code> <code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p>
-</li>
-<li>
-<p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
+</ul></li>
+<li><p><code>GetKey:</code>
+<code>KeyStore</code>的<code>GetKey</code>的调用，这里没有反射调用</p></li>
+<li><p><code>Hash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
 <ul>
-<li><code>hasher </code>结构体实现了<code>Hash</code>方法</li>
-</ul>
-</li>
-<li>
-<p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
+<li><code>hasher</code>结构体实现了<code>Hash</code>方法</li>
+</ul></li>
+<li><p><code>GetHash:</code> <code>fabric/bccsp/sw/hash.go</code></p>
 <ul>
-<li><code>hasher </code>结构体实现了<code>GetHash</code>方法</li>
-</ul>
-</li>
-<li>
-<p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
+<li><code>hasher</code>结构体实现了<code>GetHash</code>方法</li>
+</ul></li>
+<li><p><code>Sign:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
 <ul>
 <li><code>ecdsaSigner</code>结构体实现了此方法，在<code>fabric 1.4</code>版中好像<code>rsaSigner</code>结构体也实现了此方法</li>
-</ul>
-</li>
-<li>
-<p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
+</ul></li>
+<li><p><code>Verify:</code> <code>fabric/bccsp/sw/ecdsa.go</code></p>
 <ul>
 <li><code>ecdsaPrivateKeyVerifier</code> 结构体中实现了此方法</li>
 <li><code>ecdsaPublicKeyKeyVerifier</code>结构体中实现了此方法</li>
-</ul>
-</li>
-<li>
-<p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
+</ul></li>
+<li><p><code>Encrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
 <ul>
 <li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul>
-</li>
-<li>
-<p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
+</ul></li>
+<li><p><code>Decrypt:</code> <code>fabric/bccsp/sw/aes.go</code></p>
 <ul>
 <li><code>aescbcpkcs7Encryptor</code> 结构体</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 
       
@@ -883,20 +891,24 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>BCCSP 接口</h1>
+          <h1 id="bccsp-接口">BCCSP 接口</h1>
 <p><strong>以下内容从<a target="_blank" rel="noopener" href="https://lessisbetter.site/">太彬年久失修的博客</a>盗版而来</strong></p>
 <p><code>BCCSP</code>是<code>Block Chain Crypto Service Provider</code>的缩写。在Fabric中，BCCSP被抽象成为一个接口。</p>
 <p><code>bccsp</code>模块提供密码学服务，它包含的具体功能有：对称加密和非对称加密的密钥生成、导入、导出，数字签名和验证，对称加密和解密、摘要计算。</p>
-<p><code>bccsp</code>使用了依赖倒置原则（Dependence Inversion Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。</p>
+<p><code>bccsp</code>使用了依赖倒置原则（Dependence Inversion
+Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。</p>
 <p>bccsp模块中当前有2种密码实现，它们都是bccsp中的密码学插件：<code>SW</code>和<code>PKCS11</code>，<code>SW</code>代表的是国际标准加密的软实现，<code>SW</code>是<code>software</code>的缩写，<code>PKCS11</code>代指硬实现。</p>
-<p><img src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" alt="BCCSP.png"></p>
+<figure>
+<img src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" alt="BCCSP.png">
+<figcaption aria-hidden="true">BCCSP.png</figcaption>
+</figure>
 <blockquote>
 <p>扩展阅读：</p>
-<p>PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，<br>
+<p>PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，
 插入USBKey用网银转账时，就需要走USBKey中的硬件进行数字签名，这个过程就需要使用PCKS11。</p>
 </blockquote>
 <p>密码学通常有软实现和硬实现，软实现就是常用的各种加密库，比如Go中<code>crypto</code>包，硬实现是使用加密机提供的一套加密服务。软实现和硬实现的重要区别是，密码算法的安全性强依赖随机数，软实现利用的是OS的伪随机数，而硬实现利用的是加密机生成的随机数，所以硬实现的安全强度要高于软实现。</p>
-<h2 id="SW介绍">SW介绍</h2>
+<h2 id="sw介绍">SW介绍</h2>
 <p>SW是国际标准加密的软实现插件，它包含了ECDSA算法、RSA算法、AES算法，以及SHA系列的摘要算法。</p>
 <p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
 <ul>
@@ -993,116 +1005,125 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>源码总目录结构</h1>
+          <h1 id="源码总目录结构">源码总目录结构</h1>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>目录名</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>bccsp</td>
 <td>全称是区块链密码服务提供者，用来提供区块链相关的算法标准和他们的实现</td>
 </tr>
-<tr>
+<tr class="even">
 <td>ccaas_builder</td>
 <td>编译相关</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>ci</td>
 <td>持续集成(CI)相关配置和脚本</td>
 </tr>
-<tr>
+<tr class="even">
 <td>cmd</td>
 <td>命令行操作相关入口代码</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>common</td>
 <td>一些公共库（错误处理、日志处理、账本存储、策略以及各种工具等等）</td>
 </tr>
-<tr>
+<tr class="even">
 <td>core</td>
 <td>核心库，组件的核心逻辑，针对每一个组件都有一个子目录（chaincode:与智能合约相关);(endorser:与背书节点相关）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>discovery</td>
 <td>服务发现模块相关代码</td>
 </tr>
-<tr>
+<tr class="even">
 <td>docs</td>
 <td>文档相关</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>gossip</td>
 <td>组织内部节点数据同步的通信协议，最终一致性算法，用于组织内部数据同步</td>
 </tr>
-<tr>
+<tr class="even">
 <td>images</td>
 <td>Docker镜像打包，Docker镜像都是通过这个目录下的配置文件生成的</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>integration</td>
 <td>待迁移代码</td>
 </tr>
-<tr>
+<tr class="even">
 <td>internal</td>
 <td>内部代码，被cmd包等调用</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>msp</td>
-<td>成员服务管理（member service provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
+<td>成员服务管理（member service
+provider），在Fabric网络中会为每一个成员提供相应的证书，msp模块就是读取这些证书并做一些相应的处理</td>
 </tr>
-<tr>
+<tr class="even">
 <td>orderer</td>
 <td>排序节点的入口，用于消息的订阅与分发处理</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>pkg</td>
 <td>重写或实现了一些golang原生接口</td>
 </tr>
-<tr>
+<tr class="even">
 <td>protoutil</td>
 <td>Proposal提案相关的工具包</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>release_notes</td>
 <td>发布笔记</td>
 </tr>
-<tr>
+<tr class="even">
 <td>sampleconfig</td>
 <td>配置示例</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>scripts</td>
 <td>脚本，包含启动脚本、检查脚本等</td>
 </tr>
-<tr>
+<tr class="even">
 <td>swagger</td>
 <td>swagger文档生成配置</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>tools</td>
 <td>工具包，目前还是空的（release-2.4分支）</td>
 </tr>
-<tr>
+<tr class="even">
 <td>vagrant</td>
 <td>包含了用 Vagrant 建立一个简单的开发环境所必需的脚本</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>vendor</td>
 <td>存放Go中使用的第三方包</td>
 </tr>
 </tbody>
 </table>
-<h1>模块分类</h1>
+<h1 id="模块分类">模块分类</h1>
 <h2 id="核心模块">核心模块</h2>
 <p>提供核心功能服务的代码，包括<code>core</code>、<code>orderer</code>两个代码包，这两个代码包涵盖了Orderder排序节点与Peer节点（包含Endorser背书节点与Committer记帐节点）的核心代码</p>
 <h2 id="公共模块">公共模块</h2>
-<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code> <code>common</code> <code>gossip</code> <code>msp</code> <code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
+<p>为核心模块和其它模块提供基础支持服务，包括<code>bccsp</code>
+<code>common</code> <code>gossip</code> <code>msp</code>
+<code>protoutil</code>等目录代码。其中<code>gossip</code>消息模块为<code>peer</code>节点提供安全、可靠、可扩展的P2P数据分发协义。<code>commom</code>公共功能模块包括帐本数据存储模块、安全服务模块、通道配置等，为其它模块提供底层存储机制、安全机制、异步通信机制等。</p>
 <h2 id="辅助模块">辅助模块</h2>
-<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code> <code>ci</code> <code>docs</code> <code>release_notes</code> <code>swagger</code>等</p>
+<p>为其它模块提供辅助工具、运行环境、测试用例、文档等，包括<code>ccaas_builder</code>
+<code>ci</code> <code>docs</code> <code>release_notes</code>
+<code>swagger</code>等</p>
 
       
     </div>
@@ -1180,25 +1201,23 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure>
-<h1>部署<code>wasmcc</code></h1>
+          <p><strong>注：以下命令在<code>test-network</code>目录下执行</strong>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH         # peer 命令所在目录</span><br><span class="line">export FABRIC_CFG_PATH=$PWD/../config/  # `core.yaml` 配置文件所在目录</span><br></pre></td></tr></table></figure></p>
+<h1 id="部署wasmcc">部署<code>wasmcc</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn wasmcc -ccp /Users/mao/work/wasm/opensource/hyperledger/fabric-chaincode-wasm/wasmcc -ccv 1.0 -ccl go</span><br></pre></td></tr></table></figure>
-<h1>调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
-<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），<br>
+<h1 id="调用wasmcc部署wasm-chaincode">调用<code>wasmcc</code>部署<code>wasm chaincode</code></h1>
+<p>首先准备好一个wasm文件，使用工具把wasm文件的二进制数据转成十六进制表示（字符串），
 然后通过以下命令部置这个<code>wasm chaincode</code>,**注：命令中的<code>wasm二进制数据的十六进制表示字符串</code>需要按实际的数据进行替换。这个把wasm字节码转为十六进制表示（字符串）的工具是<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/file-encoder">file-encoder</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;create&quot;,&quot;balancewasm&quot;,&quot;wasm二进制数据的十六进制表示字符串&quot;,&quot;account1&quot;,&quot;100&quot;,&quot;account2&quot;,&quot;1000&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>调用命令查看目前已部署的<code>wasm chaincode</code></h1>
+<h1 id="调用命令查看目前已部署的wasm-chaincode">调用命令查看目前已部署的<code>wasm chaincode</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;installedChaincodes&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
+<h1 id="通过wasmcc查询wasm-chaincode中的account1的余额">通过<code>wasmcc</code>查询<code>wasm chaincode</code>中的<code>account1</code>的余额</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n wasmcc -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;query&quot;,&quot;account1&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
+<h1 id="通过wasmcc调用wasm-chaincode中的函数invoke">通过<code>wasmcc</code>调用<code>wasm chaincode</code>中的函数<code>invoke</code></h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --tls true --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n wasmcc --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;Args&quot;:[&quot;execute&quot;,&quot;balancewasm&quot;,&quot;invoke&quot;,&quot;account2&quot;,&quot;account1&quot;,&quot;10&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<h1>通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
-<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。<br>
-使用命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure>
-<p><code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
+<h1 id="通过工具wasm-pusher安装wasm-chaincode">通过工具<code>WASM Pusher</code>安装<code>wasm chaincode</code></h1>
+<p><code>wasmcc</code>支持3种格式文件的安装，<code>.wasm</code>格式、<code>.zip</code>格式、<code>wasm</code>字节<code>十六进制表示</code>的字符串内容。
+使用命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm-pusher -n balancewasm -w ../../sample-wasm-chaincode/chaincode_example02/rust/app_main.wasm -u User1 -a a,100,b,100</span><br></pre></td></tr></table></figure> <code>WASM Pusher</code><a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/tools/wasm-pusher">详见</a></p>
 
       
     </div>
@@ -1276,7 +1295,7 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1><a target="_blank" rel="noopener" href="http://network.sh">network.sh</a> 脚本命令</h1>
+          <h1 id="network.sh-脚本命令">network.sh 脚本命令</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">./network.sh help</span><br><span class="line">Using docker and docker-compose</span><br><span class="line">Usage:</span><br><span class="line">  network.sh &lt;Mode&gt; [Flags]</span><br><span class="line">    Modes:</span><br><span class="line">      up - Bring up Fabric orderer and peer nodes. No channel is created</span><br><span class="line">      up createChannel - Bring up fabric network with one channel</span><br><span class="line">      createChannel - Create and join a channel after the network is created</span><br><span class="line">      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)</span><br><span class="line">      down - Bring down the network</span><br><span class="line"></span><br><span class="line">    Flags:</span><br><span class="line">    Used with network.sh up, network.sh createChannel:</span><br><span class="line">    -ca &lt;use CAs&gt; -  Use Certificate Authorities to generate network crypto material</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to create (defaults to &quot;mychannel&quot;)</span><br><span class="line">    -s &lt;dbtype&gt; - Peer state database to deploy: goleveldb (default) or couchdb</span><br><span class="line">    -r &lt;max retry&gt; - CLI times out after certain number of attempts (defaults to 5)</span><br><span class="line">    -d &lt;delay&gt; - CLI delays for a certain number of seconds (defaults to 3)</span><br><span class="line">    -verbose - Verbose mode</span><br><span class="line"></span><br><span class="line">    Used with network.sh deployCC</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to deploy chaincode to</span><br><span class="line">    -ccn &lt;name&gt; - Chaincode name.</span><br><span class="line">    -ccl &lt;language&gt; - Programming language of the chaincode to deploy: go, java, javascript, typescript</span><br><span class="line">    -ccv &lt;version&gt;  - Chaincode version. 1.0 (default), v2, version3.x, etc</span><br><span class="line">    -ccs &lt;sequence&gt;  - Chaincode definition sequence. Must be an integer, 1 (default), 2, 3, etc</span><br><span class="line">    -ccp &lt;path&gt;  - File path to the chaincode.</span><br><span class="line">    -ccep &lt;policy&gt;  - (Optional) Chaincode endorsement policy using signature policy syntax. The default policy requires an endorsement from Org1 and Org2</span><br><span class="line">    -cccg &lt;collection-config&gt;  - (Optional) File path to private data collections configuration file</span><br><span class="line">    -cci &lt;fcn name&gt;  - (Optional) Name of chaincode initialization function. When a function is provided, the execution of init will be requested and the function will be invoked.</span><br><span class="line"></span><br><span class="line">    -h - Print this message</span><br><span class="line"></span><br><span class="line"> Possible Mode and flag combinations</span><br><span class="line">   up -ca -r -d -s -verbose</span><br><span class="line">   up createChannel -ca -c -r -d -s -verbose</span><br><span class="line">   createChannel -c -r -d -verbose</span><br><span class="line">   deployCC -ccn -ccl -ccv -ccs -ccp -cci -r -d -verbose</span><br><span class="line"></span><br><span class="line"> Examples:</span><br><span class="line">   network.sh up createChannel -ca -c mychannel -s couchdb</span><br><span class="line">   network.sh createChannel -c channelName</span><br><span class="line">   network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript</span><br><span class="line">   network.sh deployCC -ccn mychaincode -ccp ./user/mychaincode -ccv 1 -ccl javascript</span><br></pre></td></tr></table></figure>
 <h2 id="清除测试网中的所有容器">清除测试网中的所有容器</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
@@ -1288,11 +1307,15 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>-ccn</code>指定链码名称 <code>chain code name</code></li>
-<li><code>-ccl</code> 指定编写链码的语言 <code>chain code language</code></li>
-<li><code>-ccp</code> 指定链码所在的目录 <code>chain code path</code></li>
+<li><code>-ccl</code> 指定编写链码的语言
+<code>chain code language</code></li>
+<li><code>-ccp</code> 指定链码所在的目录
+<code>chain code path</code></li>
 <li>其余的查看 <code>./network.sh help</code></li>
 </ul>
-<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
+<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code>
+和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code>
+和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
 <p>还有加<code>sudo</code>后找不到<code>go</code>的坑,需要在<code>~/.zshrc</code>中添加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias sudo=&#x27;sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH&#x27;</span><br></pre></td></tr></table></figure>
 <h2 id="与fabric网络交互">与fabric网络交互</h2>
@@ -1304,10 +1327,19 @@ TARGET_LINK_LIBRARIES(projName dl)<br>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FABRIC_CFG_PATH=$PWD/../config/</span><br></pre></td></tr></table></figure>
 <p>现在，可以设置环境变量，以允许作为Org1操作<code>peer</code> CLI：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Environment variables <span class="keyword">for</span> Org1</span></span><br><span class="line"></span><br><span class="line">export CORE_PEER_TLS_ENABLED=true</span><br><span class="line">export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;</span><br><span class="line">export CORE_PEER_TLS_ROOTCERT_FILE=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line">export CORE_PEER_MSPCONFIGPATH=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line">export CORE_PEER_ADDRESS=localhost:7051</span><br></pre></td></tr></table></figure>
-<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。 如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动 asset-transfer (basic) 链码，您可以调用链码（Go）的 <code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用 typescript 或者 javascript，例如 <code>./network.sh deployCC -l javascript</code>，你会调用相关链码的 <code>initLedger</code> 功能）。 运行以下命令用一些资产来初始化账本：</p>
-<h3 id="调用链码函数InitLedger">调用链码函数<code>InitLedger</code></h3>
+<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。
+如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动
+asset-transfer (basic) 链码，您可以调用链码（Go）的
+<code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用
+typescript 或者 javascript，例如
+<code>./network.sh deployCC -l javascript</code>，你会调用相关链码的
+<code>initLedger</code> 功能）。
+运行以下命令用一些资产来初始化账本：</p>
+<h3 id="调用链码函数initledger">调用链码函数<code>InitLedger</code></h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<p><strong>Mac M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
+<p><strong>Mac
+M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker
+Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
 <h3 id="查询">查询</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c &#x27;&#123;&quot;Args&quot;:[&quot;GetAllAssets&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
