@@ -188,6 +188,166 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/" class="post-title-link" itemprop="url">重读《JAVA与模式》笔记系列-00007</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-12 10:18:29" itemprop="dateCreated datePublished" datetime="2023-02-12T10:18:29+08:00">2023-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-18 14:42:53" itemprop="dateModified" datetime="2024-05-18T14:42:53+08:00">2024-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E4%BD%93%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">设计原则的体现</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="合成聚合复用原则carp">合成/聚合复用原则(CARP)</h1>
+<p>合成/聚合复用原则(Composite/Aggregate Reuse Principle,
+或CARP)，经常又叫作合成复用原则(Composite Reuse
+Principle或CRP)。合成/聚合复用原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。</p>
+<p>这个设计原则有另一个更简短的表述：要尽量使用合成/聚合，尽量不要使用继承。</p>
+<p>合成(Composite)一词的使用很广泛，经常导致混淆。为避免这些混淆，不妨先来考察一下“合成”与“聚合”的区别。</p>
+<h2 id="合成和聚合的区别">合成和聚合的区别</h2>
+<p>合成(Composition)和聚合(Aggregation)均是关联(Association)的特殊种类。聚合用来表示“拥有”关系或者整体与部分的关系；而合成则用来表示一种强得多的“拥有”关系。在一个合成关系里，部分和整体的生命周期是一样的。一个合成的新的对象完全拥有对其组成的支配权，包括它们的创建和湮灭等。使用程序语言的术语来讲，组合而成的新对象对组成部分的内存分配、内存释放有绝对的责任。</p>
+<p>更进一步来讲，一个合成的多重性(Multiplicity)不能超过1，换言之，一个合成关系中的成分对象是不能与另一个合成关系共享的。一个成分对象在同一时间内只能属于一个合成关系。如果一个合成关系湮灭了，那么所有的成分对象要么自己湮灭所有的成分对象(这种情况较为普通)，要么就得将这一责任交给别人（这种情况较为罕见）。</p>
+<p>用C程序员较易理解的语言来讲，合成是值的聚合(Aggregation by Value),
+而通常所说的聚合则是引用的聚合(Aggreation by Reference)。</p>
+<h2 id="复用的基本种类">复用的基本种类</h2>
+<p>在面向对象的设计里，有两种基本的办法可以在不同的环境中复用已有的设计和实现，即通过合成/聚合或通过继承。那么这两种不同的复用方式在可维护性上面有何区别呢？</p>
+<h3 id="合成聚合复用">合成/聚合复用</h3>
+<p>由于合成或聚合可以将已有的对象纳入到新对象中，使之成为新对象的一部分，因此新的对象可以调用已有对象的功能。这样做有下面的好处：
+- 新对象存取成分对象的惟一方法是通过成分对象的接口。 -
+这种复用是黑箱复用，因为成分对象的内部细节是新对象所看不见的。 -
+这种复用支持包装。 - 这种复用所需要的依赖较少。 -
+每一个新的类可以将焦点集中在一个任务上。 -
+这种复用可以在运行时间内动态进行，新对象可以动态地引用与成分对象类型相同的对象。
+一般而言，如果一个角色得到了更多的责任，那么可以使用用合成/聚合关系将新的责任委派到合适的对象。</p>
+<p>当然，这种复用也有缺点。其中最主要的缺点就是通过使用这种复用建造的系统会有较多的对象需要管理。</p>
+<h3 id="通过继承达到复用的目的">通过继承达到复用的目的</h3>
+<p>合成/聚合作为复用的手段可以应用到几乎任何环境中去。而与合成/聚合不同的是，继承只能应用到很有限的一些环境中去。换言之，尽管继承是一种非常重要的复用手段，但是设计师应当首先考虑使用合成/聚合，而不是继承。</p>
+<h4 id="继承的种类">继承的种类</h4>
+<p>继承是面向对象的语言特有的复用工具，而且是最容易被滥用的复用工具。这里讨论的继承，是指从一个Java类到另一个Java类的实现性继承，也就是实现继承，并不包括接口继承。一个实现继承的例子如下图：</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+
+蛋 <|-- 鸡 < pre>
+<p>继承复用通过扩展一个已有对象的实现来得到新的功能，基类明显地捕获共同的属性和方法，而子类通过增加新的属性和方法来扩展超类的实现。继承是类型的复用，比如下面都是继承的例子：
+- 男人和女人是人类 - 上推排序(Bubble Sort)是排序程序的一种 -
+汽车驾照是官方文件的一种 - 正式雇员和临时雇员均是雇员的一种 -
+经理是正式雇员的一种</p>
+<p>在面向对象的设计理论早期，设计师十分热衷于继承，好像继承就是最好的复用手段。随着时间的推移和实践经验的积累，人们逐渐认识到了继承关系的缺点。</p>
+<h4 id="继承复用的优点">继承复用的优点</h4>
+<p>利用继承关系达到复用的做法有下面的优点： -
+新的实现较为容易，因为超类的大部分功能可以通过继承关系自动进入子类。 -
+修改或扩展继承而来的实现较为容易 #### 继承复用的缺点
+与合成/聚合复用不同的是，继承有多个缺点： -
+继承复用破坏包装，因为继承将超类的实现细节暴露给子类。由于超类的内部细节常常是对子类透明的，因此这种复用是透明的复用，又称“白箱”复用。
+-
+如果超类的实现发生改变，那么子类的实现也不得不发生改变。因此，当一个基类发生改变时，这种改变会像水中投入石子引起的水波一样，将变化一圈又不圈地传导到一级又一级的子类，使设计师不得不相应地改变这些子类，以适应超类的变化。
+-
+从超类继承而来的实现是静态的，不可能在运行时间内发生改变，因此没有足够的灵活性。</p>
+<p>由于以上的这些缺点，尽量使用合成/聚合而不是继承来达到对实现的复用，是非常重要的设计原则。</p>
+<h2 id="从代码重构的角度理解">从代码重构的角度理解</h2>
+<p>在很多情况下，缺乏经验的Java设计师之所以选择继承关系描述两个类之间的关系，是因为对继承关系的理解不够造成的。而要正确地使用继承关系，必须透彻地理解里氏代换原则和Coad法则。</p>
+<p>一般来说，对违反里氏代换原则的设计进行重构时，可以采取两个办法：一是加入一个抽象超类，这一办法已经在本书的“里氏代换原则”一章中讨论过了；二是将继承关系改写合成/聚合关系，这一点是本章讨论的重点。</p>
+<h3 id="区分has-a与is-a">区分“Has-A”与“Is-A”</h3>
+<p>“Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的“一种”。而”Has-A“则不同，它表示某一个角色具有某一项责任。</p>
+<p>导致错误地使用继承而不是合成/聚合的一个常见的原因是错误地把”Has-A“当作”Is-A“。”Is-A“代表一个类是另一个类的一种；”Has-A“代表一个类是另一个类的一个角色，而不是另一个的一个特殊种类。这就是Coad条件的第一条。</p>
+<p>请考虑一下下图所示的类图中所描述的例子。”人“被继承到”雇员“、”经理“、“学生”等子类。而实际上，“雇员”、“经理”和“学生”分别描述一种角色，而“人”可以同时有几种不同的角色。比如，一个“人”既然是“经理”，就必然是“雇员”；而此“人”可能同时还参加MBA课程，从而也是一个“学生”。使用继承来实现角色，则只能使每一个“人”具有“Has-A”角色，而且继承是静态的，这会使得一个“人”在成为“雇员”身份后，就永远为“雇员”，不能称为“经理”或“学生”，而这显然是不合理的。</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+
+人 <|-- 雇员 人 <|-- 经理 学生 < pre>
+<p>这一错误的设计源自把“角色”的等级结构与“人”的等级结构混淆起来，把Has-A角色误解为Is-A角色。因此要纠正这一错误，关键是区分“人”和“角色”的区别。下图所示的设计就正确地做到了这一点。</p>
+<pre class="mermaid" style="text-align: center;">
+            
+            
+classDiagram
+角色 <|-- 雇员 角色 <|-- 经理 学生 人 "1" *--> "*" 角色
+
+          </|--></pre>
+<p>从上图可以看出，每一个“人”都可以有一个以上的“角色”，所以一个人可以同时是“雇员”，又是“经理”，甚至同时又是“学生”。而且由于“人”与“角色”的耦合是通过合成的，因此，角色可以有动态的变化。一个“人”可以开始是一个“雇员”，然后晋升为“经理”，然后又由于他参加了MBA课程，又成为了“学生”。</p>
+<p>这就是说，当一个类是另一个类的角色时，不应当使用继承描述这种关系。</p>
+<h3 id="与里氏代换原则联合使用">与里氏代换原则联合使用</h3>
+<p>里氏代换原则是继承复用的基石。如果在任何使用B类型的地方都可以使用S类型，那么S类型才能称为B类型的子类型（Subtype），而B类型才能称为S类型的基类型（Base
+Type）。</p>
+<p>换言之，只有当每一个S在任何情况下都是一种B的时候，才可以将S设计成为B的子类。如果两个类的关系是"Has-A“关系而不是”Is-A“关系，这两个类一定违反了里氏代换原则。</p>
+<p>只有两个类满足里氏代换原则，才有可能是”Is-A“关系。</p>
+<h3 id="java语言api中的例子">Java语言API中的例子</h3>
+<p>在Java语言的API中，有几个明显违反这一原则的例子，其中最为著名的就是Stack和Properties。前者被不当地设置为Vector的子类，而Properties被不恰当地设置成Hashtable的子类，
+<img src="/2023/02/12/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00007/1.jpg" alt="Java语言API中的例子"></p>
+<p>一个Stack不是一个Vector，所以Stack不应当设置成为Vector的子类。同样地，一个性质列（Properties）也不是一个Hashtable。在两种情况下，使用聚合比使用继承关系更合适。</p>
+<p>由于Properties继承了Hashtable的行为，因而当p是一个Properties类型的对象时，<code>p.getProperties(key)</code>和<code>p.get(key)</code>就会给出不同的结果。前者来自于Properties本身，因此会利用默认值；而后者则来自于Hashtable，因此不会利用默认值。</p>
+<p>更糟糕的是，由于Properties是Hashtable的子类，因此，客户端可以通过类型的转换，直接使用超类型的行为。比如，Properties假定所有的键和值都是String类型的，如果不是，就会导致运行崩溃。但是，客户端完全可以通过Hashtable提供的行为加入任意类型的键和值。绕过Properties的接口，并导致Properties的内部矛盾和崩溃。</p>
+<p>这样一来，Properties其实仅仅是有一些Hashtable的属性的，换言之，这是一个"Has-A”的关系，而不是一个“Is-A”的关系。</p>
+</|--></pre></|--></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/02/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00006/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1417,156 +1577,10 @@ Information）时，这一点尤为重要，例如你的医疗记录或信用卡
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/13/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0002/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/13/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0002/" class="post-title-link" itemprop="url">《区块链原理、设计与应用》阅读摘录-0002</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-01-13 09:37:50 / 修改时间：15:20:38" itemprop="dateCreated datePublished" datetime="2023-01-13T09:37:50+08:00">2023-01-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">阅读摘录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="准备启动配置文件">准备启动配置文件</h1>
-<p><code>Fabric</code>网络在启动之前，需要提前生成一些用于启动的配置文件，主要包括<code>MSP</code>相关身份文件<code>(msp/*)</code>、<code>TLS</code>相关身份文件<code>(tlsca/*)</code>、系统通道初始区块<code>(orderer.genesis.block)</code>、新建应用通道交易文件<code>(businesschannel.tx)</code>、锚节点配置更新交易文件<code>(Org1MSPanchors.tx和Org2MSPanchors.tx)</code>等。</p>
-<p>各启动配置文件的功能如下： <img src="/2023/01/13/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0002/boostrap-config-files.jpeg" alt="启动配置文件"></p>
-<h1 id="配置文件的生成过程">配置文件的生成过程</h1>
-<h2 id="生成组织关系和身份证书">生成组织关系和身份证书</h2>
-<p><code>Fabric</code>网络作为联盟链，需要多个成员组织共同维护。成员之间通过身份进行识别，网络通过身份来限制访问权限，因此各成员组织都需要提前准备对应的身份文件，并部署到其所拥有的节点和客户端上。</p>
-<p>用户可通过标准PKI服务（如果使用<code>Fabric CA</code>实现）或<code>OpenSSL</code>工具，手动生成各个实体的证书和私钥。<code>Fabric</code>项目还提供了<code>cryptogen</code>工具（基于<code>Go</code>语言<code>crypto</code>标准库）在本地生成，需要提前准备<code>crypto-config.yaml</code>配置文件。</p>
-<p><code>crypto-config.yaml</code>配置文件的结构十分简单，支持定义两种类型<code>(OrdererOrgs和PeerOrgs)</code>的若干组织。每个组织中又可以定义多个节点<code>(Spec)</code>和用户<code>(User)</code>。</p>
-<p>本示例的<code>crypo-config.yaml</code>配置文件中，定义了一个<code>OrderderOrgs</code>类型的组织<code>example.com</code>，包括3个节点：两个<code>PeerOrgs</code>类型的组织<code>org1.example.com</code>和<code>org2.example.com</code>，分别包括2个节点和1个普通用户身份，文件内容如下：
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">OrdererOrgs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Name:</span> <span class="string">Orderer</span></span><br><span class="line">    <span class="attr">Domain:</span> <span class="string">example.com</span></span><br><span class="line">    <span class="attr">CA:</span></span><br><span class="line">        <span class="attr">Country:</span> <span class="string">US</span></span><br><span class="line">        <span class="attr">Province:</span> <span class="string">California</span></span><br><span class="line">        <span class="attr">Locality:</span> <span class="string">San</span> <span class="string">Francisco</span></span><br><span class="line">    <span class="attr">Specs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">Hostname:</span> <span class="string">orderer0</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">Hostname:</span> <span class="string">orderer1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">Hostname:</span> <span class="string">orderer2</span></span><br><span class="line"><span class="attr">PeerOrgs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Name:</span> <span class="string">Org1</span></span><br><span class="line">    <span class="attr">Domain:</span> <span class="string">org1.example.com</span></span><br><span class="line">    <span class="attr">EnableNodeOUs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">CA:</span></span><br><span class="line">        <span class="attr">Country:</span> <span class="string">US</span></span><br><span class="line">        <span class="attr">Province:</span> <span class="string">California</span></span><br><span class="line">        <span class="attr">Locality:</span> <span class="string">San</span> <span class="string">Francisco</span></span><br><span class="line">    <span class="attr">Template:</span></span><br><span class="line">      <span class="attr">Count:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">Users:</span></span><br><span class="line">      <span class="attr">Count:</span> <span class="number">1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Name:</span> <span class="string">Org2</span></span><br><span class="line">    <span class="attr">Domain:</span> <span class="string">org2.example.com</span></span><br><span class="line">    <span class="attr">EnableNodeOUs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">CA:</span></span><br><span class="line">        <span class="attr">Country:</span> <span class="string">US</span></span><br><span class="line">        <span class="attr">Province:</span> <span class="string">California</span></span><br><span class="line">        <span class="attr">Locality:</span> <span class="string">San</span> <span class="string">Francisco</span></span><br><span class="line">    <span class="attr">Template:</span></span><br><span class="line">      <span class="attr">Count:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">Users:</span></span><br><span class="line">      <span class="attr">Count:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>使用该配置文件，通过如下命令可<strong>生成</strong>指定组织结构的身份文件，并存放到<code>crypto-config</code>目录下：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cryptogen generate \</span><br><span class="line">    --config=./crypto-config.yaml \</span><br><span class="line">    --output ./crypto-config</span><br></pre></td></tr></table></figure>
-用户修改配置后，还可以通过<code>extend</code>子命令来<strong>更新</strong><code>crypto-config</code>目录：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cryptogen extend \</span><br><span class="line">    --config=./crypto-config.yaml \</span><br><span class="line">    --input ./crypto-config</span><br></pre></td></tr></table></figure></p>
-<p>查看刚生成的<code>crypto-config</code>目录，结构如下：
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">$ tree -L 4 crypto-config</span><br><span class="line">crypto-config</span><br><span class="line">|-- ordererOrganizations</span><br><span class="line">|   `-- example.com</span><br><span class="line">|       |-- ca</span><br><span class="line">|       |   |-- 293def0fc6d07aab625308a3499cd97f8ffccbf9e9769bf4107d6781f5e8072b_sk</span><br><span class="line">|       |   `-- ca.example.com-cert.pem</span><br><span class="line">|       |-- msp</span><br><span class="line">|       |   |-- admincerts/</span><br><span class="line">|       |   |-- cacerts/</span><br><span class="line">|       |   `-- tlscacerts/</span><br><span class="line">|       |-- orderers</span><br><span class="line">|       |   `-- orderer0.example.com/</span><br><span class="line">|       |   `-- orderer1.example.com/</span><br><span class="line">|       |   `-- orderer2.example.com/</span><br><span class="line">|       |-- tlsca</span><br><span class="line">|       |   |-- 2be5353baec06ca695f7c3b04ca0932912601a4411939bfcfd44af18274d5a65_sk</span><br><span class="line">|       |   `-- tlsca.example.com-cert.pem</span><br><span class="line">|       `-- users</span><br><span class="line">|           `-- Admin@example.com/</span><br><span class="line">`-- peerOrganizations</span><br><span class="line">    |-- org1.example.com</span><br><span class="line">    |   |-- ca</span><br><span class="line">    |   |   |-- 501c5f828f58dfa3f7ee844ea4cdd26318256c9b66369727afe8437c08370aee_sk</span><br><span class="line">    |   |   `-- ca.org1.example.com-cert.pem</span><br><span class="line">    |   |-- msp</span><br><span class="line">    |   |   |-- admincerts/</span><br><span class="line">    |   |   |-- cacerts/</span><br><span class="line">    |   |   `-- tlscacerts/</span><br><span class="line">    |   |-- peers</span><br><span class="line">    |   |   |-- peer0.org1.example.com/</span><br><span class="line">    |   |   `-- peer1.org1.example.com/</span><br><span class="line">    |   |-- tlsca</span><br><span class="line">    |   |   |-- 592a08f84c99d6f083b3c5b9898b2ca4eb5fbb9d1e255f67df1fa14c123e4368_sk</span><br><span class="line">    |   |   `-- tlsca.org1.example.com-cert.pem</span><br><span class="line">    |   `-- users</span><br><span class="line">    |       |-- Admin@org1.example.com/</span><br><span class="line">    |       `-- User1@org1.example.com/</span><br><span class="line">    `-- org2.example.com</span><br><span class="line">        |-- ca</span><br><span class="line">        |   |-- 86d97f9eb601868611eab5dc7df88b1f6e91e129160651e683162b958a728162_sk</span><br><span class="line">        |   `-- ca.org2.example.com-cert.pem</span><br><span class="line">        |-- msp</span><br><span class="line">        |   |-- admincerts/</span><br><span class="line">        |   |-- cacerts/</span><br><span class="line">        |   `-- tlscacerts/</span><br><span class="line">        |-- peers</span><br><span class="line">        |   |-- peer0.org2.example.com/</span><br><span class="line">        |   `-- peer1.org2.example.com/</span><br><span class="line">        |-- tlsca</span><br><span class="line">        |   |-- 4b87c416978970948dffadd0639a64a2b03bc89f910cb6d087583f210fb2929d_sk</span><br><span class="line">        |   `-- tlsca.org2.example.com-cert.pem</span><br><span class="line">        `-- users</span><br><span class="line">            |-- Admin@org2.example.com/</span><br><span class="line">            `-- User1@org2.example.com/</span><br></pre></td></tr></table></figure></p>
-<p>按照<code>crypto-config.yaml</code>中的定义，<code>crypto-config</code>目录下包括多级目录结构。其中<code>orderer-Organization</code>下包括构成<code>Orderer</code>组织（包括3个排序节点）的身份信息；<code>peerOrganizations</code>下为所有<code>Peer</code>节点组织（包括2个组织，4个节点）的相关身份信息。各个实体都含有<code>msp</code>和<code>tls</code>目录，分别包括对应的认证身份文件和<code>TLS</code>身份文件（公钥证书、私钥等）。</p>
-<p>对于排序节点来说，需要将<code>ordererOrganizations/example.com/Orderers/ordererX.example.com</code>目录下的内容（包括msp和tls两个子目录）<strong>复制</strong>到对应排序节点的配置路径(默认为/etc/hyperledger/fabric)下。</p>
-<p>对于<code>Peer</code>节点来说，则需要复制<code>peerOrganizations</code>下对应的身份证书文件。以<code>org1</code>的<code>peer0</code>为例，将<code>peerOrganizations/org1.example.com/peers/peer0.org1.example.com</code>目录下的内容（包括msp和tls）复制到Peer0节点的配置路径（默认为<code>/etc/hyperledger/fabric</code>)下。</p>
-<p>对于客户端节点来说，需要复制对应身份的用户目录，例如<code>Org1</code>的管理员身份为<code>peer-Organizations/org1.example.com/users/Admin@org1.example.com/</code>。</p>
-<h2 id="生成系统通道初始区块">生成系统通道初始区块</h2>
-<p>系统通道是网络启动后的首个通道，负责管理网络整体配置。排序节点在启动后，可以使用初始区块来创建一个新的网络。</p>
-<p>初始区块中包括了排序服务的相关配置信息（如排序节点信息、块大小、最大通道数、默认策略等）和示例联盟配置。可以使用<code>configtxgen</code>工具生成。生成过程依赖<code>configtx.yaml</code>文件。</p>
-<p><code>configtx.yaml</code>配置文件定义了整个网络中的相关配置和拓扑结构信息，用户可参考<code>sampleconfig/configtx.yaml</code>示例文件进行编写。这里采用如下内容：
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Profiles:</span></span><br><span class="line">    <span class="attr">TwoOrgsOrdererGenesis:</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelDefaults</span></span><br><span class="line">        <span class="attr">Capabilities:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelCapabilities</span></span><br><span class="line">        <span class="attr">Orderer:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*OrdererDefaults</span></span><br><span class="line">            <span class="attr">Organizations:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="meta">*OrdererOrg</span></span><br><span class="line">            <span class="attr">Capabilities:</span></span><br><span class="line">                <span class="string">&lt;&lt;:</span> <span class="meta">*OrdererCapabilities</span></span><br><span class="line">        <span class="attr">Consortiums:</span></span><br><span class="line">            <span class="attr">SampleConsortium:</span></span><br><span class="line">                <span class="attr">Organizations:</span></span><br><span class="line">                    <span class="bullet">-</span> <span class="meta">*Org1</span></span><br><span class="line">                    <span class="bullet">-</span> <span class="meta">*Org2</span></span><br><span class="line">    <span class="attr">TwoOrgsChannel:</span></span><br><span class="line">        <span class="attr">Consortium:</span> <span class="string">SampleConsortium</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelDefaults</span></span><br><span class="line">        <span class="attr">Capabilities:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelCapabilities</span></span><br><span class="line">        <span class="attr">Application:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*ApplicationDefaults</span></span><br><span class="line">            <span class="attr">Organizations:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="meta">*Org1</span></span><br><span class="line">                <span class="bullet">-</span> <span class="meta">*Org2</span></span><br><span class="line">            <span class="attr">Capabilities:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*ApplicationCapabilities</span></span><br><span class="line"><span class="attr">Organizations:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;OrdererOrg</span></span><br><span class="line">        <span class="attr">Name:</span> <span class="string">OrdererOrg</span></span><br><span class="line">        <span class="attr">SkipAsForeign:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">ID:</span> <span class="string">OrdererMSP</span></span><br><span class="line">        <span class="attr">MSPDir:</span> <span class="string">msp</span></span><br><span class="line">        <span class="attr">Policies:</span></span><br><span class="line">            <span class="attr">Readers:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;OrdererMSP.member&#x27;)&quot;</span></span><br><span class="line">            <span class="attr">Writers:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;OrdererMSP.member&#x27;)&quot;</span></span><br><span class="line">            <span class="attr">Admins:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;OrdererMSP.admin&#x27;)&quot;</span></span><br><span class="line">        <span class="attr">OrdererEndpoints:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;orderer0.example.com:7050&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;orderer1.example.com:7050&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;orderer2.example.com:7050&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;Org1</span></span><br><span class="line">        <span class="attr">Name:</span> <span class="string">Org1MSP</span></span><br><span class="line">        <span class="attr">SkipAsForeign:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">ID:</span> <span class="string">Org1MSP</span></span><br><span class="line">        <span class="attr">MSPDir:</span> <span class="string">msp</span></span><br><span class="line">        <span class="attr">Policies:</span></span><br><span class="line">            <span class="attr">Readers:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;Org1MSP.admin&#x27;, &#x27;Org1MSP.peer&#x27;, &#x27;Org1MSP.client&#x27;)&quot;</span></span><br><span class="line">            <span class="attr">Writers:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;Org1MSP.admin&#x27;, &#x27;Org1MSP.client&#x27;)&quot;</span></span><br><span class="line">            <span class="attr">Admins:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;Org1MSP.admin&#x27;)&quot;</span></span><br><span class="line">            <span class="attr">Endorsement:</span></span><br><span class="line">                <span class="attr">Type:</span> <span class="string">Signature</span></span><br><span class="line">                <span class="attr">Rule:</span> <span class="string">&quot;OR(&#x27;Org1MSP.member&#x27;)&quot;</span></span><br><span class="line">        <span class="attr">AnchorPeers:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">Host:</span> <span class="string">peer0.org1.example.com</span></span><br><span class="line">              <span class="attr">Port:</span> <span class="number">7051</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;Org2</span></span><br><span class="line">        <span class="string">……</span></span><br><span class="line"><span class="attr">Capabilities:</span></span><br><span class="line">    <span class="attr">Channel:</span> <span class="meta">&amp;ChannelCapabilities</span></span><br><span class="line">        <span class="attr">V2_0:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">Orderer:</span> <span class="meta">&amp;OrdererCapabilities</span></span><br><span class="line">        <span class="attr">V2_0:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">Application:</span> <span class="meta">&amp;ApplicationCapabilities</span></span><br><span class="line">        <span class="attr">V2_0:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">Application:</span> <span class="meta">&amp;ApplicationDefaults</span></span><br><span class="line">    <span class="attr">ACLs:</span> <span class="meta">&amp;ACLsDefault</span></span><br><span class="line">        <span class="attr">_lifecycle/CheckCommitReadiness:</span> <span class="string">/Channel/Application/Writers</span></span><br><span class="line">        <span class="attr">_lifecycle/CommitChaincodeDefinition:</span> <span class="string">/Channel/Application/Writers</span></span><br><span class="line">        <span class="attr">_lifecycle/QueryChaincodeDefinition:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">_lifecycle/QueryChaincodeDefinitions:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">lscc/ChaincodeExists:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">lscc/GetDeploymentSpec:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">lscc/GetChaincodeData:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">lscc/GetInstantiatedChaincodes:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">qscc/GetChainInfo:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">qscc/GetBlockByNumber:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">qscc/GetBlockByHash:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">qscc/GetTransactionByID:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">qscc/GetBlockByTxID:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">cscc/GetConfigBlock:</span> <span class="string">/Channel/Application/Readers</span>        </span><br><span class="line">        <span class="attr">peer/Propose:</span> <span class="string">/Channel/Application/Writers</span></span><br><span class="line">        <span class="attr">peer/ChaincodeToChaincode:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">event/Block:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">        <span class="attr">event/FilteredBlock:</span> <span class="string">/Channel/Application/Readers</span></span><br><span class="line">    <span class="attr">Organizations:</span></span><br><span class="line">    <span class="attr">Policies:</span></span><br><span class="line">        <span class="attr">LifecycleEndorsement:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;MAJORITY Endorsement&quot;</span></span><br><span class="line">        <span class="attr">Endorsement:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;MAJORITY Endorsement&quot;</span></span><br><span class="line">        <span class="attr">Readers:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Readers&quot;</span></span><br><span class="line">        <span class="attr">Writers:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Writers&quot;</span></span><br><span class="line">        <span class="attr">Admins:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;MAJORITY Admins&quot;</span></span><br><span class="line">    <span class="attr">Capabilities:</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*ApplicationCapabilities</span></span><br><span class="line"><span class="attr">Orderer:</span> <span class="meta">&amp;OrdererDefaults</span></span><br><span class="line">    <span class="attr">OrdererType:</span> <span class="string">etcdraft</span></span><br><span class="line">    <span class="attr">Addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">orderer0.example.com:7050</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">orderer1.example.com:7050</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">orderer2.example.com:7050</span></span><br><span class="line">    <span class="attr">BatchTimeout:</span> <span class="string">2s</span></span><br><span class="line">    <span class="attr">BatchSize:</span></span><br><span class="line">        <span class="attr">MaxMessageCount:</span> <span class="number">500</span></span><br><span class="line">        <span class="attr">AbsoluteMaxBytes:</span> <span class="number">10</span> <span class="string">MB</span></span><br><span class="line">        <span class="attr">PreferredMaxBytes:</span> <span class="number">2</span> <span class="string">MB</span></span><br><span class="line">    <span class="attr">MaxChannels:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">EtcdRaft:</span></span><br><span class="line">        <span class="attr">Consenters:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">Host:</span> <span class="string">orderer0.example.com</span></span><br><span class="line">              <span class="attr">Port:</span> <span class="number">7050</span></span><br><span class="line">              <span class="attr">ClientTLSCert:</span> <span class="string">crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls/server.crt</span></span><br><span class="line">              <span class="attr">ServerTLSCert:</span> <span class="string">crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls/server.crt</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">Host:</span> <span class="string">orderer1.example.com</span></span><br><span class="line">              <span class="attr">Port:</span> <span class="number">7050</span></span><br><span class="line">              <span class="attr">ClientTLSCert:</span> <span class="string">crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt</span></span><br><span class="line">              <span class="attr">ServerTLSCert:</span> <span class="string">crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">Host:</span> <span class="string">orderer2.example.com</span></span><br><span class="line">              <span class="attr">Port:</span> <span class="number">7050</span></span><br><span class="line">              <span class="attr">ClientTLSCert:</span> <span class="string">crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt</span></span><br><span class="line">              <span class="attr">ServerTLSCert:</span> <span class="string">crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt</span></span><br><span class="line">        <span class="attr">Options:</span></span><br><span class="line">  <span class="attr">TickInterval:</span> <span class="string">500ms</span></span><br><span class="line">            <span class="attr">ElectionTick:</span> <span class="number">10</span></span><br><span class="line">            <span class="attr">HeartbeatTick:</span> <span class="number">1</span></span><br><span class="line">            <span class="attr">MaxInflightBlocks:</span> <span class="number">5</span></span><br><span class="line">            <span class="attr">SnapshotIntervalSize:</span> <span class="number">16</span> <span class="string">MB</span></span><br><span class="line">    <span class="attr">Organizations:</span></span><br><span class="line">    <span class="attr">Policies:</span></span><br><span class="line">        <span class="attr">Readers:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Readers&quot;</span></span><br><span class="line">        <span class="attr">Writers:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Writers&quot;</span></span><br><span class="line">        <span class="attr">Admins:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;MAJORITY Admins&quot;</span></span><br><span class="line">        <span class="attr">BlockValidation:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Writers&quot;</span></span><br><span class="line">    <span class="attr">Capabilities:</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*OrdererCapabilities</span></span><br><span class="line"><span class="attr">Channel:</span> <span class="meta">&amp;ChannelDefaults</span></span><br><span class="line">    <span class="attr">Policies:</span></span><br><span class="line">        <span class="attr">Readers:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Readers&quot;</span></span><br><span class="line">        <span class="attr">Writers:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;ANY Writers&quot;</span></span><br><span class="line">        <span class="attr">Admins:</span></span><br><span class="line">            <span class="attr">Type:</span> <span class="string">ImplicitMeta</span></span><br><span class="line">            <span class="attr">Rule:</span> <span class="string">&quot;MAJORITY Admins&quot;</span></span><br><span class="line">    <span class="attr">Capabilities:</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelCapabilities</span></span><br></pre></td></tr></table></figure></p>
-<p>该配置文件中定义了两个模板：<code>TwoOrgsOrderGenesis</code>和<code>TwoOrgsChannel</code>。其中前者定义了系统通道配置，可以用来创建系统通道的初始区块文件；后者定义了应用通道配置，可以用来新建应用通道。排序服务的共识类型指定为<code>Raft</code>模式。</p>
-<p>通过如下命令指定使用<code>TwoOrgsOrdererGenesis模板，来生成系统通道初始化区块文件： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">export SYS_CHANNEL=testchainid</span><br><span class="line">export ORDERER_GENESIS_PROFILE=TwoOrgsOrdererGenesis</span><br><span class="line">export ORDERER_GENESIS=orderer.genesis.block</span><br><span class="line">configtxgen \</span><br><span class="line">    -configPath ./ \</span><br><span class="line">    -channelID $&#123;SYS_CHANNEL&#125; \</span><br><span class="line">    -profile $&#123;ORDERER_GENESIS_PROFILE&#125; \</span><br><span class="line">    -outputBlock $&#123;ORDERER_GENESIS&#125;</span><br></pre></td></tr></table></figure> 将所生成的初始区块文件复制到排序节点</code>ORDERER_GENERAL_BOOTSTRAPFILE<code>路径（默认为</code>/etc/hyperledger/fabric`)下，供启动排序节点使用。</p>
-<h1 id="生成新建应用通道交易">生成新建应用通道交易</h1>
-<p>新建应用通道需要先生成配置交易文件，其中包括属于该通道的组织结构信息，这些信息会写入该应用通道的初始区块中。</p>
-<p>同样需要<code>configtx.yaml</code>配置文件和<code>configtxgen</code>工具，注意这里使用<code>TwoOrgsChannel</code>模板。</p>
-<p>采用如下命令来生成新建通道交易文件，通道中包括两个初始成员：<code>Org1</code>和<code>Org2</code>:
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export APP_CHANNEL=businesschannel</span><br><span class="line">export APP_CHANNEL_PROFILE=TwoOrgsChannel</span><br><span class="line">configtxgen \</span><br><span class="line">    -configPath ./ \</span><br><span class="line">    -channelID $&#123;APP_CHANNEL&#125; \</span><br><span class="line">    -profile $&#123;APP_CHANNEL_PROFILE&#125; \</span><br><span class="line">    -outputCreateChannelTx $&#123;APP_CHANNEL&#125;.tx</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意:
-状态数据库如果选择<code>CouchDB</code>类型，应用通道名称只能包括小写的ASCII字符、点或中划线，并且首字符为字母，总长度不超过249个字符。该限制详情可参考<code>FAB-2487</code>。</p>
-</blockquote>
-<h1 id="生成锚节点配置更新文件">生成锚节点配置更新文件</h1>
-<p>锚节点用来辅助发现通道内多个组织之间的节点，修改锚节点需要发送更新通道配置交易。</p>
-<p>同样需要<code>configtx.yaml</code>配置文件，为每个组织都生成配置文件，注意需要指定对应的组织身份。<code>outputAnchorPeersUpdates</code>子命令在2.x版本中计划弃用，届时用户需要使用通道配置更新命令完成：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">export UPDATE_ANCHOR_ORG1_TX=Org1MSPanchors.tx</span><br><span class="line">export UPDATE_ANCHOR_ORG2_TX=Org2MSPanchors.tx</span><br><span class="line">configtxgen \</span><br><span class="line">    -configPath ./ \</span><br><span class="line">    -channelID $&#123;APP_CHANNEL&#125; \</span><br><span class="line">    -profile $&#123;APP_CHANNEL_PROFILE&#125; \</span><br><span class="line">    -asOrg Org1MSP \</span><br><span class="line">    -outputAnchorPeersUpdate $&#123;UPDATE_ANCHOR_ORG1_TX&#125;</span><br><span class="line"></span><br><span class="line">configtxgen \</span><br><span class="line">    -configPath ./ \</span><br><span class="line">    -channelID $&#123;APP_CHANNEL&#125; \</span><br><span class="line">    -profile $&#123;APP_CHANNEL_PROFILE&#125; \</span><br><span class="line">    -asOrg Org2MSP \</span><br><span class="line">    -outputAnchorPeersUpdate $&#123;UPDATE_ANCHOR_ORG2_TX&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="启动排序节点">启动排序节点</h1>
-<p>首先，检查配置路径（默认为<code>/etc/hyperledger/fabric</code>）下所需文件是否就绪：
-- 配置文件<code>orderer.yaml</code>（可参考sampleconfig/orderer.yaml),
-包括排序节点配置信息。 -
-msp文件目录、tls文件目录，用来存放身份证书文件和私钥文件。 -
-系统通道初始区块文件，用来启动系统通道。</p>
-<p>排序节点配置可通过配置文件或环境变量方式指定，部分常见配置如下： <img src="/2023/01/13/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0002/orderer-config.jpeg" alt="排序节点配置"></p>
-<p>之后，用户可以采用如下命令来启动排序节点。启动成功后可以看到本地输出开始提供服务的消息，此时<code>Orderer</code>采用指定的初始区块文件成功创建了系统通道，代码如下：
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ orderer start</span><br><span class="line">[orderer/common/server] prettyPrintStruct -&gt; INFO 002 Orderer config values:</span><br><span class="line">    General.LedgerType = &quot;file&quot;</span><br><span class="line">    General.ListenAddress = &quot;0.0.0.0&quot;</span><br><span class="line">    General.ListenPort = 7050</span><br><span class="line">    General.TLS.Enabled = true</span><br><span class="line">...</span><br><span class="line">[orderer/common/server] Start -&gt; INFO 007 Beginning to serve requests</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<h1 id="启动peer节点">启动Peer节点</h1>
-<p>首先，检查配置路径（默认为<code>/etc/hyperledger/fabric)下所需文件是否就绪： - 配置文件</code>core.yaml`（可以参考sampleconfig/core.yaml),指定Peer节点配置。
-- msp文件目录、tls文件目录，用于存放身份证书文件和私钥文件。</p>
-<p>Peer节点配置可通过配置文件或环境变量方式进行指定，常见设置如下： <img src="/2023/01/13/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E9%98%85%E8%AF%BB%E6%91%98%E5%BD%95-0002/peer-config.jpeg" alt="Peer节点配置"></p>
-<p>配置完成后，用户可以采用如下命令在多个服务器上分别启动Peer服务：
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ peer node start</span><br><span class="line">UTC [ledgermgmt] initialize -&gt; INFO 002 Starting peer:</span><br><span class="line">  Version: 2.0.0</span><br><span class="line">  Commit SHA: development build</span><br><span class="line">  Go version: go1.13.4</span><br><span class="line">  OS/Arch: linux/amd64</span><br><span class="line">  Chaincode:</span><br><span class="line">    Base Docker Namespace: hyperledger</span><br><span class="line">    Base Docker Label: org.hyperledger.fabric</span><br><span class="line">    Docker Namespace: hyperledger&quot;</span><br><span class="line">...</span><br><span class="line">UTC [nodeCmd] serve -&gt; INFO 01e Started peer with ID=[name:&quot;peer0.org1.</span><br><span class="line">example.com&quot; ], network ID=[dev], address=[peer0.org1.example.com:7051]</span><br><span class="line">...</span><br></pre></td></tr></table></figure> 启动成功后可以看到本地输出的日志消息。
-此时，Peer节点已经启动起来，会尝试通过gossip发现邻居节点。</p>
-<h1 id="创建通道">创建通道</h1>
-<p>网络启动后只有排序节点维护的系统通道，还未创建应用通道。客户端需要发送请求给Orderer创建应用通道，以让Peer节点加入使用。默认情况下，只有联盟中成员组织的管理员身份才可以创建应用通道。</p>
-<p>例如，使用Org1的<strong>管理员身份</strong>来创建新的应用通道，需要指定msp的ID、msp文件所在路径、排序服务地址、应用通道名称和新建通道交易文件，如果启用了TLS,还需要指定排序服务的TLSCA的证书位置，示例代码如下：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">APP_CHANNEL=businesschannel</span><br><span class="line">TIMEOUT=30</span><br><span class="line">CORE_PEER_LOCALMSPID=&quot;Org1MSG&quot; \</span><br><span class="line">CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/crypto-config/peerOrgnizations/org1.example.com/users/Admin@org1.example.com/msg \</span><br><span class="line">peer channel create \</span><br><span class="line">    -o orderer0.example.com:7070 \</span><br><span class="line">    -c $&#123;APP_CHANNEL&#125; \</span><br><span class="line">    -f ./$APP_CHANNEL.tx \</span><br><span class="line">    --timeout &quot;$&#123;TIMEOUT&#125;s&quot; \</span><br><span class="line">    --tls \</span><br><span class="line">    --cafile /etc/hyperledger/fabric/crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</span><br></pre></td></tr></table></figure>
-通道创建成功后，会在本地生成其初始区块文件（businesschannel.block），其中带有通道的初始配置信息和排序服务信息等。只有拥有该文件的Peer节点可能加入对应的通道中。</p>
-<h1 id="加入通道">加入通道</h1>
-<p>应用通道的成员组织的Peer都可以加入通道中。在客户端使用<strong>管理员身份</strong>依次让组织Org1和Org2中的所有节点都加入新的应用通道。操作需要指定所操作的Peer的地址，以及通道的初始区块。</p>
-<p>以Org1中的Peer0节点为例，可以执行如下操作： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot; \</span><br><span class="line">CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp \</span><br><span class="line">CORE_PEER_ADDRESS=peer0.org1.example.com:7051 \</span><br><span class="line">peer channel join \</span><br><span class="line">-b $&#123;APP_CHANNEL&#125;.block</span><br></pre></td></tr></table></figure></p>
-<p>此时，所操作的Peer（如果成为组织的Gossip
-Leader）会自动连接到应用通道指定的排序服务，开始接收区块。</p>
-<h1 id="更新锚节点配置">更新锚节点配置</h1>
-<p>锚节点（作为组织内成员代表）负责与其它组织节点进行信息交换。通道配置内会记录各组织的锚节点列表信息，Peer通过访问其它组织的锚节点来获取其它组织内的Peer信息。</p>
-<p>使用通道配置更新文件，组织管理员可以更新通道指定配置。例如，在客户端使用Org1的管理员身份来更新锚节点，如下：
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot; \</span><br><span class="line">CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/crypto-config/peerOrganizations/org1.example.com/users/Amdin@org1.example.com/msp \</span><br><span class="line">peer channel update \</span><br><span class="line">-o orderer0.example.com:7050 \</span><br><span class="line">-c $&#123;APP_CHANNEL&#125; \</span><br><span class="line">-f $&#123;UPDATE_ANCHOR_ORG1_TX&#125; \</span><br><span class="line">--tls \</span><br><span class="line">--cafile /etc/hyperledger/fabric/crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</span><br></pre></td></tr></table></figure></p>
-<p>锚节点配置更新后，同一通道内不同组织之间的Peer也可以进行Gossip通信，共同维护通道帐本。后续，用户可以通过智能合约使用通道帐本。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1632,7 +1646,7 @@ Leader）会自动连接到应用通道指定的排序服务，开始接收区�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">91</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1643,7 +1657,7 @@ Leader）会自动连接到应用通道指定的排序服务，开始接收区�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">192</span>
+        <span class="site-state-item-count">193</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
