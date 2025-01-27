@@ -188,6 +188,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/" class="post-title-link" itemprop="url">Fabric-通过samples了解fabric（二）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-04 14:42:56" itemprop="dateCreated datePublished" datetime="2022-11-04T14:42:56+08:00">2022-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-03 19:37:26" itemprop="dateModified" datetime="2022-12-03T19:37:26+08:00">2022-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="network.sh-脚本命令">network.sh 脚本命令</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">./network.sh help</span><br><span class="line">Using docker and docker-compose</span><br><span class="line">Usage:</span><br><span class="line">  network.sh &lt;Mode&gt; [Flags]</span><br><span class="line">    Modes:</span><br><span class="line">      up - Bring up Fabric orderer and peer nodes. No channel is created</span><br><span class="line">      up createChannel - Bring up fabric network with one channel</span><br><span class="line">      createChannel - Create and join a channel after the network is created</span><br><span class="line">      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)</span><br><span class="line">      down - Bring down the network</span><br><span class="line"></span><br><span class="line">    Flags:</span><br><span class="line">    Used with network.sh up, network.sh createChannel:</span><br><span class="line">    -ca &lt;use CAs&gt; -  Use Certificate Authorities to generate network crypto material</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to create (defaults to &quot;mychannel&quot;)</span><br><span class="line">    -s &lt;dbtype&gt; - Peer state database to deploy: goleveldb (default) or couchdb</span><br><span class="line">    -r &lt;max retry&gt; - CLI times out after certain number of attempts (defaults to 5)</span><br><span class="line">    -d &lt;delay&gt; - CLI delays for a certain number of seconds (defaults to 3)</span><br><span class="line">    -verbose - Verbose mode</span><br><span class="line"></span><br><span class="line">    Used with network.sh deployCC</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to deploy chaincode to</span><br><span class="line">    -ccn &lt;name&gt; - Chaincode name.</span><br><span class="line">    -ccl &lt;language&gt; - Programming language of the chaincode to deploy: go, java, javascript, typescript</span><br><span class="line">    -ccv &lt;version&gt;  - Chaincode version. 1.0 (default), v2, version3.x, etc</span><br><span class="line">    -ccs &lt;sequence&gt;  - Chaincode definition sequence. Must be an integer, 1 (default), 2, 3, etc</span><br><span class="line">    -ccp &lt;path&gt;  - File path to the chaincode.</span><br><span class="line">    -ccep &lt;policy&gt;  - (Optional) Chaincode endorsement policy using signature policy syntax. The default policy requires an endorsement from Org1 and Org2</span><br><span class="line">    -cccg &lt;collection-config&gt;  - (Optional) File path to private data collections configuration file</span><br><span class="line">    -cci &lt;fcn name&gt;  - (Optional) Name of chaincode initialization function. When a function is provided, the execution of init will be requested and the function will be invoked.</span><br><span class="line"></span><br><span class="line">    -h - Print this message</span><br><span class="line"></span><br><span class="line"> Possible Mode and flag combinations</span><br><span class="line">   up -ca -r -d -s -verbose</span><br><span class="line">   up createChannel -ca -c -r -d -s -verbose</span><br><span class="line">   createChannel -c -r -d -verbose</span><br><span class="line">   deployCC -ccn -ccl -ccv -ccs -ccp -cci -r -d -verbose</span><br><span class="line"></span><br><span class="line"> Examples:</span><br><span class="line">   network.sh up createChannel -ca -c mychannel -s couchdb</span><br><span class="line">   network.sh createChannel -c channelName</span><br><span class="line">   network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript</span><br><span class="line">   network.sh deployCC -ccn mychaincode -ccp ./user/mychaincode -ccv 1 -ccl javascript</span><br></pre></td></tr></table></figure>
+<h2 id="清除测试网中的所有容器">清除测试网中的所有容器</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
+<h2 id="启动测试网">启动测试网</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh up</span><br></pre></td></tr></table></figure>
+<h2 id="创建通道">创建通道</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./network.sh createChannel    # 不指定通道名，通道名默认为mychannel</span><br><span class="line">./network.sh createChannel -c channel1 # 指定通道名 channel1</span><br></pre></td></tr></table></figure>
+<h2 id="安装链码">安装链码</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-ccn</code>指定链码名称 <code>chain code name</code></li>
+<li><code>-ccl</code> 指定编写链码的语言
+<code>chain code language</code></li>
+<li><code>-ccp</code> 指定链码所在的目录
+<code>chain code path</code></li>
+<li>其余的查看 <code>./network.sh help</code></li>
+</ul>
+<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code>
+和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code>
+和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
+<p>还有加<code>sudo</code>后找不到<code>go</code>的坑,需要在<code>~/.zshrc</code>中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias sudo=&#x27;sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH&#x27;</span><br></pre></td></tr></table></figure>
+<h2 id="与fabric网络交互">与fabric网络交互</h2>
+<p><strong>确保当前是在<code>test-network</code>目录</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>添加这个环境变量是为了下面调用<code>peer</code>命令系统能找到<code>peer</code>指令，除了<code>peer</code>指令，还有其它一些指令，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x@ 1 mao  staff    15M Oct 26 23:58 configtxgen</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    14M Oct 26 23:58 configtxlator</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    11M Oct 26 23:58 cryptogen</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    16M Oct 26 23:58 discover</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    26M Jul  8 17:32 fabric-ca-client</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    32M Jul  8 17:33 fabric-ca-server</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    16M Oct 26 23:58 ledgerutil</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    26M Oct 26 23:58 orderer</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    12M Oct 26 23:58 osnadmin</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    33M Oct 26 23:58 peer</span><br></pre></td></tr></table></figure>
+<p>还需要将<code>fabric-samples</code>代码库中的<code>FABRIC_CFG_PATH</code>设置为指向其中的<code>core.yaml</code>文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FABRIC_CFG_PATH=$PWD/../config/</span><br></pre></td></tr></table></figure>
+<p>现在，可以设置环境变量，以允许作为Org1操作<code>peer</code> CLI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Environment variables <span class="keyword">for</span> Org1</span></span><br><span class="line"></span><br><span class="line">export CORE_PEER_TLS_ENABLED=true</span><br><span class="line">export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;</span><br><span class="line">export CORE_PEER_TLS_ROOTCERT_FILE=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line">export CORE_PEER_MSPCONFIGPATH=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line">export CORE_PEER_ADDRESS=localhost:7051</span><br></pre></td></tr></table></figure>
+<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。
+如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动
+asset-transfer (basic) 链码，您可以调用链码（Go）的
+<code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用
+typescript 或者 javascript，例如
+<code>./network.sh deployCC -l javascript</code>，你会调用相关链码的
+<code>initLedger</code> 功能）。
+运行以下命令用一些资产来初始化账本：</p>
+<h3 id="调用链码函数initledger">调用链码函数<code>InitLedger</code></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<p><strong>Mac
+M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker
+Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
+<h3 id="查询">查询</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c &#x27;&#123;&quot;Args&quot;:[&quot;GetAllAssets&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1198,160 +1322,6 @@ Orderer 达成共识之后，将数据状态保存在区块中，然后保存在
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/10/13/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/13/Rust%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/" class="post-title-link" itemprop="url">Rust学习-知识点-1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-13 09:18:17" itemprop="dateCreated datePublished" datetime="2022-10-13T09:18:17+08:00">2022-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-12 10:40:58" itemprop="dateModified" datetime="2022-12-12T10:40:58+08:00">2022-12-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Rust/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>&amp;和ref的使用有什么不同，哪里需要用<code>&amp;</code>？哪里需要用<code>ref</code>？</strong></p>
-<hr>
-<h1 id="一和ref通用的场景">一、<code>&amp;</code>和<code>ref</code>通用的场景</h1>
-<p>先来看看第1个示例：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span>: <span class="type">i32</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = &amp;a;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, *b); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">ref</span> c = a;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, *c); <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例中，<code>b</code> 和 <code>c</code>
-声明的方式不同，但从结果来看并无不同，都是表示一个指针。</p>
-<ul>
-<li>相同点：这两个指针变量都各自保存了一个内存地址，这个内存地址就是可变变量<code>a</code>
-的内存地址。</li>
-<li>不同点：声明方式不同，其中<code>let b = &amp;a;</code> 和
-<code>let ref c = a;</code> 这里只是语法形式上的不同；只需记忆即可</li>
-</ul>
-<p>再来看第2个示例：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span>: <span class="type">i32</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = &amp;<span class="keyword">mut</span> a; <span class="comment">// 指针 b 本身是不可以修改的，但它指向的内容是可以修改的。</span></span><br><span class="line">    *b = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, a); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">ref</span> <span class="keyword">mut</span> c = a; <span class="comment">// 指针 c 本身是不可以修改的，但它指向的内容是可以修改的。</span></span><br><span class="line">    *c = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, a); <span class="comment">//3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>到这里为止，从形式表现来说有点区别，似乎作用一致，那为啥要整两个表现形式出来呢？</p>
-<h1 id="二适合用的场景">二、适合用<code>&amp;</code>的场景</h1>
-<p>惯例，不逼逼，看示例：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">foo</span>(x: &amp;<span class="keyword">mut</span> <span class="type">i32</span>) &#123;</span><br><span class="line">    *x = <span class="number">666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span>: <span class="type">i32</span> = <span class="number">888</span>;</span><br><span class="line">    <span class="title function_ invoke__">foo</span>(&amp;<span class="keyword">mut</span> a);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, a); <span class="comment">// 666</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>人狠话不多，再看：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">foo</span>(<span class="keyword">ref</span> <span class="keyword">mut</span> x: <span class="type">i32</span>) &#123;</span><br><span class="line">    *x = <span class="number">666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span>: <span class="type">i32</span> = <span class="number">888</span>;</span><br><span class="line">    <span class="title function_ invoke__">foo</span>(a);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, a); <span class="comment">// 888</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一对比，就比较明显了。经过场景一里面的例子，我们对<code>&amp;</code>
-和
-<code>ref</code>的认识，感觉这两货是一个东西；但是在函数/方法签名中的应用时，就有点反直觉了。只能说rust语法规定就是这样，这是龟腚。但是我们以之前其它语言的经验来看待场景二，又会觉得这个结果很合理。</p>
-<ul>
-<li>因为<code>foo(a)</code>的调用语义就是传入一个类型为<code>i32</code>的整型变量，而不是传入<code>&amp;i32</code>。也就是说传入的是整型变量本身，不是传入整型变量的引用或者指针。我们再看<code>foo</code>函数的签名：<code>fn foo(ref mut x: i32)</code>
-，签名中明确说传入的参数类型是<code>i32</code>，没毛病。那这个函数被调用时，内存里面到底是怎么样的呢？看现象，我觉得是这样的：调用<code>foo(ref mut x: i32)</code>时，也就是<code>foo(a)</code>，传入的是i32类型的一个变量<code>a</code>，它的值为<code>888</code>（注意不是i32变量的引用或者指针，或者说不是一个内存地址），那么会在内存栈中拷贝一个<code>888</code>这个值的副本出来放在栈中，我们可以想象成这个变量叫<code>a'</code>,这个<code>a'</code>和原来的<code>a</code>不是在一个内存地址里面，但它们的值都为<code>888</code>，我不想画图，自己想象一下吧，然后把形参<code>x</code>指向了这个副本<code>a'</code>的内存地址，然后<code>*x = 666</code>修改的是这个副本的内存地里面的值，传入的<code>实参888</code>没做修改。<strong>不管什么语言，数据在内存中的来龙去脉想清楚非常重要，学习语法不是死记硬背，了解内存模型对掌握一门语言非常重要</strong>
-长话短说，懂的都懂：</li>
-<li><code>foo(a)</code>调用时，要把<code>a</code>的值复制一份放在栈空间中，就是<code>a</code>的一个副本。<code>foo</code>函数中操作就是这个<code>a的副本</code>。你既然修改的是<code>a的副本</code>，那关<code>a</code>啥事？</li>
-<li><code>a的副本</code>的值是被修改了，但是<code>a</code>的值没有被修改，所以最后打印出来的还是888</li>
-</ul>
-<p>那我非要在函数/方法的参数中使用<code>ref</code>，还要达到<code>&amp;</code>一样的效果呢？也不是不行。</p>
-<p><strong>没有困难，创造困难上 —— 老子</strong></p>
-<ul>
-<li>首先肯定是要改变<code>foo</code>函数的调用语义，起码要修改一下函数签名吧？函数签名中的参数类型起码得是引用吧？或者叫指针吧？</li>
-<li><code>fn foo(ref x: &amp;mut i32)</code>
-这个就是我们要的修改后的函数签名</li>
-<li>函数签名是有了，那么问题来了，我们给x 变量赋值应该怎么操作呢？是
-<code>*x = 666;</code> 吗？那签名中的ref
-不同意了：你当我不存在吗？因为这里有了<code>ref</code>，所以前面还得再加一个<code>*</code>
-，仔细体会体会吧。</li>
-</ul>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">foo</span>(<span class="keyword">ref</span> x: &amp;<span class="keyword">mut</span> <span class="type">i32</span>) &#123;</span><br><span class="line">    **x = <span class="number">666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span>: <span class="type">i32</span> = <span class="number">888</span>;</span><br><span class="line">    <span class="title function_ invoke__">foo</span>(&amp;<span class="keyword">mut</span> a);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, a); <span class="comment">// 666</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>那么问题来了，为啥这样就又可以了呢？因为形参的类型被改为了 &amp;mut
-i32 了，那么调用时，foo(&amp;mut a),
-传入的是a的内存地址，而不是a变量本身，这个时候<strong>不会发生</strong>把这个传入的值进行拷贝一个副本存在栈中的操作。只是把形参x指向了实参a的内存地址，通俗但可能不够准确地说：x是一个指向指针的指针，也就是说
-*x 代表的是 &amp;a，**x是什么自己想想吧。</p>
-</blockquote>
-<p>稍稍总结一下：一个<code>*</code>用来表示指针变量取到指针所指的变量，如果指针所指的变量也是个指针变量呢？那就<code>**</code>，要是指针变量指向一个指针变量再指向一个指针变量……那就是<code>***</code>。所以在函数参数声明中，一般用<code>&amp;</code>比较多。</p>
-<h1 id="三只能用ref的场景">三、只能用<code>ref</code>的场景</h1>
-<p>直接上代码示例：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s</span> = <span class="title function_ invoke__">Some</span>(<span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello!&quot;</span>));</span><br><span class="line">    <span class="keyword">match</span> s &#123;</span><br><span class="line">        <span class="title function_ invoke__">Some</span>(t) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;t = &#123;&#125;&quot;</span>, t),</span><br><span class="line">        _ =&gt; &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;s = &#123;&#125;&quot;</span>, s.<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你觉得rust编译器会让你过？太天真。简简单单一段代码，涉及到了rust中的变量所有权问题。我们先来看编译器的报错结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">   --&gt; </span><span class="language-bash">src/main.rs:124:24</span></span><br><span class="line">    |</span><br><span class="line">121 |         Some(t) =&gt; println!(&quot;t = &#123;&#125;&quot;, t),</span><br><span class="line">    |              - value partially moved here</span><br><span class="line">...</span><br><span class="line">124 |     println!(&quot;s = &#123;&#125;&quot;, s.unwrap());</span><br><span class="line">    |                        ^ value used here after partial move</span><br><span class="line">    |</span><br><span class="line">    = note: partial move occurs because value has type `String`, which does not implement the `Copy` trait</span><br><span class="line">help: borrow this field in the pattern to avoid moving `s.0`</span><br><span class="line">    |</span><br><span class="line">121 |         Some(ref t) =&gt; println!(&quot;t = &#123;&#125;&quot;, t),</span><br><span class="line">    |              +++</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>rust编译器就是最好最严厉的那个老师。她说的很清楚了为什么不让你通过，给你分析得明明白白，而且还给出了参考答案。</p>
-<p>编译器大佬的意思就是说：你定义了一个变量<code>s</code>，它的值是用Some包裹的一个String类型的"Hello!"。一开始这个"Hello!"的所有权是s的。经过了match
-s，发现匹配到了Some(t)，也就是s里面还是有货的，这个货呢，就是"Hello!"，那现在就要把这个"Hello!"赋值给了t，这过程中就会发生变量所有权的转移：所有权由
-<code>s</code> 转给了
-<code>t</code>。但是编译器发现，代码最后一行，你竟然又去使用变量s，因为这个时候s所代表的Some包裹已经失去了"Hello!"的所有权。编译器认为你违反了内存安全的规则。</p>
-<p>那么编译器既然有这个规则，不能硬来，那怎么办呢？那就不转移变量的所有权；那就要提到RUST中的借用的概念。通俗但是可能不准确的说法就是：不用变量直接进行复制操作，把变量的引用或者指针赋值给另外的变量，这就是发生了借用，但是所有权保持不变。这样就符合规则了。</p>
-<p>那么回到示例中，关键点就是<code>Some(t) =&gt; println!("t = &#123;&#125;", t)</code>这句语句有问题，那我们就要对它进行改造，编译器老师都已经告诉我们怎么改造了。就是改为：<code>Some(ref t) =&gt; println!("t = &#123;&#125;", t)</code></p>
-<p>那有人会问，我能这样改造吗？<code>Some(&amp; t) =&gt; println!("t = &#123;&#125;", t)</code>
-，我也想这样，无奈编译器不答应啊。这也能理解：</p>
-<ul>
-<li>s变量是一个 Some 类型的值， 这个Some里面要么是String类型，要么是None
-，但是不能是 &amp;String 类型。所以match s的时候，类型要匹配上。</li>
-<li>那么现在Some(ref t)，t 有 ref
-的加持，这里就表示是借用，借用就不会发生所有权从s到t的转移，例子中也符合rust的借用规则，编译器老师就会让你通过考核。</li>
-</ul>
-<p>我非要用&amp;呢？也不是没有办法，还有一个变通的办法。既然问题根源是s的所有权问题，那我就直接在借用s，而它内部包裹的String变量自然而然也不会发生所有权转移。这不就从根源是解决问题了？浅尝试一下：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s</span> = <span class="title function_ invoke__">Some</span>(<span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello!&quot;</span>));</span><br><span class="line">    <span class="keyword">match</span> &amp;s &#123;</span><br><span class="line">        <span class="title function_ invoke__">Some</span>(t) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;t = &#123;&#125;&quot;</span>, t),</span><br><span class="line">        _ =&gt; &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;s = &#123;&#125;&quot;</span>, s.<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="四更多的例子">四、更多的例子</h1>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span>: &amp;<span class="type">i32</span> = &amp;v; <span class="comment">// OK!</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span>: &amp;<span class="type">i32</span> = &amp;(<span class="number">123</span> + <span class="number">456</span>); <span class="comment">// OK!</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(x) = <span class="title function_ invoke__">Some</span>(<span class="number">123</span>) &#123;&#125; <span class="comment">// OK!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">ref</span> x: <span class="type">i32</span> = v; <span class="comment">// OK!</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">ref</span> x: <span class="type">i32</span> = <span class="number">123</span> + <span class="number">456</span>; <span class="comment">// OK!</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(<span class="keyword">ref</span> x) = <span class="title function_ invoke__">Some</span>(<span class="number">123</span>) &#123;&#125; <span class="comment">// OK!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(x: &amp;<span class="type">i32</span>) = <span class="title function_ invoke__">Some</span>(&amp;<span class="number">123</span>) &#123;&#125; <span class="comment">// Error！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="五指针变量的解引用">五、指针变量的解引用</h1>
-<p>以下操作，<code>@cpp</code>,rust自动解多层嵌套引用大法，妈妈再也不用我数错<code>*</code>个数了</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span>: &amp;<span class="type">i32</span> = &amp;<span class="number">123</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span>: &amp;&amp;<span class="type">i32</span> = &amp;a;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c</span>: &amp;&amp;&amp;<span class="type">i32</span> = &amp;b;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;a = &#123;&#125;, b = &#123;&#125;, c = &#123;&#125;&quot;</span>, a, b, c);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;*a = &#123;&#125;, **b = &#123;&#125;, ***c = &#123;&#125;&quot;</span>, *a, **b, ***c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* output</span></span><br><span class="line"><span class="comment">a = 123, b = 123, c = 123</span></span><br><span class="line"><span class="comment">*a = 123, **b = 123, ***c = 123</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1421,7 +1391,7 @@ s，发现匹配到了Some(t)，也就是s里面还是有货的，这个货呢�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1432,7 +1402,7 @@ s，发现匹配到了Some(t)，也就是s里面还是有货的，这个货呢�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">196</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -188,6 +188,159 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/02/Golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">Golang单元测试和基准测试</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-02 20:02:09" itemprop="dateCreated datePublished" datetime="2022-12-02T20:02:09+08:00">2022-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-15 13:34:51" itemprop="dateModified" datetime="2022-12-15T13:34:51+08:00">2022-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="单元测试">单元测试</h1>
+<ul>
+<li><p>测试需要用到的断言，依赖
+<code>github.com/stretchr/testify</code></p></li>
+<li><p>编写单元测试，文件命名带<code>_test.go</code>
+<code>helloworld_test.go</code> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>测试所有用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v helloworld_test.go</span><br></pre></td></tr></table></figure></p></li>
+<li><p>指定用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v -run TestHelloWorld helloworld_test.go</span><br></pre></td></tr></table></figure></p></li>
+<li><p>测试文件夹下所有的测试用例 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v ./directory</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<h1 id="基准测试">基准测试</h1>
+<ul>
+<li><p>非并发方式 <code>benchmark_test.go</code> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Add</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        n++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+&gt;<strong>注：b.N
+由基准测试框架提供。测试代码需要保证函数可重入性及无状态，也就是说，测试代码不使用全局变量等带有记忆性质的数据结构。避免多次运行同一段代码时的环境不一致，不能假设
+N 值范围。</strong></p></li>
+<li><p>并发方式 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Benchmark_Dosomething</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	b.SetParallelism(<span class="number">8</span>)</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Dosomething()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+&gt;<strong>注：SetParallelism用来设置协程数量</strong></p></li>
+</ul>
+<h1 id="基准测试脚本编写">基准测试脚本编写</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line">go test -bench=. -run=none \</span><br><span class="line">  -benchtime=300s \</span><br><span class="line">  -benchmem -memprofile=mem.pprof \</span><br><span class="line">  -cpuprofile=cpu.pprof \</span><br><span class="line">  -cpu=8 \</span><br><span class="line">  -timeout=0 \</span><br><span class="line">  -blockprofile=block.pprof ./directory/</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>基准测试默认10分钟，如果测试总时长超过10分钟，测试的进程会被kill掉，所以指定timeout=0表示不限时长</strong></p>
+</blockquote>
+<h1 id="go基准测试源码中benchmark.go">go基准测试源码中<code>benchmark.go</code></h1>
+<p>有这么一个核心方法 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// launch launches the benchmark function. It gradually increases the number</span></span><br><span class="line"><span class="comment">// of benchmark iterations until the benchmark runs for the requested benchtime.</span></span><br><span class="line"><span class="comment">// launch is run by the doBench function as a separate goroutine.</span></span><br><span class="line"><span class="comment">// run1 must have been called on b.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *B)</span></span> launch() &#123;</span><br><span class="line">	<span class="comment">// Signal that we&#x27;re done whether we return normally</span></span><br><span class="line">	<span class="comment">// or by FailNow&#x27;s runtime.Goexit.</span></span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		b.signal &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run the benchmark for at least the specified amount of time.</span></span><br><span class="line">	<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">0</span> &#123; <span class="comment">// 这里表示测试时是使用了次数限制，例如指定了参数-benchtime=1000x表示执行1000次</span></span><br><span class="line">		<span class="comment">// We already ran a single iteration in run1.</span></span><br><span class="line">		<span class="comment">// If -benchtime=1x was requested, use that result.</span></span><br><span class="line">		<span class="comment">// See https://golang.org/issue/32051.</span></span><br><span class="line">		<span class="keyword">if</span> b.benchTime.n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			b.runN(b.benchTime.n)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// 这个分支表示指定的是时间限制（区别于次数限制），例如指定了参数-benchtime=5s给示每个用例执行5s（这里会根据实际情况运行，而非精确的5s）</span></span><br><span class="line">		d := b.benchTime.d</span><br><span class="line">        <span class="comment">// 注意下面循环条件中的n的值的上限</span></span><br><span class="line">		<span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">			last := n</span><br><span class="line">			<span class="comment">// Predict required iterations.</span></span><br><span class="line">			goalns := d.Nanoseconds()</span><br><span class="line">			prevIters := <span class="type">int64</span>(b.N)</span><br><span class="line">			prevns := b.duration.Nanoseconds()</span><br><span class="line">			<span class="keyword">if</span> prevns &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// Round up, to avoid div by zero.</span></span><br><span class="line">				prevns = <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Order of operations matters.</span></span><br><span class="line">			<span class="comment">// For very fast benchmarks, prevIters ~= prevns.</span></span><br><span class="line">			<span class="comment">// If you divide first, you get 0 or 1,</span></span><br><span class="line">			<span class="comment">// which can hide an order of magnitude in execution time.</span></span><br><span class="line">			<span class="comment">// So multiply first, then divide.</span></span><br><span class="line">			n = goalns * prevIters / prevns</span><br><span class="line">			<span class="comment">// Run more iterations than we think we&#x27;ll need (1.2x).</span></span><br><span class="line">			n += n / <span class="number">5</span></span><br><span class="line">			<span class="comment">// Don&#x27;t grow too fast in case we had timing errors previously.</span></span><br><span class="line">			n = min(n, <span class="number">100</span>*last)</span><br><span class="line">			<span class="comment">// Be sure to run at least one more than last time.</span></span><br><span class="line">			n = max(n, last+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// Don&#x27;t run more than 1e9 times. (This also keeps n in int range on 32 bit platforms.)</span></span><br><span class="line">			n = min(n, <span class="number">1e9</span>)</span><br><span class="line">			b.runN(<span class="type">int</span>(n))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	b.result = BenchmarkResult&#123;b.N, b.duration, b.bytes, b.netAllocs, b.netBytes, b.extra&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在基准测试时，如果设定的是时间限制，即每个测试用例执行多少时间。因为每次执行的时间都不可能完全一致，所以用例的执行次数到底应该为多少次，这个值是会被估算出来的，估算的过程就是在以下的循环中。
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n := <span class="type">int64</span>(<span class="number">1</span>); !b.failed &amp;&amp; b.duration &lt; d &amp;&amp; n &lt; <span class="number">1e9</span>; &#123;</span><br><span class="line">    <span class="comment">// 每一次循环，我们称之为以下过程的一轮，每一轮总的分为2个步骤</span></span><br><span class="line">    <span class="comment">// 1.估算一下n，n即是接下来用例需要执行多少次？</span></span><br><span class="line">    <span class="comment">// 2.估算好后，调用b.runN(int(n)) n的值为多少，用例这一轮就被调用了多少次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ul>
+<li>明确了大体的流程后，我们来分析一下细节：
+<ul>
+<li><p>n的上限问题
+&gt;设定的用例执行时间还没到，但是用例执行次数已到，那就只有提前结束循环，也就意味着没法再驱动b.runN(int(n))的调用；也就会出现还没到设定时间，用例提前结束了。说明用例执行较快。这种情况换执行次数限定比较合适？</p></li>
+<li><p>n的估算中有一个公式的问题</p>
+<p><code>n = goalns * prevIters / prevns</code></p>
+<ul>
+<li><code>goalns</code>是用例执行的目标时间，单位ns</li>
+<li><code>prevIters</code>是<code>上一轮</code>用例的执行次数</li>
+<li><code>prevens</code>是<code>上一轮</code>用例的执行时间，单位ns</li>
+</ul>
+<blockquote>
+<p>那么问题来了：如果goalns的值较大（设置了比较长的用例测试时间，上一轮的测试次数也较大，但是上一轮的用例测试时间很短，那根据公式，估算出来的n可能很大，可能比int64的区间范围要大，溢出后就会变成一个负值。
+变成负值之后,n的增长逻辑就不一样了，分析一下： n += n / 5 -&gt;
+n还是负值 n = min(n, 100*last) -&gt; n的值还是n n = max(n, last+1) -&gt;
+变为上一轮估算的值+1 == (last + 1) n = min(n, 1e9) -&gt; n == (last + 1)
+同理，每一轮估算，估算值都是以1步进，问题就出现了：从n值溢出开始，假设这个时候last的值为
+1e8，那n的值变化规率为100000001, 100000002, 100000003,
+...,这样如果想让n达到1e9，要<code>1e9 - 1e8</code> 轮,
+而且每轮要执行用例n次。注意：这只是一个估算的过程，还没真正开始做基准测试呢...这个估算执行次数的过程就已经很消耗时间了,最终有可能超过10min，因为go
+benchmark的默认执行时间就是10min，这个时候测试进程会被强杀，并提示执行超时的错误。</p>
+</blockquote></li>
+</ul></li>
+</ul>
+<h1 id="基准测试问题重现方法">基准测试问题重现方法</h1>
+<ul>
+<li>写一个耗时很短的用例</li>
+<li>设置一个较长的用例测试时间（不用太长，比如200s就行，只要想办法让n值溢出即可）</li>
+<li>执行一下...就等着10min钟以后吧</li>
+</ul>
+<h1 id="解决办法">解决办法</h1>
+<ul>
+<li><ol type="1">
+<li>上面提到的n溢出问题，虽然觉得benchmark.go里面的代码确实有点问题，可以把n的数据类型再改大一些如float64，在方法中增加判断溢出后进行特殊处理。</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>出现这种情况，说明被测试的用例做长时间测试的必要性值得商榷</li>
+</ol></li>
+</ul>
+<h1 id="另外">另外</h1>
+<blockquote>
+<p>func (b <em>B) launch()
+是非并行模式下会被调用的方法；同样在并行模式下，调用的是func (b </em>B)
+RunParallel(body func(*PB)) 应该同样存在类似问题。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1233,130 +1386,6 @@ provider），在Fabric网络中会为每一个成员提供相应的证书，msp
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/04/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%BA%8C%EF%BC%89/" class="post-title-link" itemprop="url">Fabric-通过samples了解fabric（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-04 14:42:56" itemprop="dateCreated datePublished" datetime="2022-11-04T14:42:56+08:00">2022-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:26" itemprop="dateModified" datetime="2022-12-03T19:37:26+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="network.sh-脚本命令">network.sh 脚本命令</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">./network.sh help</span><br><span class="line">Using docker and docker-compose</span><br><span class="line">Usage:</span><br><span class="line">  network.sh &lt;Mode&gt; [Flags]</span><br><span class="line">    Modes:</span><br><span class="line">      up - Bring up Fabric orderer and peer nodes. No channel is created</span><br><span class="line">      up createChannel - Bring up fabric network with one channel</span><br><span class="line">      createChannel - Create and join a channel after the network is created</span><br><span class="line">      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)</span><br><span class="line">      down - Bring down the network</span><br><span class="line"></span><br><span class="line">    Flags:</span><br><span class="line">    Used with network.sh up, network.sh createChannel:</span><br><span class="line">    -ca &lt;use CAs&gt; -  Use Certificate Authorities to generate network crypto material</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to create (defaults to &quot;mychannel&quot;)</span><br><span class="line">    -s &lt;dbtype&gt; - Peer state database to deploy: goleveldb (default) or couchdb</span><br><span class="line">    -r &lt;max retry&gt; - CLI times out after certain number of attempts (defaults to 5)</span><br><span class="line">    -d &lt;delay&gt; - CLI delays for a certain number of seconds (defaults to 3)</span><br><span class="line">    -verbose - Verbose mode</span><br><span class="line"></span><br><span class="line">    Used with network.sh deployCC</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to deploy chaincode to</span><br><span class="line">    -ccn &lt;name&gt; - Chaincode name.</span><br><span class="line">    -ccl &lt;language&gt; - Programming language of the chaincode to deploy: go, java, javascript, typescript</span><br><span class="line">    -ccv &lt;version&gt;  - Chaincode version. 1.0 (default), v2, version3.x, etc</span><br><span class="line">    -ccs &lt;sequence&gt;  - Chaincode definition sequence. Must be an integer, 1 (default), 2, 3, etc</span><br><span class="line">    -ccp &lt;path&gt;  - File path to the chaincode.</span><br><span class="line">    -ccep &lt;policy&gt;  - (Optional) Chaincode endorsement policy using signature policy syntax. The default policy requires an endorsement from Org1 and Org2</span><br><span class="line">    -cccg &lt;collection-config&gt;  - (Optional) File path to private data collections configuration file</span><br><span class="line">    -cci &lt;fcn name&gt;  - (Optional) Name of chaincode initialization function. When a function is provided, the execution of init will be requested and the function will be invoked.</span><br><span class="line"></span><br><span class="line">    -h - Print this message</span><br><span class="line"></span><br><span class="line"> Possible Mode and flag combinations</span><br><span class="line">   up -ca -r -d -s -verbose</span><br><span class="line">   up createChannel -ca -c -r -d -s -verbose</span><br><span class="line">   createChannel -c -r -d -verbose</span><br><span class="line">   deployCC -ccn -ccl -ccv -ccs -ccp -cci -r -d -verbose</span><br><span class="line"></span><br><span class="line"> Examples:</span><br><span class="line">   network.sh up createChannel -ca -c mychannel -s couchdb</span><br><span class="line">   network.sh createChannel -c channelName</span><br><span class="line">   network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript</span><br><span class="line">   network.sh deployCC -ccn mychaincode -ccp ./user/mychaincode -ccv 1 -ccl javascript</span><br></pre></td></tr></table></figure>
-<h2 id="清除测试网中的所有容器">清除测试网中的所有容器</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
-<h2 id="启动测试网">启动测试网</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh up</span><br></pre></td></tr></table></figure>
-<h2 id="创建通道">创建通道</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./network.sh createChannel    # 不指定通道名，通道名默认为mychannel</span><br><span class="line">./network.sh createChannel -c channel1 # 指定通道名 channel1</span><br></pre></td></tr></table></figure>
-<h2 id="安装链码">安装链码</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-ccn</code>指定链码名称 <code>chain code name</code></li>
-<li><code>-ccl</code> 指定编写链码的语言
-<code>chain code language</code></li>
-<li><code>-ccp</code> 指定链码所在的目录
-<code>chain code path</code></li>
-<li>其余的查看 <code>./network.sh help</code></li>
-</ul>
-<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code>
-和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code>
-和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
-<p>还有加<code>sudo</code>后找不到<code>go</code>的坑,需要在<code>~/.zshrc</code>中添加</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias sudo=&#x27;sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH&#x27;</span><br></pre></td></tr></table></figure>
-<h2 id="与fabric网络交互">与fabric网络交互</h2>
-<p><strong>确保当前是在<code>test-network</code>目录</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PWD&#125;/../bin:$PATH</span><br></pre></td></tr></table></figure>
-<p>添加这个环境变量是为了下面调用<code>peer</code>命令系统能找到<code>peer</code>指令，除了<code>peer</code>指令，还有其它一些指令，如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x@ 1 mao  staff    15M Oct 26 23:58 configtxgen</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    14M Oct 26 23:58 configtxlator</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    11M Oct 26 23:58 cryptogen</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    16M Oct 26 23:58 discover</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    26M Jul  8 17:32 fabric-ca-client</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    32M Jul  8 17:33 fabric-ca-server</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    16M Oct 26 23:58 ledgerutil</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    26M Oct 26 23:58 orderer</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    12M Oct 26 23:58 osnadmin</span><br><span class="line">-rwxr-xr-x@ 1 mao  staff    33M Oct 26 23:58 peer</span><br></pre></td></tr></table></figure>
-<p>还需要将<code>fabric-samples</code>代码库中的<code>FABRIC_CFG_PATH</code>设置为指向其中的<code>core.yaml</code>文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FABRIC_CFG_PATH=$PWD/../config/</span><br></pre></td></tr></table></figure>
-<p>现在，可以设置环境变量，以允许作为Org1操作<code>peer</code> CLI：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Environment variables <span class="keyword">for</span> Org1</span></span><br><span class="line"></span><br><span class="line">export CORE_PEER_TLS_ENABLED=true</span><br><span class="line">export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;</span><br><span class="line">export CORE_PEER_TLS_ROOTCERT_FILE=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line">export CORE_PEER_MSPCONFIGPATH=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line">export CORE_PEER_ADDRESS=localhost:7051</span><br></pre></td></tr></table></figure>
-<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。
-如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动
-asset-transfer (basic) 链码，您可以调用链码（Go）的
-<code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用
-typescript 或者 javascript，例如
-<code>./network.sh deployCC -l javascript</code>，你会调用相关链码的
-<code>initLedger</code> 功能）。
-运行以下命令用一些资产来初始化账本：</p>
-<h3 id="调用链码函数initledger">调用链码函数<code>InitLedger</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<p><strong>Mac
-M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker
-Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
-<h3 id="查询">查询</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c &#x27;&#123;&quot;Args&quot;:[&quot;GetAllAssets&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1426,7 +1455,7 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1437,7 +1466,7 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">196</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
