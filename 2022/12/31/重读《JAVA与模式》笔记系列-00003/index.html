@@ -258,8 +258,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="设计原则在常用设计模式中的体现">设计原则在常用设计模式中的体现</h1>
-<h2 id="策略模式对开-闭原则的支持">策略模式对“开-闭”原则的支持</h2>
+        <h1>设计原则在常用设计模式中的体现</h1>
+<h2 id="策略模式对“开-闭”原则的支持">策略模式对“开-闭”原则的支持</h2>
 <p>策略模式讲的是，如果有一组算法，那么就将每一个算法封装起来，使得它们可以互换。策略模式就是从对可变性的封装原则出发，达到“开-闭”原则的范例</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -298,25 +298,25 @@ PercentageStrategy --|> DiscountStrategy
 
           </abstract></pre>
 <h2 id="简单工厂模式">简单工厂模式</h2>
-<p>“开-闭”原则要求系统允许新的产品加入系统中而无需对现有代码进行修改。在简单工厂模式中，这对于产品消费角色是成立的，而对于工厂模式是不成立的。简单工厂模式结构如下图：
+<p>“开-闭”原则要求系统允许新的产品加入系统中而无需对现有代码进行修改。在简单工厂模式中，这对于产品消费角色是成立的，而对于工厂模式是不成立的。简单工厂模式结构如下图：<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/SimpleFactory.jpg" alt="简单工厂模式"></p>
 <h2 id="工厂方法模式">工厂方法模式</h2>
-<p>在工厂方法模式中，具体的工厂类都有共同的接口，它们“生产”出很多处于同一等级结构中的产品对象。使得这个系统可以加入新的产品类型（增加产品的具体工厂）。工厂方法模式的简略类图如下：
+<p>在工厂方法模式中，具体的工厂类都有共同的接口，它们“生产”出很多处于同一等级结构中的产品对象。使得这个系统可以加入新的产品类型（增加产品的具体工厂）。工厂方法模式的简略类图如下：<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/FactoryMethod.jpg" alt="工厂方法模式"></p>
 <h2 id="抽象工厂模式">抽象工厂模式</h2>
-<p>抽象工厂模式封装了产品对象家族的可变性，从而一方面可以使系统动态地决定将哪一个产品族的产品对象实例化，另一方面可以将新的产品引进到已有系统中而不必修改已有的系统。抽象工厂模式的简略图如下：
+<p>抽象工厂模式封装了产品对象家族的可变性，从而一方面可以使系统动态地决定将哪一个产品族的产品对象实例化，另一方面可以将新的产品引进到已有系统中而不必修改已有的系统。抽象工厂模式的简略图如下：<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/AbstractFactory.jpg" alt="抽象工厂模式"></p>
 <h2 id="建造模式">建造模式</h2>
-<p>建造模式封装了建造一个有内部结构的产品对象的过程，因此这样的系统是向产品内部表象的改变开放的。
+<p>建造模式封装了建造一个有内部结构的产品对象的过程，因此这样的系统是向产品内部表象的改变开放的。<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Build.jpg" alt="抽象工厂模式"></p>
 <h2 id="桥梁模式">桥梁模式</h2>
-<p>桥梁模式是“对可变性的封装原则”的极好例子。在桥梁模式中，具体实现化类代表不同的实现逻辑，但是所有的具体实现化类又有共同的接口。新的实现逻辑可以通过创建新的具体实现化类加入到系统里面。桥梁模式的简略类图如下：
+<p>桥梁模式是“对可变性的封装原则”的极好例子。在桥梁模式中，具体实现化类代表不同的实现逻辑，但是所有的具体实现化类又有共同的接口。新的实现逻辑可以通过创建新的具体实现化类加入到系统里面。桥梁模式的简略类图如下：<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Bridge.jpg" alt="桥梁模式"></p>
 <h2 id="门面模式">门面模式</h2>
-<p>假设一个系统开始的时候与某一个子系统耦合在一起，后来又不得不换成另外一个子系统，那么门面模式便可以发挥门面模式和适配器模式两种作用，将新的子系统仍然与本系统耦合在一起。这样一来，使用门面模式便可以改变子系统内部功能而不会影响到客户端。门面模式的简略类图如下：
+<p>假设一个系统开始的时候与某一个子系统耦合在一起，后来又不得不换成另外一个子系统，那么门面模式便可以发挥门面模式和适配器模式两种作用，将新的子系统仍然与本系统耦合在一起。这样一来，使用门面模式便可以改变子系统内部功能而不会影响到客户端。门面模式的简略类图如下：<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Facade.jpg" alt="门面模式"></p>
 <h2 id="迭代子模式">迭代子模式</h2>
-<p>迭代子模式将访问聚集元素的逻辑封装起来，并且使它独立于聚集对象的封装。这就提供了聚集存储逻辑与迭代逻辑独立演变的空间，使系统可以在无需修改消费迭代子的客户端的情况下，对聚集对象的内部结构进行功能扩展。迭代子模式的简略类图如下：
+<p>迭代子模式将访问聚集元素的逻辑封装起来，并且使它独立于聚集对象的封装。这就提供了聚集存储逻辑与迭代逻辑独立演变的空间，使系统可以在无需修改消费迭代子的客户端的情况下，对聚集对象的内部结构进行功能扩展。迭代子模式的简略类图如下：<br>
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Iterator.jpg" alt="迭代子模式"></p>
 <blockquote>
 <p>当学习设计模式的时候，要学会问一个问题：这个设计模式可以对什么样的变换开放，以及它做到这一点所付出的代价是什么。通过这样的思考，可以更加透彻地了解这种模式对“开-闭”原则的支持程度，以及这种设计模式本身。</p>
@@ -401,7 +401,7 @@ PercentageStrategy --|> DiscountStrategy
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%9C%A8%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%AD%E7%9A%84%E4%BD%93%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">设计原则在常用设计模式中的体现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E5%AF%B9%E5%BC%80-%E9%97%AD%E5%8E%9F%E5%88%99%E7%9A%84%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.</span> <span class="nav-text">策略模式对“开-闭”原则的支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">抽象工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">建造模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%A2%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">桥梁模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%A8%E9%9D%A2%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">门面模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%AD%90%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.8.</span> <span class="nav-text">迭代子模式</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">设计原则在常用设计模式中的体现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E5%AF%B9%E2%80%9C%E5%BC%80-%E9%97%AD%E2%80%9D%E5%8E%9F%E5%88%99%E7%9A%84%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.</span> <span class="nav-text">策略模式对“开-闭”原则的支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">抽象工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">建造模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%A2%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">桥梁模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%A8%E9%9D%A2%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">门面模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%AD%90%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.8.</span> <span class="nav-text">迭代子模式</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,7 +415,7 @@ PercentageStrategy --|> DiscountStrategy
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -426,7 +426,7 @@ PercentageStrategy --|> DiscountStrategy
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">196</span>
+        <span class="site-state-item-count">199</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
