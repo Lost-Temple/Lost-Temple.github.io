@@ -188,6 +188,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/02/20/Milvus-docker%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/02/20/Milvus-docker%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Milvus docker单机版安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-20 15:03:50 / 修改时间：15:45:23" itemprop="dateCreated datePublished" datetime="2025-02-20T15:03:50+08:00">2025-02-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="docker运行">docker运行</h1>
+<p>安装步骤</p>
+<ol type="1">
+<li><p>下载安装脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://raw.githubusercontent.com/milvus-io/milvus/master/scripts/standalone_embed.sh -o standalone_embed.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>执行脚本安装milvus</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash standalone_embed.sh start</span><br></pre></td></tr></table></figure>
+<p>以下是它的输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Unable to find image &#x27;milvusdb/milvus:v2.5.4&#x27; locally</span><br><span class="line">v2.5.4: Pulling from milvusdb/milvus</span><br><span class="line">Digest: sha256:081e5471cb53756bd86bf2e2bfbedadec9e87cb181583c6f19410b23a711be00</span><br><span class="line">Status: Downloaded newer image for milvusdb/milvus:v2.5.4</span><br><span class="line">Wait for Milvus Starting...</span><br><span class="line">Start successfully.</span><br><span class="line">To change the default Milvus configuration, add your settings to the user.yaml file and then restart the service.</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="docker-compose-运行">docker-compose 运行</h1>
+<p>初装步骤</p>
+<ol type="1">
+<li><p>下载配置文件<code>milvus.yaml</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/milvus-io/milvus/v2.5.4/configs/milvus.yaml</span><br></pre></td></tr></table></figure></li>
+<li><p>下载<code>docker-compose.yaml</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/milvus-io/milvus/releases/download/v2.5.4/milvus-standalone-docker-compose.yml -O docker-compose.yml</span><br></pre></td></tr></table></figure></li>
+<li><p>修改<code>docker-compose.yaml</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  standalone:</span><br><span class="line">    container_name: milvus-standalone</span><br><span class="line">    image: milvusdb/milvus:v2.2.13</span><br><span class="line">    command: [&quot;milvus&quot;, &quot;run&quot;, &quot;standalone&quot;]</span><br><span class="line">    environment:</span><br><span class="line">      ETCD_ENDPOINTS: etcd:2379</span><br><span class="line">      MINIO_ADDRESS: minio:9000</span><br><span class="line">    volumes:</span><br><span class="line">      - /local/path/to/your/milvus.yaml:/milvus/configs/milvus.yaml   # Map the local path to the container path</span><br><span class="line">      - $&#123;DOCKER_VOLUME_DIRECTORY:-.&#125;/volumes/milvus:/var/lib/milvus</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;19530:19530&quot;</span><br><span class="line">      - &quot;9091:9091&quot;</span><br><span class="line">    depends_on:</span><br><span class="line">      - &quot;etcd&quot;</span><br><span class="line">      - &quot;minio&quot;</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker compose up -d</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/02/12/nginx%E9%85%8D%E7%BD%AEmodsecurity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1155,94 +1235,6 @@ Theorem）或译<strong>史都华定理、斯特瓦尔特定理、斯图沃特�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2024/07/12/jenkins-pipeline%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/07/12/jenkins-pipeline%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">jenkins-pipeline项目实战</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-07-12 10:50:42 / 修改时间：12:20:16" itemprop="dateCreated datePublished" datetime="2024-07-12T10:50:42+08:00">2024-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="jenkins-pipeline任务">Jenkins pipeline任务</h1>
-<ul>
-<li><p>需要安装插件：<code>Pipeline</code></p></li>
-<li><p>创建Pipeline任务，配置<code>构建触发器</code>，这个既然是流水线任务，要先有个地方触发这个任务的执行，这里会显示一个<code>webhook URL</code>。我们需要实现的目标是，当gitlab上提交代码或者创建<code>push tag</code>时，把这些事件通知到jenkins，让它启动这个流水线，所以这里的<code>webhook URL</code>就是用来接收gitlab发送的通知用的，但jenkins也不可能无条件接收所有的通知信息，所以这里还有一个<code>token</code>，只有<code>token</code>可以在配置界面中生成。</p>
-<p><img src="/2024/07/12/jenkins-pipeline%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/Snipaste_2024-07-12_11-09-01.png" alt="构建触发器配置"> TOKEN的生成是在<strong>高级</strong>选项中 <img src="/2024/07/12/jenkins-pipeline%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/Snipaste_2024-07-12_11-16-58.png" alt="token的生成"></p></li>
-<li><p>在<code>gitlab</code>中配置事件通知
-进入到gitlab中项目的<code>settings-&gt;integrations</code></p>
-<ul>
-<li>填写<code>URL</code>，即jenkins pipeline 任务的 webhook url</li>
-<li>填写<code>Secret Token</code>，即jenkins pipeline 任务中生成的
-token</li>
-<li>Trigger中根据需要勾选，比如勾选了<code>Tag push events</code>，每当你创建了新的tag后，gitlab就会触发（发送通知到webhook
-url）jenkis pipeline任务启动</li>
-</ul></li>
-<li><p>配置pipeline脚本</p>
-<p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line"></span><br><span class="line">    environment &#123;</span><br><span class="line">        GIT_URL_FATE_BUILDER = <span class="string">&quot;http://x.x.x.x/YunPCDS/pcds-bfia/pcds-builder.git&quot;</span></span><br><span class="line">        GIT_URL_FATE = <span class="string">&quot;http://x.x.x.x/YunPCDS/pcds-bfia/fate.git&quot;</span></span><br><span class="line">        GIT_CREDENTIALS_ID = <span class="string">&quot;git帐号在Jenkins中的凭据ID&quot;</span></span><br><span class="line"></span><br><span class="line">        DEST_PATH = <span class="string">&#x27;/home/centos/builder&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 触发构建的gitlab tag 获取到的值样例： refs/tags/v0.0.1-test</span></span><br><span class="line">        GITLAB_TAG_NAME = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="comment">// docker镜像标签</span></span><br><span class="line">        DOCKER_IMAGE_TAG = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        SUBDIRECTORY_FATE = <span class="string">&quot;fate&quot;</span></span><br><span class="line">        SUBDIRECTORY_FATE_BUILDER = <span class="string">&quot;pcds-builder&quot;</span></span><br><span class="line"></span><br><span class="line">        PREFIX = <span class="string">&quot;yunpcds&quot;</span></span><br><span class="line">        <span class="comment">// DOCKERHUB，用于最后push docker镜像</span></span><br><span class="line">        DOCKER_REGISTRY = <span class="string">&quot;x.x.x.x:xxxx&quot;</span></span><br><span class="line">        <span class="comment">// 服务器唯一标识，用来指定在哪台服务器上执行shell脚本（因为任务中有一个步骤需要在远程服务器上执行shell脚本）</span></span><br><span class="line">        HOST_SERVER_NAME = <span class="string">&quot;xxxx&quot;</span></span><br><span class="line">        <span class="comment">// 设置代理（可选）</span></span><br><span class="line">        PROXY = <span class="string">&quot;http://x.x.x.x:xxxx http_proxy=http://x.x.x.x:xxxx all_proxy=socks5://x.x.x.x:xxxx&quot;</span></span><br><span class="line">        PCDS_WORKSPACE = <span class="string">&quot;&quot;</span></span><br><span class="line">        FATE_DIR = <span class="string">&quot;&quot;</span></span><br><span class="line">        BUILD_DIR = <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    stages &#123;</span><br><span class="line">        <span class="comment">// 打印所有环境变量，便于查看触发的Tag是哪个环境变量</span></span><br><span class="line">        stage(<span class="string">&#x27;Print All Environment&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    sh <span class="string">&#x27;printenv&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage(<span class="string">&#x27;Prepare Gitlab Tag Name&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    <span class="comment">// 获取触发构建的tag</span></span><br><span class="line">                    GITLAB_TAG_NAME = env.gitlabBranch</span><br><span class="line">                    <span class="keyword">def</span> tagName = GITLAB_TAG_NAME.replace(<span class="string">&quot;refs/tags/&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">                    DOCKER_IMAGE_TAG = tagName</span><br><span class="line">                    echo <span class="string">&quot;Triggered by GitLab tag: $&#123;GITLAB_TAG_NAME&#125;&quot;</span></span><br><span class="line">                    echo <span class="string">&quot;Setting DOCKER IMAGE TAG to $&#123;DOCKER_IMAGE_TAG&#125;&quot;</span></span><br><span class="line">                    PCDS_WORKSPACE = <span class="string">&#x27;/home/centos/jenkins/workspace/$&#123;JOB_NAME&#125;&#x27;</span></span><br><span class="line">                    echo <span class="string">&quot;PCDS_WORKSPACE ==&gt; $&#123;PCDS_WORKSPACE&#125;&quot;</span></span><br><span class="line">                    FATE_DIR = <span class="string">&#x27;$&#123;PCDS_WORKSPACE&#125;/fate&#x27;</span></span><br><span class="line">                    BUILD_DIR = <span class="string">&#x27;$&#123;PCDS_WORKSPACE&#125;/pcds-builder/docker-build&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage(<span class="string">&#x27;git checkout fate-builder&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(<span class="string">&quot;$&#123;SUBDIRECTORY_FATE_BUILDER&#125;&quot;</span>) &#123;</span><br><span class="line">                    checkout([<span class="attr">$class           :</span> <span class="string">&#x27;GitSCM&#x27;</span>, <span class="attr">branches:</span> [[<span class="attr">name:</span> <span class="string">&quot;dev-2.1.0&quot;</span>]],</span><br><span class="line">                              <span class="symbol">userRemoteConfigs:</span> [[<span class="attr">credentialsId:</span> <span class="string">&quot;$&#123;GIT_CREDENTIALS_ID&#125;&quot;</span>, <span class="attr">url:</span> <span class="string">&quot;$&#123;GIT_URL_FATE_BUILDER&#125;&quot;</span>]]</span><br><span class="line">                    ])</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage(<span class="string">&#x27;git checkout fate&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(<span class="string">&quot;$&#123;SUBDIRECTORY_FATE&#125;&quot;</span>) &#123;</span><br><span class="line">                    checkout([<span class="attr">$class           :</span> <span class="string">&#x27;GitSCM&#x27;</span>, <span class="attr">branches:</span> [[<span class="attr">name:</span> <span class="string">&quot;$&#123;GITLAB_TAG_NAME&#125;&quot;</span>]],</span><br><span class="line">                              <span class="symbol">userRemoteConfigs:</span> [[<span class="attr">credentialsId:</span> <span class="string">&quot;$&#123;GIT_CREDENTIALS_ID&#125;&quot;</span>, <span class="attr">url:</span> <span class="string">&quot;$&#123;GIT_URL_FATE&#125;&quot;</span>]]</span><br><span class="line">                    ])</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage(<span class="string">&#x27;Docker Build and Push&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sshPublisher(<span class="attr">publishers:</span> [sshPublisherDesc(<span class="attr">configName:</span> <span class="string">&quot;$&#123;HOST_SERVER_NAME&#125;&quot;</span>, <span class="attr">transfers:</span> [sshTransfer(<span class="attr">cleanRemote:</span> <span class="literal">false</span>, <span class="attr">excludes:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">execCommand:</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            export PCDS_WORKSPACE=$&#123;PCDS_WORKSPACE&#125;</span></span><br><span class="line"><span class="string">            echo &#x27;PCDS_WORKSPACE: $&#123;PCDS_WORKSPACE&#125;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            export FATE_DIR=$&#123;FATE_DIR&#125;</span></span><br><span class="line"><span class="string">            export BUILD_DIR=$&#123;BUILD_DIR&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            cd $&#123;BUILD_DIR&#125;/</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            echo &#x27;PROXY: $&#123;PROXY&#125;&#x27;</span></span><br><span class="line"><span class="string">            export https_proxy=$&#123;PROXY&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            PREFIX=$&#123;DOCKER_REGISTRY&#125;/$&#123;PREFIX&#125; GIT_TAG=$&#123;DOCKER_IMAGE_TAG&#125;  bash -x build.sh all</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            docker login -u admin -p yunphant $&#123;DOCKER_REGISTRY&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            echo &quot;start push image&quot;</span></span><br><span class="line"><span class="string">            PREFIX=&quot;$&#123;DOCKER_REGISTRY&#125;/$&#123;PREFIX&#125;&quot; GIT_TAG=&quot;$&#123;DOCKER_IMAGE_TAG&#125;&quot;  bash -x build.sh push</span></span><br><span class="line"><span class="string">            echo &quot;finish push image&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          &quot;&quot;&quot;</span>, <span class="attr">execTimeout:</span> <span class="number">7200000</span>, <span class="attr">flatten:</span> <span class="literal">false</span>, <span class="attr">makeEmptyDirs:</span> <span class="literal">false</span>, <span class="attr">noDefaultExcludes:</span> <span class="literal">false</span>, <span class="attr">patternSeparator:</span> <span class="string">&#x27;[, ]+&#x27;</span>,</span><br><span class="line">                        <span class="symbol">remoteDirectory:</span> <span class="string">&quot;$&#123;PCDS_WORKSPACE&#125;&quot;</span>, <span class="attr">remoteDirectorySDF:</span> <span class="literal">false</span>, <span class="attr">removePrefix:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">sourceFiles:</span> <span class="string">&quot;&quot;</span>)],</span><br><span class="line">                        <span class="symbol">usePromotionTimestamp:</span> <span class="literal">false</span>, <span class="attr">useWorkspaceInPromotion:</span> <span class="literal">false</span>, <span class="attr">verbose:</span> <span class="literal">true</span>)])</span><br><span class="line"></span><br><span class="line">                echo <span class="string">&#x27;Docker Build、Push  SUCCESS&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1312,7 +1304,7 @@ url）jenkis pipeline任务启动</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1323,7 +1315,7 @@ url）jenkis pipeline任务启动</li>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">199</span>
+        <span class="site-state-item-count">201</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

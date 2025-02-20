@@ -188,6 +188,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">Fabric SDK相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-05 16:28:37 / 修改时间：17:21:18" itemprop="dateCreated datePublished" datetime="2022-12-05T16:28:37+08:00">2022-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="fabric-sdk-介绍">Fabric SDK 介绍</h1>
+<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。
+Fabric提供了多种语言版本的SDK： - <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a>
+- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a> -
+<a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a>
+- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></p>
+<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：
+- 创建通道 - 将<code>Peer</code>节点加入通道 -
+在<code>Peer</code>节点安装链码 - 在通道实例化链码 - 通过链码调用交易 -
+查询交易或区块的账本</p>
+<h1 id="fabric-sdk-安装">Fabric SDK 安装</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/hyperledger/fabric-sdk-go</span><br></pre></td></tr></table></figure>
+<h1 id="fabric-go-sdk-源码结构">Fabric Go SDK 源码结构</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">total 624</span><br><span class="line">-rw-r--r--   1 mao  staff   170K Aug 15 14:45 CHANGELOG.md</span><br><span class="line">-rw-r--r--   1 mao  staff   108B Aug 15 14:45 CODEOWNERS</span><br><span class="line">-rw-r--r--   1 mao  staff   577B Aug 15 14:45 CODE_OF_CONDUCT.md</span><br><span class="line">-rw-r--r--   1 mao  staff   661B Aug 15 14:45 CONTRIBUTING.md</span><br><span class="line">-rw-r--r--   1 mao  staff    11K Aug 15 14:45 LICENSE</span><br><span class="line">-rw-r--r--   1 mao  staff   910B Nov  2 08:36 MAINTAINERS.md</span><br><span class="line">-rw-r--r--   1 mao  staff    33K Aug 15 14:45 Makefile</span><br><span class="line">-rw-r--r--   1 mao  staff   7.3K Aug 15 14:45 README.md</span><br><span class="line">-rw-r--r--   1 mao  staff   1.0K Aug 15 14:45 SECURITY.md</span><br><span class="line">drwxr-xr-x   4 mao  staff   128B Aug 15 14:45 ci</span><br><span class="line">-rw-r--r--   1 mao  staff   143B Aug 15 14:45 ci.properties</span><br><span class="line">-rw-r--r--   1 mao  staff   2.3K Aug 15 14:45 doc.go</span><br><span class="line">-rw-r--r--   1 mao  staff   1.2K Aug 15 14:45 go.mod</span><br><span class="line">-rw-r--r--   1 mao  staff    45K Aug 15 14:45 go.sum</span><br><span class="line">-rwxr-xr-x   1 mao  staff   1.6K Aug 15 14:45 golangci.yml</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 internal</span><br><span class="line">drwxr-xr-x  11 mao  staff   352B Aug 15 14:45 pkg</span><br><span class="line">drwxr-xr-x   5 mao  staff   160B Aug 15 14:45 scripts</span><br><span class="line">drwxr-xr-x   7 mao  staff   224B Aug 15 14:45 test</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 third_party</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>pkg/fabsdk</code>: Fabric
+SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
+<li><code>pkg/client/channel</code>: 提供通道交易相关功能</li>
+<li><code>pkg/client/event</code>: 提供通道事件相关功能</li>
+<li><code>pkg/client/ledger</code>:
+启用对通道底层账本的查询相关功能</li>
+<li><code>pkg/client/resmgmt</code>: 提供资源管理功能，例如安装链码</li>
+<li><code>pkg/client/msp</code>: 启用身份管理相关功能</li>
+</ul>
+<h1 id="fabric-sdk功能模块">Fabric SDK功能模块</h1>
+<h2 id="api">API</h2>
+<p>对于应用开发者来说，插件化的API可以支持SDK提供的关键接口的可选实现。对于每个接口，都有内置的默认实现，也可以灵活自定义。</p>
+<h2 id="fabric-client">fabric-client</h2>
+<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：
+- 创建<code>channel</code> - 请求<code>Peer</code>节点加入通道 -
+在<code>Peer</code>节点中安装链码 - 在通道中实例化链码 -
+通过调用链码来调用事务 - 多种查询 - 监听事件</p>
+<h2 id="fabric-ca-client">fabric-ca-client</h2>
+<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：
+- 注册新用户 - 注册用户以获得由<code>Fabric CA</code>签名的注册证书 -
+通过注册ID撤销现有用户或撤消证书 - 可定制的持久化存储</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/04/x64%E5%AF%84%E5%AD%98%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1242,120 +1349,6 @@ C 语言空间先开辟同样大小的内存，然后将 Go 的内存填充到 C
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-002/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/12/Fabric%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97-002/" class="post-title-link" itemprop="url">Fabric源码系列-002</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-12 09:42:56" itemprop="dateCreated datePublished" datetime="2022-11-12T09:42:56+08:00">2022-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:36:13" itemprop="dateModified" datetime="2022-12-03T19:36:13+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="bccsp-接口">BCCSP 接口</h1>
-<p><strong>以下内容从<a target="_blank" rel="noopener" href="https://lessisbetter.site/">太彬年久失修的博客</a>盗版而来</strong></p>
-<p><code>BCCSP</code>是<code>Block Chain Crypto Service Provider</code>的缩写。在Fabric中，BCCSP被抽象成为一个接口。</p>
-<p><code>bccsp</code>模块提供密码学服务，它包含的具体功能有：对称加密和非对称加密的密钥生成、导入、导出，数字签名和验证，对称加密和解密、摘要计算。</p>
-<p><code>bccsp</code>使用了依赖倒置原则（Dependence Inversion
-Principle）：依赖抽象而不依赖具体实现，这样的好处就是可以把具体的密码学实现（实现BCCSP接口）当成插件进行使用。</p>
-<p>bccsp模块中当前有2种密码实现，它们都是bccsp中的密码学插件：<code>SW</code>和<code>PKCS11</code>，<code>SW</code>代表的是国际标准加密的软实现，<code>SW</code>是<code>software</code>的缩写，<code>PKCS11</code>代指硬实现。</p>
-<figure>
-<img src="https://s2.loli.net/2022/11/12/SYeZ7wR48ajJUGh.png" alt="BCCSP.png">
-<figcaption aria-hidden="true">BCCSP.png</figcaption>
-</figure>
-<blockquote>
-<p>扩展阅读：</p>
-<p>PKCS11是PKCS系列标准中的第11个，它定义了应用层和底层加密设备的交互标准，比如过去在电脑上，
-插入USBKey用网银转账时，就需要走USBKey中的硬件进行数字签名，这个过程就需要使用PCKS11。</p>
-</blockquote>
-<p>密码学通常有软实现和硬实现，软实现就是常用的各种加密库，比如Go中<code>crypto</code>包，硬实现是使用加密机提供的一套加密服务。软实现和硬实现的重要区别是，密码算法的安全性强依赖随机数，软实现利用的是OS的伪随机数，而硬实现利用的是加密机生成的随机数，所以硬实现的安全强度要高于软实现。</p>
-<h2 id="sw介绍">SW介绍</h2>
-<p>SW是国际标准加密的软实现插件，它包含了ECDSA算法、RSA算法、AES算法，以及SHA系列的摘要算法。</p>
-<p><code>BCCSP</code>接口定义了以下方法，其实对密码学中的函数进行了一个功能分类：</p>
-<ul>
-<li><code>KeyGen</code>：密钥生成，包含对称和非对称加密</li>
-<li><code>KeyDeriv</code>：密钥派生</li>
-<li><code>KeyImport</code>：密钥导入，从文件、内存、数字证书中导入</li>
-<li><code>GetKey</code>：获取密钥</li>
-<li><code>Hash</code>：计算摘要</li>
-<li><code>GetHash</code>：获取摘要计算实例</li>
-<li><code>Sign</code>：数字签名</li>
-<li><code>Verify</code>：签名验证</li>
-<li><code>Encrypt</code>：数据加密，包含对称和非对称加密</li>
-<li><code>Decrypt</code>：数据解密，包含对称和非对称加密</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BCCSP is the blockchain cryptographic service provider that offers</span></span><br><span class="line"><span class="comment">// the implementation of cryptographic standards and algorithms.</span></span><br><span class="line"><span class="keyword">type</span> BCCSP <span class="keyword">interface</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KeyGen generates a key using opts.</span></span><br><span class="line">	KeyGen(opts KeyGenOpts) (k Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KeyDeriv derives a key from k using opts.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the primitive used.</span></span><br><span class="line">	KeyDeriv(k Key, opts KeyDerivOpts) (dk Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KeyImport imports a key from its raw representation using opts.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the primitive used.</span></span><br><span class="line">	KeyImport(raw <span class="keyword">interface</span>&#123;&#125;, opts KeyImportOpts) (k Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// GetKey returns the key this CSP associates to</span></span><br><span class="line">	<span class="comment">// the Subject Key Identifier ski.</span></span><br><span class="line">	GetKey(ski []<span class="type">byte</span>) (k Key, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Hash hashes messages msg using options opts.</span></span><br><span class="line">	<span class="comment">// If opts is nil, the default hash function will be used.</span></span><br><span class="line">	Hash(msg []<span class="type">byte</span>, opts HashOpts) (hash []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// GetHash returns and instance of hash.Hash using options opts.</span></span><br><span class="line">	<span class="comment">// If opts is nil, the default hash function will be returned.</span></span><br><span class="line">	GetHash(opts HashOpts) (h hash.Hash, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Sign signs digest using key k.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Note that when a signature of a hash of a larger message is needed,</span></span><br><span class="line">	<span class="comment">// the caller is responsible for hashing the larger message and passing</span></span><br><span class="line">	<span class="comment">// the hash (as digest).</span></span><br><span class="line">	Sign(k Key, digest []<span class="type">byte</span>, opts SignerOpts) (signature []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Verify verifies signature against key k and digest</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	Verify(k Key, signature, digest []<span class="type">byte</span>, opts SignerOpts) (valid <span class="type">bool</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Encrypt encrypts plaintext using key k.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	Encrypt(k Key, plaintext []<span class="type">byte</span>, opts EncrypterOpts) (ciphertext []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Decrypt decrypts ciphertext using key k.</span></span><br><span class="line">	<span class="comment">// The opts argument should be appropriate for the algorithm used.</span></span><br><span class="line">	Decrypt(k Key, ciphertext []<span class="type">byte</span>, opts DecrypterOpts) (plaintext []<span class="type">byte</span>, err <span class="type">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="可插拔国密">可插拔国密</h2>
-<p>Fabric支持国密并非仅仅在bccsp中增加1个国密实现这么简单，还需要让数字证书支持国密，让数字证书的操作符合X.509。各语言的标准库<code>x509</code>都是适配标准加密的，并不能直接用来操作国密证书。</p>
-<p>在数字证书支持国密后，还可能需要进一步考虑，是否需要TLS证书使用国密数字证书，让通信过程使用国密算法。</p>
-<p>另外，国密的实现有很多版本，如果需要适配不同的国密实现，就需要保证国密的可插拔和可扩展。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1425,7 +1418,7 @@ Principle）：依赖抽象而不依赖具体实现，这样的好处就是可�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1436,7 +1429,7 @@ Principle）：依赖抽象而不依赖具体实现，这样的好处就是可�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">199</span>
+        <span class="site-state-item-count">201</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

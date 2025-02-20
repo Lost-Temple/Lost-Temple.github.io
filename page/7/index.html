@@ -188,6 +188,133 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/" class="post-title-link" itemprop="url">Golang学习-知识点-1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-01-04 08:58:34 / 修改时间：14:59:52" itemprop="dateCreated datePublished" datetime="2023-01-04T08:58:34+08:00">2023-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言">前言</h1>
+<p>Golang名言：使用通信来共享内存，而不是使用共享内存来通信。Golang中有<code>sync</code>包提供了传统方式的锁机制。但更推荐使用<code>channel</code>来解决并发问题。</p>
+<h1 id="channel的用法">channel的用法</h1>
+<h2 id="什么是channel">什么是channel</h2>
+<p><code>channel</code>是<code>goroutine</code>之间用来接收或发送消息的安全消息队列。<code>channel</code>就像是它的字面意思：通道。它就是两个<code>goroutine</code>之间用来同步资源的一个通道。
+<img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/1.jpg" alt="channel示意图"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">1</span>) <span class="comment">// 创建一个类型为int,缓冲区大小为1的channel</span></span><br><span class="line">	ch &lt;<span class="number">-2</span> <span class="comment">// 将2发送到channel中</span></span><br><span class="line">	n, ok := &lt;-ch <span class="comment">// n从channel中接收数据</span></span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		fmt.Println(n) <span class="comment">// 2</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ch) <span class="comment">// 关闭channel</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用时的注意点">使用时的注意点</h2>
+<ul>
+<li><p>向一个<code>nil channel</code>发送消息会一直阻塞</p>
+<p>Code: <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> ch <span class="keyword">chan</span> <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> send(ch)</span><br><span class="line">    &lt;-ch</span><br><span class="line">    time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">send</span><span class="params">(ch <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Sending value to channnel start&quot;</span>)</span><br><span class="line">    ch &lt;- <span class="number">1</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;Sending value to channnel finish&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> Output: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sending value to channnel start</span><br><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br><span class="line">goroutine 1 [chan receive (nil chan)]:</span><br><span class="line">goroutine 18 [chan send (nil chan)]:</span><br></pre></td></tr></table></figure>
+分析：上述代码只是声明了channel，它的默认初始值为nil,
+在一个goroutine中向这个 nil channel 发送消息，这个goroutine
+就会一直阻塞,而在main函数中(主routine)中想从channel中获取这个消息也是会被阻塞住，所以整个进行就相当于处理死锁状态。</p></li>
+<li><p>向一个已关闭的<code>channel</code>发送消息会引发运行时<code>panic</code></p></li>
+<li><p><code>channel</code>关闭后不可以继续向它发送消息，但可以继续从它接收消息</p></li>
+<li><p>当<code>channel</code>关闭后并且缓冲区为空时，继续从它接收消息会得到一个对应类型的零值</p></li>
+</ul>
+<h1 id="unbuffered-channels与buffered-channels">unbuffered
+channels与buffered channels</h1>
+<ul>
+<li><code>unbuffered channel</code>是缓冲区大小为0的<code>channel</code>，这种<code>channel</code>的接收者会阻塞直至接收到消息；发送者会阻塞直至接收到消息，这种机制可以用于两个<code>goroutine</code>进行状态同步。</li>
+<li><code>buffered channel</code>拥有缓冲区，当缓冲区已满时，发送者会阻塞，当缓冲区为空时，接收者会阻塞。</li>
+</ul>
+<p>引用<a target="_blank" rel="noopener" href="https://www.ardanlabs.com/blog/2014/02/the-nature-of-channels-in-go.html">The
+Nature Of Channels In
+Go</a>中的两张图来说明<code>Unbuffered channels</code>与<code>Buffered channels</code></p>
+<h2 id="unbuffered-channels">Unbuffered channels</h2>
+<figure>
+<img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/2.png" alt="Unbuffered channels">
+<figcaption aria-hidden="true">Unbuffered channels</figcaption>
+</figure>
+<h2 id="buffered-channels">Buffered channels</h2>
+<figure>
+<img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/3.png" alt="Buffered channels">
+<figcaption aria-hidden="true">Buffered channels</figcaption>
+</figure>
+<h3 id="unbuffered-channel示例">unbuffered channel示例</h3>
+<p>让我们构建一个示例程序，它使用四个 goroutine
+和一个通道来模拟接力赛。比赛中的参赛者将被称为“
+Goroutines”，通道将被用来在每个参赛者之间交换接力棒。这是一个典型的例子，说明了如何在
+goroutines 之间传递资源，以及通道如何控制与之交互的 goroutines
+的行为。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Runner</span><span class="params">(baton <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> newRunner <span class="type">int</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Wait to receive the baton</span></span><br><span class="line">	runner := &lt;-baton</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Start running around the track</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Runner %d Running With Baton\n&quot;</span>, runner)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// New runner to the line</span></span><br><span class="line">	<span class="keyword">if</span> runner != <span class="number">4</span> &#123;</span><br><span class="line">		newRunner = runner + <span class="number">1</span></span><br><span class="line">		fmt.Printf(<span class="string">&quot;Runner %d To The Line\n&quot;</span>, newRunner)</span><br><span class="line">		<span class="keyword">go</span> Runner(baton)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Running around the track</span></span><br><span class="line">	time.Sleep(<span class="number">100</span> * time.Millisecond)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Is the race over</span></span><br><span class="line">	<span class="keyword">if</span> runner == <span class="number">4</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Runner %d Finished, Race Over\n&quot;</span>, runner)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Exchange the baton for the next runner</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Runner %d Exchange With Runner %d\n&quot;</span>, runner, newRunner)</span><br><span class="line">	baton &lt;- newRunner</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create an unbufferd channel</span></span><br><span class="line">	baton := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// First runner to his mark</span></span><br><span class="line">	<span class="keyword">go</span> Runner(baton)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Start the race</span></span><br><span class="line">	baton &lt;- <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Give the runners time to race</span></span><br><span class="line">	time.Sleep(<span class="number">500</span> * time.Millisecond)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Runner 1 Running With Baton</span><br><span class="line">Runner 2 To The Line</span><br><span class="line">Runner 1 Exchange With Runner 2</span><br><span class="line">Runner 2 Running With Baton</span><br><span class="line">Runner 3 To The Line</span><br><span class="line">Runner 2 Exchange With Runner 3</span><br><span class="line">Runner 3 Running With Baton</span><br><span class="line">Runner 4 To The Line</span><br><span class="line">Runner 3 Exchange With Runner 4</span><br><span class="line">Runner 4 Running With Baton</span><br><span class="line">Runner 4 Finished, Race Over</span><br></pre></td></tr></table></figure></p>
+<h2 id="channel的遍历">channel的遍历</h2>
+<h3 id="阻塞型的遍历方式">阻塞型的遍历方式</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ci := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">5</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++ &#123;</span><br><span class="line">		ci &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ci)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> ci &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>值得注意的是：在遍历channel前，如果channel没有关闭，遍历会被阻塞，会出现deadlock的错误；如果在遍历时channel已经关闭，那么会遍历完数据后退出遍历；也就是说for
+range的遍历方式是阻塞型的遍历方式。</p>
+</blockquote>
+<h3 id="非阻塞型的遍历方式">非阻塞型的遍历方式</h3>
+<p><code>select</code>可用于非阻塞式消息发送、接收及多路选择
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ci := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">2</span>; i++ &#123;</span><br><span class="line">		ci &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ci)</span><br><span class="line"></span><br><span class="line">	cs := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">string</span>, <span class="number">2</span>)</span><br><span class="line">	cs &lt;- <span class="string">&quot;hi&quot;</span></span><br><span class="line">	cs &lt;- <span class="string">&quot;golang&quot;</span></span><br><span class="line">	<span class="built_in">close</span>(cs)</span><br><span class="line"></span><br><span class="line">	ciClosed, csClosed := <span class="literal">false</span>, <span class="literal">false</span></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> ciClosed &amp;&amp; csClosed &#123;</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">select</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> i, ok := &lt;-ci:</span><br><span class="line">			<span class="keyword">if</span> ok &#123;</span><br><span class="line">				fmt.Println(i)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				ciClosed = <span class="literal">true</span></span><br><span class="line">				fmt.Println(<span class="string">&quot;ci data fetching finished&quot;</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">case</span> s, ok := &lt;-cs:</span><br><span class="line">			<span class="keyword">if</span> ok &#123;</span><br><span class="line">				fmt.Println(s)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				csClosed = <span class="literal">true</span></span><br><span class="line">				fmt.Println(<span class="string">&quot;cs data fetching finished&quot;</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;wating...&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+&gt;<code>select</code>中有<code>case</code>代码块，用于<code>channel</code>发送或接收消息，任意一个<code>case</code>代码块准备好时，执行其对应内容；多个<code>case</code>代码块准备好时，随机选择一个<code>case</code>代码块并执行；所有<code>case</code>代码块都没有准备好，则等待；还可以有一个<code>default</code>代码块，所有<code>case</code>代码块都没有准备好时执行default代码块。这里的所谓的没有准备好，指的就是channel没有关闭。当执行了close()函数后，就是所谓的准备好了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1306,113 +1433,6 @@ pull了最新的代码下来，放在了工程目录下的3rd目录下面；我�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/05/Fabric-SDK%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">Fabric SDK相关</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-05 16:28:37 / 修改时间：17:21:18" itemprop="dateCreated datePublished" datetime="2022-12-05T16:28:37+08:00">2022-12-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="fabric-sdk-介绍">Fabric SDK 介绍</h1>
-<p><code>Fabric</code>的<code>Peer</code>节点和<code>Orderer</code>节点都提供了基于<code>gRPC</code>协议的接口，用于和<code>Peer</code>节点与<code>Orderer</code>节点进行命令/数据交互。为了简化开发，为开发人员开发应用程序提供操作<code>Fabric</code>区块链网络的API，Fabric官方提供了多种语言版本的SDK。
-Fabric提供了多种语言版本的SDK： - <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-java">fabric-sdk-java</a>
-- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-go">fabric-sdk-go</a> -
-<a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-node">fabric-sdk-node</a>
-- <a target="_blank" rel="noopener" href="https://github.com/hyperledger/fabric-sdk-py">fabric-sdk-py</a></p>
-<p><code>Fabric</code>区块链应用可以通过SDK访问<code>Fabric</code>区块链网络中的多种资源，包括账本、交易、链码、事件、权限管理等。应用程序代表用户与<code>Fabric</code>区块链网络进行交互，<code>Fabric SDK API</code>提供了如下功能：
-- 创建通道 - 将<code>Peer</code>节点加入通道 -
-在<code>Peer</code>节点安装链码 - 在通道实例化链码 - 通过链码调用交易 -
-查询交易或区块的账本</p>
-<h1 id="fabric-sdk-安装">Fabric SDK 安装</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/hyperledger/fabric-sdk-go</span><br></pre></td></tr></table></figure>
-<h1 id="fabric-go-sdk-源码结构">Fabric Go SDK 源码结构</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">total 624</span><br><span class="line">-rw-r--r--   1 mao  staff   170K Aug 15 14:45 CHANGELOG.md</span><br><span class="line">-rw-r--r--   1 mao  staff   108B Aug 15 14:45 CODEOWNERS</span><br><span class="line">-rw-r--r--   1 mao  staff   577B Aug 15 14:45 CODE_OF_CONDUCT.md</span><br><span class="line">-rw-r--r--   1 mao  staff   661B Aug 15 14:45 CONTRIBUTING.md</span><br><span class="line">-rw-r--r--   1 mao  staff    11K Aug 15 14:45 LICENSE</span><br><span class="line">-rw-r--r--   1 mao  staff   910B Nov  2 08:36 MAINTAINERS.md</span><br><span class="line">-rw-r--r--   1 mao  staff    33K Aug 15 14:45 Makefile</span><br><span class="line">-rw-r--r--   1 mao  staff   7.3K Aug 15 14:45 README.md</span><br><span class="line">-rw-r--r--   1 mao  staff   1.0K Aug 15 14:45 SECURITY.md</span><br><span class="line">drwxr-xr-x   4 mao  staff   128B Aug 15 14:45 ci</span><br><span class="line">-rw-r--r--   1 mao  staff   143B Aug 15 14:45 ci.properties</span><br><span class="line">-rw-r--r--   1 mao  staff   2.3K Aug 15 14:45 doc.go</span><br><span class="line">-rw-r--r--   1 mao  staff   1.2K Aug 15 14:45 go.mod</span><br><span class="line">-rw-r--r--   1 mao  staff    45K Aug 15 14:45 go.sum</span><br><span class="line">-rwxr-xr-x   1 mao  staff   1.6K Aug 15 14:45 golangci.yml</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 internal</span><br><span class="line">drwxr-xr-x  11 mao  staff   352B Aug 15 14:45 pkg</span><br><span class="line">drwxr-xr-x   5 mao  staff   160B Aug 15 14:45 scripts</span><br><span class="line">drwxr-xr-x   7 mao  staff   224B Aug 15 14:45 test</span><br><span class="line">drwxr-xr-x   3 mao  staff    96B Aug 15 14:45 third_party</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>pkg/fabsdk</code>: Fabric
-SDK的主要包、允许基于配置创建上下文。上下文由客户端软件包使用。</li>
-<li><code>pkg/client/channel</code>: 提供通道交易相关功能</li>
-<li><code>pkg/client/event</code>: 提供通道事件相关功能</li>
-<li><code>pkg/client/ledger</code>:
-启用对通道底层账本的查询相关功能</li>
-<li><code>pkg/client/resmgmt</code>: 提供资源管理功能，例如安装链码</li>
-<li><code>pkg/client/msp</code>: 启用身份管理相关功能</li>
-</ul>
-<h1 id="fabric-sdk功能模块">Fabric SDK功能模块</h1>
-<h2 id="api">API</h2>
-<p>对于应用开发者来说，插件化的API可以支持SDK提供的关键接口的可选实现。对于每个接口，都有内置的默认实现，也可以灵活自定义。</p>
-<h2 id="fabric-client">fabric-client</h2>
-<p><code>fabric-client</code>模块提供API与基于<code>Hypreledger Fabric</code>区块链网络的核心组件（即<code>peer</code>，<code>order</code>和<code>事件流</code>）进行交互，主要功能如下：
-- 创建<code>channel</code> - 请求<code>Peer</code>节点加入通道 -
-在<code>Peer</code>节点中安装链码 - 在通道中实例化链码 -
-通过调用链码来调用事务 - 多种查询 - 监听事件</p>
-<h2 id="fabric-ca-client">fabric-ca-client</h2>
-<p><code>fabric-ca-client</code>模块提供与可选组件<code>fabric-ca</code>进行交互的API，<code>fabric-ca</code>提供成员管理服务。<code>fabric-ca-client</code>模块主要功能如下：
-- 注册新用户 - 注册用户以获得由<code>Fabric CA</code>签名的注册证书 -
-通过注册ID撤销现有用户或撤消证书 - 可定制的持久化存储</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1482,7 +1502,7 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1493,7 +1513,7 @@ SDK的主要包、允许基于配置创建上下文。上下文由客户端软�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">199</span>
+        <span class="site-state-item-count">201</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
