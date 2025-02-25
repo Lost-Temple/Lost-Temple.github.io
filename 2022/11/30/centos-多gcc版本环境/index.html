@@ -251,32 +251,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="背景">背景</h1>
+        <h1>背景</h1>
 <ul>
-<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发,
-打开服务器上的代码进行开发</li>
-<li>CentOS
-系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
-<li>CLion
-项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
+<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发, 打开服务器上的代码进行开发</li>
+<li>CentOS 系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
+<li>CLion 项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
 </ul>
-<h1 id="编译工具安装">编译工具安装</h1>
+<h1>编译工具安装</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install centos-release-scl-rh</span><br><span class="line">sudo yum install devtoolset-11-gcc-c++</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>安装完成后，执行以下命令可以切换到新的编译环境 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
-可以查看devtoolset-11相关工具的版本及它们的路径 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，执行以下命令可以切换到新的编译环境</p>
 </blockquote>
-<h1 id="开发工具中的配置修改">开发工具中的配置修改</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>可以查看devtoolset-11相关工具的版本及它们的路径</p>
 </blockquote>
-<h1 id="调用动态库需要注意的点">调用动态库需要注意的点</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure>
+<h1>开发工具中的配置修改</h1>
 <blockquote>
-<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include
-&lt;dlfcn.h&gt; 在CMakefile.txt里面添加编译选项，如：
-TARGET_LINK_LIBRARIES(projName dl)
+<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure>
+<h1>调用动态库需要注意的点</h1>
+<blockquote>
+<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include &lt;dlfcn.h&gt;<br>
+在CMakefile.txt里面添加编译选项，如：<br>
+TARGET_LINK_LIBRARIES(projName dl)<br>
 其中<code>projName</code>为项目的名称</p>
 </blockquote>
 
@@ -366,7 +367,7 @@ TARGET_LINK_LIBRARIES(projName dl)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">编译工具安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9"><span class="nav-number">3.</span> <span class="nav-text">开发工具中的配置修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%8A%A8%E6%80%81%E5%BA%93%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">调用动态库需要注意的点</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">编译工具安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">开发工具中的配置修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">调用动态库需要注意的点</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,7 +381,7 @@ TARGET_LINK_LIBRARIES(projName dl)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -391,7 +392,7 @@ TARGET_LINK_LIBRARIES(projName dl)
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">203</span>
+        <span class="site-state-item-count">205</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -244,14 +244,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="装饰器">装饰器</h1>
+        <h1>装饰器</h1>
 <p><code>Python</code>装饰器<code>decorator</code>在实现的时候，被装饰后的函数其实已经是另外一个函数了（函数名等函数属性会发生改变），就相当于产生了<code>副作用</code>，<code>Python</code>的<code>functools</code>包中提供了一个叫<code>wraps</code>的<code>decorator</code>来消除这样的<code>副作用</code>。写一个<code>decorator</code>的时候，最好在实现之前加上<code>functools</code>的<code>wrap</code>，它能保留原有函数的<code>__name__</code>和<code>__doc__</code>。</p>
-<h1 id="示例1副作用">示例1（副作用）</h1>
+<h1>示例1（副作用）</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;decorator&quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Calling decorated function...&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">example</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;DocString&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Called example function.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(example.__name__, example.__doc__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    example()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>打印现来的是：wrapper decorator 而不是 example DocString</p>
 </blockquote>
-<h1 id="示例2消除副作用">示例2（消除副作用）</h1>
+<h1>示例2（消除副作用）</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Decorator&quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Calling decorated function...&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">example</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;DocString&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Called example function&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    example()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>无毒副作用, 这就是<code>@wraps</code>的作用</p>
@@ -336,7 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B1%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">示例1（副作用）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B2%E6%B6%88%E9%99%A4%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">示例2（消除副作用）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">示例1（副作用）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">示例2（消除副作用）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -350,7 +350,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -361,7 +361,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">203</span>
+        <span class="site-state-item-count">205</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

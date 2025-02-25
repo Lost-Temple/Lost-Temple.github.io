@@ -188,6 +188,78 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/02/25/Ollama%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/02/25/Ollama%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9/" class="post-title-link" itemprop="url">Ollama监听端口修改</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-25 08:33:34 / 修改时间：08:46:48" itemprop="dateCreated datePublished" datetime="2025-02-25T08:33:34+08:00">2025-02-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLM/" itemprop="url" rel="index"><span itemprop="name">LLM</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>背景</h1>
+<p>安装了<code>Anything LLM</code>,现在想在<code>Anything LLM</code>配置非本地的<code>Ollama</code>，需要让<code>Ollama</code>的监听端口改为<code>0.0.0.0:11434</code></p>
+<h1>修改</h1>
+<p>写入shell配置文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;export OLLAMA_HOST=0.0.0.0&#x27; &gt;&gt; ~/.zshrc  # 或 ~/.bashrc</span><br><span class="line">source ~/.zshrc  # 立即生效</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/02/20/%E5%9F%BA%E4%BA%8EDeepseek%E5%92%8CRagDB%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0%E7%9F%A5%E8%AF%86%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -219,7 +291,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-02-21 08:33:36" itemprop="dateModified" datetime="2025-02-21T08:33:36+08:00">2025-02-21</time>
+                <time title="修改时间：2025-02-25 08:38:52" itemprop="dateModified" datetime="2025-02-25T08:38:52+08:00">2025-02-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,15 +314,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="构建思路">构建思路</h1>
-<ol type="1">
+          <h1>构建思路</h1>
+<ol>
 <li>使用Milvus提供存储，把PDF内容进行分块，存入到向量数据库中</li>
 <li>构建检索链</li>
 <li>使用检索链去查询问题，返回答案</li>
 </ol>
-<h1 id="环境准备">环境准备</h1>
+<h1>环境准备</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装核心依赖</span></span><br><span class="line">pip install langchain langchain-community pymupdf pymilvus sentence-transformers ollama</span><br><span class="line">docker run -d --name milvus -p 19530:19530 milvusdb/milvus:v2.3.3</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果系统中使用了代理，需要安装以下包</span></span><br><span class="line">pip install &quot;httpx[socks]&quot;</span><br></pre></td></tr></table></figure>
-<h1 id="完整实现代码">完整实现代码</h1>
+<h1>完整实现代码</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> PyMuPDFLoader</span><br><span class="line"><span class="keyword">from</span> langchain.text_splitter <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"><span class="keyword">from</span> langchain_huggingface <span class="keyword">import</span> HuggingFaceEmbeddings</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> Milvus</span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> RetrievalQA</span><br><span class="line"><span class="keyword">from</span> langchain.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_ollama <span class="keyword">import</span> OllamaLLM</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PDFQA</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model_name=<span class="string">&quot;deepseek-7b&quot;</span></span>):</span><br><span class="line">        <span class="comment"># 初始化配置</span></span><br><span class="line">        self.embeddings = HuggingFaceEmbeddings(</span><br><span class="line">            model_name=<span class="string">&quot;BAAI/bge-base-zh-v1.5&quot;</span>,</span><br><span class="line">            encode_kwargs=&#123;<span class="string">&#x27;normalize_embeddings&#x27;</span>: <span class="literal">True</span>&#125;</span><br><span class="line">        )</span><br><span class="line">        self.llm = OllamaLLM(</span><br><span class="line">            base_url=<span class="string">&quot;http://localhost:11434&quot;</span>,</span><br><span class="line">            model=model_name,</span><br><span class="line">            num_ctx=<span class="number">8192</span>,</span><br><span class="line">            temperature=<span class="number">0.3</span></span><br><span class="line">        )</span><br><span class="line">        self.vector_db = <span class="literal">None</span></span><br><span class="line">        self.qa_chain = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">init_vector_db</span>(<span class="params">self, pdf_path: <span class="built_in">str</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;PDF文档处理管道&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 1. 加载文档</span></span><br><span class="line">        loader = PyMuPDFLoader(pdf_path)</span><br><span class="line">        pages = loader.load()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2. 中文优化分块</span></span><br><span class="line">        text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">            chunk_size=<span class="number">500</span>,</span><br><span class="line">            chunk_overlap=<span class="number">50</span>,</span><br><span class="line">            separators=[<span class="string">&quot;\n\n&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot;。&quot;</span>, <span class="string">&quot;！&quot;</span>, <span class="string">&quot;？&quot;</span>, <span class="string">&quot;；&quot;</span>]</span><br><span class="line">        )</span><br><span class="line">        splits = text_splitter.split_documents(pages)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3. 创建向量存储</span></span><br><span class="line">        self.vector_db = Milvus.from_documents(</span><br><span class="line">            splits,</span><br><span class="line">            self.embeddings,</span><br><span class="line">            connection_args=&#123;<span class="string">&quot;host&quot;</span>: <span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;port&quot;</span>: <span class="string">&quot;19530&quot;</span>&#125;,</span><br><span class="line">            collection_name=<span class="string">&quot;pdf_qa&quot;</span>,</span><br><span class="line">            index_params=&#123;</span><br><span class="line">                <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;L2&quot;</span>,</span><br><span class="line">                <span class="string">&quot;index_type&quot;</span>: <span class="string">&quot;IVF_FLAT&quot;</span>,</span><br><span class="line">                <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;nlist&quot;</span>: <span class="number">1024</span>&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">build_qa_chain</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;构建问答链&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 中文优化提示模板</span></span><br><span class="line">        prompt_template = <span class="string">&quot;&quot;&quot;请根据以下上下文信息回答问题。如果无法从上下文中得到答案，请回答&quot;我不知道&quot;。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        上下文：</span></span><br><span class="line"><span class="string">        &#123;context&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        问题：&#123;question&#125;</span></span><br><span class="line"><span class="string">        答案：&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        PROMPT = PromptTemplate(</span><br><span class="line">            template=prompt_template,</span><br><span class="line">            input_variables=[<span class="string">&quot;context&quot;</span>, <span class="string">&quot;question&quot;</span>]</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建检索链</span></span><br><span class="line">        self.qa_chain = RetrievalQA.from_chain_type(</span><br><span class="line">            llm=self.llm,</span><br><span class="line">            chain_type=<span class="string">&quot;stuff&quot;</span>,</span><br><span class="line">            retriever=self.vector_db.as_retriever(</span><br><span class="line">                search_kwargs=&#123;<span class="string">&quot;k&quot;</span>: <span class="number">3</span>, <span class="string">&quot;score_threshold&quot;</span>: <span class="number">0.7</span>&#125;</span><br><span class="line">            ),</span><br><span class="line">            chain_type_kwargs=&#123;<span class="string">&quot;prompt&quot;</span>: PROMPT&#125;,</span><br><span class="line">            return_source_documents=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">query</span>(<span class="params">self, question: <span class="built_in">str</span></span>) -&gt; <span class="built_in">dict</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;执行查询&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.qa_chain:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;请先初始化向量数据库并构建问答链&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> self.qa_chain(&#123;<span class="string">&quot;query&quot;</span>: question&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># 初始化系统</span></span><br><span class="line">    qa_system = PDFQA()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 处理PDF文档</span></span><br><span class="line">    pdf_path = <span class="built_in">input</span>(<span class="string">&quot;请输入PDF文件路径：&quot;</span>).strip()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(pdf_path):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;文件不存在！&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;正在处理文档...&quot;</span>)</span><br><span class="line">    qa_system.init_vector_db(pdf_path)</span><br><span class="line">    qa_system.build_qa_chain()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;系统准备就绪，输入&#x27;退出&#x27;结束对话&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 交互循环</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        question = <span class="built_in">input</span>(<span class="string">&quot;\n请输入问题：&quot;</span>).strip()</span><br><span class="line">        <span class="keyword">if</span> question.lower() <span class="keyword">in</span> [<span class="string">&quot;退出&quot;</span>, <span class="string">&quot;exit&quot;</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">        result = qa_system.query(question)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 显示结果</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\n答案：&quot;</span>, result[<span class="string">&quot;result&quot;</span>])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\n来源文档：&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> i, doc <span class="keyword">in</span> <span class="built_in">enumerate</span>(result[<span class="string">&quot;source_documents&quot;</span>][:<span class="number">2</span>]):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;[文档<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>]&quot;</span>, doc.page_content[:<span class="number">200</span>] + <span class="string">&quot;...&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
       
@@ -310,27 +382,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="docker运行">docker运行</h1>
+          <h1>docker运行</h1>
 <p>安装步骤</p>
-<ol type="1">
-<li><p>下载安装脚本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://raw.githubusercontent.com/milvus-io/milvus/master/scripts/standalone_embed.sh -o standalone_embed.sh</span><br></pre></td></tr></table></figure></li>
-<li><p>执行脚本安装milvus</p>
+<ol>
+<li>
+<p>下载安装脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://raw.githubusercontent.com/milvus-io/milvus/master/scripts/standalone_embed.sh -o standalone_embed.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行脚本安装milvus</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash standalone_embed.sh start</span><br></pre></td></tr></table></figure>
 <p>以下是它的输出：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Unable to find image &#x27;milvusdb/milvus:v2.5.4&#x27; locally</span><br><span class="line">v2.5.4: Pulling from milvusdb/milvus</span><br><span class="line">Digest: sha256:081e5471cb53756bd86bf2e2bfbedadec9e87cb181583c6f19410b23a711be00</span><br><span class="line">Status: Downloaded newer image for milvusdb/milvus:v2.5.4</span><br><span class="line">Wait for Milvus Starting...</span><br><span class="line">Start successfully.</span><br><span class="line">To change the default Milvus configuration, add your settings to the user.yaml file and then restart the service.</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Unable to find image &#x27;milvusdb/milvus:v2.5.4&#x27; locally</span><br><span class="line">v2.5.4: Pulling from milvusdb/milvus</span><br><span class="line">Digest: sha256:081e5471cb53756bd86bf2e2bfbedadec9e87cb181583c6f19410b23a711be00</span><br><span class="line">Status: Downloaded newer image for milvusdb/milvus:v2.5.4</span><br><span class="line">Wait for Milvus Starting...</span><br><span class="line">Start successfully.</span><br><span class="line">To change the default Milvus configuration, add your settings to the user.yaml file and then restart the service.</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h1 id="docker-compose-运行">docker-compose 运行</h1>
+<h1>docker-compose 运行</h1>
 <p>初装步骤</p>
-<ol type="1">
-<li><p>下载配置文件<code>milvus.yaml</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/milvus-io/milvus/v2.5.4/configs/milvus.yaml</span><br></pre></td></tr></table></figure></li>
-<li><p>下载<code>docker-compose.yaml</code>文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/milvus-io/milvus/releases/download/v2.5.4/milvus-standalone-docker-compose.yml -O docker-compose.yml</span><br></pre></td></tr></table></figure></li>
-<li><p>修改<code>docker-compose.yaml</code>文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  standalone:</span><br><span class="line">    container_name: milvus-standalone</span><br><span class="line">    image: milvusdb/milvus:v2.2.13</span><br><span class="line">    command: [&quot;milvus&quot;, &quot;run&quot;, &quot;standalone&quot;]</span><br><span class="line">    environment:</span><br><span class="line">      ETCD_ENDPOINTS: etcd:2379</span><br><span class="line">      MINIO_ADDRESS: minio:9000</span><br><span class="line">    volumes:</span><br><span class="line">      - /local/path/to/your/milvus.yaml:/milvus/configs/milvus.yaml   # Map the local path to the container path</span><br><span class="line">      - $&#123;DOCKER_VOLUME_DIRECTORY:-.&#125;/volumes/milvus:/var/lib/milvus</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;19530:19530&quot;</span><br><span class="line">      - &quot;9091:9091&quot;</span><br><span class="line">    depends_on:</span><br><span class="line">      - &quot;etcd&quot;</span><br><span class="line">      - &quot;minio&quot;</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>启动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker compose up -d</span><br></pre></td></tr></table></figure></li>
+<ol>
+<li>
+<p>下载配置文件<code>milvus.yaml</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/milvus-io/milvus/v2.5.4/configs/milvus.yaml</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载<code>docker-compose.yaml</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/milvus-io/milvus/releases/download/v2.5.4/milvus-standalone-docker-compose.yml -O docker-compose.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改<code>docker-compose.yaml</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  standalone:</span><br><span class="line">    container_name: milvus-standalone</span><br><span class="line">    image: milvusdb/milvus:v2.2.13</span><br><span class="line">    command: [&quot;milvus&quot;, &quot;run&quot;, &quot;standalone&quot;]</span><br><span class="line">    environment:</span><br><span class="line">      ETCD_ENDPOINTS: etcd:2379</span><br><span class="line">      MINIO_ADDRESS: minio:9000</span><br><span class="line">    volumes:</span><br><span class="line">      - /local/path/to/your/milvus.yaml:/milvus/configs/milvus.yaml   # Map the local path to the container path</span><br><span class="line">      - $&#123;DOCKER_VOLUME_DIRECTORY:-.&#125;/volumes/milvus:/var/lib/milvus</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;19530:19530&quot;</span><br><span class="line">      - &quot;9091:9091&quot;</span><br><span class="line">    depends_on:</span><br><span class="line">      - &quot;etcd&quot;</span><br><span class="line">      - &quot;minio&quot;</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker compose up -d</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 
       
@@ -403,20 +487,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="准备工作">准备工作</h1>
-<ol type="1">
-<li><p>操作系统Centos</p></li>
-<li><p>安装依赖</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc-c++ flex bison yajl yajl-devel curl-devel curl GeoIP-devel doxygen zlib-devel pcre-devel lmdb-devel libxml2-devel ssdeep-devel lua-devel libtool autoconf automake wget epel-release openssl-devel</span><br></pre></td></tr></table></figure></li>
-<li><p>下载安装包</p>
+          <h1>准备工作</h1>
+<ol>
+<li>
+<p>操作系统Centos</p>
+</li>
+<li>
+<p>安装依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc-c++ flex bison yajl yajl-devel curl-devel curl GeoIP-devel doxygen zlib-devel pcre-devel lmdb-devel libxml2-devel ssdeep-devel lua-devel libtool autoconf automake wget epel-release openssl-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载安装包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mkdir nginx-setup</span><br><span class="line">cd nginx-setup</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载ModSecurity</span></span><br><span class="line">wget http://www.modsecurity.cn/download/modsecurity/modsecurity-v3.0.4.tar.gz</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载ModSecurity 和 nginx的桥接文件(直接wget下载会有问题，还是在本地用浏览器下载，再上传)</span></span><br><span class="line">wget https://codeload.github.com/SpiderLabs/ModSecurity-nginx/zip/refs/heads/master</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载nginx 安装包</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.25.5.tar.gz</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载ModSecurity 核心规则文件</span></span><br><span class="line">wget http://www.modsecurity.cn/download/corerule/owasp-modsecurity-crs-3.3-dev.zip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>安装包如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--.  1 root root   260374 5月  13 2020 modsecurity-nginx-master.zip</span><br><span class="line">-rw-r--r--.  1 root root  2806291 5月  13 2020 modsecurity-v3.0.4.tar.gz</span><br><span class="line">-rw-r--r--.  1 root root  1244060 4月  16 22:37 nginx-1.25.5.tar.gz</span><br><span class="line">-rw-r--r--.  1 root root   460374 5月  13 2020 owasp-modsecurity-crs-3.3-dev.zip</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--.  1 root root   260374 5月  13 2020 modsecurity-nginx-master.zip</span><br><span class="line">-rw-r--r--.  1 root root  2806291 5月  13 2020 modsecurity-v3.0.4.tar.gz</span><br><span class="line">-rw-r--r--.  1 root root  1244060 4月  16 22:37 nginx-1.25.5.tar.gz</span><br><span class="line">-rw-r--r--.  1 root root   460374 5月  13 2020 owasp-modsecurity-crs-3.3-dev.zip</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h1 id="安装">安装</h1>
-<h2 id="安装modsecurity">安装ModSecurity</h2>
+<h1>安装</h1>
+<h2 id="安装ModSecurity">安装ModSecurity</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf modsecurity-v3.0.4.tar.gz</span><br><span class="line">cd modsecurity-v3.0.4</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">编译</span></span><br><span class="line">sh build.sh</span><br><span class="line">./configure</span><br><span class="line">sudo make &amp;&amp; sudo make install</span><br><span class="line"></span><br><span class="line">libtool: link: g++ -g -O2 -o rules_optimization optimization/rules_optimization-optimization.o  -L/usr/lib64/ ../src/.libs/libmodsecurity.a -lcurl -lGeoIP -lrt -lxml2 -lz -lm -ldl -llua-5.1 -lpcre -lyajl</span><br><span class="line">make[2]: 离开目录“/home/centos/tools/nginx-mod/modsecurity-v3.0.4/test”</span><br><span class="line">make[1]: 离开目录“/home/centos/tools/nginx-mod/modsecurity-v3.0.4/test”</span><br><span class="line">make[1]: 进入目录“/home/centos/tools/nginx-mod/modsecurity-v3.0.4”</span><br><span class="line">make[1]: 对“all-am”无需做任何事。</span><br><span class="line">make[1]: 离开目录“/home/centos/tools/nginx-mod/modsecurity-v3.0.4”</span><br><span class="line">make: *** 没有规则可以创建目标“instal”。 停止。</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">最后看到有上面的内容表示安装完成</span></span><br></pre></td></tr></table></figure>
-<h2 id="安装modsecurity-nginx">安装ModSecurity-Nginx</h2>
+<h2 id="安装ModSecurity-Nginx">安装ModSecurity-Nginx</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压：</span></span><br><span class="line">unzip Modsecurity-nginx-master.zip</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">移动到modsecurity目录下：</span></span><br><span class="line">mv Modsecurity-nginx-master modsecurity-v3.0.4/modsecurity-nginx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">现在的结构</span></span><br><span class="line">cd modsecurity-v3.0.4</span><br><span class="line"></span><br><span class="line">-rwxr-xr-x.  1 1000 1000 707870 5月  11 11:05 configure</span><br><span class="line">-rw-r--r--.  1 root root 174749 5月  11 11:07 Makefile</span><br><span class="line">-rw-r--r--.  1 1000 1000  10210 1月  13 2020 modsecurity.conf-recommended</span><br><span class="line">drwxr-xr-x.  5 root root    201 5月  11 11:11 modsecurity-nginx</span><br><span class="line">drwxr-xr-x. 14 1000 1000   4096 5月  11 11:14 src</span><br><span class="line">...</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以看到modsecurity-nginx文件夹在modsecurity-v3.0.4目录下</span></span><br></pre></td></tr></table></figure>
 <h2 id="编译安装openssl">编译安装openssl</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz</span><br><span class="line">tar -zxvf openssl-1.1.1w.tar.gz</span><br><span class="line">cd openssl-1.1.1w</span><br><span class="line">./config --prefix=/usr/local/openssl-1.1.1 no-shared</span><br><span class="line">make -j$(nproc)</span><br><span class="line">sudo make install_sw</span><br></pre></td></tr></table></figure>
@@ -424,39 +514,58 @@
 <p><strong>如果已经安装了nginx可以在安装的时候指定安装路径避免和原本的nginx冲突覆盖。</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压：</span></span><br><span class="line">tar -zxvf nginx-1.25.5.tar.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">改个名字</span></span><br><span class="line">mv nginx-1.25.5 nginx-1.25.5-install</span><br><span class="line">cd nginx-1.25.5-install</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">编译</span></span><br><span class="line">./configure --prefix=/usr/local/nginx/nginx-1.25.5 --with-http_stub_status_module --with-http_ssl_module --with-file-aio --with-http_realip_module --add-dynamic-module=/home/centos/tools/nginx-mod/modsecurity-v3.0.4/modsecurity-nginx --with-openssl=/home/centos/tools/nginx-mod/openssl-1.1.1w</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--add-dynamic-module 指定要添加的module 这里添加的是modsecurity 指定了路径</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">结果：</span></span><br><span class="line">Configuration summary</span><br><span class="line">  + using system PCRE library</span><br><span class="line">  + using system OpenSSL library</span><br><span class="line">  + using system zlib library</span><br><span class="line"></span><br><span class="line">  nginx path prefix: &quot;/usr/local/nginx/nginx-1.25.5&quot;</span><br><span class="line">  nginx binary file: &quot;/usr/local/nginx/nginx-1.25.5/sbin/nginx&quot;</span><br><span class="line">  nginx modules path: &quot;/usr/local/nginx/nginx-1.25.5/modules&quot;</span><br><span class="line">  nginx configuration prefix: &quot;/usr/local/nginx/nginx-1.25.5/conf&quot;</span><br><span class="line">  nginx configuration file: &quot;/usr/local/nginx/nginx-1.25.5/conf/nginx.conf&quot;</span><br><span class="line">  nginx pid file: &quot;/usr/local/nginx/nginx-1.25.5/logs/nginx.pid&quot;</span><br><span class="line">  nginx error log file: &quot;/usr/local/nginx/nginx-1.25.5/logs/error.log&quot;</span><br><span class="line">  nginx http access log file: &quot;/usr/local/nginx/nginx-1.25.5/logs/access.log&quot;</span><br><span class="line">  nginx http client request body temporary files: &quot;client_body_temp&quot;</span><br><span class="line">  nginx http proxy temporary files: &quot;proxy_temp&quot;</span><br><span class="line">  nginx http fastcgi temporary files: &quot;fastcgi_temp&quot;</span><br><span class="line">  nginx http uwsgi temporary files: &quot;uwsgi_temp&quot;</span><br><span class="line">  nginx http scgi temporary files: &quot;scgi_temp&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如果最后出现上面的字样表示编译成功</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行安装：</span></span><br><span class="line">sudo make &amp;&amp; sudo make install</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">结果</span></span><br><span class="line">cp objs/ngx_http_modsecurity_module.so &#x27;/usr/local/nginx/nginx-1.25.5/modules/ngx_http_modsecurity_module.so&#x27;</span><br><span class="line">make[1]: 离开目录“/home/centos/tools/nginx-mod/nginx-1.25.5-install” </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如果出现上面的字样表示安装成功</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">现在的结构</span></span><br><span class="line">drwxr-xr-x. 13 1000  1000    4096 5月  11 11:49 modsecurity-v3.0.4</span><br><span class="line">drwxr-xr-x. 12 root root      166 5月  11 14:36 nginx-1.25.5</span><br><span class="line">drwxr-xr-x.  9  502 games     186 5月  11 11:52 nginx-1.25.5-install</span><br><span class="line">-rw-r--r--.  1 root root   460374 5月  13 2020 owasp-modsecurity-crs-3.3-dev.zip</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入安装好的nginx下看看</span></span><br><span class="line">drwxr-xr-x. 3 root   root 4096 5月  11 14:31 conf</span><br><span class="line">drwxr-xr-x. 2 root   root   40 5月  11 11:54 html</span><br><span class="line">drwxr-xr-x. 2 root   root   58 5月  11 14:50 logs</span><br><span class="line">drwxr-xr-x. 2 root   root   44 5月  11 11:54 modules</span><br><span class="line">drwxr-xr-x. 2 root   root   19 5月  11 11:54 sbin</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>--with-openssl指定openssl的<strong>源码</strong>的路径，注意，这里是源码，编译成功后有一条信息很重要：<code>cp objs/ngx_http_modsecurity_module.so '/usr/local/nginx/nginx-1.25.5/modules/ngx_http_modsecurity_module.so'</code></p>
+<p>–with-openssl指定openssl的<strong>源码</strong>的路径，注意，这里是源码，编译成功后有一条信息很重要：<code>cp objs/ngx_http_modsecurity_module.so '/usr/local/nginx/nginx-1.25.5/modules/ngx_http_modsecurity_module.so'</code></p>
 </blockquote>
-<h1 id="防火墙规则">防火墙规则</h1>
-<ol type="1">
-<li><p>将ModSecurity下的配置文件 复制到nginx.config
-目录，方便后期更改配置：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/nginx/nginx-1.25.5/conf/modsecurity</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">复制核心配置文件</span></span><br><span class="line">cp /home/centos/tools/nginx-mod/modsecurity-v3.0.4/modsecurity.conf-recommended /usr/local/nginx/nginx-1.25.5/conf/modsecurity/modsecurity.conf</span><br><span class="line">cp /home/centos/tools/nginx-mod/modsecurity-v3.0.4/unicode.mapping  /usr/local/nginx/nginx-1.25.5/conf/modsecurity</span><br></pre></td></tr></table></figure></li>
-<li><p>把nginx添加到$PATH中</p>
+<h1>防火墙规则</h1>
+<ol>
+<li>
+<p>将ModSecurity下的配置文件 复制到nginx.config 目录，方便后期更改配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/nginx/nginx-1.25.5/conf/modsecurity</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">复制核心配置文件</span></span><br><span class="line">cp /home/centos/tools/nginx-mod/modsecurity-v3.0.4/modsecurity.conf-recommended /usr/local/nginx/nginx-1.25.5/conf/modsecurity/modsecurity.conf</span><br><span class="line">cp /home/centos/tools/nginx-mod/modsecurity-v3.0.4/unicode.mapping  /usr/local/nginx/nginx-1.25.5/conf/modsecurity</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>把nginx添加到$PATH中</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># nginx</span><br><span class="line">export PATH=$PATH:/usr/local/nginx/nginx-1.25.5/sbin</span><br></pre></td></tr></table></figure></li>
-<li><p>修改nginx.conf配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">user  nobody;</span></span><br><span class="line">worker_processes  1;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  info;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">pid        logs/nginx.pid;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加了这一行，加载modsecurity模块，让nginx支持waf</span></span><br><span class="line">load_module modules/ngx_http_modsecurity_module.so;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line"><span class="meta prompt_">	</span></span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">开启modsecurity</span></span><br><span class="line">	modsecurity on;</span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">指定modsecurity核心配置文件</span></span><br><span class="line">    modsecurity_rules_file /usr/local/nginx/nginx-1.25.5/conf/modsecurity/modsecurity.conf;</span><br><span class="line"></span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    #log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">    #                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">    #                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>执行测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># nginx</span><br><span class="line">export PATH=$PATH:/usr/local/nginx/nginx-1.25.5/sbin</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改nginx.conf配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">user  nobody;</span></span><br><span class="line">worker_processes  1;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  info;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">pid        logs/nginx.pid;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加了这一行，加载modsecurity模块，让nginx支持waf</span></span><br><span class="line">load_module modules/ngx_http_modsecurity_module.so;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line"><span class="meta prompt_">	</span></span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">开启modsecurity</span></span><br><span class="line">	modsecurity on;</span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">指定modsecurity核心配置文件</span></span><br><span class="line">    modsecurity_rules_file /usr/local/nginx/nginx-1.25.5/conf/modsecurity/modsecurity.conf;</span><br><span class="line"></span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    #log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">    #                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">    #                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行测试</p>
 <p>由于使用centos用户执行，所以会有权限问题，如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br><span class="line">nginx: [emerg] &quot;modsecurity_rules_file&quot; directive Failed to open file: /var/log/modsec_audit.log in /usr/local/nginx/nginx-1.25.5/conf/nginx.conf:23</span><br><span class="line">nginx: configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf test failed</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /var/log/modsec_audit.log</span><br><span class="line">sudo chown centos:centos /var/log/modsec_audit.log</span><br><span class="line">sudo chmod 644 /var/log/modsec_audit.log</span><br></pre></td></tr></table></figure></li>
-<li><p>重新执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /var/log/modsec_audit.log</span><br><span class="line">sudo chown centos:centos /var/log/modsec_audit.log</span><br><span class="line">sudo chmod 644 /var/log/modsec_audit.log</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新执行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br><span class="line">nginx: the configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: [emerg] bind() to 0.0.0.0:80 failed (13: Permission denied)</span><br><span class="line">nginx: configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf test failed</span><br></pre></td></tr></table></figure>
-<p>这个应该是由于centos用户没有权限对1024以下的端口进行绑定的缘故</p></li>
-<li><p>加sudo执行</p></li>
+<p>这个应该是由于centos用户没有权限对1024以下的端口进行绑定的缘故</p>
+</li>
+<li>
+<p>加sudo执行</p>
+</li>
 </ol>
-<p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/nginx/nginx-1.25.5/sbin/nginx -t</span><br><span class="line">nginx: the configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf test is successful</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动</span></span><br><span class="line">sudo nginx</span><br></pre></td></tr></table></figure></p>
-<ol start="7" type="1">
-<li><p>以上步骤只是说明部署成功了，接下来添加防火墙规则</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压下载好的规则文件</span></span><br><span class="line">unzip owasp-modsecurity-crs-3.3-dev.zip</span><br><span class="line">cd owasp-modsecurity-crs-3.3-dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">配置文件</span></span><br><span class="line">cp crs-setup.conf.example /usr/local/nginx/nginx-1.25.5/conf/modsecurity/crs-setup.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">复制所有规则配置文件</span></span><br><span class="line">cp -r rules /usr/local/nginx/nginx-1.25.5/conf/modsecurity/</span><br><span class="line"></span><br><span class="line">cd /usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules</span><br><span class="line">mv REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf</span><br><span class="line">mv RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关于上面的两个文件说明：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1. 通过全局方式禁用规则，指令需加载在RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf文件中，也可创建自定义规则文件，但需先加载ModSecurity核心规则文件，再加载自定义规则文件。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2. 通过白名单方式禁用规则，指令需加载在REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf文件中，也可创建自定义规则文件，但需先加载自定义规则文件，再加载ModSecurity核心规则文件。</span></span><br></pre></td></tr></table></figure></li>
-<li><p>将防火墙配置文件加载到nginx中</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">打开配置：</span></span><br><span class="line">vim /usr/local/nginx/nginx-1.25.5/conf/modsecurity/modsecurity.conf</span><br><span class="line">注释：#SecRuleEngine DetectionOnly</span><br><span class="line">添加：SecRuleEngine On</span><br><span class="line"></span><br><span class="line">注释：#SecAuditLogParts ABIJDEFHZ</span><br><span class="line">添加：SecAuditLogParts ABCDEFHZ</span><br><span class="line"></span><br><span class="line">添加防护规则文件</span><br><span class="line">Include /usr/local/nginx/nginx-1.25.5/conf/modsecurity/crs-setup.conf</span><br><span class="line">Include /usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/*.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>测试拦截</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br><span class="line">sudo nginx -s reload</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试会被拦截的请求看看是否被拦截</span></span><br><span class="line">wget http://192.168.10.55/projectName?PHPRC=/dev/fd/0</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以看到被拦截了 返回403</span></span><br></pre></td></tr></table></figure></li>
-<li><p>查看日志情况</p></li>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/nginx/nginx-1.25.5/sbin/nginx -t</span><br><span class="line">nginx: the configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/nginx/nginx-1.25.5/conf/nginx.conf test is successful</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动</span></span><br><span class="line">sudo nginx</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>
+<p>以上步骤只是说明部署成功了，接下来添加防火墙规则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压下载好的规则文件</span></span><br><span class="line">unzip owasp-modsecurity-crs-3.3-dev.zip</span><br><span class="line">cd owasp-modsecurity-crs-3.3-dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">配置文件</span></span><br><span class="line">cp crs-setup.conf.example /usr/local/nginx/nginx-1.25.5/conf/modsecurity/crs-setup.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">复制所有规则配置文件</span></span><br><span class="line">cp -r rules /usr/local/nginx/nginx-1.25.5/conf/modsecurity/</span><br><span class="line"></span><br><span class="line">cd /usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules</span><br><span class="line">mv REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf</span><br><span class="line">mv RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关于上面的两个文件说明：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1. 通过全局方式禁用规则，指令需加载在RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf文件中，也可创建自定义规则文件，但需先加载ModSecurity核心规则文件，再加载自定义规则文件。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2. 通过白名单方式禁用规则，指令需加载在REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf文件中，也可创建自定义规则文件，但需先加载自定义规则文件，再加载ModSecurity核心规则文件。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将防火墙配置文件加载到nginx中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">打开配置：</span></span><br><span class="line">vim /usr/local/nginx/nginx-1.25.5/conf/modsecurity/modsecurity.conf</span><br><span class="line">注释：#SecRuleEngine DetectionOnly</span><br><span class="line">添加：SecRuleEngine On</span><br><span class="line"></span><br><span class="line">注释：#SecAuditLogParts ABIJDEFHZ</span><br><span class="line">添加：SecAuditLogParts ABCDEFHZ</span><br><span class="line"></span><br><span class="line">添加防护规则文件</span><br><span class="line">Include /usr/local/nginx/nginx-1.25.5/conf/modsecurity/crs-setup.conf</span><br><span class="line">Include /usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/*.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试拦截</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br><span class="line">sudo nginx -s reload</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试会被拦截的请求看看是否被拦截</span></span><br><span class="line">wget http://192.168.10.55/projectName?PHPRC=/dev/fd/0</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以看到被拦截了 返回403</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看日志情况</p>
+</li>
 </ol>
-<p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">---2tpuLegv---A--</span><br><span class="line">[12/Feb/2025:01:35:24 +0000] 173932412476.453510 192.168.10.91 2061 10.1.3.243 80</span><br><span class="line">---2tpuLegv---B--</span><br><span class="line">GET /projectName?PHPRC=/dev/fd/0 HTTP/1.1</span><br><span class="line">User-Agent: Wget/1.14 (linux-gnu)</span><br><span class="line">Accept: */*</span><br><span class="line">Host: 192.168.10.91</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line">---2tpuLegv---D--</span><br><span class="line"></span><br><span class="line">---2tpuLegv---E--</span><br><span class="line">&lt;html&gt;\x0d\x0a&lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;\x0d\x0a&lt;body&gt;\x0d\x0a&lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;\x0d\x0a&lt;hr&gt;&lt;center&gt;nginx/1.25.5&lt;/center&gt;\x0d\x0a&lt;/body&gt;\x0d\x0a&lt;/html&gt;\x0d\x0a</span><br><span class="line"></span><br><span class="line">---2tpuLegv---F--</span><br><span class="line">HTTP/1.1 403</span><br><span class="line">Server: nginx/1.25.5</span><br><span class="line">Date: Wed, 12 Feb 2025 01:35:24 GMT</span><br><span class="line">Content-Length: 153</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">---2tpuLegv---H--</span><br><span class="line">ModSecurity: Warning. Matched &quot;Operator `Rx&#x27; with parameter `^[\d.:]+$&#x27; against variable `REQUEST_HEADERS:Host&#x27; (Value: `192.168.10.91&#x27; ) [file &quot;/usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/REQUEST-920-PROTOCOL-ENFORCEMENT.conf&quot;] [line &quot;722&quot;] [id &quot;920350&quot;] [rev &quot;&quot;] [msg &quot;Host header is a numeric IP address&quot;] [data &quot;192.168.10.91&quot;] [severity &quot;4&quot;] [ver &quot;OWASP_CRS/3.2.0&quot;] [maturity &quot;0&quot;] [accuracy &quot;0&quot;] [tag &quot;application-multi&quot;] [tag &quot;language-multi&quot;] [tag &quot;platform-multi&quot;] [tag &quot;attack-protocol&quot;] [tag &quot;paranoia-level/1&quot;] [tag &quot;OWASP_CRS&quot;] [tag &quot;OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST&quot;] [tag &quot;WASCTC/WASC-21&quot;] [tag &quot;OWASP_TOP_10/A7&quot;] [tag &quot;PCI/6.5.10&quot;] [hostname &quot;10.1.3.243&quot;] [uri &quot;/projectName&quot;] [unique_id &quot;173932412476.453510&quot;] [ref &quot;o0,13v94,13&quot;]</span><br><span class="line">ModSecurity: Warning. Matched &quot;Operator `PmFromFile&#x27; with parameter `unix-shell.data&#x27; against variable `ARGS:PHPRC&#x27; (Value: `/dev/fd/0&#x27; ) [file &quot;/usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/REQUEST-932-APPLICATION-ATTACK-RCE.conf&quot;] [line &quot;496&quot;] [id &quot;932160&quot;] [rev &quot;&quot;] [msg &quot;Remote Command Execution: Unix Shell Code Found&quot;] [data &quot;Matched Data: dev/fd/ found within ARGS:PHPRC: /dev/fd/0&quot;] [severity &quot;2&quot;] [ver &quot;OWASP_CRS/3.2.0&quot;] [maturity &quot;0&quot;] [accuracy &quot;0&quot;] [tag &quot;application-multi&quot;] [tag &quot;language-shell&quot;] [tag &quot;platform-unix&quot;] [tag &quot;attack-rce&quot;] [tag &quot;paranoia-level/1&quot;] [tag &quot;OWASP_CRS&quot;] [tag &quot;OWASP_CRS/WEB_ATTACK/COMMAND_INJECTION&quot;] [tag &quot;WASCTC/WASC-31&quot;] [tag &quot;OWASP_TOP_10/A1&quot;] [tag &quot;PCI/6.5.2&quot;] [hostname &quot;10.1.3.243&quot;] [uri &quot;/projectName&quot;] [unique_id &quot;173932412476.453510&quot;] [ref &quot;o1,7v23,9t:urlDecodeUni,t:cmdLine,t:normalizePath,t:lowercase&quot;]</span><br><span class="line">ModSecurity: Access denied with code 403 (phase 2). Matched &quot;Operator `Ge&#x27; with parameter `5&#x27; against variable `TX:ANOMALY_SCORE&#x27; (Value: `8&#x27; ) [file &quot;/usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/REQUEST-949-BLOCKING-EVALUATION.conf&quot;] [line &quot;80&quot;] [id &quot;949110&quot;] [rev &quot;&quot;] [msg &quot;Inbound Anomaly Score Exceeded (Total Score: 8)&quot;] [data &quot;&quot;] [severity &quot;2&quot;] [ver &quot;OWASP_CRS/3.2.0&quot;] [maturity &quot;0&quot;] [accuracy &quot;0&quot;] [tag &quot;application-multi&quot;] [tag &quot;language-multi&quot;] [tag &quot;platform-multi&quot;] [tag &quot;attack-generic&quot;] [hostname &quot;10.1.3.243&quot;] [uri &quot;/projectName&quot;] [unique_id &quot;173932412476.453510&quot;] [ref &quot;&quot;]</span><br><span class="line"></span><br><span class="line">---2tpuLegv---Z--</span><br></pre></td></tr></table></figure></p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">---2tpuLegv---A--</span><br><span class="line">[12/Feb/2025:01:35:24 +0000] 173932412476.453510 192.168.10.91 2061 10.1.3.243 80</span><br><span class="line">---2tpuLegv---B--</span><br><span class="line">GET /projectName?PHPRC=/dev/fd/0 HTTP/1.1</span><br><span class="line">User-Agent: Wget/1.14 (linux-gnu)</span><br><span class="line">Accept: */*</span><br><span class="line">Host: 192.168.10.91</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line">---2tpuLegv---D--</span><br><span class="line"></span><br><span class="line">---2tpuLegv---E--</span><br><span class="line">&lt;html&gt;\x0d\x0a&lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;\x0d\x0a&lt;body&gt;\x0d\x0a&lt;center&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/center&gt;\x0d\x0a&lt;hr&gt;&lt;center&gt;nginx/1.25.5&lt;/center&gt;\x0d\x0a&lt;/body&gt;\x0d\x0a&lt;/html&gt;\x0d\x0a</span><br><span class="line"></span><br><span class="line">---2tpuLegv---F--</span><br><span class="line">HTTP/1.1 403</span><br><span class="line">Server: nginx/1.25.5</span><br><span class="line">Date: Wed, 12 Feb 2025 01:35:24 GMT</span><br><span class="line">Content-Length: 153</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">---2tpuLegv---H--</span><br><span class="line">ModSecurity: Warning. Matched &quot;Operator `Rx&#x27; with parameter `^[\d.:]+$&#x27; against variable `REQUEST_HEADERS:Host&#x27; (Value: `192.168.10.91&#x27; ) [file &quot;/usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/REQUEST-920-PROTOCOL-ENFORCEMENT.conf&quot;] [line &quot;722&quot;] [id &quot;920350&quot;] [rev &quot;&quot;] [msg &quot;Host header is a numeric IP address&quot;] [data &quot;192.168.10.91&quot;] [severity &quot;4&quot;] [ver &quot;OWASP_CRS/3.2.0&quot;] [maturity &quot;0&quot;] [accuracy &quot;0&quot;] [tag &quot;application-multi&quot;] [tag &quot;language-multi&quot;] [tag &quot;platform-multi&quot;] [tag &quot;attack-protocol&quot;] [tag &quot;paranoia-level/1&quot;] [tag &quot;OWASP_CRS&quot;] [tag &quot;OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST&quot;] [tag &quot;WASCTC/WASC-21&quot;] [tag &quot;OWASP_TOP_10/A7&quot;] [tag &quot;PCI/6.5.10&quot;] [hostname &quot;10.1.3.243&quot;] [uri &quot;/projectName&quot;] [unique_id &quot;173932412476.453510&quot;] [ref &quot;o0,13v94,13&quot;]</span><br><span class="line">ModSecurity: Warning. Matched &quot;Operator `PmFromFile&#x27; with parameter `unix-shell.data&#x27; against variable `ARGS:PHPRC&#x27; (Value: `/dev/fd/0&#x27; ) [file &quot;/usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/REQUEST-932-APPLICATION-ATTACK-RCE.conf&quot;] [line &quot;496&quot;] [id &quot;932160&quot;] [rev &quot;&quot;] [msg &quot;Remote Command Execution: Unix Shell Code Found&quot;] [data &quot;Matched Data: dev/fd/ found within ARGS:PHPRC: /dev/fd/0&quot;] [severity &quot;2&quot;] [ver &quot;OWASP_CRS/3.2.0&quot;] [maturity &quot;0&quot;] [accuracy &quot;0&quot;] [tag &quot;application-multi&quot;] [tag &quot;language-shell&quot;] [tag &quot;platform-unix&quot;] [tag &quot;attack-rce&quot;] [tag &quot;paranoia-level/1&quot;] [tag &quot;OWASP_CRS&quot;] [tag &quot;OWASP_CRS/WEB_ATTACK/COMMAND_INJECTION&quot;] [tag &quot;WASCTC/WASC-31&quot;] [tag &quot;OWASP_TOP_10/A1&quot;] [tag &quot;PCI/6.5.2&quot;] [hostname &quot;10.1.3.243&quot;] [uri &quot;/projectName&quot;] [unique_id &quot;173932412476.453510&quot;] [ref &quot;o1,7v23,9t:urlDecodeUni,t:cmdLine,t:normalizePath,t:lowercase&quot;]</span><br><span class="line">ModSecurity: Access denied with code 403 (phase 2). Matched &quot;Operator `Ge&#x27; with parameter `5&#x27; against variable `TX:ANOMALY_SCORE&#x27; (Value: `8&#x27; ) [file &quot;/usr/local/nginx/nginx-1.25.5/conf/modsecurity/rules/REQUEST-949-BLOCKING-EVALUATION.conf&quot;] [line &quot;80&quot;] [id &quot;949110&quot;] [rev &quot;&quot;] [msg &quot;Inbound Anomaly Score Exceeded (Total Score: 8)&quot;] [data &quot;&quot;] [severity &quot;2&quot;] [ver &quot;OWASP_CRS/3.2.0&quot;] [maturity &quot;0&quot;] [accuracy &quot;0&quot;] [tag &quot;application-multi&quot;] [tag &quot;language-multi&quot;] [tag &quot;platform-multi&quot;] [tag &quot;attack-generic&quot;] [hostname &quot;10.1.3.243&quot;] [uri &quot;/projectName&quot;] [unique_id &quot;173932412476.453510&quot;] [ref &quot;&quot;]</span><br><span class="line"></span><br><span class="line">---2tpuLegv---Z--</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -534,18 +643,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="折弦定义">折弦定义</h1>
+          <h1>折弦定义</h1>
 <p>从圆周上任何一点出发的两条弦组成的折线，称为该图的一条折弦</p>
-<h1 id="阿基米德折弦定理">阿基米德折弦定理</h1>
+<h1>阿基米德折弦定理</h1>
 <p>一个圆中一条折弦所对的两段弧的中点在较长弦上的射影，就是折弦的中点。如下图所示，AB和BC组成圆的折弦，AB&gt;BC，D是弧ABC的中点，DE⊥AB，垂点为E，则AE=BC+BE。</p>
-<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/折弦图.png"></p>
-<h1 id="证明方法">证明方法</h1>
+<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/%E6%8A%98%E5%BC%A6%E5%9B%BE.png" alt></p>
+<h1>证明方法</h1>
 <h2 id="截长法">截长法</h2>
-<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/证明-截长法.png"></p>
+<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/%E8%AF%81%E6%98%8E-%E6%88%AA%E9%95%BF%E6%B3%95.png" alt></p>
 <h2 id="补短法">补短法</h2>
-<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/证明-补短法.png"></p>
+<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/%E8%AF%81%E6%98%8E-%E8%A1%A5%E7%9F%AD%E6%B3%95.png" alt></p>
 <h2 id="垂线法">垂线法</h2>
-<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/证明-垂线法.png"></p>
+<p><img src="/2025/02/08/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E6%8A%98%E5%BC%A6%E5%AE%9A%E7%90%86/%E8%AF%81%E6%98%8E-%E5%9E%82%E7%BA%BF%E6%B3%95.png" alt></p>
 
       
     </div>
@@ -617,14 +726,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="公式">公式</h1>
-<p><span class="math display">\[\begin{equation}
-\begin{aligned}
-S=\sqrt{P(P-a)(P-b)(P-c)}
-\end{aligned}
-\end{equation}\]</span></p>
-<h1 id="推导">推导</h1>
-<p><img src="/2025/01/27/%E6%B5%B7%E4%BC%A6-%E7%A7%A6%E4%B9%9D%E9%9F%B6%E5%85%AC%E5%BC%8F/公式推导.jpg"></p>
+          <h1>公式</h1>
+<p>\begin{equation}<br>
+\begin{aligned}<br>
+S=\sqrt{P(P-a)(P-b)(P-c)}<br>
+\end{aligned}<br>
+\end{equation}</p>
+<h1>推导</h1>
+<p><img src="/2025/01/27/%E6%B5%B7%E4%BC%A6-%E7%A7%A6%E4%B9%9D%E9%9F%B6%E5%85%AC%E5%BC%8F/%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC.jpg" alt></p>
 
       
     </div>
@@ -702,24 +811,18 @@ S=\sqrt{P(P-a)(P-b)(P-c)}
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="阿波罗尼斯圆">阿波罗尼斯圆</h1>
-<p>在平面一点P，到A，B两点的距离满足:<span class="math inline">\(\frac{PA}{PB}=k(k\ne
-1)\)</span>，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。</p>
-<figure>
-<img src="/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/阿氏圆1.jpg" alt="阿氏圆">
-<figcaption aria-hidden="true">阿氏圆</figcaption>
-</figure>
-<p><span class="math display">\[\begin{equation}
-\begin{aligned}
-&amp;设AB=a, 即圆内点B，圆外点A间的距离为a\\
-&amp;则AC=\frac{ka}{k+1}, CB=\frac{a}{k+1}\\
-&amp;设BD=x,\frac{a+x}{x}=k\Rightarrow
-x=\frac{a}{k-1},即BD=\frac{a}{k-1}\\
-&amp;\therefore
-CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
-&amp;\therefore r=\frac{ak}{k^2-1}\\
-\end{aligned}
-\end{equation}\]</span></p>
+          <h1>阿波罗尼斯圆</h1>
+<p>在平面一点P，到A，B两点的距离满足:$\frac{PA}{PB}=k(k\ne 1)$，那么P的轨迹为一个以定比k内分和外分定线段AB的两个分点连线为直径的圆。</p>
+<p><img src="/2025/01/22/%E9%98%BF%E6%B0%8F%E5%9C%86/%E9%98%BF%E6%B0%8F%E5%9C%861.jpg" alt="阿氏圆"></p>
+<p>\begin{equation}<br>
+\begin{aligned}<br>
+&amp;设AB=a, 即圆内点B，圆外点A间的距离为a\<br>
+&amp;则AC=\frac{ka}{k+1}, CB=\frac{a}{k+1}\<br>
+&amp;设BD=x,\frac{a+x}{x}=k\Rightarrow x=\frac{a}{k-1},即BD=\frac{a}{k-1}\<br>
+&amp;\therefore CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\<br>
+&amp;\therefore r=\frac{ak}{k^2-1}\<br>
+\end{aligned}<br>
+\end{equation}</p>
 <blockquote>
 <p>上述是基于<code>k&gt;1</code>的情况的推演过程，记住这个数量关系，就能快速找内点，外点</p>
 </blockquote>
@@ -794,37 +897,50 @@ CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="比例性质">比例性质</h1>
-<ol type="1">
-<li><p>基本性质</p>
-<p><span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow ad=bc\hspace{3cm}(bd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>反比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{b}{a}=\frac{d}{c}\hspace{3cm}(abcd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>更比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a}{c}=\frac{b}{d}或\frac{d}{b}=\frac{c}{a}\hspace{3cm}(abcd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>合比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a+b}{b}=\frac{c+d}{d}\hspace{3cm}(bd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>分比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a-b}{b}=\frac{c-d}{d}\hspace{3cm}(bd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>合分比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a+b}{a-b}=\frac{c+d}{c-d}\hspace{3cm}(a\ne b, c\ne d)
-\end{equation}\]</span></p></li>
-<li><p>等比性质 <span class="math display">\[\begin{equation}
-     \frac{a_{1}}{b_{1}}=\frac{a_{2}}{b_{2}}=\frac{a_{3}}{b_{3}}=\dots=\frac{a_{k}}{b_{k}}\Rightarrow
-\frac{a_{1}+a_{2}+\dots+a_{k}}{b_{1}+b_{2}+\dots+b_{k}}=\frac{a_{1}}{b_{1}}
-\\ (b_{1}+b_{2}+\dots+b_{k}\ne 0)
-\end{equation}\]</span></p></li>
+          <h1>比例性质</h1>
+<ol>
+<li>
+<p>基本性质</p>
+<p>\begin{equation}<br>
+\frac{a}{b}=\frac{c}{d}\Leftrightarrow ad=bc\hspace{3cm}(bd\ne 0)<br>
+\end{equation}</p>
+</li>
+<li>
+<p>反比性质<br>
+\begin{equation}<br>
+\frac{a}{b}=\frac{c}{d}\Leftrightarrow \frac{b}{a}=\frac{d}{c}\hspace{3cm}(abcd\ne 0)<br>
+\end{equation}</p>
+</li>
+<li>
+<p>更比性质<br>
+\begin{equation}<br>
+\frac{a}{b}=\frac{c}{d}\Leftrightarrow \frac{a}{c}=\frac{b}{d}或\frac{d}{b}=\frac{c}{a}\hspace{3cm}(abcd\ne 0)<br>
+\end{equation}</p>
+</li>
+<li>
+<p>合比性质<br>
+\begin{equation}<br>
+\frac{a}{b}=\frac{c}{d}\Leftrightarrow \frac{a+b}{b}=\frac{c+d}{d}\hspace{3cm}(bd\ne 0)<br>
+\end{equation}</p>
+</li>
+<li>
+<p>分比性质<br>
+\begin{equation}<br>
+\frac{a}{b}=\frac{c}{d}\Leftrightarrow \frac{a-b}{b}=\frac{c-d}{d}\hspace{3cm}(bd\ne 0)<br>
+\end{equation}</p>
+</li>
+<li>
+<p>合分比性质<br>
+\begin{equation}<br>
+\frac{a}{b}=\frac{c}{d}\Leftrightarrow \frac{a+b}{a-b}=\frac{c+d}{c-d}\hspace{3cm}(a\ne b, c\ne d)<br>
+\end{equation}</p>
+</li>
+<li>
+<p>等比性质<br>
+\begin{equation}<br>
+\frac{a_{1}}{b_{1}}=\frac{a_{2}}{b_{2}}=\frac{a_{3}}{b_{3}}=\dots=\frac{a_{k}}{b_{k}}\Rightarrow \frac{a_{1}+a_{2}+\dots+a_{k}}{b_{1}+b_{2}+\dots+b_{k}}=\frac{a_{1}}{b_{1}} \ (b_{1}+b_{2}+\dots+b_{k}\ne 0)<br>
+\end{equation}</p>
+</li>
 </ol>
 
       
@@ -897,21 +1013,18 @@ CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="简介">简介</h1>
+          <h1>简介</h1>
 <p><strong>中线定理</strong>（pappus定理），又称<strong>重心定理</strong>，是欧氏几何的定理，表述三角形三边和中线长度关系。</p>
 <p>定理内容：三角形一条中线两侧所对边平方的和等于底边一半的平方加上这条中线的平方的和的2倍。</p>
 <p>即，对任意三角形△ABC，设是I线段BC的中点，AI为中线，则有如下关系：</p>
-<p><span class="math display">\[\begin{equation}
-\begin{aligned}
-&amp; AB^2+AC^2=2BI^2+2AI^2 \\
-&amp; AB^2+AC^2=\frac{1}{2}BC^2+2AI^2
-\end{aligned}
-\end{equation}\]</span></p>
-<h1 id="证明">证明</h1>
-<figure>
-<img src="/2025/01/17/%E4%B8%AD%E7%BA%BF%E5%AE%9A%E7%90%86/中线定理.jpg" alt="中线定理">
-<figcaption aria-hidden="true">中线定理</figcaption>
-</figure>
+<p>\begin{equation}<br>
+\begin{aligned}<br>
+&amp; AB^2+AC^2=2BI^2+2AI^2 \<br>
+&amp; AB^2+AC^2=\frac{1}{2}BC^2+2AI^2<br>
+\end{aligned}<br>
+\end{equation}</p>
+<h1>证明</h1>
+<p><img src="/2025/01/17/%E4%B8%AD%E7%BA%BF%E5%AE%9A%E7%90%86/%E4%B8%AD%E7%BA%BF%E5%AE%9A%E7%90%86.jpg" alt="中线定理"></p>
 
       
     </div>
@@ -989,230 +1102,14 @@ CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="简介">简介</h1>
-<p><strong>（内）角平分线定理</strong>：三角形一角的内角平分线分割对边为两段，两段的长度之比等于两条邻边的长度之比。反过来，有<strong>（内）角平分线逆定理</strong>：把三角形一边分割为长度之比等于邻边长度之比的两段，则经过分割点与对角顶点的直线为对角的内角平分线。</p>
+          <h1>简介</h1>
+<p><strong>（内）角平分线定理</strong>：三角形一角的内角平分线分割对边为两段，两段的长度之比等于两条邻边的长度之比。反过来，有**（内）角平分线逆定理**：把三角形一边分割为长度之比等于邻边长度之比的两段，则经过分割点与对角顶点的直线为对角的内角平分线。</p>
 <p>类似地，存在<strong>外角平分线定理</strong>和<strong>外角平分线逆定理</strong>。前者指的是：三角形一角的外角平分线与对边所在的直线相交，交点到对边上两顶点的距离之比等于两条邻边的长度之比。后者指的是：三角形一边的延长线上有一点到该边上两顶点的距离之比等于另外两边的长度之比，则经过该点与对角顶点的直线为对角的外角平分线。内、外角平分线定理（及逆定理），合称<strong>角平分线定理</strong>（及<strong>角平分线逆定理</strong>），又称<strong>角平分线性质</strong>。</p>
-<h1 id="证明">证明</h1>
+<h1>证明</h1>
 <h2 id="内角平分线定理及逆定理">内角平分线定理及逆定理</h2>
-<figure>
-<img src="/2025/01/16/%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86/内角平分线定理的证明.png" alt="内角平分线定理">
-<figcaption aria-hidden="true">内角平分线定理</figcaption>
-</figure>
+<p><img src="/2025/01/16/%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86/%E5%86%85%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%81%E6%98%8E.png" alt="内角平分线定理"></p>
 <h2 id="外角平分线定理及逆定理">外角平分线定理及逆定理</h2>
-<figure>
-<img src="/2025/01/16/%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86/外角平分线定理的证明.png" alt="外角平分线定理">
-<figcaption aria-hidden="true">外角平分线定理</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/01/07/Linux%E9%87%8D%E5%AE%9A%E5%90%91%E6%8A%80%E5%B7%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/07/Linux%E9%87%8D%E5%AE%9A%E5%90%91%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">Linux重定向技巧</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-01-07 18:03:28" itemprop="dateCreated datePublished" datetime="2025-01-07T18:03:28+08:00">2025-01-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-08 11:40:05" itemprop="dateModified" datetime="2025-01-08T11:40:05+08:00">2025-01-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="linux输出重定向">linux输出重定向</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">command &gt; file 2&gt;&amp;1</span><br><span class="line">command &gt;&gt; file 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<p>放在<code>&gt;</code>后面的<code>&amp;</code>，表示重定向的目标不是一个<strong>文件</strong>，而是一个<strong>文件描述符</strong>，内置的文件描述符如下:
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 =&gt; stdout</span><br><span class="line">2 =&gt; stderr</span><br><span class="line">0 =&gt; stdin</span><br></pre></td></tr></table></figure></p>
-<p>换言之 <code>2&gt;1</code>
-代表将<strong>stderr</strong>重定向到当前路径下文件名为<strong>1</strong>的<strong>regular
-file</strong>中，而<code>2&gt;&amp;1</code>代表将<strong>stderr</strong>重定向到<strong>文件描述符</strong>为<strong>1</strong>的文件(即<code>/dev/stdout</code>)中，这个文件就是<strong>stdout</strong>在<strong>file
-system</strong>中的映射
-而<strong>&amp;&gt;file</strong>是一种特殊的用法，也可以写成<strong>&gt;&amp;file</strong>，二者的意思完全相同，都等价于</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;file 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>此处<code>&amp;&gt;</code>或者<code>&gt;&amp;</code>视作整体，分开没有单独的含义</p>
-</blockquote>
-<p><strong>顺序问题：</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find /etc -name .bashrc &gt; list 2&gt;&amp;1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">为什么不能调下顺序,比如这样</span></span><br><span class="line">find /etc -name .bashrc 2&gt;&amp;1 &gt; list</span><br></pre></td></tr></table></figure>
-<p>第一种：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx &gt; list 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>含义：</strong></li>
-</ul>
-<p>​ <code>&gt; list</code>：将<strong>标准输出</strong>（文件描述符
-1）重定向到文件 list。</p>
-<p>​ <code>2&gt;&amp;1</code>：将<strong>标准错误</strong>（文件描述符
-2）重定向到与标准输出相同的位置。</p>
-<ul>
-<li><strong>执行顺序：</strong></li>
-</ul>
-<p>​ 1. &gt; list 首先将标准输出指向文件 list。</p>
-<p>​ 2. 2&gt;&amp;1 将标准错误指向与标准输出相同的地方（即文件
-list）。</p>
-<ul>
-<li><strong>效果：</strong></li>
-</ul>
-<p>​ <strong>标准输出和标准错误都被重定向到文件</strong> list
-<strong>中</strong>。</p>
-<p>​ 这是正确的用法。</p>
-<p>第二种：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx 2&gt;&amp;1 &gt; list</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>含义：</strong></li>
-</ul>
-<p>​ <code>2&gt;&amp;1</code>：将<strong>标准错误</strong>（文件描述符
-2）重定向到当前的标准输出。</p>
-<p>​ <code>&gt; list</code>：将<strong>标准输出</strong>（文件描述符
-1）重定向到文件 list。</p>
-<ul>
-<li><strong>执行顺序：</strong></li>
-</ul>
-<p>​ 1. 2&gt;&amp;1 首先将标准错误指向当前标准输出的位置。</p>
-<p>​ 2. 然后，&gt; list 将标准输出重定向到文件
-list，但此时标准错误仍然指向原始的标准输出（可能是终端）。</p>
-<ul>
-<li><strong>效果：</strong></li>
-</ul>
-<p>​ <strong>标准输出被写入文件</strong> list。</p>
-<p>​
-<strong>标准错误仍然输出到终端</strong>（因为它指向的是原始标准输出，而不是文件
-list）。</p>
-<p>​ 导致无法实现标准输出和标准错误的统一重定向。</p>
-<h1 id="输入重定向">输入重定向</h1>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc &lt; test.txt</span><br></pre></td></tr></table></figure>
-<p>把test.txt的内容作为<code>wc</code>的输入，效果和以下命令类似：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat test.txt | wc</span><br></pre></td></tr></table></figure>
-<p>把test.txt的内容通过管道传输给<code>wc</code></p>
-<h1 id="devnull">dev/null</h1>
-<p>如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到
-/dev/null：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &gt; /dev/null</span><br></pre></td></tr></table></figure>
-<p>/dev/null
-是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是
-/dev/null
-文件非常有用，将命令的输出重定向到它，会起到"禁止输出"的效果。</p>
-<p>如果希望屏蔽 <code>stdout</code>和
-<code>stderr</code>，可以这样写：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<h1 id="重定向深入">重定向深入</h1>
-<p>一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件：</p>
-<ul>
-<li>标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。</li>
-<li>标准输出文件(stdout)：stdout
-的文件描述符为1，Unix程序默认向stdout输出数据。</li>
-<li>标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。</li>
-</ul>
-<p>默认情况下，command &gt; file 将 stdout 重定向到 file，command &lt;
-file 将stdin 重定向到 file。</p>
-<p>如果希望 stderr 重定向到 file，可以这样写:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command 2 &gt; file</span><br></pre></td></tr></table></figure>
-<p>如果希望 stderr 追加到 file 文件末尾，可以这样写:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command 2 &gt;&gt; file</span><br></pre></td></tr></table></figure>
-<p>如果希望将 stdout 和 stderr 合并后重定向到 file，可以这样写：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command &gt; file 2&gt;&amp;1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者</span></span><br><span class="line">command &gt;&gt; file 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<p>如果希望对 stdin 和 stdout 都重定向，可以这样写：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &lt; file1 &gt;file2</span><br></pre></td></tr></table></figure>
-<p>command 命令将 stdin 重定向到 file1，将 stdout 重定向到 file2。</p>
-<p>注意：为什么需要将标准错误重定向到标准输出，因为标准错误没有缓冲区，而stdout有。</p>
-<table>
-<thead>
-<tr class="header">
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>command &gt; file</td>
-<td>将输出重定向到 file。</td>
-</tr>
-<tr class="even">
-<td>command &lt; file</td>
-<td>将输入重定向到 file。</td>
-</tr>
-<tr class="odd">
-<td>command &gt;&gt; file</td>
-<td>将输出以追加的方式重定向到 file。</td>
-</tr>
-<tr class="even">
-<td>n &gt; file</td>
-<td>将文件描述符为 n 的文件重定向到 file。</td>
-</tr>
-<tr class="odd">
-<td>n &gt;&gt; file</td>
-<td>将文件描述符为 n 的文件以追加的方式重定向到 file。</td>
-</tr>
-<tr class="even">
-<td>n &gt;&amp; m</td>
-<td>将输出文件 m 和 n 合并。</td>
-</tr>
-<tr class="odd">
-<td>n &lt;&amp; m</td>
-<td>将输入文件 m 和 n 合并。</td>
-</tr>
-<tr class="even">
-<td>&lt;&lt; tag</td>
-<td>将开始标记 tag 和结束标记 tag 之间的内容作为输入。</td>
-</tr>
-</tbody>
-</table>
+<p><img src="/2025/01/16/%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86/%E5%A4%96%E8%A7%92%E5%B9%B3%E5%88%86%E7%BA%BF%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%81%E6%98%8E.png" alt="外角平分线定理"></p>
 
       
     </div>
@@ -1297,7 +1194,7 @@ file 将stdin 重定向到 file。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1308,7 +1205,7 @@ file 将stdin 重定向到 file。</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">203</span>
+        <span class="site-state-item-count">205</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

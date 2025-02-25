@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="network.sh-脚本命令">network.sh 脚本命令</h1>
+        <h1><a target="_blank" rel="noopener" href="http://network.sh">network.sh</a> 脚本命令</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">./network.sh help</span><br><span class="line">Using docker and docker-compose</span><br><span class="line">Usage:</span><br><span class="line">  network.sh &lt;Mode&gt; [Flags]</span><br><span class="line">    Modes:</span><br><span class="line">      up - Bring up Fabric orderer and peer nodes. No channel is created</span><br><span class="line">      up createChannel - Bring up fabric network with one channel</span><br><span class="line">      createChannel - Create and join a channel after the network is created</span><br><span class="line">      deployCC - Deploy a chaincode to a channel (defaults to asset-transfer-basic)</span><br><span class="line">      down - Bring down the network</span><br><span class="line"></span><br><span class="line">    Flags:</span><br><span class="line">    Used with network.sh up, network.sh createChannel:</span><br><span class="line">    -ca &lt;use CAs&gt; -  Use Certificate Authorities to generate network crypto material</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to create (defaults to &quot;mychannel&quot;)</span><br><span class="line">    -s &lt;dbtype&gt; - Peer state database to deploy: goleveldb (default) or couchdb</span><br><span class="line">    -r &lt;max retry&gt; - CLI times out after certain number of attempts (defaults to 5)</span><br><span class="line">    -d &lt;delay&gt; - CLI delays for a certain number of seconds (defaults to 3)</span><br><span class="line">    -verbose - Verbose mode</span><br><span class="line"></span><br><span class="line">    Used with network.sh deployCC</span><br><span class="line">    -c &lt;channel name&gt; - Name of channel to deploy chaincode to</span><br><span class="line">    -ccn &lt;name&gt; - Chaincode name.</span><br><span class="line">    -ccl &lt;language&gt; - Programming language of the chaincode to deploy: go, java, javascript, typescript</span><br><span class="line">    -ccv &lt;version&gt;  - Chaincode version. 1.0 (default), v2, version3.x, etc</span><br><span class="line">    -ccs &lt;sequence&gt;  - Chaincode definition sequence. Must be an integer, 1 (default), 2, 3, etc</span><br><span class="line">    -ccp &lt;path&gt;  - File path to the chaincode.</span><br><span class="line">    -ccep &lt;policy&gt;  - (Optional) Chaincode endorsement policy using signature policy syntax. The default policy requires an endorsement from Org1 and Org2</span><br><span class="line">    -cccg &lt;collection-config&gt;  - (Optional) File path to private data collections configuration file</span><br><span class="line">    -cci &lt;fcn name&gt;  - (Optional) Name of chaincode initialization function. When a function is provided, the execution of init will be requested and the function will be invoked.</span><br><span class="line"></span><br><span class="line">    -h - Print this message</span><br><span class="line"></span><br><span class="line"> Possible Mode and flag combinations</span><br><span class="line">   up -ca -r -d -s -verbose</span><br><span class="line">   up createChannel -ca -c -r -d -s -verbose</span><br><span class="line">   createChannel -c -r -d -verbose</span><br><span class="line">   deployCC -ccn -ccl -ccv -ccs -ccp -cci -r -d -verbose</span><br><span class="line"></span><br><span class="line"> Examples:</span><br><span class="line">   network.sh up createChannel -ca -c mychannel -s couchdb</span><br><span class="line">   network.sh createChannel -c channelName</span><br><span class="line">   network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript</span><br><span class="line">   network.sh deployCC -ccn mychaincode -ccp ./user/mychaincode -ccv 1 -ccl javascript</span><br></pre></td></tr></table></figure>
 <h2 id="清除测试网中的所有容器">清除测试网中的所有容器</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
@@ -267,15 +267,11 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>-ccn</code>指定链码名称 <code>chain code name</code></li>
-<li><code>-ccl</code> 指定编写链码的语言
-<code>chain code language</code></li>
-<li><code>-ccp</code> 指定链码所在的目录
-<code>chain code path</code></li>
+<li><code>-ccl</code> 指定编写链码的语言 <code>chain code language</code></li>
+<li><code>-ccp</code> 指定链码所在的目录 <code>chain code path</code></li>
 <li>其余的查看 <code>./network.sh help</code></li>
 </ul>
-<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code>
-和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code>
-和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
+<p>这一步在linux下，比如ubuntu,我当时设置了goproxy是在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的，没有在<code>/etc/bash.bashrc</code>中设置(这里设置的环境变量对所有用户有效)，因为是使用<code>sudo</code>来跑命令,所以在<code>~/.zshrc</code> 和<code>/etc/profile</code>中设置的在终端里面<code>go env</code>查看是正常的，但安装链码的命令执行时还是下载依赖超时，因为根本没有使用<code>goproxy</code>。</p>
 <p>还有加<code>sudo</code>后找不到<code>go</code>的坑,需要在<code>~/.zshrc</code>中添加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias sudo=&#x27;sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH&#x27;</span><br></pre></td></tr></table></figure>
 <h2 id="与fabric网络交互">与fabric网络交互</h2>
@@ -287,19 +283,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FABRIC_CFG_PATH=$PWD/../config/</span><br></pre></td></tr></table></figure>
 <p>现在，可以设置环境变量，以允许作为Org1操作<code>peer</code> CLI：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Environment variables <span class="keyword">for</span> Org1</span></span><br><span class="line"></span><br><span class="line">export CORE_PEER_TLS_ENABLED=true</span><br><span class="line">export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;</span><br><span class="line">export CORE_PEER_TLS_ROOTCERT_FILE=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line">export CORE_PEER_MSPCONFIGPATH=$&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line">export CORE_PEER_ADDRESS=localhost:7051</span><br></pre></td></tr></table></figure>
-<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。
-如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动
-asset-transfer (basic) 链码，您可以调用链码（Go）的
-<code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用
-typescript 或者 javascript，例如
-<code>./network.sh deployCC -l javascript</code>，你会调用相关链码的
-<code>initLedger</code> 功能）。
-运行以下命令用一些资产来初始化账本：</p>
-<h3 id="调用链码函数initledger">调用链码函数<code>InitLedger</code></h3>
+<p><code>CORE_PEER_TLS_ROOTCERT_FILE</code>和<code>CORE_PEER_MSPCONFIGPATH</code>环境变量指向Org1的<code>organizations</code>文件夹中的的加密材料。 如果您使用 <code>./network.sh deployCC -ccl go</code> 安装和启动 asset-transfer (basic) 链码，您可以调用链码（Go）的 <code>InitLedger</code> 方法来赋予一些账本上的初始资产（如果使用 typescript 或者 javascript，例如 <code>./network.sh deployCC -l javascript</code>，你会调用相关链码的 <code>initLedger</code> 功能）。 运行以下命令用一些资产来初始化账本：</p>
+<h3 id="调用链码函数InitLedger">调用链码函数<code>InitLedger</code></h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $&#123;PWD&#125;/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles $&#123;PWD&#125;/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-<p><strong>Mac
-M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker
-Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
+<p><strong>Mac M1</strong>中试验有很多坑，有说go版本要1.13，有说是Mac中的Docker Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
 <h3 id="查询">查询</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c &#x27;&#123;&quot;Args&quot;:[&quot;GetAllAssets&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -389,7 +376,7 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#network.sh-%E8%84%9A%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">network.sh 脚本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E6%B5%8B%E8%AF%95%E7%BD%91%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">清除测试网中的所有容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%BD%91"><span class="nav-number">1.2.</span> <span class="nav-text">启动测试网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%80%9A%E9%81%93"><span class="nav-number">1.3.</span> <span class="nav-text">创建通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%93%BE%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">安装链码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8Efabric%E7%BD%91%E7%BB%9C%E4%BA%A4%E4%BA%92"><span class="nav-number">1.5.</span> <span class="nav-text">与fabric网络交互</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%93%BE%E7%A0%81%E5%87%BD%E6%95%B0initledger"><span class="nav-number">1.5.1.</span> <span class="nav-text">调用链码函数InitLedger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.5.2.</span> <span class="nav-text">查询</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">network.sh 脚本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E6%B5%8B%E8%AF%95%E7%BD%91%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">清除测试网中的所有容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%BD%91"><span class="nav-number">1.2.</span> <span class="nav-text">启动测试网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%80%9A%E9%81%93"><span class="nav-number">1.3.</span> <span class="nav-text">创建通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%93%BE%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">安装链码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8Efabric%E7%BD%91%E7%BB%9C%E4%BA%A4%E4%BA%92"><span class="nav-number">1.5.</span> <span class="nav-text">与fabric网络交互</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%93%BE%E7%A0%81%E5%87%BD%E6%95%B0InitLedger"><span class="nav-number">1.5.1.</span> <span class="nav-text">调用链码函数InitLedger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.5.2.</span> <span class="nav-text">查询</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -403,7 +390,7 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -414,7 +401,7 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">203</span>
+        <span class="site-state-item-count">205</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
