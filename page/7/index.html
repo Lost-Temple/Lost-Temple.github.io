@@ -240,25 +240,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>前言</h1>
+          <h1 id="前言">前言</h1>
 <p>以抽象方式耦合是依赖倒转原则的关键。由于抽象耦合关系总要涉及具体类从抽象类继承，并且需要保证任何引用到基类的地方都可以改换成其子类，因此里氏代换原则是依赖倒转原则的基础。</p>
 <p>在抽象层次上的耦合虽然有灵活性，但也带来了额外的复杂性。在某些情况下，如果一个具体类发生变化的可能性非常小，那么抽象耦合能发挥的好处便十分有限，这时使用具体耦合反而会更好。</p>
 <p>依赖倒转原则是<code>OO</code>设计的核心原则，设计模式的研究和应用是以依赖倒转原则为指导原则的。下面就举几个设计模式的例子加以说明。</p>
-<h1>工厂方法模式</h1>
+<h1 id="工厂方法模式">工厂方法模式</h1>
 <p>正如前面所谈到的，应当使消费一个对象的客户端只依赖于对象的抽象类型，而不是它的具体类型。但是<code>Java</code>语言要求在将一个（具体）类实例化的时候，必须调用这个具体类的构造子，所以<code>Java</code>语言给出的类的实例化方法无法做到只依赖于抽象类型。</p>
-<p>但是设计模式给出了解决这个问题的可行方案，其中最重要的方案就是工厂模式。工厂方法模式是几个工厂模式中最为典型的一个，下图所示就是工厂方法模式的简略类图。<br>
+<p>但是设计模式给出了解决这个问题的可行方案，其中最重要的方案就是工厂模式。工厂方法模式是几个工厂模式中最为典型的一个，下图所示就是工厂方法模式的简略类图。
 <img src="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/FactoryMethod.jpg" alt="工厂方法模式简略类图"></p>
-<p>工厂模式将创建一个类的实例的过程封装起来，消费这个实例的客户端仅仅得到实例化的结果，以及这个实例的抽象类型。当然，任何方法都无法回避<code>Java</code>语言所要求的<code>new</code>关键字和直接调用具体类的构造子的做法。简单工厂模式将这个违反“开-闭”原则以及依赖倒转原则的做法封装到一个类里面，而工厂方法模式将这个违反原则的做法推迟到了具体工厂角色中，如下图所示：<br>
+<p>工厂模式将创建一个类的实例的过程封装起来，消费这个实例的客户端仅仅得到实例化的结果，以及这个实例的抽象类型。当然，任何方法都无法回避<code>Java</code>语言所要求的<code>new</code>关键字和直接调用具体类的构造子的做法。简单工厂模式将这个违反“开-闭”原则以及依赖倒转原则的做法封装到一个类里面，而工厂方法模式将这个违反原则的做法推迟到了具体工厂角色中，如下图所示：
 <img src="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/FactoryMethod1.jpg" alt="工厂方法模式简略类图"></p>
 <p>这样，通过适当地封装，工厂模式可以净化大部分的结构，而将违反原则的做法孤立到易于控制的地方。</p>
-<h1>模版方法模式</h1>
-<p>在模版方法模式里面，有一个抽象类将重要的宏观逻辑以<code>具体方法</code>以及<code>具体构造子</code>的形式实现，然后声明一些抽象方法来迫子类实现剩余的具体细节上的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对<strong>剩余的逻辑</strong>有不同的实现。模版方法模式支持依赖倒转原则，如下图所示。<br>
+<h1 id="模版方法模式">模版方法模式</h1>
+<p>在模版方法模式里面，有一个抽象类将重要的宏观逻辑以<code>具体方法</code>以及<code>具体构造子</code>的形式实现，然后声明一些抽象方法来迫子类实现剩余的具体细节上的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对<strong>剩余的逻辑</strong>有不同的实现。模版方法模式支持依赖倒转原则，如下图所示。
 <img src="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/TemplateMethod.jpg" alt="模版方法模式简略类图"></p>
 <p>具体子类不能影响抽象类的宏观逻辑，而抽象逻辑的改变则会导致细节逻辑的改变。</p>
-<h1>迭代子模式</h1>
+<h1 id="迭代子模式">迭代子模式</h1>
 <p>迭代子模式用一个工厂方法向客户端提供一个聚集的内部迭代功能，客户端得到的是一个<code>Iterator</code>抽象类型，并不知道迭代子的具体实现以及聚集对象的内部结构。迭代子模式的简略类图如下图所示。</p>
-<p><img src="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/Iterator1.jpg" alt="迭代子模式简略类图"></p>
-<p>这样一来，聚集的内部结构的改变就不会波及到客户端，从而实现了对抽象接口的依赖，如下图所示。<br>
+<figure>
+<img src="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/Iterator1.jpg" alt="迭代子模式简略类图">
+<figcaption aria-hidden="true">迭代子模式简略类图</figcaption>
+</figure>
+<p>这样一来，聚集的内部结构的改变就不会波及到客户端，从而实现了对抽象接口的依赖，如下图所示。
 <img src="/2023/01/08/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00005/Iterator2.jpg" alt="迭代子模式简略类图"></p>
 
       
@@ -331,43 +334,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>什么是反向代理</h1>
+          <h1 id="什么是反向代理">什么是反向代理</h1>
 <p><code>反向代理</code>是位于<code>Web服务器</code>前面的服务器，其将<code>客户端</code>（例如<code>Web浏览器</code>）请求转发到这些<code>Web服务器</code>。反向代理通常用于帮助提高安全性、性能和可靠性。为了更好地理解反向代理的工作原理以及它可以提供的好处，我们来首先定义什么是<code>代理服务器</code>。</p>
-<h1>什么是代理服务器？</h1>
+<h1 id="什么是代理服务器">什么是代理服务器？</h1>
 <p><code>转发代理</code>，通常称为<code>代理</code>、<code>代理服务器</code>或<code>Web代理</code>，是位于一组客户端计算机之前的服务器。当这些计算机向<code>Internet</code>上的站点和服务发出请求时，代理服务器将拦截这些请求，然后代表客户端与<code>Web服务器</code>进行通信，起到中间设备的作用。</p>
-<p>例如，典型的转发代理通信中涉及3台计算机：</p>
-<ul>
-<li>A：这是用户的家用计算机</li>
-<li>B：这是一个转发代理服务器</li>
-<li>C：这是网站的源站（用于存储网站数据）</li>
-</ul>
-<p><img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理"></p>
-<p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code> 将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给 <code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而 <code>B</code> 则将响应转发给 <code>A</code>。</p>
-<p>为什么要将这个多余的中间设备添加到 Internet 活动中？使用转发代理可能有几个原因：</p>
-<ul>
-<li>为避免浏览限制: 一些政府、学校和其他组织使用防火墙来使用户访问受限版本的互联网。转发代理可用于绕过这些限制，因为它们使用户可以连接到代理，而不是直接连接到他们正在访问的站点。</li>
-<li>阻止访问某些内容: 相对的，也可以设置代理以阻止特定用户群访问某些站点。例如，学校网络可能配置为通过启用内容筛选规则的代理连接到 Web，以拒绝转发来自 Facebook 和其他社交媒体网站的响应。</li>
-<li>保护自己的在线身份—: 在某些情况下，常规互联网用户希望增加在线匿名性，但在其他情况下，互联网用户居住在政府可能对政治异议者施加严重后果的地方。在网络论坛或社交媒体上批评政府可能会导致这些用户受到罚款或监禁。如果持不同政见者使用转发代理连接到他们发布政治敏感评论的网站，则用于发表评论的<code>IP地址</code>将更难追溯到持不同政见者。仅<code>代理服务器</code>的<code>IP地址</code>将对他人可见。</li>
-</ul>
-<h1>反向代理有何不同?</h1>
+<p>例如，典型的转发代理通信中涉及3台计算机： - A：这是用户的家用计算机 -
+B：这是一个转发代理服务器 - C：这是网站的源站（用于存储网站数据）</p>
+<figure>
+<img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/forward-proxy-flow.svg" alt="转发代理">
+<figcaption aria-hidden="true">转发代理</figcaption>
+</figure>
+<p>在标准的互联网通信中，<code>计算机A</code>将直接与<code>计算机C</code>保持联系，<code>客户端</code>将请求发送到<code>源服务器</code>，并且<code>源服务器</code>将响应<code>客户端</code>。当存在转发代理时，<code>A</code>
+将请求发送到 <code>B</code>，<code>B</code> 随后将请求转发给
+<code>C</code>。<code>C</code> 将向 <code>B</code> 发送响应，而
+<code>B</code> 则将响应转发给 <code>A</code>。</p>
+<p>为什么要将这个多余的中间设备添加到 Internet
+活动中？使用转发代理可能有几个原因： - 为避免浏览限制:
+一些政府、学校和其他组织使用防火墙来使用户访问受限版本的互联网。转发代理可用于绕过这些限制，因为它们使用户可以连接到代理，而不是直接连接到他们正在访问的站点。
+- 阻止访问某些内容:
+相对的，也可以设置代理以阻止特定用户群访问某些站点。例如，学校网络可能配置为通过启用内容筛选规则的代理连接到
+Web，以拒绝转发来自 Facebook 和其他社交媒体网站的响应。 -
+保护自己的在线身份—:
+在某些情况下，常规互联网用户希望增加在线匿名性，但在其他情况下，互联网用户居住在政府可能对政治异议者施加严重后果的地方。在网络论坛或社交媒体上批评政府可能会导致这些用户受到罚款或监禁。如果持不同政见者使用转发代理连接到他们发布政治敏感评论的网站，则用于发表评论的<code>IP地址</code>将更难追溯到持不同政见者。仅<code>代理服务器</code>的<code>IP地址</code>将对他人可见。</p>
+<h1 id="反向代理有何不同">反向代理有何不同?</h1>
 <p>反向代理是位于一个或多个<code>Web服务器</code>前面的服务器，拦截来自<code>客户端</code>的请求。这与转发代理不同:在转发代理中，<code>代理</code>位于<code>客户端</code>的前面。使用<code>反向代理</code>，当<code>客户端</code>将请求发送到网站的<code>源服务器</code>时，<code>反向代理服务器</code>会在网络边缘拦截这些请求。然后，<code>反向代理服务器</code>将向<code>源服务器</code>发送请求并从<code>源服务器</code>接收响应。</p>
 <p><code>转发代理</code>和<code>反向代理</code>之间的区别非常细微，但非常重要。简单概括而言，<code>转发代理</code>位于客户端的前面，确保没有源站直接与该特定客户端通信；而<code>反向代理服务器</code>位于源站前面，确保没有客户端直接与该源站通信。</p>
-<p>这一次，所涉及的计算机包括：</p>
-<ul>
-<li>D：任意数量的用户家用计算机</li>
-<li>E：这是反向代理服务器</li>
-<li>F：一台或多台源站</li>
-</ul>
-<p><img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理"></p>
+<p>这一次，所涉及的计算机包括： - D：任意数量的用户家用计算机 -
+E：这是反向代理服务器 - F：一台或多台源站</p>
+<figure>
+<img src="/2023/01/06/Web%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%9F%A5%E8%AF%86%E7%82%B9-1/reverse-proxy-flow.svg" alt="反向代理">
+<figcaption aria-hidden="true">反向代理</figcaption>
+</figure>
 <p>通常，来自<code>D</code>的所有请求都将直接发送到<code>F</code>，而<code>F</code>会直接将响应发送到<code>D</code>。使用<code>反向代理</code>，来自<code>D</code>的所有请求都将直接发送给<code>E</code>，而<code>E</code>会将其请求发送到<code>F</code>并从<code>F</code>接收响应，然后将适当响应传递给<code>D</code>。</p>
-<p>下面是反向代理的一些好处：</p>
-<ul>
-<li>负载均衡: 一个每天吸引数百万用户的热门网站可能无法使用单个源服务器处理所有传入站点流量。但该站点可以分布在不同服务器的池中，让所有服务器都处理同一站点的请求。在这种情况下，反向代理可以提供一种负载均衡解决方案，在不同服务器之间平均分配传入流量，以防止单个服务器过载。如果某台服务器完全无法运转，则其他服务器可以代为处理流量。</li>
-<li>防范攻击: 配备反向代理后，网站或服务无需透露其源服务器的<code>IP地址</code>。这使得攻击者更难利用针对性攻击，例如<code>DDoS</code>攻击。这时候，攻击者只能针对反向代理。</li>
-<li>全局服务器负载平衡(GSLB): 在这种负载均衡形式中，一个网站可以分布在全球各地的多个服务器上，反向代理会将客户端发送到地理位置上最接近它们的服务器。这样可以减少请求和响应传播的距离，从而最大程度地减少加载时间。</li>
-<li>缓存: 反向代理还可以缓存内容，从而提高速度。例如，如果巴黎的用户访问使用反向代理而<code>Web服务器</code>位于洛杉矶的网站，则该用户实际上可能连接到巴黎本地的<code>反向代理服务器</code>，然后该本地<code>反向代理服务器</code>必须与洛杉矶的<code>源服务器</code>进行通信。之后，<code>代理服务器</code>可以缓存（或临时保存）响应数据。随后浏览该站点的巴黎用户将从巴黎<code>反向代理服务器</code>处获取本地缓存的响应，从而享受到更快的性能。</li>
-<li>SSL加密: 加密和解密每个客户端的<code>SSL（或 TLS）</code>通信对于源服务器可能需要耗费大量计算资源。可以配置由反向代理解密所有传入请求并加密所有传出响应，腾出源服务器上的宝贵资源。</li>
-</ul>
+<p>下面是反向代理的一些好处： - 负载均衡:
+一个每天吸引数百万用户的热门网站可能无法使用单个源服务器处理所有传入站点流量。但该站点可以分布在不同服务器的池中，让所有服务器都处理同一站点的请求。在这种情况下，反向代理可以提供一种负载均衡解决方案，在不同服务器之间平均分配传入流量，以防止单个服务器过载。如果某台服务器完全无法运转，则其他服务器可以代为处理流量。
+- 防范攻击:
+配备反向代理后，网站或服务无需透露其源服务器的<code>IP地址</code>。这使得攻击者更难利用针对性攻击，例如<code>DDoS</code>攻击。这时候，攻击者只能针对反向代理。
+- 全局服务器负载平衡(GSLB):
+在这种负载均衡形式中，一个网站可以分布在全球各地的多个服务器上，反向代理会将客户端发送到地理位置上最接近它们的服务器。这样可以减少请求和响应传播的距离，从而最大程度地减少加载时间。
+- 缓存:
+反向代理还可以缓存内容，从而提高速度。例如，如果巴黎的用户访问使用反向代理而<code>Web服务器</code>位于洛杉矶的网站，则该用户实际上可能连接到巴黎本地的<code>反向代理服务器</code>，然后该本地<code>反向代理服务器</code>必须与洛杉矶的<code>源服务器</code>进行通信。之后，<code>代理服务器</code>可以缓存（或临时保存）响应数据。随后浏览该站点的巴黎用户将从巴黎<code>反向代理服务器</code>处获取本地缓存的响应，从而享受到更快的性能。
+- SSL加密:
+加密和解密每个客户端的<code>SSL（或 TLS）</code>通信对于源服务器可能需要耗费大量计算资源。可以配置由反向代理解密所有传入请求并加密所有传出响应，腾出源服务器上的宝贵资源。</p>
 
       
     </div>
@@ -439,60 +447,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>前言</h1>
+          <h1 id="前言">前言</h1>
 <p>Golang名言：使用通信来共享内存，而不是使用共享内存来通信。Golang中有<code>sync</code>包提供了传统方式的锁机制。但更推荐使用<code>channel</code>来解决并发问题。</p>
-<h1>channel的用法</h1>
+<h1 id="channel的用法">channel的用法</h1>
 <h2 id="什么是channel">什么是channel</h2>
-<p><code>channel</code>是<code>goroutine</code>之间用来接收或发送消息的安全消息队列。<code>channel</code>就像是它的字面意思：通道。它就是两个<code>goroutine</code>之间用来同步资源的一个通道。<br>
+<p><code>channel</code>是<code>goroutine</code>之间用来接收或发送消息的安全消息队列。<code>channel</code>就像是它的字面意思：通道。它就是两个<code>goroutine</code>之间用来同步资源的一个通道。
 <img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/1.jpg" alt="channel示意图"></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">1</span>) <span class="comment">// 创建一个类型为int,缓冲区大小为1的channel</span></span><br><span class="line">	ch &lt;<span class="number">-2</span> <span class="comment">// 将2发送到channel中</span></span><br><span class="line">	n, ok := &lt;-ch <span class="comment">// n从channel中接收数据</span></span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		fmt.Println(n) <span class="comment">// 2</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ch) <span class="comment">// 关闭channel</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="使用时的注意点">使用时的注意点</h2>
 <ul>
-<li>
-<p>向一个<code>nil channel</code>发送消息会一直阻塞</p>
-<p>Code:</p>
-  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> ch <span class="keyword">chan</span> <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> send(ch)</span><br><span class="line">    &lt;-ch</span><br><span class="line">    time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">send</span><span class="params">(ch <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Sending value to channnel start&quot;</span>)</span><br><span class="line">    ch &lt;- <span class="number">1</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;Sending value to channnel finish&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Output:</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sending value to channnel start</span><br><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br><span class="line">goroutine 1 [chan receive (nil chan)]:</span><br><span class="line">goroutine 18 [chan send (nil chan)]:</span><br></pre></td></tr></table></figure>
-<p>分析：上述代码只是声明了channel，它的默认初始值为nil, 在一个goroutine中向这个 nil channel 发送消息，这个goroutine 就会一直阻塞,而在main函数中(主routine)中想从channel中获取这个消息也是会被阻塞住，所以整个进行就相当于处理死锁状态。</p>
-</li>
-<li>
-<p>向一个已关闭的<code>channel</code>发送消息会引发运行时<code>panic</code></p>
-</li>
-<li>
-<p><code>channel</code>关闭后不可以继续向它发送消息，但可以继续从它接收消息</p>
-</li>
-<li>
-<p>当<code>channel</code>关闭后并且缓冲区为空时，继续从它接收消息会得到一个对应类型的零值</p>
-</li>
+<li><p>向一个<code>nil channel</code>发送消息会一直阻塞</p>
+<p>Code: <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> ch <span class="keyword">chan</span> <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> send(ch)</span><br><span class="line">    &lt;-ch</span><br><span class="line">    time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">send</span><span class="params">(ch <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Sending value to channnel start&quot;</span>)</span><br><span class="line">    ch &lt;- <span class="number">1</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;Sending value to channnel finish&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> Output: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sending value to channnel start</span><br><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br><span class="line">goroutine 1 [chan receive (nil chan)]:</span><br><span class="line">goroutine 18 [chan send (nil chan)]:</span><br></pre></td></tr></table></figure>
+分析：上述代码只是声明了channel，它的默认初始值为nil,
+在一个goroutine中向这个 nil channel 发送消息，这个goroutine
+就会一直阻塞,而在main函数中(主routine)中想从channel中获取这个消息也是会被阻塞住，所以整个进行就相当于处理死锁状态。</p></li>
+<li><p>向一个已关闭的<code>channel</code>发送消息会引发运行时<code>panic</code></p></li>
+<li><p><code>channel</code>关闭后不可以继续向它发送消息，但可以继续从它接收消息</p></li>
+<li><p>当<code>channel</code>关闭后并且缓冲区为空时，继续从它接收消息会得到一个对应类型的零值</p></li>
 </ul>
-<h1>unbuffered channels与buffered channels</h1>
+<h1 id="unbuffered-channels与buffered-channels">unbuffered
+channels与buffered channels</h1>
 <ul>
 <li><code>unbuffered channel</code>是缓冲区大小为0的<code>channel</code>，这种<code>channel</code>的接收者会阻塞直至接收到消息；发送者会阻塞直至接收到消息，这种机制可以用于两个<code>goroutine</code>进行状态同步。</li>
 <li><code>buffered channel</code>拥有缓冲区，当缓冲区已满时，发送者会阻塞，当缓冲区为空时，接收者会阻塞。</li>
 </ul>
-<p>引用<a target="_blank" rel="noopener" href="https://www.ardanlabs.com/blog/2014/02/the-nature-of-channels-in-go.html">The Nature Of Channels In Go</a>中的两张图来说明<code>Unbuffered channels</code>与<code>Buffered channels</code></p>
-<h2 id="Unbuffered-channels">Unbuffered channels</h2>
-<p><img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/2.png" alt="Unbuffered channels"></p>
-<h2 id="Buffered-channels">Buffered channels</h2>
-<p><img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/3.png" alt="Buffered channels"></p>
+<p>引用<a target="_blank" rel="noopener" href="https://www.ardanlabs.com/blog/2014/02/the-nature-of-channels-in-go.html">The
+Nature Of Channels In
+Go</a>中的两张图来说明<code>Unbuffered channels</code>与<code>Buffered channels</code></p>
+<h2 id="unbuffered-channels">Unbuffered channels</h2>
+<figure>
+<img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/2.png" alt="Unbuffered channels">
+<figcaption aria-hidden="true">Unbuffered channels</figcaption>
+</figure>
+<h2 id="buffered-channels">Buffered channels</h2>
+<figure>
+<img src="/2023/01/04/Golang%E5%AD%A6%E4%B9%A0-%E7%9F%A5%E8%AF%86%E7%82%B9-1/3.png" alt="Buffered channels">
+<figcaption aria-hidden="true">Buffered channels</figcaption>
+</figure>
 <h3 id="unbuffered-channel示例">unbuffered channel示例</h3>
-<p>让我们构建一个示例程序，它使用四个 goroutine 和一个通道来模拟接力赛。比赛中的参赛者将被称为“ Goroutines”，通道将被用来在每个参赛者之间交换接力棒。这是一个典型的例子，说明了如何在 goroutines 之间传递资源，以及通道如何控制与之交互的 goroutines 的行为。</p>
+<p>让我们构建一个示例程序，它使用四个 goroutine
+和一个通道来模拟接力赛。比赛中的参赛者将被称为“
+Goroutines”，通道将被用来在每个参赛者之间交换接力棒。这是一个典型的例子，说明了如何在
+goroutines 之间传递资源，以及通道如何控制与之交互的 goroutines
+的行为。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Runner</span><span class="params">(baton <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> newRunner <span class="type">int</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Wait to receive the baton</span></span><br><span class="line">	runner := &lt;-baton</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Start running around the track</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Runner %d Running With Baton\n&quot;</span>, runner)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// New runner to the line</span></span><br><span class="line">	<span class="keyword">if</span> runner != <span class="number">4</span> &#123;</span><br><span class="line">		newRunner = runner + <span class="number">1</span></span><br><span class="line">		fmt.Printf(<span class="string">&quot;Runner %d To The Line\n&quot;</span>, newRunner)</span><br><span class="line">		<span class="keyword">go</span> Runner(baton)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Running around the track</span></span><br><span class="line">	time.Sleep(<span class="number">100</span> * time.Millisecond)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Is the race over</span></span><br><span class="line">	<span class="keyword">if</span> runner == <span class="number">4</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Runner %d Finished, Race Over\n&quot;</span>, runner)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Exchange the baton for the next runner</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;Runner %d Exchange With Runner %d\n&quot;</span>, runner, newRunner)</span><br><span class="line">	baton &lt;- newRunner</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create an unbufferd channel</span></span><br><span class="line">	baton := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// First runner to his mark</span></span><br><span class="line">	<span class="keyword">go</span> Runner(baton)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Start the race</span></span><br><span class="line">	baton &lt;- <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Give the runners time to race</span></span><br><span class="line">	time.Sleep(<span class="number">500</span> * time.Millisecond)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Runner 1 Running With Baton</span><br><span class="line">Runner 2 To The Line</span><br><span class="line">Runner 1 Exchange With Runner 2</span><br><span class="line">Runner 2 Running With Baton</span><br><span class="line">Runner 3 To The Line</span><br><span class="line">Runner 2 Exchange With Runner 3</span><br><span class="line">Runner 3 Running With Baton</span><br><span class="line">Runner 4 To The Line</span><br><span class="line">Runner 3 Exchange With Runner 4</span><br><span class="line">Runner 4 Running With Baton</span><br><span class="line">Runner 4 Finished, Race Over</span><br></pre></td></tr></table></figure>
+<p>运行结果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Runner 1 Running With Baton</span><br><span class="line">Runner 2 To The Line</span><br><span class="line">Runner 1 Exchange With Runner 2</span><br><span class="line">Runner 2 Running With Baton</span><br><span class="line">Runner 3 To The Line</span><br><span class="line">Runner 2 Exchange With Runner 3</span><br><span class="line">Runner 3 Running With Baton</span><br><span class="line">Runner 4 To The Line</span><br><span class="line">Runner 3 Exchange With Runner 4</span><br><span class="line">Runner 4 Running With Baton</span><br><span class="line">Runner 4 Finished, Race Over</span><br></pre></td></tr></table></figure></p>
 <h2 id="channel的遍历">channel的遍历</h2>
 <h3 id="阻塞型的遍历方式">阻塞型的遍历方式</h3>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ci := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">5</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++ &#123;</span><br><span class="line">		ci &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ci)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> ci &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>值得注意的是：在遍历channel前，如果channel没有关闭，遍历会被阻塞，会出现deadlock的错误；如果在遍历时channel已经关闭，那么会遍历完数据后退出遍历；也就是说for range的遍历方式是阻塞型的遍历方式。</p>
+<p>值得注意的是：在遍历channel前，如果channel没有关闭，遍历会被阻塞，会出现deadlock的错误；如果在遍历时channel已经关闭，那么会遍历完数据后退出遍历；也就是说for
+range的遍历方式是阻塞型的遍历方式。</p>
 </blockquote>
 <h3 id="非阻塞型的遍历方式">非阻塞型的遍历方式</h3>
-<p><code>select</code>可用于非阻塞式消息发送、接收及多路选择</p>
+<p><code>select</code>可用于非阻塞式消息发送、接收及多路选择
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ci := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">2</span>; i++ &#123;</span><br><span class="line">		ci &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">close</span>(ci)</span><br><span class="line"></span><br><span class="line">	cs := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">string</span>, <span class="number">2</span>)</span><br><span class="line">	cs &lt;- <span class="string">&quot;hi&quot;</span></span><br><span class="line">	cs &lt;- <span class="string">&quot;golang&quot;</span></span><br><span class="line">	<span class="built_in">close</span>(cs)</span><br><span class="line"></span><br><span class="line">	ciClosed, csClosed := <span class="literal">false</span>, <span class="literal">false</span></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> ciClosed &amp;&amp; csClosed &#123;</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">select</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> i, ok := &lt;-ci:</span><br><span class="line">			<span class="keyword">if</span> ok &#123;</span><br><span class="line">				fmt.Println(i)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				ciClosed = <span class="literal">true</span></span><br><span class="line">				fmt.Println(<span class="string">&quot;ci data fetching finished&quot;</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">case</span> s, ok := &lt;-cs:</span><br><span class="line">			<span class="keyword">if</span> ok &#123;</span><br><span class="line">				fmt.Println(s)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				csClosed = <span class="literal">true</span></span><br><span class="line">				fmt.Println(<span class="string">&quot;cs data fetching finished&quot;</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;wating...&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>select</code>中有<code>case</code>代码块，用于<code>channel</code>发送或接收消息，任意一个<code>case</code>代码块准备好时，执行其对应内容；多个<code>case</code>代码块准备好时，随机选择一个<code>case</code>代码块并执行；所有<code>case</code>代码块都没有准备好，则等待；还可以有一个<code>default</code>代码块，所有<code>case</code>代码块都没有准备好时执行default代码块。这里的所谓的没有准备好，指的就是channel没有关闭。当执行了close()函数后，就是所谓的准备好了。</p>
-</blockquote>
+&gt;<code>select</code>中有<code>case</code>代码块，用于<code>channel</code>发送或接收消息，任意一个<code>case</code>代码块准备好时，执行其对应内容；多个<code>case</code>代码块准备好时，随机选择一个<code>case</code>代码块并执行；所有<code>case</code>代码块都没有准备好，则等待；还可以有一个<code>default</code>代码块，所有<code>case</code>代码块都没有准备好时执行default代码块。这里的所谓的没有准备好，指的就是channel没有关闭。当执行了close()函数后，就是所谓的准备好了。</p>
 
       
     </div>
@@ -565,41 +575,45 @@
 
       
           <p>实现“开-闭”原则的关键是抽象化，并且从抽象化导出具体化实现。如果说“开-闭”原则是面向对象设计的目标的话，依赖倒置原则就是这个面向对象设计的主要机制。</p>
-<h1>为何而“倒转”</h1>
+<h1 id="为何而倒转">为何而“倒转”</h1>
 <p>传统的过程性系统的设计办法倾向于使高层次依赖于低层次的模块；抽象层次依赖于具体层次。倒转原则是要把这个错误的依赖关系倒转过来，这就是“依赖倒转原则”的来由。</p>
-<p>抽象层依赖于具体层次的含义是什么呢？抽象层次包含的是应用系统的商务逻辑和宏观的、对整个系统来说重要的战略性决定，是必然性的体现；而具体层次则含有一些次要的与实现有关的算法和逻辑，以及战术性的决定，带有相当大的偶然性选择。具体层次的代码是会经常有变动的，不能避免出现错误。抽象层次依赖于具体层次，使许多具体层次的细节的算法变化立即影响到抽象层次的宏观商务逻辑，导致微观决定宏观，战术决定战略，偶然决定必然。如下图所示：<br>
+<p>抽象层依赖于具体层次的含义是什么呢？抽象层次包含的是应用系统的商务逻辑和宏观的、对整个系统来说重要的战略性决定，是必然性的体现；而具体层次则含有一些次要的与实现有关的算法和逻辑，以及战术性的决定，带有相当大的偶然性选择。具体层次的代码是会经常有变动的，不能避免出现错误。抽象层次依赖于具体层次，使许多具体层次的细节的算法变化立即影响到抽象层次的宏观商务逻辑，导致微观决定宏观，战术决定战略，偶然决定必然。如下图所示：
 <img src="/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/1.jpg" alt="错误的层次依赖关系"></p>
-<p>依赖倒转原则(Dependence Inversion Principle或简称为DIP)，就是要把错误的依赖关系再倒转过来，如下图：<br>
-<img src="/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/2.jpg" alt="依赖倒转的关系图"></p>
-<blockquote>
-<p>依赖倒转原则是COM/CORBA/JavaBean以及EJB等构建设计模型背后的基本原则。</p>
-</blockquote>
-<h1>复用与可维护性的“倒转”</h1>
+<p>依赖倒转原则(Dependence Inversion
+Principle或简称为DIP)，就是要把错误的依赖关系再倒转过来，如下图： <img src="/2023/01/02/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00004/2.jpg" alt="依赖倒转的关系图">
+&gt;依赖倒转原则是COM/CORBA/JavaBean以及EJB等构建设计模型背后的基本原则。</p>
+<h1 id="复用与可维护性的倒转">复用与可维护性的“倒转”</h1>
 <p>从复用的角度来看，高层次的模块是设计者应当复用的。但是在传统的过程性设计中，复用却侧重于具体层次模块的复用，比如算法的复用、数据结构的复用、函数库的复用等，都不可避免是具体层次模块里面的复用。较高层次的结构依赖于较低层次的结构，较低层次的结构又进一步依赖于更低层次的结构，如此继续，直到依赖于每一行的代码。较低层次上的修改，会造成较高层次的修改，直到高层次逻辑的修改。</p>
 <p>同样，传统的做法也强调具体层次上的可维护性，包括一个函数、数据结构等的可维护性，而不是高级层次上的可维护性。</p>
 <p>从复用的意义上讲，既然抽象层次含有一个应用系统最重要的宏观商务逻辑，是做战略性判断和决定的地方，那么抽象层次就应当是较为稳定的，应当是复用的重点。由于现有的复用侧重于具体模块和细节的复用，因此“倒转”一词则是指复用应当将复用的重点放在抽象层次上。如果抽象层次的模块相对独立于具体层次的模块的话，那么抽象层次的模块的复用便是相对较为容易的了。</p>
-<h1>依赖倒转原则</h1>
-<h2 id="依赖（或者耦合）关系">依赖（或者耦合）关系</h2>
+<h1 id="依赖倒转原则">依赖倒转原则</h1>
+<h2 id="依赖或者耦合关系">依赖（或者耦合）关系</h2>
 <ul>
-<li>零耦合(Nil Coupling)关系：如果两个类没有耦合关系，就称之为零耦合。</li>
-<li>具体耦合(Concrete Coupling)关系：具本性耦合发生在两个具体的（可实例化的）类之间，经由一个类对另一个具体类的直接引用造成</li>
-<li>抽象耦合(Abstract Coupling)关系：抽象耦合关系发生在一个具体类和一个抽象类（或者Java接口）之间，使两个必须发生关系的类之间存有最大的灵活性。</li>
+<li>零耦合(Nil
+Coupling)关系：如果两个类没有耦合关系，就称之为零耦合。</li>
+<li>具体耦合(Concrete
+Coupling)关系：具本性耦合发生在两个具体的（可实例化的）类之间，经由一个类对另一个具体类的直接引用造成</li>
+<li>抽象耦合(Abstract
+Coupling)关系：抽象耦合关系发生在一个具体类和一个抽象类（或者Java接口）之间，使两个必须发生关系的类之间存有最大的灵活性。</li>
 </ul>
-<h1>什么是依赖倒转原则</h1>
-<p>简单地说，依赖倒转原则(Dependency Inversion Principle)要求客户端依赖于抽象耦合。依赖倒转原则的表述是：</p>
-<ul>
-<li>表述1：抽象不应该依赖于细节；细节应当依赖于抽象。(Abstractions should not depend upon details.Details should depend upon abstractions)</li>
-<li>表述2：要针对接口编程，不要针对实现编程。（Program to an interface, not an implementation)</li>
-</ul>
+<h1 id="什么是依赖倒转原则">什么是依赖倒转原则</h1>
+<p>简单地说，依赖倒转原则(Dependency Inversion
+Principle)要求客户端依赖于抽象耦合。依赖倒转原则的表述是： -
+表述1：抽象不应该依赖于细节；细节应当依赖于抽象。(Abstractions should
+not depend upon details.Details should depend upon abstractions) -
+表述2：要针对接口编程，不要针对实现编程。（Program to an interface, not
+an implementation)</p>
 <p>针对接口编程的意思就是说，应当使用Java接口和Java抽象类进行变量的类型声明、参量的类型声明、方法的返还类型声明，以及数据类型的转换等。</p>
 <p>不要针对实现编程的意思就是说，不应当使用Java具体类进行变量的类型声明、参量的类型声明、方法的返还类型声明，以及数据类型的转换等。</p>
 <p><font color="red"><strong>要保证做到这一点，一个具体类应当只实现接口和抽象类中声明过的方法，而不应当给出多余的方法。</strong></font></p>
 <p>倒转依赖关系强调一个系统内的实体之间关系的灵活性。基本上，如果设计师希望遵守“开-闭”原则，那么倒转依赖原则便是达到要求的途径。</p>
-<h1>变量的静态类型和真实类型</h1>
-<p>变量被声明时的类型叫做变量的静态类型(Static Type)，有些地方把静态类型叫做明显类型(Apparent Type)，变量所引用的对象的真实类型叫做变量的实际类型(Actual Type)。例如：</p>
+<h1 id="变量的静态类型和真实类型">变量的静态类型和真实类型</h1>
+<p>变量被声明时的类型叫做变量的静态类型(Static
+Type)，有些地方把静态类型叫做明显类型(Apparent
+Type)，变量所引用的对象的真实类型叫做变量的实际类型(Actual Type)。例如：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span> <span class="variable">employees</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Vector</span>();</span><br></pre></td></tr></table></figure>
-<p><code>Vector</code>是一个具体类（实际类型），而<code>List</code>是一个接口（静态类型）。</p>
-<h1>引用对象的抽象类型</h1>
+<code>Vector</code>是一个具体类（实际类型），而<code>List</code>是一个接口（静态类型）。</p>
+<h1 id="引用对象的抽象类型">引用对象的抽象类型</h1>
 <p>在很多情况下，一个Java程序需要引用一个对象。这个时候，如果这个对象有一个抽象类型的话，应当使用这个抽象类型作为变量的静态类型。这就是针对接口编程的含义。</p>
 
       
@@ -678,8 +692,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>设计原则在常用设计模式中的体现</h1>
-<h2 id="策略模式对“开-闭”原则的支持">策略模式对“开-闭”原则的支持</h2>
+          <h1 id="设计原则在常用设计模式中的体现">设计原则在常用设计模式中的体现</h1>
+<h2 id="策略模式对开-闭原则的支持">策略模式对“开-闭”原则的支持</h2>
 <p>策略模式讲的是，如果有一组算法，那么就将每一个算法封装起来，使得它们可以互换。策略模式就是从对可变性的封装原则出发，达到“开-闭”原则的范例</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -718,25 +732,25 @@ PercentageStrategy --|> DiscountStrategy
 
           </abstract></pre>
 <h2 id="简单工厂模式">简单工厂模式</h2>
-<p>“开-闭”原则要求系统允许新的产品加入系统中而无需对现有代码进行修改。在简单工厂模式中，这对于产品消费角色是成立的，而对于工厂模式是不成立的。简单工厂模式结构如下图：<br>
+<p>“开-闭”原则要求系统允许新的产品加入系统中而无需对现有代码进行修改。在简单工厂模式中，这对于产品消费角色是成立的，而对于工厂模式是不成立的。简单工厂模式结构如下图：
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/SimpleFactory.jpg" alt="简单工厂模式"></p>
 <h2 id="工厂方法模式">工厂方法模式</h2>
-<p>在工厂方法模式中，具体的工厂类都有共同的接口，它们“生产”出很多处于同一等级结构中的产品对象。使得这个系统可以加入新的产品类型（增加产品的具体工厂）。工厂方法模式的简略类图如下：<br>
+<p>在工厂方法模式中，具体的工厂类都有共同的接口，它们“生产”出很多处于同一等级结构中的产品对象。使得这个系统可以加入新的产品类型（增加产品的具体工厂）。工厂方法模式的简略类图如下：
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/FactoryMethod.jpg" alt="工厂方法模式"></p>
 <h2 id="抽象工厂模式">抽象工厂模式</h2>
-<p>抽象工厂模式封装了产品对象家族的可变性，从而一方面可以使系统动态地决定将哪一个产品族的产品对象实例化，另一方面可以将新的产品引进到已有系统中而不必修改已有的系统。抽象工厂模式的简略图如下：<br>
+<p>抽象工厂模式封装了产品对象家族的可变性，从而一方面可以使系统动态地决定将哪一个产品族的产品对象实例化，另一方面可以将新的产品引进到已有系统中而不必修改已有的系统。抽象工厂模式的简略图如下：
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/AbstractFactory.jpg" alt="抽象工厂模式"></p>
 <h2 id="建造模式">建造模式</h2>
-<p>建造模式封装了建造一个有内部结构的产品对象的过程，因此这样的系统是向产品内部表象的改变开放的。<br>
+<p>建造模式封装了建造一个有内部结构的产品对象的过程，因此这样的系统是向产品内部表象的改变开放的。
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Build.jpg" alt="抽象工厂模式"></p>
 <h2 id="桥梁模式">桥梁模式</h2>
-<p>桥梁模式是“对可变性的封装原则”的极好例子。在桥梁模式中，具体实现化类代表不同的实现逻辑，但是所有的具体实现化类又有共同的接口。新的实现逻辑可以通过创建新的具体实现化类加入到系统里面。桥梁模式的简略类图如下：<br>
+<p>桥梁模式是“对可变性的封装原则”的极好例子。在桥梁模式中，具体实现化类代表不同的实现逻辑，但是所有的具体实现化类又有共同的接口。新的实现逻辑可以通过创建新的具体实现化类加入到系统里面。桥梁模式的简略类图如下：
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Bridge.jpg" alt="桥梁模式"></p>
 <h2 id="门面模式">门面模式</h2>
-<p>假设一个系统开始的时候与某一个子系统耦合在一起，后来又不得不换成另外一个子系统，那么门面模式便可以发挥门面模式和适配器模式两种作用，将新的子系统仍然与本系统耦合在一起。这样一来，使用门面模式便可以改变子系统内部功能而不会影响到客户端。门面模式的简略类图如下：<br>
+<p>假设一个系统开始的时候与某一个子系统耦合在一起，后来又不得不换成另外一个子系统，那么门面模式便可以发挥门面模式和适配器模式两种作用，将新的子系统仍然与本系统耦合在一起。这样一来，使用门面模式便可以改变子系统内部功能而不会影响到客户端。门面模式的简略类图如下：
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Facade.jpg" alt="门面模式"></p>
 <h2 id="迭代子模式">迭代子模式</h2>
-<p>迭代子模式将访问聚集元素的逻辑封装起来，并且使它独立于聚集对象的封装。这就提供了聚集存储逻辑与迭代逻辑独立演变的空间，使系统可以在无需修改消费迭代子的客户端的情况下，对聚集对象的内部结构进行功能扩展。迭代子模式的简略类图如下：<br>
+<p>迭代子模式将访问聚集元素的逻辑封装起来，并且使它独立于聚集对象的封装。这就提供了聚集存储逻辑与迭代逻辑独立演变的空间，使系统可以在无需修改消费迭代子的客户端的情况下，对聚集对象的内部结构进行功能扩展。迭代子模式的简略类图如下：
 <img src="/2022/12/31/%E9%87%8D%E8%AF%BB%E3%80%8AJAVA%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97-00003/Iterator.jpg" alt="迭代子模式"></p>
 <blockquote>
 <p>当学习设计模式的时候，要学会问一个问题：这个设计模式可以对什么样的变换开放，以及它做到这一点所付出的代价是什么。通过这样的思考，可以更加透彻地了解这种模式对“开-闭”原则的支持程度，以及这种设计模式本身。</p>
@@ -822,61 +836,64 @@ PercentageStrategy --|> DiscountStrategy
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>安装swagger</h1>
-<p><a target="_blank" rel="noopener" href="https://github.com/swaggo/swag/blob/master/README.md">swagger github地址</a></p>
+          <h1 id="安装swagger">安装swagger</h1>
+<p><a target="_blank" rel="noopener" href="https://github.com/swaggo/swag/blob/master/README.md">swagger
+github地址</a> &gt;go1.17版本后，使用go install 安装swag
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install github.com/swaggo/swag/cmd/swag@latest</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>go1.17版本后，使用go install 安装swag</p>
+<p>验证是否安装成功（会在$GOPATH/bin)目录下生成swag可执行文件
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swag -v</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install github.com/swaggo/swag/cmd/swag@latest</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>验证是否安装成功（会在$GOPATH/bin)目录下生成swag可执行文件</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swag -v</span><br></pre></td></tr></table></figure>
-<h1>对gin框架的支持</h1>
+<h1 id="对gin框架的支持">对gin框架的支持</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/swaggo/gin-swagger</span><br><span class="line">go get -u github.com/swaggo/files</span><br></pre></td></tr></table></figure>
-<h1>注解</h1>
-<h2 id="API接口的注解">API接口的注解</h2>
+<h1 id="注解">注解</h1>
+<h2 id="api接口的注解">API接口的注解</h2>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>注解</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>@Summary</td>
+<tr class="odd">
+<td><span class="citation" data-cites="Summary">@Summary</span></td>
 <td>摘要</td>
 </tr>
-<tr>
-<td>@Produce</td>
+<tr class="even">
+<td><span class="citation" data-cites="Produce">@Produce</span></td>
 <td>API可以产生的MIME类型列表。我们可以把MIME类型简单地理解为响应类型，如JSON/XML/HTML等</td>
 </tr>
-<tr>
-<td>@Param</td>
+<tr class="odd">
+<td><span class="citation" data-cites="Param">@Param</span></td>
 <td>参数格式，从左到右分别为：参数名、入参类型、数据类型、是否必填和注释</td>
 </tr>
-<tr>
-<td>@Success</td>
+<tr class="even">
+<td><span class="citation" data-cites="Success">@Success</span></td>
 <td>响应成功，从左到右分别为：状态码、参数类型、数据类型和注释</td>
 </tr>
-<tr>
-<td>@Failure</td>
+<tr class="odd">
+<td><span class="citation" data-cites="Failure">@Failure</span></td>
 <td>响应失败，从左到右分别为：状态码、参数类型、数据类型和注释</td>
 </tr>
-<tr>
-<td>@Router</td>
+<tr class="even">
+<td><span class="citation" data-cites="Router">@Router</span></td>
 <td>路由，从左到右分别为：路由地址和HTTP方法</td>
 </tr>
 </tbody>
 </table>
 <h2 id="例子">例子</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @Summary 获取多个标签</span></span><br><span class="line"><span class="comment">// @Produce json</span></span><br><span class="line"><span class="comment">// @Param name query string false &quot;标签名称&quot; maxlength(100)</span></span><br><span class="line"><span class="comment">// @Param state query int false &quot;状态&quot; Enums(0, 1) default(1)</span></span><br><span class="line"><span class="comment">// @Param page query int false &quot;页码&quot;</span></span><br><span class="line"><span class="comment">// @Param page_size query int false &quot;每页数量&quot;</span></span><br><span class="line"><span class="comment">// @Success 200 &#123;object&#125; model.TagSwagger &quot;成功&quot;</span></span><br><span class="line"><span class="comment">// @Failure 400 &#123;object&#125; errcode.Error &quot;请求错误&quot;</span></span><br><span class="line"><span class="comment">// @Failure 500 &#123;object&#125; errcode.Error &quot;内部错误&quot;</span></span><br><span class="line"><span class="comment">// @Router /api/v1/tags [get]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t Tag)</span></span> List(c *gin.Context) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// @Summary 新增标签</span></span><br><span class="line"><span class="comment">// @Produce json</span></span><br><span class="line"><span class="comment">// @Param name body string true &quot;标签名称&quot; minlength(3) maxlength(100)</span></span><br><span class="line"><span class="comment">// @Param state body int false &quot;状态&quot; Enums(0, 1) default(1)</span></span><br><span class="line"><span class="comment">// @Param created_by body string false &quot;创建者&quot; minlength(3) maxlength(100)</span></span><br><span class="line"><span class="comment">// @Success 200 &#123;object&#125; model.Tag &quot;成功&quot;</span></span><br><span class="line"><span class="comment">// @Failure 400 &#123;object&#125; errcode.Error &quot;请求错误&quot;</span></span><br><span class="line"><span class="comment">// @Failure 500 &#123;object&#125; errcode.Error &quot;内部错误&quot;</span></span><br><span class="line"><span class="comment">// @Router /api/v1/tags [post]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t Tag)</span></span> Create(c *gin.Context) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// @Summary 更新标签</span></span><br><span class="line"><span class="comment">// @Produce json</span></span><br><span class="line"><span class="comment">// @Param id path int true &quot;标签ID&quot;</span></span><br><span class="line"><span class="comment">// @Param name body string false &quot;标签名称&quot; minlength(3) maxlength(100)</span></span><br><span class="line"><span class="comment">// @Param state body int false &quot;状态&quot; Enums(0, 1) default(1)</span></span><br><span class="line"><span class="comment">// @Param modified_by body string true &quot;修改者&quot; minlength(3) maxlength(100)</span></span><br><span class="line"><span class="comment">// @Success 200 &#123;array&#125; model.Tag &quot;成功&quot;</span></span><br><span class="line"><span class="comment">// @Failure 400 &#123;object&#125; errcode.Error &quot;请求错误&quot;</span></span><br><span class="line"><span class="comment">// @Failure 500 &#123;object&#125; errcode.Error &quot;内部错误&quot;</span></span><br><span class="line"><span class="comment">// @Router /api/v1/tags/&#123;id&#125; [put]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t Tag)</span></span> Update(c *gin.Context) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// @Summary 删除标签</span></span><br><span class="line"><span class="comment">// @Produce json</span></span><br><span class="line"><span class="comment">// @Param id path int true &quot;标签ID&quot;</span></span><br><span class="line"><span class="comment">// @Success 200 &#123;string&#125; string &quot;成功&quot;</span></span><br><span class="line"><span class="comment">// @Failure 400 &#123;object&#125; errcode.Error &quot;请求错误&quot;</span></span><br><span class="line"><span class="comment">// @Failure 500 &#123;object&#125; errcode.Error &quot;内部错误&quot;</span></span><br><span class="line"><span class="comment">// @Router /api/v1/tags/&#123;id&#125; [delete]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t Tag)</span></span> Delete(c *gin.Context) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>main 方法</h1>
-<p>既然接口方法本身有了注解，那么针对这个项目，能不能写注解呢？如果有很多个项目，如何知道这个项目具体是哪个呢？实际上是可以识别出来的，只需针对main方法写入如下注解即可：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @title 博客系统</span></span><br><span class="line"><span class="comment">// @version 1.0</span></span><br><span class="line"><span class="comment">// @description Go 编程之旅：一起用Go做项目</span></span><br><span class="line"><span class="comment">// @termsOfService https://github.com/go-programming-tour-book</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1>生成</h1>
+<h1 id="main-方法">main 方法</h1>
+<p>既然接口方法本身有了注解，那么针对这个项目，能不能写注解呢？如果有很多个项目，如何知道这个项目具体是哪个呢？实际上是可以识别出来的，只需针对main方法写入如下注解即可：
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @title 博客系统</span></span><br><span class="line"><span class="comment">// @version 1.0</span></span><br><span class="line"><span class="comment">// @description Go 编程之旅：一起用Go做项目</span></span><br><span class="line"><span class="comment">// @termsOfService https://github.com/go-programming-tour-book</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="生成">生成</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swag init</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -953,32 +970,31 @@ PercentageStrategy --|> DiscountStrategy
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>什么是“开-闭”原则</h1>
-<p>“开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。</p>
-<blockquote>
-<p>Software entities should be open for extension, but closed for modification.</p>
-</blockquote>
+          <h1 id="什么是开-闭原则">什么是“开-闭”原则</h1>
+<p>“开-闭”原则讲的是：一个软件实体应当对扩展开放，对修改关闭。
+&gt;Software entities should be open for extension, but closed for
+modification.</p>
 <p>这个原则说的是，在设计一个模块的时候，应当使这个模块可以在不被修改的前提下被扩展。换言之，应当可以在不必修改源代码的情况下改变这个模块的行为。</p>
-<p>满足“开-闭”原则的设计可以给一个软件系统两个无可比拟的优越性：</p>
-<ul>
-<li>通过扩展已有的软件系统，可以提供新的行为，以满足对软件的新需求，使变化中的软件系统中有一定的适应性和灵活性。</li>
-<li>已有的软件模块，特别是最重要的抽象层模块不能再修改，这就使变化中的软件系统有一定的稳定性和延续性。</li>
-</ul>
-<h1>抽象化是关键</h1>
+<p>满足“开-闭”原则的设计可以给一个软件系统两个无可比拟的优越性： -
+通过扩展已有的软件系统，可以提供新的行为，以满足对软件的新需求，使变化中的软件系统中有一定的适应性和灵活性。
+-
+已有的软件模块，特别是最重要的抽象层模块不能再修改，这就使变化中的软件系统有一定的稳定性和延续性。</p>
+<h1 id="抽象化是关键">抽象化是关键</h1>
 <p>解决问题的关键在于抽象化。面向对象的编程语言里面，可以给系统定义出一个一劳永逸、不再更改的抽象设计，此设计允许有无穷无尽的行为在实现层被实现。这个抽象层预见了所有的可能扩展，因此，在任何扩展情况下都不会改变。这就使得系统的抽象层不需修改，从而满足了“开-闭”原则的第二条：对修改关闭。</p>
 <p>同时，由于从抽象层导出一个或多个新的具体类可以改变系统的行为，因此系统的设计对扩展是开放的，这就满足了“开-闭”原则的第一条。</p>
-<h1>对可变性的封装原则</h1>
-<p>“开-闭”原则如果从另外一个角度讲述，就是所谓的“对可变性的封装原则”（Principle of Encapsulation of Variation，常常略写做EVP).&quot;</p>
+<h1 id="对可变性的封装原则">对可变性的封装原则</h1>
+<p>“开-闭”原则如果从另外一个角度讲述，就是所谓的“对可变性的封装原则”（Principle
+of Encapsulation of Variation，常常略写做EVP)."</p>
 <p>可变性原则的思路：考虑的不是什么会导致设计改变，而是考虑你允许什么发生变化而不让这一变化导致重新设计。</p>
-<p>[SHALL01]将这一思想用一句话总结为：找到一个系统的可变因素，将它封装起来，并将它命名为“对可变性的封装原则”，对可变性的封装原则意味着两点：</p>
-<ul>
-<li>一种可变性不应当散落在代码的很多角落里，而应当被封装到一个对象里面。同一种可变性的不同表象意味着同一继承等级结构中的具体子类。</li>
-<li>一种可变性不应当与另一种可变性混合在一起。即类图中的继承结构一般都不会超过两层。不然就意味着将两种不同的可变性混合在了一起。</li>
-</ul>
+<p>[SHALL01]将这一思想用一句话总结为：找到一个系统的可变因素，将它封装起来，并将它命名为“对可变性的封装原则”，对可变性的封装原则意味着两点：
+-
+一种可变性不应当散落在代码的很多角落里，而应当被封装到一个对象里面。同一种可变性的不同表象意味着同一继承等级结构中的具体子类。
+-
+一种可变性不应当与另一种可变性混合在一起。即类图中的继承结构一般都不会超过两层。不然就意味着将两种不同的可变性混合在了一起。</p>
 <blockquote>
 <p>显然，”对可变性的封装原则“从工程的角度讲解了如何实现”开-闭“原则。</p>
 </blockquote>
-<h1>与其它设计原则的关系</h1>
+<h1 id="与其它设计原则的关系">与其它设计原则的关系</h1>
 <p>做到”开-闭“原则不是一件容易的事，但是也是有很多规律可循的。这些规律也同样以设计原则的身份出现，但是它们都是”开-闭“原则的手段和工具，是附属于”开-闭“原则的。</p>
 <h2 id="里氏代换原则">里氏代换原则</h2>
 <p><strong>里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。</strong></p>
@@ -988,7 +1004,7 @@ PercentageStrategy --|> DiscountStrategy
 <p><strong>依赖倒转原则讲的是，要依赖于抽象，不要依赖于实现。</strong></p>
 <p>看上去和”开-闭”原则有很大的相似之处，实际上，它们之间的关系是目标和手段的关系。“开-闭”原则是目标，而达到这一目标的手段是依赖倒转原则。</p>
 <p>换言之，要想实现“开-闭”原则，就应当坚持依赖倒转原则，违反依赖倒转原则，就不可能达到“开-闭”原则的要求。</p>
-<h2 id="合成-聚合复用原则">合成/聚合复用原则</h2>
+<h2 id="合成聚合复用原则">合成/聚合复用原则</h2>
 <p><strong>合成/聚合复用原则讲的是，要尽量使用合成/聚合，而不是继承关系达到复用的目的。</strong></p>
 <p>合成/聚合复用原则是与里氏代换原则相辅相成的，两者又都是对实现“开-闭”原则的具体步骤的规范。</p>
 <p>遵守合成/聚合复用原则是实现“开-闭”原则的必要条件；违反了这一原则就无法使系统实现“开-闭”原则这一目标。</p>
@@ -1077,7 +1093,7 @@ PercentageStrategy --|> DiscountStrategy
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>类图中的关系</h1>
+          <h1 id="类图中的关系">类图中的关系</h1>
 <p>在类与类之间，会有连线指明它们之间的关系，类和类、类和接口、接口和接口之间可以建立以下几种关系：一般化关系、关联关系、聚合关系、合成关系和依赖关系，这几种关系都是静态的。</p>
 <h2 id="一般化关系">一般化关系</h2>
 <p>一般化(Generalization)关系表示类与类之间的继承关系，接口与接口之间的继承关系，或类对接口的实现关系。一般化的关系是从子类指向父类的，或从实现接口的类指向被实现的接口，与继承或实现的方向相反，如下图所示：</p>
@@ -1118,32 +1134,33 @@ classDiagram
 </blockquote>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>基数</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>0…1</td>
+<tr class="odd">
+<td>0..1</td>
 <td>0个或者1个实例</td>
 </tr>
-<tr>
-<td>0…*</td>
+<tr class="even">
+<td>0..*</td>
 <td>对实例的数目没有限制（可以是0）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>1</td>
 <td>只有一个实例</td>
 </tr>
-<tr>
-<td>1…*</td>
+<tr class="even">
+<td>1..*</td>
 <td>至少有一个实例</td>
 </tr>
 </tbody>
 </table>
-<p>一个关联关系往往可以进一步确定为聚合关系或者合成关系。比如，唐僧与他的徒弟的关系就可以 进一步确定为聚合关系。</p>
-<h1>聚合关系</h1>
+<p>一个关联关系往往可以进一步确定为聚合关系或者合成关系。比如，唐僧与他的徒弟的关系就可以
+进一步确定为聚合关系。</p>
+<h1 id="聚合关系">聚合关系</h1>
 <p>聚合（Aggregation)关系是关联关系的一种，是强的关联关系。聚合是整体和个体之间的关系。</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -1156,7 +1173,7 @@ class Car {
 }
 
           </pre>
-<h1>合成关系</h1>
+<h1 id="合成关系">合成关系</h1>
 <p>合成(Composition)关系是关联关系的一种，是比聚合关系强的关系。它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期，合成关系是不能共享的。</p>
 <p>代表整体的对象需要负责保持部分对象的存活，在一些情况下负责将代表部分的对象湮灭掉。代表整体的对象可以将代表部分的对象传递给另一个对象，由后者负责此对象的生命周期。换言之，代表部分的对象在每一个时刻只能与一个对象发生合成关系，由后者排他地负责其生命周期。聚合关系和合成关系的类图如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
@@ -1174,7 +1191,7 @@ MonkeyKing "1" o--> "1" GoldRingedStaff
           </pre>
 <p>在上面的类图中，显示了美猴王（MonkeyKing）以及他的四肢（Limb）和他的金箍棒（GoldRingedStaff)之间的关系。可以看出，MonkeyKing与GoldRingedStaff之间是聚合关系；而MonkeyKing与Limb之间的关系要比前者更强，是合成关系，因为美猴王的四肢完全由美猴王自己负责，并且不能共享。</p>
 <p>如果不能确定一个关系是不是合成关系，可以将之设置为聚合关系，甚至关联关系。</p>
-<h1>依赖关系</h1>
+<h1 id="依赖关系">依赖关系</h1>
 <p>依赖（Dependency)也是类与类之间的连接，<strong>依赖总是单向的</strong>。依赖关系表示一个类依赖于另一个类的定义。一个人（Person）可以买车（Car）和房子（House），Person类依赖于Car类和House类，如下图所示。</p>
 <pre class="mermaid" style="text-align: center;">
             
@@ -1261,10 +1278,10 @@ Person : +buy(...) void
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>pop和push</h1>
+          <h1 id="pop和push">pop和push</h1>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>pop机器码</th>
 <th>含义</th>
 <th>push机器码</th>
@@ -1272,49 +1289,49 @@ Person : +buy(...) void
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>5f</td>
 <td>pop edi</td>
 <td>57</td>
 <td>push edi</td>
 </tr>
-<tr>
+<tr class="even">
 <td>5e</td>
 <td>pop esi</td>
 <td>56</td>
 <td>push esi</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>5d</td>
 <td>pop ebp</td>
 <td>55</td>
 <td>push ebp</td>
 </tr>
-<tr>
+<tr class="even">
 <td>5c</td>
 <td>pop esp</td>
 <td>54</td>
 <td>push esp</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>5b</td>
 <td>pop ebx</td>
 <td>53</td>
 <td>push ebx</td>
 </tr>
-<tr>
+<tr class="even">
 <td>5a</td>
 <td>pop edx</td>
 <td>52</td>
 <td>push edx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>59</td>
 <td>pop ecx</td>
 <td>51</td>
 <td>push ecx</td>
 </tr>
-<tr>
+<tr class="even">
 <td>58</td>
 <td>pop eax</td>
 <td>50</td>
@@ -1322,30 +1339,31 @@ Person : +buy(...) void
 </tr>
 </tbody>
 </table>
-<h1>call</h1>
+<h1 id="call">call</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> (short) <span class="built_in">eax</span></span><br><span class="line"><span class="comment">; 1.将当前指令的下一条指令的地址压栈</span></span><br><span class="line"><span class="comment">; 2.JMP到eax这个地址</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> (long) <span class="built_in">eax</span></span><br><span class="line"><span class="comment">; 1.将CS压栈</span></span><br><span class="line"><span class="comment">; 2.将当前指令的下一条指令的地址压栈</span></span><br><span class="line"><span class="comment">; 3.JMP到eax这个地址</span></span><br></pre></td></tr></table></figure>
-<h1>retn 和 retf</h1>
+<h1 id="retn-和-retf">retn 和 retf</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retn</span></span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈</span></span><br><span class="line"><span class="comment">; 2.JMP到这个地址</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retn</span> k</span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈</span></span><br><span class="line"><span class="comment">; 2.JMP到这个地址</span></span><br><span class="line"><span class="comment">; 3.弹出栈顶的k个字节的数据</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">retf</span></span><br><span class="line"><span class="comment">; 1.将当前的ESP中指向的地址出栈给EIP</span></span><br><span class="line"><span class="comment">; 2.将当前的ESP中指向的地址出栈给CS</span></span><br><span class="line"><span class="comment">; 3.JMP到这个地址</span></span><br></pre></td></tr></table></figure>
-<h1>jmp</h1>
+<h1 id="jmp">jmp</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; jmp 短跳</span></span><br><span class="line">\xeb\xf6: <span class="keyword">jmp</span> short $-<span class="number">8</span> <span class="comment">;(其中$指代当前EIP)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 在Asm2MachineCode(x86)中如果要尝试jmp short $-8,是不可能实现的，但是我们可以：</span></span><br><span class="line"><span class="comment">; 1. ImageBase (hex) 设置为0012ff60 (此处为当前的EIP地址)</span></span><br><span class="line"><span class="comment">; 2. jmp short 0012FF58</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; jmp长跳</span></span><br><span class="line">\xE9\x2B\xFF\xFF\xFF\xFF: <span class="keyword">jmp</span> <span class="number">0x0012FF30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 在Asm2MachineCode(x86)中如果要尝试jmp short $-8，是不可能实现的，但是我们可以：</span></span><br><span class="line"><span class="comment">; 1. ImageBase（hex）设置为0012ff58 (此处为当前的EIP地址)</span></span><br><span class="line"><span class="comment">; 2. jmp 0012FE88</span></span><br></pre></td></tr></table></figure>
-<h1>cmp</h1>
+<h1 id="cmp">cmp</h1>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmp</span> op1, op2</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ZF=1 这个简单，说明两个操作数相等</span><br><span class="line"></span><br><span class="line">当无符号时：</span><br><span class="line">CF=1 则说明了有进位或借位，cmp是进行的减操作，故可以看出为借位，所以，此时oprd1&lt;oprd2</span><br><span class="line">CF=0 则说明了无借位，但此时要注意ZF是否为0，若为0，则说明结果不为0，故此时oprd1&gt;oprd2</span><br><span class="line"></span><br><span class="line">当有符号时：</span><br><span class="line">若SF=0，OF=0 则说明了此时的值为正数，没有溢出，可以直观的看出，oprd1&gt;oprd2</span><br><span class="line">若SF=1，OF=0 则说明了此时的值为负数，没有溢出，则为oprd1&lt;oprd2</span><br><span class="line">若SF=0，OF=1 则说明了此时的值为正数，有溢出，可以看出oprd1&lt;oprd2</span><br><span class="line">若SF=1，OF=1则说明了此时的值为负数，有溢出，可以看出oprd1&gt;oprd2</span><br><span class="line"></span><br><span class="line">最后两个可以作出这种判断的原因是，溢出的本质问题：</span><br><span class="line">两数同为正，相加，值为负，则说明溢出</span><br><span class="line">两数同为负，相加，值为正，则说明溢出</span><br><span class="line">故有，正正得负则溢出，负负得正则溢出</span><br></pre></td></tr></table></figure>
-<h1>leave</h1>
-<p>leave在32位汇编下相当于</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move <span class="built_in">esp</span>, <span class="built_in">ebp</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ebp</span></span><br></pre></td></tr></table></figure>
-<h1>les</h1>
-<p>LES( load ES)指令的功能是：把内存中指定位置的双字操作数的低位字装入指令中指定的寄存器、高位字装入ES寄存器。</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LES</span> DSET，SRC</span><br><span class="line"><span class="keyword">LES</span> REG，MEM</span><br><span class="line"><span class="comment">; DEST为destination(目的地址)，SRC为source(源地址)；</span></span><br><span class="line"><span class="comment">; REG为register(CPU寄存器)，MEM为memory(内存地址)。</span></span><br></pre></td></tr></table></figure>
+<h1 id="leave">leave</h1>
+<p>leave在32位汇编下相当于 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move <span class="built_in">esp</span>, <span class="built_in">ebp</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ebp</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="les">les</h1>
+<p>LES( load
+ES)指令的功能是：把内存中指定位置的双字操作数的低位字装入指令中指定的寄存器、高位字装入ES寄存器。
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LES</span> DSET，SRC</span><br><span class="line"><span class="keyword">LES</span> REG，MEM</span><br><span class="line"><span class="comment">; DEST为destination(目的地址)，SRC为source(源地址)；</span></span><br><span class="line"><span class="comment">; REG为register(CPU寄存器)，MEM为memory(内存地址)。</span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DEST=WORD PTR[SRC]</span><br><span class="line"></span><br><span class="line">ES=WORD PTR[SRC+2]</span><br><span class="line"></span><br><span class="line">DEST赋值为SRC处双字的低位；</span><br><span class="line"></span><br><span class="line">ES赋值为SRC处双字的高位；</span><br></pre></td></tr></table></figure>
-<h1>比较</h1>
+<h1 id="比较">比较</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A（above）大于、B（below）小于、E（equal）等于，用于比较无符号数</span><br><span class="line"></span><br><span class="line">G（great）大于、L（less than）小于、E（equal）等于，用于比较带符号数</span><br><span class="line"></span><br><span class="line">其实这些地方也是漏洞点，有时候比较没有对是否有符号进行确定，所以可能会出问题。</span><br></pre></td></tr></table></figure>
-<h1>lods/stos</h1>
+<h1 id="lodsstos">lods/stos</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lodsb指令，将esi指向的地址处的数据取出来赋给AL寄存器, esi=esi+1；</span><br><span class="line"></span><br><span class="line">lodsw指令则取得是一个字。</span><br><span class="line"></span><br><span class="line">lodsd指令，取得是双字节，即mov eax，[esi]，esi=esi+4；</span><br><span class="line"></span><br><span class="line">stosb指令，将AL寄存器的值取出来赋给edi所指向的地址处。mov [edi]，AL；edi=edi+1；</span><br><span class="line"></span><br><span class="line">stosw指令去的是一个字。</span><br><span class="line"></span><br><span class="line">stosd指令，取得是双字节，mov [edi]，eax；edi=edi+4；</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -1420,12 +1438,13 @@ Person : +buy(...) void
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>基本命令使用</h1>
+          <h1 id="基本命令使用">基本命令使用</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/spf13/cobra&quot;</span></span><br><span class="line">	<span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个命令</span></span><br><span class="line">	echoCmd := cobra.Command &#123;</span><br><span class="line">		<span class="comment">//命令名称</span></span><br><span class="line">		Use: <span class="string">&quot;echo&quot;</span>,</span><br><span class="line">		<span class="comment">// 命令执行过程，功能就是直接打印出命令行中的输入参数</span></span><br><span class="line">		Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">			fmt.Println(strings.Join(args, <span class="string">&quot; &quot;</span>))</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 执行命令</span></span><br><span class="line">	echoCmd.Execute()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1>cobra中的Cmd结构体</h1>
+<h1 id="cobra中的cmd结构体">cobra中的Cmd结构体</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Command <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// 单行的描述信息，描述这个命令的作用，这段话的第一个单词会被作为命令的名称， 这个只能于子命合有意义，</span></span><br><span class="line">	<span class="comment">// 对于根命令没有意义</span></span><br><span class="line">	Use <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Alias 可以用来给子命令定义别名，除了使用 Use 中的第一个单词作为子命令外，你还可以使用这个 Alias</span></span><br><span class="line">	<span class="comment">// 里面定义的任何一个名称作为子命令名称</span></span><br><span class="line">	Aliases []<span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 当输入的命令和真正的命令名或别名不匹配时，会在SuggestFor数组中去匹配，始果匹配到了，然后提示是否</span></span><br><span class="line">	<span class="comment">// 需要输入xxx命令, 也就是说SuggestFor数组中预先设置一些和命令名或别名相似度较高的字符串，</span></span><br><span class="line">	<span class="comment">// 在用户误输入时可以用来提醒他</span></span><br><span class="line">	SuggestFor []<span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在子命令的help信息中打印出来一串简短的命令描述</span></span><br><span class="line">	Short <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在子命令的help信息中打印出来一串较详细的命令描述，可以多行</span></span><br><span class="line">	Long <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Example 用来定义子命令使用的具体示例，可以在里面定义多行不同的命令使用样例，供用户参考，这一点在</span></span><br><span class="line">	<span class="comment">// Kubectl 命令中体现的非常明显，因为 Kubectl 命令很复杂，参数也很多，样例会极大方便用户</span></span><br><span class="line">	Example <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// ValidArgs 是一组可用在 Bash 补全中的合法的Non-Flag参数</span></span><br><span class="line">	ValidArgs []<span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Args 表示期望的参数</span></span><br><span class="line">	Args PositionalArgs</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ArgAliases 是 ValidArgs 的一组别名</span></span><br><span class="line">	<span class="comment">// 这些参数不会在 Bash 补全中提示给用户，但是如果手动输入的话，也是允许的</span></span><br><span class="line">	ArgAliases []<span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// BashCompletionFunction 是 Bash 自动补全生成器使用的自定义函数</span></span><br><span class="line">	BashCompletionFunction <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Deprecated 不为空的时候，在命令执行时都会提示命令已废弃，并且输出这段文字</span></span><br><span class="line">	Deprecated <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Hidden 参数设置为 true 的时候，将无法在命令帮助列表中看到这个命令，但是实际这个命令仍然是可用的，一般用于</span></span><br><span class="line">	<span class="comment">// 对命令做向下兼容的处理，在未来的版本中如果这个命令会废弃，那么先让它隐藏起来会比直接删除较好</span></span><br><span class="line">	Hidden <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Annotations 定义一些键值对，应用可以用这些注解来分组命令，主要用于标注上面的分组</span></span><br><span class="line">	Annotations <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Version 定义这个命令的版本。当 Version 值不为空，且命令没有定义 version 选项的时候，会自动给这个命令增加一个</span></span><br><span class="line">	<span class="comment">// boolean 类型，名称为 version 的选项。如果指定这个选项，就会输出这里 Version 的值。</span></span><br><span class="line">	Version <span class="type">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 下面的这组 Run 函数执行顺序为：</span></span><br><span class="line">	<span class="comment">// * PersistentPreRun()</span></span><br><span class="line">	<span class="comment">// * PreRun()</span></span><br><span class="line">	<span class="comment">// * Run()</span></span><br><span class="line">	<span class="comment">// * PostRun()</span></span><br><span class="line">	<span class="comment">// * PersistentPostRun()</span></span><br><span class="line">	<span class="comment">// 所有的函数传入的参数都相同，都是命令名称之后的参数</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// PersistentPreRun 这个命令的子命令都将继承并执行这个函数</span></span><br><span class="line">	PersistentPreRun <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span></span><br><span class="line">	<span class="comment">// PersistentPreRunE 和 PersistentPreRun 一样，但是遇到错误时可以返回一个错误</span></span><br><span class="line">	<span class="comment">// 一旦这个函数返回的 error 不为 nil，那么执行就中断了。所以你可以在这个函数里面</span></span><br><span class="line">	<span class="comment">// 做诸如权限验证等等全局性的工作</span></span><br><span class="line">	PersistentPreRunE <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// PreRun 这个命令的子命令不会继承和运行这个函数</span></span><br><span class="line">	PreRun <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span></span><br><span class="line">	<span class="comment">// PreRunE 和 PreRun 一样，但是遇到错误时可以返回一个错误</span></span><br><span class="line">	<span class="comment">// 一旦这个函数返回的 error 不为 nil，那么执行就中断了。所以你可以在这个函数里面</span></span><br><span class="line">	<span class="comment">// 做一些和该命令相关的输入参数检测之类的工作</span></span><br><span class="line">	PreRunE <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Run 命令核心工作所在的函数，大多数情况下只实现这个命令即可</span></span><br><span class="line">	Run <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span></span><br><span class="line">	<span class="comment">// RunE 和 Run 一样，但是遇到错误时可以返回一个错误</span></span><br><span class="line">	<span class="comment">// 一旦这个函数返回的 error 不为 nil，那么执行就中断了。</span></span><br><span class="line">	RunE <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// PostRun 在 Run 函数执行之后执行</span></span><br><span class="line">	PostRun <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span></span><br><span class="line">	<span class="comment">// PostRunE 在 PostRun 之后执行，但是可以返回一个错误</span></span><br><span class="line">	<span class="comment">// 一旦这个函数返回的 error 不为 nil，那么执行就中断了。</span></span><br><span class="line">	PostRunE <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// PersistentPostRun 在 PostRun 之后执行，这个命令的子命令都将继承并执行这个函数</span></span><br><span class="line">	PersistentPostRun <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span></span><br><span class="line">	<span class="comment">// PersistentPostRunE 和 PersistentPostRun 一样，但是可以返回一个错误</span></span><br><span class="line">	<span class="comment">// 一旦这个函数返回的 error 不为 nil，那么执行就中断了。</span></span><br><span class="line">	PersistentPostRunE <span class="function"><span class="keyword">func</span><span class="params">(cmd *Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// SilenceErrors 设置为 true 时可以在命令执行过程中遇到任何错误时，不显示错误</span></span><br><span class="line">	SilenceErrors <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// SilenceUsage 设置为 true 时可以在命令执行遇到输入错误时，不显示使用方法（正确的使用方式）</span></span><br><span class="line">	SilenceUsage <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// DisableFlagParsing 设置为 true 时将禁用选项解析功能，这样命令之后所有的内容</span></span><br><span class="line">	<span class="comment">// 都将作为参数传递给命令</span></span><br><span class="line">	DisableFlagParsing <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// DisableAutoGenTag 在生成命令文档的时候是否显示 gen tag(&quot;Auto generated by spf13/cobra...&quot;)</span></span><br><span class="line">	DisableAutoGenTag <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// DisableFlagsInUseLine 设置为 true 的时候，将不会在命令帮助信息或者文档中显示命令支持的选项</span></span><br><span class="line">	DisableFlagsInUseLine <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// DisableSuggestions 禁用命令提示</span></span><br><span class="line">	DisableSuggestions <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// SuggestionsMinimumDistance 定义显示命令提示的最小的 Levenshtein 距离</span></span><br><span class="line">	SuggestionsMinimumDistance <span class="type">int</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// TraverseChildren 在执行该命令子命令前，解析所有父命令的选项</span></span><br><span class="line">	TraverseChildren <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// FParseErrWhitelist 定义可以被忽略的解析错误</span></span><br><span class="line">	FParseErrWhitelist FParseErrWhitelist</span><br><span class="line"></span><br><span class="line">	<span class="comment">// commands is the list of commands supported by this program.</span></span><br><span class="line">	commands []*Command</span><br><span class="line">	<span class="comment">// parent is a parent command for this command.</span></span><br><span class="line">	parent *Command</span><br><span class="line">	<span class="comment">// Max lengths of commands&#x27; string lengths for use in padding.</span></span><br><span class="line">	commandsMaxUseLen         <span class="type">int</span></span><br><span class="line">	commandsMaxCommandPathLen <span class="type">int</span></span><br><span class="line">	commandsMaxNameLen        <span class="type">int</span></span><br><span class="line">	<span class="comment">// commandsAreSorted defines, if command slice are sorted or not.</span></span><br><span class="line">	commandsAreSorted <span class="type">bool</span></span><br><span class="line">	<span class="comment">// commandCalledAs is the name or alias value used to call this command.</span></span><br><span class="line">	commandCalledAs <span class="keyword">struct</span> &#123;</span><br><span class="line">		name   <span class="type">string</span></span><br><span class="line">		called <span class="type">bool</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// args is actual args parsed from flags.</span></span><br><span class="line">	args []<span class="type">string</span></span><br><span class="line">	<span class="comment">// flagErrorBuf contains all error messages from pflag.</span></span><br><span class="line">	flagErrorBuf *bytes.Buffer</span><br><span class="line">	<span class="comment">// flags is full set of flags.</span></span><br><span class="line">	flags *flag.FlagSet</span><br><span class="line">	<span class="comment">// pflags contains persistent flags.</span></span><br><span class="line">	pflags *flag.FlagSet</span><br><span class="line">	<span class="comment">// lflags contains local flags.</span></span><br><span class="line">	lflags *flag.FlagSet</span><br><span class="line">	<span class="comment">// iflags contains inherited flags.</span></span><br><span class="line">	iflags *flag.FlagSet</span><br><span class="line">	<span class="comment">// parentsPflags is all persistent flags of cmd&#x27;s parents.</span></span><br><span class="line">	parentsPflags *flag.FlagSet</span><br><span class="line">	<span class="comment">// globNormFunc is the global normalization function</span></span><br><span class="line">	<span class="comment">// that we can use on every pflag set and children commands</span></span><br><span class="line">	globNormFunc <span class="function"><span class="keyword">func</span><span class="params">(f *flag.FlagSet, name <span class="type">string</span>)</span></span> flag.NormalizedName</span><br><span class="line"></span><br><span class="line">	<span class="comment">// output is an output writer defined by user.</span></span><br><span class="line">	output io.Writer</span><br><span class="line">	<span class="comment">// usageFunc is usage func defined by user.</span></span><br><span class="line">	usageFunc <span class="function"><span class="keyword">func</span><span class="params">(*Command)</span></span> <span class="type">error</span></span><br><span class="line">	<span class="comment">// usageTemplate is usage template defined by user.</span></span><br><span class="line">	usageTemplate <span class="type">string</span></span><br><span class="line">	<span class="comment">// flagErrorFunc is func defined by user and it&#x27;s called when the parsing of</span></span><br><span class="line">	<span class="comment">// flags returns an error.</span></span><br><span class="line">	flagErrorFunc <span class="function"><span class="keyword">func</span><span class="params">(*Command, <span class="type">error</span>)</span></span> <span class="type">error</span></span><br><span class="line">	<span class="comment">// helpTemplate is help template defined by user.</span></span><br><span class="line">	helpTemplate <span class="type">string</span></span><br><span class="line">	<span class="comment">// helpFunc is help func defined by user.</span></span><br><span class="line">	helpFunc <span class="function"><span class="keyword">func</span><span class="params">(*Command, []<span class="type">string</span>)</span></span></span><br><span class="line">	<span class="comment">// helpCommand is command with usage &#x27;help&#x27;. If it&#x27;s not defined by user,</span></span><br><span class="line">	<span class="comment">// cobra uses default help command.</span></span><br><span class="line">	helpCommand *Command</span><br><span class="line">	<span class="comment">// versionTemplate is the version template defined by user.</span></span><br><span class="line">	versionTemplate <span class="type">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>加强版例子</h1>
+<h1 id="加强版例子">加强版例子</h1>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/spf13/cobra&quot;</span></span><br><span class="line">	<span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	rootCmd := cobra.Command&#123;</span><br><span class="line">		<span class="comment">// 定义默认输出帮助信息</span></span><br><span class="line">		Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">			cmd.Help()</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 定义子命令</span></span><br><span class="line">	echoCmd := cobra.Command&#123;</span><br><span class="line">		<span class="comment">// 子命令描述，第一个单词作为子命令的名称</span></span><br><span class="line">		Use: <span class="string">&quot;echo inputs&quot;</span>,</span><br><span class="line">		<span class="comment">// 子命令别名，可以使用任何一个别名替代上面的echo来运行子命令</span></span><br><span class="line">		Aliases: []<span class="type">string</span>&#123;</span><br><span class="line">			<span class="string">&quot;copy&quot;</span>,</span><br><span class="line">			<span class="string">&quot;repeat&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="comment">// 命令提示，默认情况如果输入子命令不存在会提示 unknown cmd.</span></span><br><span class="line">		<span class="comment">// 但是如果定义了SuggestFor 的情况下，如果输入的命令不存在，会去SuggestFor</span></span><br><span class="line">		<span class="comment">// 里面查找是否有切尔西的字符串，如果有，则提示是否期望输入的是 echo 命令</span></span><br><span class="line">		SuggestFor: []<span class="type">string</span>&#123;</span><br><span class="line">			<span class="string">&quot;ech&quot;</span>, <span class="string">&quot;cp&quot;</span>, <span class="string">&quot;rp&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		DisableSuggestions: <span class="literal">true</span>,</span><br><span class="line">		SuggestionsMinimumDistance: <span class="number">2</span>,</span><br><span class="line">		DisableFlagsInUseLine: <span class="literal">true</span>,</span><br><span class="line">		<span class="comment">// 简单扼要概括下命令用途</span></span><br><span class="line">		Short: <span class="string">&quot;echo is a command to echo command line inputs&quot;</span>,</span><br><span class="line">		<span class="comment">// 想说什么就在这里说吧，越详细越好，可以用``来跨行输入</span></span><br><span class="line">		Long: <span class="string">`echo is a command to echo command line inputs.</span></span><br><span class="line"><span class="string">It is a very simple command used to display how to implement command line tools</span></span><br><span class="line"><span class="string">using cobra, which is a very famous library to build command line interface tools.</span></span><br><span class="line"><span class="string">`</span>,</span><br><span class="line">		<span class="comment">// 当你新版本废弃这个命令的时候，可以先隐藏，让用户优先使用替代品或者看不到，</span></span><br><span class="line">		<span class="comment">// 但是处于向下兼容目的，这个命令仍然是可以用的，只是在帮助列表里面看不到</span></span><br><span class="line">		<span class="comment">//Hidden: true,</span></span><br><span class="line">		<span class="comment">// 当你需要废弃这个命令的时候设置。废弃的意思意味着未来版本可能删除这个命令。</span></span><br><span class="line">		<span class="comment">// 标注为废弃的命令在执行的时候，都会打印命令已废弃的提示信息以及这个设置的提示信息。</span></span><br><span class="line">		<span class="comment">//Deprecated: &quot;will be deleted in version 2.0&quot;,</span></span><br><span class="line">		<span class="comment">// 注解，用于代码层面的命令分组，不会显示在命令行输出中</span></span><br><span class="line">		Annotations: <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;</span><br><span class="line">			<span class="string">&quot;group&quot;</span>: <span class="string">&quot;user&quot;</span>,</span><br><span class="line">			<span class="string">&quot;require-auth&quot;</span>: <span class="string">&quot;none&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		SilenceErrors: <span class="literal">true</span>,</span><br><span class="line">		<span class="comment">//SilenceUsage: true,</span></span><br><span class="line">		<span class="comment">// Version 定义版本</span></span><br><span class="line">		Version: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">		<span class="comment">// 是否禁用选项解析</span></span><br><span class="line">		<span class="comment">//DisableFlagParsing: true,</span></span><br><span class="line">		<span class="comment">//PersistentPreRun: func(cmd *cobra.Command, args []string) &#123;</span></span><br><span class="line">		<span class="comment">//	fmt.Println(&quot;haha! let me check echo&quot;)</span></span><br><span class="line">		<span class="comment">//&#125;,</span></span><br><span class="line">		PersistentPostRunE: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">			<span class="comment">//return errors.New(&quot;invalid parameter&quot;)</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="comment">// 子命令执行过程</span></span><br><span class="line">		<span class="comment">//Run: func(cmd *cobra.Command, args []string) &#123;</span></span><br><span class="line">		<span class="comment">//	fmt.Println(strings.Join(args, &quot; &quot;))</span></span><br><span class="line">		<span class="comment">//&#125;,</span></span><br><span class="line">		RunE: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">			fmt.Println(strings.Join(args, <span class="string">&quot; &quot;</span>))</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">		&#125;,</span><br><span class="line">		PostRun: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">&quot;i am post run&quot;</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 把子命令添加到根命令下面</span></span><br><span class="line">	rootCmd.AddCommand(&amp;echoCmd)</span><br><span class="line">	<span class="comment">// 执行根命令</span></span><br><span class="line">	rootCmd.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
