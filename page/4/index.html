@@ -188,6 +188,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Spark部署模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-19 17:00:27" itemprop="dateCreated datePublished" datetime="2023-10-19T17:00:27+08:00">2023-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-26 14:15:30" itemprop="dateModified" datetime="2023-10-26T14:15:30+08:00">2023-10-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="简介">简介</h1>
+<p><code>Spark Application</code>提交运行时的部署模式<code>Deploy Mode</code>，表示的是<code>Driver Program</code>运行的地方。
+- <code>client</code>:Driver Program
+运行在<code>提交应用的Client</code>上 -
+<code>cluster</code>:要么就是集群中从节点<code>(Standalone：Worker，YARN：NodeManager)</code>。</p>
+<p>默认值为<code>client</code>，当在实际的开发环境中，尤其是生产环境，使用<code>cluster</code>部署模式提交应用运行。</p>
+<h1 id="client-模式">Client 模式</h1>
+<p>以<code>Spark Application</code>运行到<code>Standalone</code>集群上为例，前面提交运行圆周率PI或者词频统计<code>WordCount程序</code>时，默认
+<code>DeployMode</code>为<code>Client</code>，表示应用<code>Driver Program</code>运行在提交应用的<code>Client 主机</code>上（启动
+JVM Process 进程），示意图如下： <img src="/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/Deploy-Mode-Client.jpg" alt="Client模式"></p>
+<h1 id="cluster-模式">Cluster 模式</h1>
+<p>如果采用cluster模式运行应用，应用Driver
+Program运行在集群从节点Worker某台机器上，示意图如下： <img src="/2023/10/19/Spark%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/Deploy-Mode-Cluster.jpg" alt="Cluster模式"></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.kaizi.spark</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.rdd.<span class="type">RDD</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkConf</span>, <span class="type">SparkContext</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于Scala语言使用SparkCore编程实现词频统计：WordCount</span></span><br><span class="line"><span class="comment"> * 从HDFS上读取数据，统计WordCount，将结果保存到HDFS上</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SparkWordCount</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> 当应用运行在集群上的时候，MAIN函数就是Driver Program，必须创建SparkContext对象</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// 创建SparkConf对象，设置应用的配置信息，比如应用名称和应用运行模式</span></span><br><span class="line">    <span class="keyword">val</span> sparkConf: <span class="type">SparkConf</span> = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">      .setMaster(<span class="string">&quot;local[2]&quot;</span>)  <span class="comment">// 设置运行本地模式</span></span><br><span class="line">      .setAppName(<span class="string">&quot;SparkWordCount&quot;</span>)</span><br><span class="line">    <span class="comment">// 构建SparkContext上下文实例对象，读取数据和调度Job执行</span></span><br><span class="line">    <span class="keyword">val</span> sc: <span class="type">SparkContext</span> = <span class="keyword">new</span> <span class="type">SparkContext</span>(sparkConf)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ************第一步、读取数据:在Spark的Executor中执行***************</span></span><br><span class="line">    <span class="comment">// 封装到RDD集合，认为列表List</span></span><br><span class="line">    <span class="keyword">val</span> inputRDD: <span class="type">RDD</span>[<span class="type">String</span>] = sc.textFile(<span class="string">&quot;/datas/wordcount.data&quot;</span>)</span><br><span class="line">    <span class="comment">// ***************************************************************</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ************第二步、处理数据:在Spark的Executor中执行***************</span></span><br><span class="line">    <span class="comment">// 调用RDD中函数，认为调用列表中的函数</span></span><br><span class="line">    <span class="comment">// a. 每行数据分割为单词</span></span><br><span class="line">    <span class="keyword">val</span> wordsRDD = inputRDD.flatMap(line =&gt; line.split(<span class="string">&quot;\\s+&quot;</span>))</span><br><span class="line">    <span class="comment">// b. 转换为二元组，表示每个单词出现一次</span></span><br><span class="line">    <span class="keyword">val</span> tuplesRDD: <span class="type">RDD</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = wordsRDD.map(word =&gt; (word, <span class="number">1</span>))</span><br><span class="line">    <span class="comment">// c. 按照Key分组聚合</span></span><br><span class="line">    <span class="keyword">val</span> wordCountsRDD: <span class="type">RDD</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = tuplesRDD.reduceByKey((tmp, item) =&gt; tmp + item)</span><br><span class="line">    <span class="comment">// ***************************************************************</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ************第三步、输出数据:在Spark的Executor中执行****************</span></span><br><span class="line">    wordCountsRDD.foreach(println)</span><br><span class="line">    <span class="comment">// 保存到为存储系统，比如HDFS</span></span><br><span class="line">    wordCountsRDD.saveAsTextFile(<span class="string">s&quot;/datas/swc-output-<span class="subst">$&#123;System.currentTimeMillis()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment">// ***************************************************************</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为了测试，线程休眠，查看WEB UI界面</span></span><br><span class="line">    <span class="type">Thread</span>.sleep(<span class="number">10000000</span>)</span><br><span class="line">    <span class="comment">// TODO：应用程序运行接收，关闭资源</span></span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>main方法中一开始的创建SparkContext对象和最后的关闭SparkContext资源，都是在Driver
+Program中执行的，代码中的第一步加载数据、第二步处理数据、第三步输出数据都是在Executor上执行。</p>
+</blockquote>
+<p>综上所述Spark Application中Job执行有两个主要点： -
+RDD输出函数分类两类 -
+第一类：返回值给<code>Driver Progam</code>，比如<code>count</code>、<code>first</code>、<code>take</code>、<code>collect</code>等
+- 第二类：没有返回值，比如直接打印结果、保存至外部存储系统（HDFS文件）等
+-
+在<code>Job</code>中从读取数据封装为<code>RDD</code>和一切<code>RDD调用方法</code>都是在<code>Executor</code>中执行，其他代码都是在<code>Driver Program</code>中执行
+-
+<code>SparkContext</code>创建与关闭、其他变量创建等在<code>Driver Program</code>中执行
+- <code>RDD调用函数</code>都是在Executors中执行</p>
+<h1 id="client模式和cluster模式的区别">Client模式和Cluster模式的区别</h1>
+<p>Cluster和Client模式最本质的区别是：Driver程序运行在哪里。 -
+cluster模式：生产环境中使用该模式 - Driver程序在YARN集群当中 -
+应用的运行结果不能在客户端显示 -
+client模式：学习测试时使用（也不一定，个人觉得生产环境也可以用） -
+Driver运行在Client上的SparkSubmit进程中 -
+应用程序运行结果会在客户端显示</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/08/06/Linux%E7%B3%BB%E7%BB%9F%E4%B8%ADPycharm%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1126,121 +1237,6 @@ word):这个的应用场景是把光标移到双引号中的某个字符上，�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2023/05/11/k3s%E9%83%A8%E7%BD%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/11/k3s%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">k3s部署</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-11 14:07:04" itemprop="dateCreated datePublished" datetime="2023-05-11T14:07:04+08:00">2023-05-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-13 08:27:25" itemprop="dateModified" datetime="2023-06-13T08:27:25+08:00">2023-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" itemprop="url" rel="index"><span itemprop="name">云原生</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">基础设施</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一官方文档">一、<a target="_blank" rel="noopener" href="https://docs.k3s.io/zh/quick-start">官方文档</a></h1>
-<h1 id="二安装步骤">二、安装步骤</h1>
-<ul>
-<li>使用docker作为容器(默认为containerd)</li>
-<li>设置docker拉取的http代理</li>
-<li>安装K3S</li>
-<li>使用ingress-nginx(默认是traefik)</li>
-</ul>
-<h2 id="使用docker作为容器">使用docker作为容器</h2>
-<ul>
-<li>可以使用<code>Rancher</code>的一个<a target="_blank" rel="noopener" href="https://github.com/rancher/install-docker">Docker安装脚本</a>来安装Docker</li>
-<li>也可以根据Docker官方文档手动<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">ubuntu下安装docker</a>
-### 卸载旧版 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="设置repository">设置<code>repository</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo chmod a+r /etc/apt/keyrings/docker.gpg</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo \</span><br><span class="line">  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span><br><span class="line">  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \</span><br><span class="line">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
-<h3 id="安装docker-engine">安装<code>Docker Engine</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
-<h2 id="设置docker拉取的http代理">设置docker拉取的http代理</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">cd /etc/systemd/system/docker.service.d</span><br><span class="line">sudo vim proxy.conf</span><br></pre></td></tr></table></figure>
-<p>文件内容如下： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://127.0.0.1:7890/&quot;</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure></p>
-<h2 id="安装k3s">安装<code>K3S</code></h2>
-<p>以Docker为容器 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https://get.k3s.io | sh -s - --docker</span><br></pre></td></tr></table></figure> &gt;
-如果服务器网络环境复杂，需要指定K3S服务节点的IP，则
-<code>--node-ip=192.168.10.100</code></p>
-<h2 id="使用ingress-nginx作为反向代理">使用ingress-nginx作为反向代理</h2>
-<p>之前在K3S搭建的环境中，默认是使用<code>traefik</code>的，在使用FedLCM部署FATE相关组件，里面使用了ingress-nginx，如果使用FedLCM去部署ingress-nginx，则会有一个坑：这个ingress-nginx在k3s中是部署成功了，但是FedLCM使用K8S的API去查询ingress-nginx是否部署完成返回的值是跟实际情况不符的。如果把<code>traefik</code>禁用了，就能避坑，这应该是K3S的一个bug(目前应该是解决了，后来我又部署过几次，没这个问题了)。</p>
-<blockquote>
-<p>解决方法是：只需使用 <code>--disable=traefik</code> 启动 K3s
-Server，然后部署你的 Ingress 即可。</p>
-</blockquote>
-<p>具体步骤： - 安装kubectl <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载kubectl</span></span><br><span class="line">curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装kubectl</span></span><br><span class="line">sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl</span><br></pre></td></tr></table></figure> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.kube</span><br><span class="line">sudo cat /etc/rancher/k3s/k3s.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在~/.kube/下创建一个`config`文件把k3s.yaml中的内容放入到`config`中</span></span><br></pre></td></tr></table></figure> - 安装helm
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</span><br></pre></td></tr></table></figure> - 安装 ingress-nginx <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm upgrade --install ingress-nginx ingress-nginx  --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace</span><br></pre></td></tr></table></figure> - 查看 ingress-nginx
-controller信息 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n ingress-nginx ingress-nginx-controller</span><br></pre></td></tr></table></figure> ingress
-controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</code>,这两种模式下，访问那些通过ingress反向代理的服务时，使用的IP地址是有区别的，<code>NodePort</code>模式下，没有<code>EXTERNAL-IP</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1310,7 +1306,7 @@ controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</code>,�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1321,7 +1317,7 @@ controller的服务类型有<code>NodePort</code>和<code>LoadBalancer</code>,�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">205</span>
+        <span class="site-state-item-count">207</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
