@@ -248,12 +248,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>背景</h1>
+        <h1 id="背景">背景</h1>
 <p>安装了<code>Anything LLM</code>,现在想在<code>Anything LLM</code>配置非本地的<code>Ollama</code>，需要让<code>Ollama</code>的监听端口改为<code>0.0.0.0:11434</code></p>
-<h1>修改</h1>
-<h2 id="MAC">MAC</h2>
+<h1 id="修改">修改</h1>
+<h2 id="mac">MAC</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl setenv OLLAMA_HOST &quot;0.0.0.0:11434&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="Linux">Linux</h2>
+<h2 id="linux">Linux</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl edit ollama.service</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart ollama</span><br></pre></td></tr></table></figure>
@@ -341,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">修改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC"><span class="nav-number">2.1.</span> <span class="nav-text">MAC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux"><span class="nav-number">2.2.</span> <span class="nav-text">Linux</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9"><span class="nav-number">2.</span> <span class="nav-text">修改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mac"><span class="nav-number">2.1.</span> <span class="nav-text">MAC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux"><span class="nav-number">2.2.</span> <span class="nav-text">Linux</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
