@@ -246,30 +246,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="python版本">python版本</h1>
+        <h1>python版本</h1>
 <p>使用pyenv进行Python的版本管理，安装：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://pyenv.run | bash</span><br></pre></td></tr></table></figure>
 <p>安装完成后会在~/.bashrc中添加一段脚本：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export PYENV_ROOT=&quot;$HOME/.pyenv&quot;</span><br><span class="line">command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;</span><br><span class="line">eval &quot;$(pyenv init -)&quot;</span><br></pre></td></tr></table></figure>
-<h1 id="安装python">安装python</h1>
+<h1>安装python</h1>
 <p>pyenv 查看版本清单</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list</span><br></pre></td></tr></table></figure>
 <p>选择某个版本进行安装</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.10.16</span><br></pre></td></tr></table></figure>
 <p>设置python版本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyenv global 3.10.16 # 全局</span><br><span class="line">pyenv local 3.10.16 # 在当前文件夹下使用指定版本</span><br></pre></td></tr></table></figure>
-<h1 id="安装uv">安装uv</h1>
+<h1>安装uv</h1>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用 pip 安装</span></span><br><span class="line">pip install uv</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者通过官方脚本安装（推荐）</span></span><br><span class="line">curl -LsSf https://astral.sh/uv/install.sh | sh</span><br></pre></td></tr></table></figure>
-<h1 id="虚拟环境">虚拟环境</h1>
+<h1>虚拟环境</h1>
 <ul>
-<li><p>创建环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uv venv --python 3.10.16 .venv-310  # 创建310的环境</span><br><span class="line">uv venv --python 3.12.9 .venv-312 # 创建312的环境</span><br></pre></td></tr></table></figure></li>
-<li><p>激活环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .venv-310/bin/activate</span><br></pre></td></tr></table></figure></li>
-<li><p>反激活环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>创建环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uv venv --python 3.10.16 .venv-310  # 创建310的环境</span><br><span class="line">uv venv --python 3.12.9 .venv-312 # 创建312的环境</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>激活环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .venv-310/bin/activate</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>反激活环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h1 id="安装包">安装包</h1>
+<h1>安装包</h1>
 <p>使用uv在虚拟环境下安装包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv pip install &quot;httpx[socks]&quot;</span><br></pre></td></tr></table></figure>
 
@@ -356,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">python版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85python"><span class="nav-number">2.</span> <span class="nav-text">安装python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85uv"><span class="nav-number">3.</span> <span class="nav-text">安装uv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">4.</span> <span class="nav-text">虚拟环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">安装包</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">python版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">安装python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">安装uv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">虚拟环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">安装包</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
