@@ -188,6 +188,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/04/23/pyenv%E5%AE%89%E8%A3%85python%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/23/pyenv%E5%AE%89%E8%A3%85python%E5%9D%91/" class="post-title-link" itemprop="url">pyenv安装python坑</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-23 09:59:38 / 修改时间：10:25:02" itemprop="dateCreated datePublished" datetime="2025-04-23T09:59:38+08:00">2025-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="环境">环境：</h1>
+<ul>
+<li>pyenv 2.3.27</li>
+<li>CentOS Linux release 7.9.2009 (Core)</li>
+</ul>
+<h1 id="安装">安装</h1>
+<p>查看能安装的python清单：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list</span><br></pre></td></tr></table></figure>
+<p>先择其中之一安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.10.13</span><br></pre></td></tr></table></figure>
+<p>坑：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.10.13</span><br><span class="line">Installing Python-3.10.13...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;/home/centos/.pyenv/versions/3.10.13/lib/python3.10/ssl.py&quot;, line 99, in &lt;module&gt;</span><br><span class="line">    import _ssl             # if we can&#x27;t import it, let the error propagate</span><br><span class="line">ModuleNotFoundError: No module named &#x27;_ssl&#x27;</span><br><span class="line">ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?</span><br><span class="line"></span><br><span class="line">Please consult to the Wiki page to fix the problem.</span><br><span class="line">https://github.com/pyenv/pyenv/wiki/Common-build-problems</span><br><span class="line"></span><br><span class="line">BUILD FAILED (CentOS Linux 7 using python-build 20180424)</span><br><span class="line"></span><br><span class="line">Inspect or clean up the working tree at /tmp/python-build.20250423005759.24631</span><br><span class="line">Results logged to /tmp/python-build.20250423005759.24631.log</span><br><span class="line"></span><br><span class="line">Last 10 log lines:</span><br><span class="line">	LD_LIBRARY_PATH=/tmp/python-build.20250423005759.24631/Python-3.10.13:/opt/rh/devtoolset-8/root/usr/lib64:/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64/dyninst:/opt/rh/devtoolset-8/root/usr/lib/dyninst:/opt/rh/devtoolset-8/root/usr/lib64:/opt/rh/devtoolset-8/root/usr/lib ./python -E -m ensurepip \</span><br><span class="line"><span class="meta prompt_">		$</span><span class="language-bash">ensurepip --root=/ ; \</span></span><br><span class="line"><span class="language-bash"><span class="keyword">fi</span></span></span><br><span class="line">Looking in links: /tmp/tmp7v915qb4</span><br><span class="line">Processing /tmp/tmp7v915qb4/setuptools-65.5.0-py3-none-any.whl</span><br><span class="line">Processing /tmp/tmp7v915qb4/pip-23.0.1-py3-none-any.whl</span><br><span class="line">Installing collected packages: setuptools, pip</span><br><span class="line">  WARNING: The scripts pip3 and pip3.10 are installed in &#x27;/home/centos/.pyenv/versions/3.10.13/bin&#x27; which is not on PATH.</span><br><span class="line">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span><br><span class="line">Successfully installed pip-23.0.1 setuptools-65.5.0</span><br></pre></td></tr></table></figure>
+<p>把依赖安装上(但实际上并不是问题的本质)：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">sudo yum install -y gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel \</span><br><span class="line">    openssl-devel xz xz-devel libffi-devel wget make</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">然后重新安装 Python</span></span><br><span class="line">pyenv install 3.10.13</span><br></pre></td></tr></table></figure>
+<p>还是一样出错。查一下openssl版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl --version</span><br><span class="line">OpenSSL 3.3.0-dev  (Library: OpenSSL 3.3.0-dev )</span><br></pre></td></tr></table></figure>
+<p>分析问题原因可能构建环境中 <strong>OpenSSL 版本不符合要求，或者
+Python 没有正确链接到 OpenSSL
+库路径</strong>。其实可以去分析<code>log 文件 /tmp/python-build.*.log</code>查看日志文件。</p>
+<p>写一个脚本自己下载指定版本的openssl来编译，然后指定openssl路径；再使用pyenv
+安装python 吧。<code>install_openssl_for_pyenv.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line">OPENSSL_VERSION=&quot;1.1.1w&quot;</span><br><span class="line">OPENSSL_DIR=&quot;/opt/openssl-$OPENSSL_VERSION&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;📦 开始安装 OpenSSL $OPENSSL_VERSION 到 $OPENSSL_DIR&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装必要依赖</span></span><br><span class="line">echo &quot;🔧 安装依赖包...&quot;</span><br><span class="line">sudo yum install -y gcc make zlib-devel perl wget tar</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载 OpenSSL 源码</span></span><br><span class="line">cd /usr/local/src</span><br><span class="line">if [ -f &quot;openssl-$OPENSSL_VERSION.tar.gz&quot; ]; then</span><br><span class="line">    echo &quot;✅ 已下载 openssl-$OPENSSL_VERSION.tar.gz&quot;</span><br><span class="line">else</span><br><span class="line">    echo &quot;⬇️ 下载 OpenSSL 源码...&quot;</span><br><span class="line">    wget https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压</span></span><br><span class="line">echo &quot;📂 解压源码...&quot;</span><br><span class="line">sudo rm -rf openssl-$OPENSSL_VERSION</span><br><span class="line">sudo tar -xzf openssl-$OPENSSL_VERSION.tar.gz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编译安装</span></span><br><span class="line">cd openssl-$OPENSSL_VERSION</span><br><span class="line">sudo ./config --prefix=$OPENSSL_DIR --openssldir=$OPENSSL_DIR shared zlib</span><br><span class="line">sudo make -j$(nproc)</span><br><span class="line">sudo make install</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置环境变量（仅当前 shell 生效）</span></span><br><span class="line">echo &quot;🌿 设置环境变量供 pyenv 使用...&quot;</span><br><span class="line">export LDFLAGS=&quot;-L$OPENSSL_DIR/lib&quot;</span><br><span class="line">export CPPFLAGS=&quot;-I$OPENSSL_DIR/include&quot;</span><br><span class="line">export PKG_CONFIG_PATH=&quot;$OPENSSL_DIR/lib/pkgconfig&quot;</span><br><span class="line">export LD_LIBRARY_PATH=&quot;$OPENSSL_DIR/lib&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;✅ OpenSSL $OPENSSL_VERSION 安装完成！&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;📌 请使用以下命令安装 Python（确保已加载上述变量）：&quot;</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;  pyenv install 3.10.13&quot;</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;🧠 提示：你可以将这些 export 命令写入 ~/.bashrc 或 ~/.bash_profile 以便永久生效。&quot;</span><br></pre></td></tr></table></figure>
+<p>执行上述脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash install_openssl_for_pyenv.sh</span><br></pre></td></tr></table></figure>
+<p>再执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.10.13</span><br></pre></td></tr></table></figure>
+<p>但还是报一样的错。说明在脚本中执行的这段并没有起效（当然也有可能还是openssl的版本问题）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export LDFLAGS=&quot;-L$OPENSSL_DIR/lib&quot;</span><br><span class="line">export CPPFLAGS=&quot;-I$OPENSSL_DIR/include&quot;</span><br><span class="line">export PKG_CONFIG_PATH=&quot;$OPENSSL_DIR/lib/pkgconfig&quot;</span><br><span class="line">export LD_LIBRARY_PATH=&quot;$OPENSSL_DIR/lib&quot;</span><br></pre></td></tr></table></figure>
+<p>问题分析：虽然导出了变量，但 pyenv 的构建过程可能
+<strong>在子进程中丢失了它们</strong>，所以我们要显式用前缀方式传进去，确保它生效。</p>
+<p>改为以下命令安装python:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS=&quot;-I/opt/openssl-1.1.1w/include&quot; \</span><br><span class="line">LDFLAGS=&quot;-L/opt/openssl-1.1.1w/lib&quot; \</span><br><span class="line">LD_LIBRARY_PATH=&quot;/opt/openssl-1.1.1w/lib&quot; \</span><br><span class="line">PKG_CONFIG_PATH=&quot;/opt/openssl-1.1.1w/lib/pkgconfig&quot; \</span><br><span class="line">pyenv install 3.10.13</span><br></pre></td></tr></table></figure>
+<p>成功！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/04/11/MinerU%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1023,109 +1127,6 @@ CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2025/01/21/%E6%AF%94%E4%BE%8B%E6%80%A7%E8%B4%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/21/%E6%AF%94%E4%BE%8B%E6%80%A7%E8%B4%A8/" class="post-title-link" itemprop="url">比例性质</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-01-21 13:45:31 / 修改时间：16:49:40" itemprop="dateCreated datePublished" datetime="2025-01-21T13:45:31+08:00">2025-01-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%88%9D%E4%B8%AD/" itemprop="url" rel="index"><span itemprop="name">初中</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="比例性质">比例性质</h1>
-<ol type="1">
-<li><p>基本性质</p>
-<p><span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow ad=bc\hspace{3cm}(bd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>反比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{b}{a}=\frac{d}{c}\hspace{3cm}(abcd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>更比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a}{c}=\frac{b}{d}或\frac{d}{b}=\frac{c}{a}\hspace{3cm}(abcd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>合比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a+b}{b}=\frac{c+d}{d}\hspace{3cm}(bd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>分比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a-b}{b}=\frac{c-d}{d}\hspace{3cm}(bd\ne 0)
-\end{equation}\]</span></p></li>
-<li><p>合分比性质 <span class="math display">\[\begin{equation}
-     \frac{a}{b}=\frac{c}{d}\Leftrightarrow
-\frac{a+b}{a-b}=\frac{c+d}{c-d}\hspace{3cm}(a\ne b, c\ne d)
-\end{equation}\]</span></p></li>
-<li><p>等比性质 <span class="math display">\[\begin{equation}
-     \frac{a_{1}}{b_{1}}=\frac{a_{2}}{b_{2}}=\frac{a_{3}}{b_{3}}=\dots=\frac{a_{k}}{b_{k}}\Rightarrow
-\frac{a_{1}+a_{2}+\dots+a_{k}}{b_{1}+b_{2}+\dots+b_{k}}=\frac{a_{1}}{b_{1}}
-\\ (b_{1}+b_{2}+\dots+b_{k}\ne 0)
-\end{equation}\]</span></p></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1195,7 +1196,7 @@ CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1206,7 +1207,7 @@ CD=2r=CB+BD=\frac{a}{k+1}+\frac{a}{k-1}=\frac{2ak}{k^2-1}\\
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">209</span>
+        <span class="site-state-item-count">210</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

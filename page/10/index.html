@@ -188,6 +188,195 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/03/Fabric-wasmcc%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">Fabric-wasmcc介绍</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-03 10:52:12" itemprop="dateCreated datePublished" datetime="2022-11-03T10:52:12+08:00">2022-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-03 19:36:55" itemprop="dateModified" datetime="2022-12-03T19:36:55+08:00">2022-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="wasmcc">wasmcc</h1>
+<p>全称：<code>Hyperledger Fabric WASM Chaincode</code>，是由<code>hypterledger-labs</code>提供的一个链码。作用是可以把使用rust/C编写代码生成<code>wasm</code>字节码，把wasm字节码部署到<code>fabric</code>中，然后使用wasmcc作为代理调用wasm中的函数。fabric以此方式来支持<code>wasm chaincode</code></p>
+<h2 id="步骤">步骤</h2>
+<ul>
+<li><ol type="1">
+<li><code>wasmcc</code>部署到<code>fabric</code>中，扮演<code>wasm</code>代码调用的统一入口，相当于wasm代码的调用代理。
+<code>wasmcc</code>的部署和其它的普通链码的部署方式一样，<code>wasmcc</code>没有实例化参数，通过peer
+cli部署的命令如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n wasmcc -v 1.0 -p github.com/chaincode/wasmer-chaincode-test/wasmcc</span><br></pre></td></tr></table></figure> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode instantiate -n wasmcc -v 1.0 -C &lt;channel-name&gt; -c &#x27;&#123;&quot;Args&quot;:[]&#125;&#x27; -o &lt;orderer-address&gt; --tls --cafile &lt;orderer-ca&gt;</span><br></pre></td></tr></table></figure></li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>通过调用<code>wasmcc</code>的 <code>create</code>
+方法创建<code>wasm chaincode</code></li>
+</ol></li>
+<li><ol start="3" type="1">
+<li><strong>通过调用<code>wasmcc</code>的<code>execute</code>方法调用<code>wasm chaincode</code></strong></li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>通过调用<code>wasmcc</code>的<code>installedChaincodes</code>方法获取目前fabric上部署的所有<code>wasm chiancode</code></li>
+</ol></li>
+</ul>
+<h1 id="wasmcc-代码解读">wasmcc 代码解读</h1>
+<h2 id="基础结构fabric-链码的基本结构">基础结构(fabric
+链码的基本结构)</h2>
+<pre class="mermaid" style="text-align: center;">
+            
+            classDiagram
+class WASMChaincode {
+	+Init(stub shim.ChaincodeStubInterface) Response
+	+Invoke(stub shim.ChaincodeStubInterface) Response
+	-create(stub shim.ChaincodeStubInterface, args []string) Response
+	-execute(stub shim.ChaincodeStubInterface, args []string) Response
+	-installedChaincodes(stub shim.ChaincodeStubInterface, args []string) Response
+}
+class VirtualMachine {
+...
+	+ImportResolver ImportResolver
+
+}
+class ImportResolver {
+	<<interface>>
+	+ResolveFunc(module, field string) FunctionImport
+	+ResolveGlobal(module, field string) int64
+}
+class Resolver {
+	-string chaincodeName
+	-shim.ChaincodeStubInterface stub          
+	-[]string args          
+	-[]byte result        
+	-[]byte errMsg        
+	+ResolveFunc(module, field string) FunctionImport
+	+ResolveGlobal(module, field string) int64
+}
+class ChaincodeStubInterface {
+	<<interface>>
+	...
+}
+class ChaincodeStub {
+	...
+}
+
+ChaincodeStubInterface <|.. chaincodestub importresolver <|.. resolver wasmchaincode <-- virtualmachine ..> ChaincodeStubInterface
+VirtualMachine ..> ImportResolver
+Resolver --> WASMChaincode
+
+          </|..></interface></interface></pre>
+<p><strong>wasm链码的创建流程（create/execute/installedChaincodes三个流程类似）</strong></p>
+<pre class="mermaid" style="text-align: center;">
+            
+            sequenceDiagram
+	participant gRpc Client
+	participant WASMChaincode
+	participant ChaincodeStub
+  gRpc Client ->> WASMChaincode: 调用链码的create函数（触发链码Invoke）
+  WASMChaincode ->> ChaincodeStub: 获取函数及函数参数数组
+  ChaincodeStub -->> WASMChaincode: 返回被调用函数及函数参数数组
+  WASMChaincode ->> WASMChaincode: 调用自身create函数
+  WASMChaincode ->> ChaincodeStub: 检查链码是否存在
+  ChaincodeStub -->> WASMChaincode: 链码已存在
+  WASMChaincode -->> gRpc Client: 失败，链码已存在
+  ChaincodeStub -->> WASMChaincode: 链码不存在，继续执行
+  WASMChaincode ->> WASMChaincode: 对wasm字节码进行解码，得能解压后的字节流
+  WASMChaincode ->> WASMChaincode: 给Resolver对象赋值（里面保存了链码名，stub, 函数参数数组）
+  WASMChaincode ->> WASMChaincode: 调用runWASM，传入wasm字节流,函数名"init",参数个数，以及Resolver对象
+  WASMChaincode -->> gRpc Client: 调用runWASM失败立即返回
+  WASMChaincode ->> WASMChaincode: 创建"chaincodeData"和链码名的组合键
+  WASMChaincode ->> ChaincodeStub: "chaincodeData"和链码名的组合为键，wasm字节流为值，存入状态库
+  ChaincodeStub -->> WASMChaincode: 返回
+  WASMChaincode -->> gRpc Client: 返回
+
+          </pre>
+<h3 id="定义一个结构体">定义一个结构体</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WASMChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="init方法">Init方法</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Init(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Init invoked&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>链码创建或升级时被调用，<code>wasmcc</code>的<code>Init</code>内部只记录了一下日志，没有其它多余的操作</p>
+<h2 id="invoke方法">Invoke方法</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> Invoke(stub shim.ChaincodeStubInterface) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke function&quot;</span>)</span><br><span class="line">	function, args := stub.GetFunctionAndParameters()</span><br><span class="line">	logger.Debugf(<span class="string">&quot;Invoke function %s with args %v&quot;</span>, function, args)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> function == <span class="string">&quot;create&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// Create a new wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.create(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;execute&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// execute wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.execute(stub, args)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> function == <span class="string">&quot;installedChaincodes&quot;</span> &#123;</span><br><span class="line">		<span class="comment">// get the list of installed wasm chaincode</span></span><br><span class="line">		<span class="keyword">return</span> t.installedChaincodes(stub, args)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> shim.Error(<span class="string">&quot;Invalid invoke function name. Expecting \&quot;execute\&quot; \&quot;create\&quot; \&quot;query\&quot;&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法的功能：</p>
+<ul>
+<li><ol type="1">
+<li><p>创建wasm chaincode: 调用函数<code>create</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store a new wasm chaincode in state. Receives chaincode name and wasm file encoded in hex</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> create(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line">	logger.Infof(<span class="string">&quot;Create function&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting atleast 2 arguments&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	logger.Infof(<span class="string">&quot;Installing wasm chaincode: &quot;</span> + chaincodeName)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//check if same chaincode name is already present</span></span><br><span class="line">	chaincodeFromState, err := stub.GetState(chaincodeName)</span><br><span class="line">	<span class="keyword">if</span> chaincodeFromState != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(ChaincodeExists)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Decode the chaincode</span></span><br><span class="line">	chaincodeHexEncoded := args[<span class="number">1</span>]</span><br><span class="line">	chaincodeDecoded, err := decodeReceivedWASMChaincode(chaincodeHexEncoded)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(chaincodeDecoded, <span class="string">&quot;init&quot;</span>, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Init Response:%d\n&quot;</span>, result)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Chaincode init invocation failed&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Store the chaincode in</span></span><br><span class="line">	ledgerChaincodeKey, err := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	err = stub.PutState(ledgerChaincodeKey, chaincodeDecoded)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		s := fmt.Sprintf(UnknownError, err.Error())</span><br><span class="line">		<span class="keyword">return</span> shim.Error(s)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(<span class="string">&quot;Success! Installed wasm chaincode&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol></li>
+<li><ol start="2" type="1">
+<li><p>执行wasm chaincode 中的函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> execute(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(<span class="string">&quot;Incorrect number of arguments. Expecting chaincode name to invoke&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	chaincodeName := args[<span class="number">0</span>]</span><br><span class="line">	funcToInvoke := args[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Initialize global variables for exported wasm functions</span></span><br><span class="line">	r := Resolver&#123;</span><br><span class="line">		chaincodeName, stub, args[<span class="number">2</span>:], <span class="literal">nil</span>, <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the state from the ledger</span></span><br><span class="line">	ledgerChaincodeKey, _ := stub.CreateCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;chaincodeName&#125;)</span><br><span class="line">	Chaincodebytes, _ := stub.GetState(ledgerChaincodeKey)</span><br><span class="line">	<span class="keyword">if</span> Chaincodebytes == <span class="literal">nil</span> &#123;</span><br><span class="line">		jsonResp := <span class="string">&quot;&#123;\&quot;Error\&quot;:\&quot;No Chaincode for &quot;</span> + chaincodeName + <span class="string">&quot;\&quot;&#125;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> shim.Error(jsonResp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result := runWASM(Chaincodebytes, funcToInvoke, <span class="built_in">len</span>(args)<span class="number">-2</span>, &amp;r)</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%d\n&quot;</span>, result)</span><br><span class="line">	<span class="keyword">return</span> txnResult(result, r.result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol></li>
+<li><ol start="3" type="1">
+<li><p>获取已安装的<code>wasm chaincode</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *WASMChaincode)</span></span> installedChaincodes(stub shim.ChaincodeStubInterface, args []<span class="type">string</span>) pb.Response &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get all chaincodes from the ledger</span></span><br><span class="line">	installedChaincodeResultsIterator, err := stub.GetStateByPartialCompositeKey(chaincodeStoreIndex, []<span class="type">string</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through result set and get chaincode names</span></span><br><span class="line">	<span class="keyword">var</span> i <span class="type">int</span></span><br><span class="line">	<span class="keyword">var</span> installedChaincodeNamesList = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">0</span>; installedChaincodeResultsIterator.HasNext(); i++ &#123;</span><br><span class="line">		<span class="comment">// Note that we don&#x27;t get the value (2nd return variable), we&#x27;ll just get the marble name from the composite key</span></span><br><span class="line">		responseRange, err := installedChaincodeResultsIterator.Next()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// get the color and name from color~name composite key</span></span><br><span class="line">		objectType, compositeKeyParts, err := stub.SplitCompositeKey(responseRange.Key)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">		&#125;</span><br><span class="line">		returnedChaincodeName := compositeKeyParts[<span class="number">0</span>]</span><br><span class="line">		logger.Infof(<span class="string">&quot;- found a chaincode from index:%s name:%s\n&quot;</span>, objectType, returnedChaincodeName)</span><br><span class="line">		installedChaincodeNamesList += returnedChaincodeName</span><br><span class="line">		installedChaincodeNamesList += <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger.Infof(<span class="string">&quot;Invoke Response:%s\n&quot;</span>, installedChaincodeNamesList)</span><br><span class="line">	<span class="keyword">return</span> shim.Success([]<span class="type">byte</span>(installedChaincodeNamesList))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/02/Fabric-%E9%80%9A%E8%BF%87samples%E4%BA%86%E8%A7%A3fabric%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1229,7 +1418,7 @@ s，发现匹配到了Some(t)，也就是s里面还是有货的，这个货呢�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1240,7 +1429,7 @@ s，发现匹配到了Some(t)，也就是s里面还是有货的，这个货呢�
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">209</span>
+        <span class="site-state-item-count">210</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
