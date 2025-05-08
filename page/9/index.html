@@ -188,6 +188,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="暂留白">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自留地">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/30/centos-%E5%A4%9Agcc%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">centos 多gcc版本环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-30 12:31:59" itemprop="dateCreated datePublished" datetime="2022-11-30T12:31:59+08:00">2022-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-03 18:53:34" itemprop="dateModified" datetime="2022-12-03T18:53:34+08:00">2022-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="背景">背景</h1>
+<ul>
+<li>在本地PC使用<code>Jetbrains gateway</code>新建ssh远程开发,
+打开服务器上的代码进行开发</li>
+<li>CentOS
+系统中的<code>gcc</code>和<code>g++</code>版本太低。不支持<code>c++11</code>标准，需要安装新的开发环境</li>
+<li>CLion
+项目中的<code>CMakeList.txt</code>需要配置能编译<code>c++11标准</code>的<code>gcc</code>和<code>g++</code></li>
+</ul>
+<h1 id="编译工具安装">编译工具安装</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install centos-release-scl-rh</span><br><span class="line">sudo yum install devtoolset-11-gcc-c++</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装完成后，执行以下命令可以切换到新的编译环境 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scl enable devtoolset-11 bash</span><br></pre></td></tr></table></figure>
+可以查看devtoolset-11相关工具的版本及它们的路径 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">which g++</span><br><span class="line">which gcc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="开发工具中的配置修改">开发工具中的配置修改</h1>
+<blockquote>
+<p>需要指定编译器路径(<strong>根据自己编译器路径进行修改</strong>)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET(CMAKE_C_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/gcc&quot;)</span><br><span class="line">SET(CMAKE_CXX_COMPILER &quot;/opt/rh/devtoolset-11/root/usr/bin/g++&quot;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="调用动态库需要注意的点">调用动态库需要注意的点</h1>
+<blockquote>
+<p>在加载<code>so</code>库的模块相应的<code>.h</code>文件中要 #include
+&lt;dlfcn.h&gt; 在CMakefile.txt里面添加编译选项，如：
+TARGET_LINK_LIBRARIES(projName dl)
+其中<code>projName</code>为项目的名称</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/24/CGO%E5%86%85%E5%AD%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1256,122 +1357,10 @@ Desktop的锅，准备再搞个<strong>Linux环境</strong>来玩了</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.blockchainof.com/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="暂留白">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="自留地">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/04/Fabric-%E7%BC%96%E8%AF%91rust%E6%BA%90%E7%A0%81%E4%B8%BAwasm/" class="post-title-link" itemprop="url">Fabric-编译rust源码为wasm</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-04 10:33:27" itemprop="dateCreated datePublished" datetime="2022-11-04T10:33:27+08:00">2022-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-03 19:37:50" itemprop="dateModified" datetime="2022-12-03T19:37:50+08:00">2022-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/Fabric/" itemprop="url" rel="index"><span itemprop="name">Fabric</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="编译rust源码为wasm">编译rust源码为wasm</h1>
-<h2 id="安装工具链">安装工具链</h2>
-<p>可以使用以下两条命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br><span class="line">curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh</span><br></pre></td></tr></table></figure>
-<p>也可以参考<a target="_blank" rel="noopener" href="https://rustwasm.github.io/book/game-of-life/setup.html">官方安装向导</a></p>
-<h2 id="创建rust-lib工程">创建<code>rust</code>
-<code>lib</code>工程</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new hello_world --lib</span><br></pre></td></tr></table></figure>
-<p>生成的<code>Cargo.toml</code>内容为：</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello_world&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>添加一些内容到<code>Cargo.toml</code>中去</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[lib]</span></span><br><span class="line"><span class="attr">crate-type</span> = [<span class="string">&quot;cdylib&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">wasm-bindgen</span> = <span class="string">&quot;0.2&quot;</span></span><br></pre></td></tr></table></figure>
-<p>代码目录结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Cargo.toml</span><br><span class="line">└── src</span><br><span class="line">   └── lib.rs</span><br></pre></td></tr></table></figure>
-<p>在<code>lib.rs</code>中编写<code>rust</code>代码实现函数，因为在wasmcc的特殊性，这里的编写的代码也具有一些特殊性：</p>
-<ul>
-<li><p>可以导入调用在wasmcc中实现的函数</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__print</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter</span>(paramNumber: <span class="type">usize</span>, result: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_parameter_size</span>(paramNumber: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__get_state_size</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__put_state</span>(key: *<span class="keyword">const</span> <span class="type">u8</span>, key_len: <span class="type">usize</span>, value: *<span class="keyword">const</span> <span class="type">u8</span>, value_len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__delete_state</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">__return_result</span>(msg: *<span class="keyword">const</span> <span class="type">u8</span>, len: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>这些函数可以在编写<code>rust</code>代码时直接调用，不需要自己实现，这些是相当在Host程序中实现，可以被
-<code>wasm</code>代码调用的函数</strong></p>
-<p>在rust的导出函数中,即wasm代码的对外接口中，可以调用上述的函数，如：</p>
-<ul>
-<li>通过__get_parameter_size(0)可以取得第1个参数的长度__</li>
-<li>通过__get_parameter可以取得参数的值，具体用法就是传入一个序号，一个vec!的指针</li>
-</ul></li>
-<li><p>实现<code>init</code>函数（必须实现，<code>wasmcc</code>的<code>create</code>函数用来创建
-wasm chaincode时就会调用wasm代码中的<code>init</code>函数</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">init</span>(args: <span class="type">i64</span>) <span class="punctuation">-&gt;</span> <span class="type">i64</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="编译">编译</h2>
-<p>在<code>rust</code>工程的根目录下，运行命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm-pack build</span><br></pre></td></tr></table></figure>
-<p>如果成功的话，会在当前目录下生成<code>pkg/hello_world_bg.wasm</code></p>
-<p>关于C语言编写代码，再编译成wasm，文档中说是需要安装clang8 和 llvm。<a target="_blank" rel="noopener" href="https://github.com/hyperledger-labs/fabric-chaincode-wasm/tree/main/sample-wasm-chaincode">文档</a>中是<a target="_blank" rel="noopener" href="https://apt.llvm.org/">Linux的几个发行版的环境</a>，由于我的是Mac
-M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找不到<code>__print</code>、<code>__get_parameter</code>等几个函数的找不到实现部分，所以链接的时候出错，这个理论上说得通，能编译成功才是不能理解的。不知道文档中说的方法是怎么编译成功的，到时候有空用Linux环境试一下吧。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1437,7 +1426,7 @@ M1芯片的环境，尝试了一下得到一些链接出错信息，原因是找
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
